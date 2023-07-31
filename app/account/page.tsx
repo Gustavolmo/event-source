@@ -1,19 +1,20 @@
 'use server';
+import React from 'react';
+import { LoginButton } from '../components/Login';
+import UserImage from '../components/UserImage';
+import PathButton from '../components/PathButton';
+import AccountPage from '../components/privateComponents/AccountPage';
 
-import { LoginButton } from './components/Login';
-import PathButton from './components/PathButton';
-import UserImage from './components/UserImage';
-
-export default async function Home() {
+export default async function MyAccount() {
   return (
     <>
       <nav className="navbar">
         <LoginButton />
-        <PathButton path={'/account'} title={'My Account'} />
+        <PathButton path={'/'} title={'Home'} />
         <UserImage width={50} height={50} />
       </nav>
       <main className="main">
-        HOME PAGE + DESCRIPTION WITH IMAGES
+        <AccountPage />
       </main>
       <footer className="footer">
         <p>

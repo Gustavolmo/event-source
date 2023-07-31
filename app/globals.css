@@ -3,25 +3,94 @@
 @tailwind utilities; */
 
 * {
-  outline: dashed red;
+  /* outline: dashed red; */
 }
 
 html,
 body {
   margin: 0;
   padding: 0;
-  width: 100vw;
-  height: 100vh;
+  box-sizing: border-box;
+}
+
+p {
+  margin: 0;
 }
 
 .navbar {
+  position: fixed;
+  height: 60px;
+  top: 0px;
+  width: 100vw;
   display: flex;
+  background-color: rgb(160, 160, 160);
 }
 
 .main {
   display: flex;
+  flex-direction: column;
+  margin: 60px 0 80px 0;
+}
+
+.footer {
+  position: fixed;
+  padding: 0;
+  bottom: 0px;
+  width: 100vw;
+  height: 40px;
+  display: flex;
+  background-color: rgb(160, 160, 160);
 }
 
 .user-image {
   border-radius: 99px;
 }
+
+.account-components {
+  margin-top: 60px;
+}
+
+/* BUTTONS */
+.navbar__button {
+  background-color: aliceblue;
+}
+.navbar__button:hover {
+  cursor: pointer;
+  background-color: rgb(200, 214, 227);
+}
+
+.page-button{
+  background-color: antiquewhite;
+}
+.page-button:hover {
+  cursor: pointer;
+  background-color: rgb(199, 189, 177);
+}
+.page-button--selected {
+  background-color:rgb(111, 92, 68);
+  color: rgb(240, 240, 240);
+}
+.account-buttons{
+  position: fixed;
+}
+/* BUTTONS-END */
+
+/* FORM */
+.create-event-form {
+  display: flex;
+  flex-direction: column;
+  border-radius: .375rem;
+}
+textarea,
+input {
+  margin: 4px;
+  border-radius: .375rem;
+  border: solid gray .5px;
+}
+input {
+  height: 20px;
+}
+.rti--container {
+  margin: 4px;
+}
+/* FORM-END */
