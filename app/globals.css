@@ -1,9 +1,6 @@
-/* @tailwind base;
-@tailwind components;
-@tailwind utilities; */
-
+/*______________________________________ PRIMITIVE CLASSES */
 * {
-  /* outline: dashed red; */
+  outline: dashed red;
 }
 
 html,
@@ -16,7 +13,9 @@ body {
 p {
   margin: 0;
 }
+/*______________________________________*/
 
+/*______________________________________ HIGH-LEVEL */
 .navbar {
   position: fixed;
   height: 60px;
@@ -49,8 +48,9 @@ p {
 .account-components {
   margin-top: 60px;
 }
+/*______________________________________*/
 
-/* BUTTONS */
+/*______________________________________ BUTTONS */
 .navbar__button {
   background-color: aliceblue;
 }
@@ -73,9 +73,9 @@ p {
 .account-buttons{
   position: fixed;
 }
-/* BUTTONS-END */
+/*______________________________________*/
 
-/* FORM */
+/*______________________________________ FORM */
 .create-event-form {
   display: flex;
   flex-direction: column;
@@ -93,4 +93,4 @@ input {
 .rti--container {
   margin: 4px;
 }
-/* FORM-END */
+/*______________________________________*/
