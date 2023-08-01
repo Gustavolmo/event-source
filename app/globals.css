@@ -76,6 +76,9 @@ p {
 /*______________________________________*/
 
 /*______________________________________ FORM */
+pre {
+  margin: 4px;
+}
 .create-event-form {
   display: flex;
   flex-direction: column;
