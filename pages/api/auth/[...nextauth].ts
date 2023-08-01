@@ -14,7 +14,7 @@ export const authOptions: NextAuthOptions = {
       clientId: id,
       clientSecret: secret
     })
-  ],
+  ]
 }
 
 export default NextAuth(authOptions);

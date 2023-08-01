@@ -7,7 +7,8 @@ import { TagsInput } from 'react-tag-input-component';
 
 export default function CreateEvent() {
   const { data: session } = useSession();
-  const [emailList, setEmailList] = useState<string[]>([]);
+  const formManager = session?.user?.name
+  const [invitedEmails, setEmailList] = useState<string[]>([]);
   const date = String(new Date().toDateString());
   const [eventData, setEventData] = useState<EventData>({
     eventTitle: '',
@@ -40,26 +41,19 @@ export default function CreateEvent() {
   });
 
   const handleOnChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setEventData({
-      ...eventData,
-      [e.target.name]: e.target.value,
-    });
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setEventData(prevState => ({ ...prevState, [e.target.name]: e.target.value }))
   };
 
   const handleOnCheckBox = (e: ChangeEvent<HTMLInputElement>) => {
-    setEventData({
-      ...eventData,
-      [e.target.name]: e.target.checked,
-    });
+    setEventData(prevState => ({ ...prevState, [e.target.name]: e.target.checked }))
   };
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    eventData.invited = emailList
-    createNewEvent(session?.user?.email, eventData);
+    eventData.invited = invitedEmails
+    eventData.organizerName = String(formManager)
+    createNewEvent(formManager, eventData);
 
     setEventData({
       eventTitle: '',
@@ -184,11 +178,11 @@ export default function CreateEvent() {
 
         <TagsInput
           name="invited"
-          value={emailList}
+          value={invitedEmails}
           onChange={setEmailList}
           placeHolder="guest's email"
         />
-        <pre>{JSON.stringify(emailList)}</pre>
+        <pre>{JSON.stringify(invitedEmails)}</pre>
 
         <input
           type="text"

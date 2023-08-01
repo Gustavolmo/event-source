@@ -1,5 +1,6 @@
 'use server';
 
+import HomePage from './HomePage';
 import { LoginButton } from './components/Login';
 import PathButton from './components/PathButton';
 import UserImage from './components/UserImage';
@@ -12,9 +13,11 @@ export default async function Home() {
         <PathButton path={'/account'} title={'My Account'} />
         <UserImage width={50} height={50} />
       </nav>
+
       <main className="main">
-        HOME PAGE + DESCRIPTION WITH IMAGES
+        <HomePage />
       </main>
+      
       <footer className="footer">
         <p>
           Developed by:{' '}
