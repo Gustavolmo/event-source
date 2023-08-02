@@ -41,8 +41,22 @@ export const updateUserPreferences = async (userEmail: User['email'], userPrefer
 }
 
 // NEW EVENT ->
-export const createNewEvent = (userEmail: User['email'], event: EventData) => {
-  console.log(event);
+export const createNewEvent = async (userEmail: User['email'], event: EventData) => {
+  try {
+    const userDbEntry = await userCollection.findOne({
+      email: userEmail,
+    });
+    if (userDbEntry) {
+      event.organizerId = String(userDbEntry._id);
+      await eventCollection.insertOne(event);
+      console.log(event)
+      return true
+    } else {
+      return false
+    }
+  } catch (e) {
+    console.error(e);
+  }
 };
 
 

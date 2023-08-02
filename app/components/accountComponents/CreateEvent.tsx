@@ -7,7 +7,8 @@ import { TagsInput } from 'react-tag-input-component';
 
 export default function CreateEvent() {
   const { data: session } = useSession();
-  const formManager = session?.user?.name
+  const sessionName = session?.user?.name
+  const sessionEmail = session?.user?.email
   const [invitedEmails, setEmailList] = useState<string[]>([]);
   const date = String(new Date().toDateString());
   const [eventData, setEventData] = useState<EventData>({
@@ -52,8 +53,8 @@ export default function CreateEvent() {
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     eventData.invited = invitedEmails
-    eventData.organizerName = String(formManager)
-    createNewEvent(formManager, eventData);
+    eventData.organizerName = String(sessionName)
+    createNewEvent(sessionEmail, eventData);
 
     setEventData({
       eventTitle: '',
