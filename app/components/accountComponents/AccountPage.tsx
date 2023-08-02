@@ -5,10 +5,9 @@ import ManageEvent from './ManageEvent';
 import MyInvitation from './MyInvitation';
 import MyInfo from './MyInfo';
 import { useSession } from 'next-auth/react';
-import HomePage from '@/app/HomePage';
+import Greeting from '../Greeting';
 
 export default function AccountPage() {
-  const {data: session} = useSession()
   const [selection, setSelection] = useState('info');
 
   const selectionHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -58,6 +57,11 @@ export default function AccountPage() {
           My Invitations
         </button>
       </header>
+
+      <div className='greeting-image'>
+        <Greeting />
+      </div>
+
       <section className="account-components">
         {selection === 'info' && <MyInfo />}
         {selection === 'create' && <CreateEvent />}

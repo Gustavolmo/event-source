@@ -4,6 +4,7 @@ import { LoginButton } from '../components/Login';
 import UserImage from '../components/UserImage';
 import PathButton from '../components/PathButton';
 import AccountPage from '../components/accountComponents/AccountPage';
+import Greeting from '../components/Greeting';
 
 export default async function MyAccount() {
   return (

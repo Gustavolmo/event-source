@@ -1,7 +1,6 @@
 'use server';
 import { EventData, User, UserPreferences } from '@/app-types/types';
 import { client, runMongoDb } from './mongoConnect';
-import { MutableRefObject } from 'react';
 
 runMongoDb();
 const databaseName = 'eventsource';
@@ -10,7 +9,7 @@ const collectionEvent = 'event';
 const userCollection = client.db(databaseName).collection(collectionUser);
 const eventCollection = client.db(databaseName).collection(collectionEvent);
 
-// NEW USERS ->
+// CREATE NEW USERS ->
 export const createNewUserIfFirstLogin = async (userData: User) => {
   try {
     if (userData.email) {
@@ -29,8 +28,8 @@ export const createNewUserIfFirstLogin = async (userData: User) => {
   }
 };
 
-// ADD NEW USER PREFERENCES
-export const updateNewUserPreferences = async (userEmail: User['email'], userPreferences: UserPreferences) => {
+// UPDATE USER PREFERENCES ->
+export const updateUserPreferences = async (userEmail: User['email'], userPreferences: UserPreferences) => {
   console.log(userPreferences)
   try {
     const query = { email: userEmail };
@@ -45,6 +44,11 @@ export const updateNewUserPreferences = async (userEmail: User['email'], userPre
 export const createNewEvent = (userEmail: User['email'], event: EventData) => {
   console.log(event);
 };
+
+
+
+
+
 
 /* FUTURE GOOGLE CALENDAR IMPLEMENTATION
 export const updateCalendarForInvitedUsers = async (newEvent) => {
