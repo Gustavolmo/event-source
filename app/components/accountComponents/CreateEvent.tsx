@@ -1,5 +1,5 @@
 'use client';
-import { createNewEvent } from '@/app-library/private';
+import { createNewEvent } from '@/app-library/DbControls';
 import { EventData } from '@/app-types/types';
 import { useSession } from 'next-auth/react';
 import React, { ChangeEvent, useState } from 'react';
@@ -242,7 +242,7 @@ export default function CreateEvent() {
           value={eventData.transportDescription}
         ></textarea>
 
-        <button className="navbar__button" type="submit">
+        <button className="page-button" type="submit">
           Create Event!
         </button>
       </form>

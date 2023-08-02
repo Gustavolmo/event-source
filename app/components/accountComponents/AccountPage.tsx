@@ -4,9 +4,12 @@ import CreateEvent from './CreateEvent';
 import ManageEvent from './ManageEvent';
 import MyInvitation from './MyInvitation';
 import MyInfo from './MyInfo';
+import { useSession } from 'next-auth/react';
+import HomePage from '@/app/HomePage';
 
 export default function AccountPage() {
-  const [selection, setSelection] = useState('create');
+  const {data: session} = useSession()
+  const [selection, setSelection] = useState('info');
 
   const selectionHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     setSelection(e.currentTarget.name);
@@ -14,7 +17,17 @@ export default function AccountPage() {
 
   return (
     <>
-      <header className='account-buttons'>
+      <header className="account-buttons">
+        <button
+          onClick={(e) => selectionHandler(e)}
+          className={
+            selection === 'info' ? 'page-button--selected' : 'page-button'
+          }
+          name="info"
+        >
+          My Info
+        </button>
+
         <button
           onClick={(e) => selectionHandler(e)}
           className={
@@ -44,22 +57,12 @@ export default function AccountPage() {
         >
           My Invitations
         </button>
-
-        <button
-          onClick={(e) => selectionHandler(e)}
-          className={
-            selection === 'info' ? 'page-button--selected' : 'page-button'
-          }
-          name="info"
-        >
-          My Info
-        </button>
       </header>
-      <section className='account-components'>
-          {selection === 'create' &&  <CreateEvent/>}
-          {selection === 'manage' && <ManageEvent/>}
-          {selection === 'invitation' && <MyInvitation/>}
-          {selection === 'info' && <MyInfo/>}
+      <section className="account-components">
+        {selection === 'info' && <MyInfo />}
+        {selection === 'create' && <CreateEvent />}
+        {selection === 'manage' && <ManageEvent />}
+        {selection === 'invitation' && <MyInvitation />}
       </section>
     </>
   );

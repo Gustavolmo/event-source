@@ -1,13 +1,19 @@
-import { ObjectId } from "mongodb";
+import { ObjectId } from 'mongodb';
 
 export type User = {
   _id?: ObjectId;
   name: string | null | undefined;
   email: string | null | undefined;
   image: string | null | undefined;
-  hasInfo?: boolean;
-  dietaryRestrictions?: string
-  accessibilityNeeds?: string
+  dietaryRestrictions?: string;
+  accessibilityNeeds?: string;
+  additionalRemarks?: string;
+};
+
+export type UserPreferences = {
+  dietaryRestrictions: string;
+  accessibilityNeeds: string;
+  additionalRemarks?: string;
 };
 
 export type EventData = {

@@ -10,7 +10,7 @@ export default async function Home() {
     <>
       <nav className="navbar">
         <LoginButton />
-        <PathButton path={'/account'} title={'My Account'} />
+        <PathButton path={'/account'} title={'My Account'} className={'navbar__button'}/>
         <UserImage width={50} height={50} />
       </nav>
 

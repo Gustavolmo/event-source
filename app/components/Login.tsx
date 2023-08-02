@@ -6,7 +6,7 @@ export function LoginButton() {
 
   if (session) {
     return (
-      <button className="navbar__button" onClick={() => signOut()}>
+      <button className="navbar__button" onClick={() => signOut({ callbackUrl: '/' })}>
         SignOut
       </button>
     );

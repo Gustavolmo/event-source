@@ -61,6 +61,7 @@ p {
 
 .page-button{
   background-color: antiquewhite;
+  margin: 4px;
 }
 .page-button:hover {
   cursor: pointer;
@@ -69,6 +70,7 @@ p {
 .page-button--selected {
   background-color:rgb(111, 92, 68);
   color: rgb(240, 240, 240);
+  margin: 4px;
 }
 .account-buttons{
   position: fixed;
@@ -95,5 +97,9 @@ input {
 }
 .rti--container {
   margin: 4px;
+}
+
+.inline-label-input {
+  display: flex;
 }
 /*______________________________________*/

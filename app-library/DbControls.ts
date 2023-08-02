@@ -1,5 +1,5 @@
 'use server';
-import { EventData, User } from '@/app-types/types';
+import { EventData, User, UserPreferences } from '@/app-types/types';
 import { client, runMongoDb } from './mongoConnect';
 import { MutableRefObject } from 'react';
 
@@ -19,12 +19,27 @@ export const createNewUserIfFirstLogin = async (userData: User) => {
       });
       if (!userDbEntry) {
         await userCollection.insertOne(userData);
+        return true;
+      } else {
+        return false;
       }
     }
   } catch (e) {
     console.error(e);
   }
 };
+
+// ADD NEW USER PREFERENCES
+export const updateNewUserPreferences = async (userEmail: User['email'], userPreferences: UserPreferences) => {
+  console.log(userPreferences)
+  try {
+    const query = { email: userEmail };
+    const update = { $set: { dietaryRestrictions: userPreferences.dietaryRestrictions, accessibilityNeeds: userPreferences.accessibilityNeeds } };
+    await userCollection.updateOne(query, update);
+  } catch (e) {
+    console.error(e);
+  }
+}
 
 // NEW EVENT ->
 export const createNewEvent = (userEmail: User['email'], event: EventData) => {
