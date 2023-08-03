@@ -6,8 +6,8 @@ import React, { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
 export default function HomePage() {
-  const router = useRouter()
-  const { data: session } = useSession();
+  const router = useRouter();
+  const { data: session, status } = useSession();
   const userData: User = {
     name: session?.user?.name,
     email: session?.user?.email,
@@ -19,15 +19,17 @@ export default function HomePage() {
 
   const handleLogin = async () => {
     const isNewUser = await createNewUserIfFirstLogin(userData);
-    console.log(isNewUser)
+    console.log(isNewUser);
     if (isNewUser) {
-      router.push('/addInfo')
+      router.push('/addInfo');
     }
-  }
-
+  };
+  
   useEffect(() => {
-    handleLogin()
-  }, [session]);
+    if (status !== 'authenticated') return;
+
+    handleLogin();
+  }, [status]);
 
   return (
     <>

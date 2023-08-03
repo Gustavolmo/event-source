@@ -63,8 +63,11 @@ export const createNewEvent = async (userEmail: User['email'], event: EventData)
 
 
 
+/*
+================================================
+FUTURE GOOGLE CALENDAR IMPLEMENTATION
+================================================
 
-/* FUTURE GOOGLE CALENDAR IMPLEMENTATION
 export const updateCalendarForInvitedUsers = async (newEvent) => {
   const invitedUsers = newEvent.invited;
   const accessTokenPromises = invitedUsers.map(async (email) => {

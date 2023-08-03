@@ -7,8 +7,8 @@ import { TagsInput } from 'react-tag-input-component';
 
 export default function CreateEvent() {
   const { data: session } = useSession();
-  const sessionName = session?.user?.name
-  const sessionEmail = session?.user?.email
+  const sessionName = session?.user?.name;
+  const sessionEmail = session?.user?.email;
   const [invitedEmails, setEmailList] = useState<string[]>([]);
   const date = String(new Date().toDateString());
   const [eventData, setEventData] = useState<EventData>({
@@ -17,7 +17,7 @@ export default function CreateEvent() {
     organizerId: '',
     organizerName: '',
     invited: [],
-    eventCheck: false,
+    eventCheck: true,
     transportCheck: false,
     eventDate: '',
     eventTime: '',
@@ -42,18 +42,25 @@ export default function CreateEvent() {
   });
 
   const handleOnChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setEventData(prevState => ({ ...prevState, [e.target.name]: e.target.value }))
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setEventData((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
   };
 
   const handleOnCheckBox = (e: ChangeEvent<HTMLInputElement>) => {
-    setEventData(prevState => ({ ...prevState, [e.target.name]: e.target.checked }))
+    setEventData((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.checked,
+    }));
   };
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    eventData.invited = invitedEmails
-    eventData.organizerName = String(sessionName)
+    eventData.invited = invitedEmails;
+    eventData.organizerName = String(sessionName);
     createNewEvent(sessionEmail, eventData);
 
     setEventData({
@@ -111,141 +118,184 @@ export default function CreateEvent() {
           Transportation
         </span>
 
-        <input
-          type="text"
-          name="eventTitle"
-          placeholder="Event Title"
-          onChange={handleOnChange}
-          value={eventData.eventTitle}
-        />
-        <input
-          type="text"
-          name="eventLocation"
-          placeholder="Event Venue"
-          onChange={handleOnChange}
-          value={eventData.eventLocation}
-        />
-        <input
-          type="text"
-          name="eventCost"
-          placeholder="Cost per person"
-          onChange={handleOnChange}
-          value={eventData.eventCost}
-        />
-        <input
-          type="text"
-          name="eventRSVP"
-          placeholder="RSVP"
-          onChange={handleOnChange}
-          value={eventData.eventRSVP}
-        />
-        <input
-          type="text"
-          name="virtualLink"
-          placeholder="Virtual Attendance Link"
-          onChange={handleOnChange}
-          value={eventData.virtualLink}
-        />
-        <input
-          type="text"
-          name="eventDate"
-          placeholder="Event date"
-          onChange={handleOnChange}
-          value={eventData.eventDate}
-        />
-        <input
-          type="text"
-          name="eventTime"
-          placeholder="Event time"
-          onChange={handleOnChange}
-          value={eventData.eventTime}
-        />
-        <input
-          type="text"
-          name="eventDuration"
-          placeholder="Event duration"
-          onChange={handleOnChange}
-          value={eventData.eventDuration}
-        />
+        {eventData.eventCheck && (
+          <input
+            type="text"
+            name="eventTitle"
+            placeholder="Event Title"
+            onChange={handleOnChange}
+            value={eventData.eventTitle}
+          />
+        )}
 
-        <textarea
-          name="eventDescription"
-          cols={30}
-          rows={10}
-          placeholder="Description"
-          onChange={handleOnChange}
-          value={eventData.eventDescription}
-        ></textarea>
+        {eventData.eventCheck && (
+          <input
+            type="text"
+            name="eventLocation"
+            placeholder="Event Venue"
+            onChange={handleOnChange}
+            value={eventData.eventLocation}
+          />
+        )}
 
-        <TagsInput
-          name="invited"
-          value={invitedEmails}
-          onChange={setEmailList}
-          placeHolder="guest's email"
-        />
-        <pre>{JSON.stringify(invitedEmails)}</pre>
+        {eventData.eventCheck && (
+          <input
+            type="text"
+            name="eventCost"
+            placeholder="Cost per person"
+            onChange={handleOnChange}
+            value={eventData.eventCost}
+          />
+        )}
 
-        <input
-          type="text"
-          name="transportMode"
-          placeholder="Transport mode"
-          onChange={handleOnChange}
-          value={eventData.transportMode}
-        />
-        <input
-          type="text"
-          name="transportCost"
-          placeholder="Cost per person"
-          onChange={handleOnChange}
-          value={eventData.transportCost}
-        />
-        <input
-          type="text"
-          name="pickupLocation"
-          placeholder="Pickup location"
-          onChange={handleOnChange}
-          value={eventData.pickupLocation}
-        />
-        <input
-          type="text"
-          name="pickupTime"
-          placeholder="Pickup time"
-          onChange={handleOnChange}
-          value={eventData.pickupTime}
-        />
-        <input
-          type="text"
-          name="returnTime"
-          placeholder="Return time"
-          onChange={handleOnChange}
-          value={eventData.returnTime}
-        />
-        <input
-          type="text"
-          name="travelTime"
-          placeholder="Travel time"
-          onChange={handleOnChange}
-          value={eventData.travelTime}
-        />
-        <input
-          type="text"
-          name="seatsAvailable"
-          placeholder="Seats Available"
-          onChange={handleOnChange}
-          value={eventData.seatsAvailable}
-        />
-        <textarea
-          name="transportDescription"
-          cols={30}
-          rows={10}
-          placeholder="Descritpion"
-          onChange={handleOnChange}
-          value={eventData.transportDescription}
-        ></textarea>
+        {eventData.eventCheck && (
+          <input
+            type="text"
+            name="eventRSVP"
+            placeholder="RSVP"
+            onChange={handleOnChange}
+            value={eventData.eventRSVP}
+          />
+        )}
+        {eventData.eventCheck && (
+          <input
+            type="text"
+            name="virtualLink"
+            placeholder="Virtual Attendance Link"
+            onChange={handleOnChange}
+            value={eventData.virtualLink}
+          />
+        )}
+        {eventData.eventCheck && (
+          <input
+            type="text"
+            name="eventDate"
+            placeholder="Event date"
+            onChange={handleOnChange}
+            value={eventData.eventDate}
+          />
+        )}
+        {eventData.eventCheck && (
+          <input
+            type="text"
+            name="eventTime"
+            placeholder="Event time"
+            onChange={handleOnChange}
+            value={eventData.eventTime}
+          />
+        )}
+        {eventData.eventCheck && (
+          <input
+            type="text"
+            name="eventDuration"
+            placeholder="Event duration"
+            onChange={handleOnChange}
+            value={eventData.eventDuration}
+          />
+        )}
+        {eventData.eventCheck && (
+          <textarea
+            name="eventDescription"
+            cols={30}
+            rows={10}
+            placeholder="Description"
+            onChange={handleOnChange}
+            value={eventData.eventDescription}
+          ></textarea>
+        )}
 
-        <button className="page-button" type="submit">
-          Create Event!
-        </button>
+        {(eventData.eventCheck || eventData.transportCheck) && (
+          <>
+            <TagsInput
+              name="invited"
+              value={invitedEmails}
+              onChange={setEmailList}
+              placeHolder="guest's email"
+            />
+            <pre>{invitedEmails.toString()}</pre>
+          </>
+        )}
+
+        {eventData.transportCheck && (
+          <input
+            type="text"
+            name="transportMode"
+            placeholder="Transport mode"
+            onChange={handleOnChange}
+            value={eventData.transportMode}
+          />
+        )}
+
+        {eventData.transportCheck && (
+          <input
+            type="text"
+            name="transportCost"
+            placeholder="Cost per person"
+            onChange={handleOnChange}
+            value={eventData.transportCost}
+          />
+        )}
+        {eventData.transportCheck && (
+          <input
+            type="text"
+            name="pickupLocation"
+            placeholder="Pickup location"
+            onChange={handleOnChange}
+            value={eventData.pickupLocation}
+          />
+        )}
+        {eventData.transportCheck && (
+          <input
+            type="text"
+            name="pickupTime"
+            placeholder="Pickup time"
+            onChange={handleOnChange}
+            value={eventData.pickupTime}
+          />
+        )}
+        {eventData.transportCheck && (
+          <input
+            type="text"
+            name="returnTime"
+            placeholder="Return time"
+            onChange={handleOnChange}
+            value={eventData.returnTime}
+          />
+        )}
+        {eventData.transportCheck && (
+          <input
+            type="text"
+            name="travelTime"
+            placeholder="Travel time"
+            onChange={handleOnChange}
+            value={eventData.travelTime}
+          />
+        )}
+        {eventData.transportCheck && (
+          <input
+            type="text"
+            name="seatsAvailable"
+            placeholder="Seats Available"
+            onChange={handleOnChange}
+            value={eventData.seatsAvailable}
+          />
+        )}
+        {eventData.transportCheck && (
+          <textarea
+            name="transportDescription"
+            cols={30}
+            rows={10}
+            placeholder="Descritpion"
+            onChange={handleOnChange}
+            value={eventData.transportDescription}
+          ></textarea>
+        )}
+
+        {(eventData.eventCheck || eventData.transportCheck) && (
+          <button className="page-button" type="submit">
+            Create Event!
+          </button>
+        )}
       </form>
     </>
   );
