@@ -59,8 +59,23 @@ export const createNewEvent = async (userEmail: User['email'], event: EventData)
   }
 };
 
-
-
+// GET ALL USER EVENTS
+export const getAllMyEvents = async (userEmail: User['email']) => {
+  try {
+    const userDbEntry = await userCollection.findOne({
+      email: userEmail,
+    });
+    if (userDbEntry) {
+      const userId = String(userDbEntry._id)
+      const allMyEvents = await eventCollection.find({organizerId: userId}).toArray();
+      return allMyEvents
+    } else {
+      return false
+    }
+  } catch (e) {
+    console.error(e);
+  }
+};
 
 
 /*

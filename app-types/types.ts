@@ -28,7 +28,7 @@ export type EventData = {
   eventDate: string;
   eventTime: string;
   eventLocation: string;
-  eventDuration: string;
+  eventEndTime: string;
   eventDescription: string;
   eventRSVP: string;
   eventCost: number;
@@ -43,6 +43,7 @@ export type EventData = {
   pickupLocation: string;
   pickupTime: string;
   returnTime: string;
+  returnDate: string ,
   seatsAvailable: number;
   passengers: string[];
 };

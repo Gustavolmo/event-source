@@ -4,14 +4,14 @@ import CreateEvent from './CreateEvent';
 import ManageEvent from './ManageEvent';
 import MyInvitation from './MyInvitation';
 import MyInfo from './MyInfo';
-import { useSession } from 'next-auth/react';
 import Greeting from '../Greeting';
 
 export default function AccountPage() {
-  const [selection, setSelection] = useState('info');
+  const [selection, setSelection] = useState(localStorage.getItem('lastSelection') || 'info');
 
   const selectionHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     setSelection(e.currentTarget.name);
+    localStorage.setItem('lastSelection', e.currentTarget.name)
   };
 
   return (

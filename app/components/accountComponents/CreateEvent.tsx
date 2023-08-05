@@ -7,9 +7,8 @@ import { TagsInput } from 'react-tag-input-component';
 
 export default function CreateEvent() {
   const { data: session } = useSession();
-  const sessionName = session?.user?.name;
   const sessionEmail = session?.user?.email;
-  const [invitedEmails, setEmailList] = useState<string[]>([]);
+  const [invitedEmails, setInvitedEmails] = useState<string[]>([]);
   const date = String(new Date().toDateString());
   const [eventData, setEventData] = useState<EventData>({
     eventTitle: '',
@@ -22,7 +21,7 @@ export default function CreateEvent() {
     eventDate: '',
     eventTime: '',
     eventLocation: '',
-    eventDuration: '',
+    eventEndTime: '',
     eventDescription: '',
     eventRSVP: '',
     eventCost: 0,
@@ -37,6 +36,7 @@ export default function CreateEvent() {
     pickupLocation: '',
     pickupTime: '',
     returnTime: '',
+    returnDate: '',
     seatsAvailable: 0,
     passengers: [],
   });
@@ -60,7 +60,7 @@ export default function CreateEvent() {
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     eventData.invited = invitedEmails;
-    eventData.organizerName = String(sessionName);
+    eventData.organizerName = String(session?.user?.name);
     createNewEvent(sessionEmail, eventData);
 
     setEventData({
@@ -69,12 +69,12 @@ export default function CreateEvent() {
       organizerId: '',
       organizerName: '',
       invited: [],
-      eventCheck: false,
+      eventCheck: true,
       transportCheck: false,
       eventDate: '',
       eventTime: '',
       eventLocation: '',
-      eventDuration: '',
+      eventEndTime: '',
       eventDescription: '',
       eventRSVP: '',
       eventCost: 0,
@@ -89,10 +89,11 @@ export default function CreateEvent() {
       pickupLocation: '',
       pickupTime: '',
       returnTime: '',
+      returnDate: '',
       seatsAvailable: 0,
       passengers: [],
     });
-    setEmailList([]);
+    setInvitedEmails([]);
   };
 
   return (
@@ -118,13 +119,14 @@ export default function CreateEvent() {
           Transportation
         </span>
 
-        {eventData.eventCheck && (
+        {(eventData.eventCheck || eventData.transportCheck) && (
           <input
             type="text"
             name="eventTitle"
             placeholder="Event Title"
             onChange={handleOnChange}
             value={eventData.eventTitle}
+            required
           />
         )}
 
@@ -135,27 +137,36 @@ export default function CreateEvent() {
             placeholder="Event Venue"
             onChange={handleOnChange}
             value={eventData.eventLocation}
+            required
           />
         )}
 
         {eventData.eventCheck && (
-          <input
-            type="text"
-            name="eventCost"
-            placeholder="Cost per person"
-            onChange={handleOnChange}
-            value={eventData.eventCost}
-          />
+          <section>
+            <label>Cost per person (SEK)</label>
+            <input
+              type="number"
+              name="eventCost"
+              placeholder="Cost per person"
+              onChange={handleOnChange}
+              value={eventData.eventCost}
+              required
+            />
+          </section>
         )}
 
         {eventData.eventCheck && (
-          <input
-            type="text"
-            name="eventRSVP"
-            placeholder="RSVP"
-            onChange={handleOnChange}
-            value={eventData.eventRSVP}
-          />
+          <section>
+            <label>RSVP</label>
+            <input
+              type="date"
+              name="eventRSVP"
+              placeholder="RSVP"
+              onChange={handleOnChange}
+              value={eventData.eventRSVP}
+              required
+            />
+          </section>
         )}
         {eventData.eventCheck && (
           <input
@@ -164,34 +175,47 @@ export default function CreateEvent() {
             placeholder="Virtual Attendance Link"
             onChange={handleOnChange}
             value={eventData.virtualLink}
+            required
           />
         )}
-        {eventData.eventCheck && (
-          <input
-            type="text"
-            name="eventDate"
-            placeholder="Event date"
-            onChange={handleOnChange}
-            value={eventData.eventDate}
-          />
+        {(eventData.eventCheck || eventData.transportCheck) && (
+          <section>
+            <label>Event Date</label>
+            <input
+              type="date"
+              name="eventDate"
+              placeholder="Event date"
+              onChange={handleOnChange}
+              value={eventData.eventDate}
+              required
+            />
+          </section>
         )}
         {eventData.eventCheck && (
-          <input
-            type="text"
-            name="eventTime"
-            placeholder="Event time"
-            onChange={handleOnChange}
-            value={eventData.eventTime}
-          />
+          <section>
+            <label>Starting Time</label>
+            <input
+              type="time"
+              name="eventTime"
+              placeholder="Event time"
+              onChange={handleOnChange}
+              value={eventData.eventTime}
+              required
+            />
+          </section>
         )}
         {eventData.eventCheck && (
-          <input
-            type="text"
-            name="eventDuration"
-            placeholder="Event duration"
-            onChange={handleOnChange}
-            value={eventData.eventDuration}
-          />
+          <section>
+            <label>Event Ending Time</label>
+            <input
+              type="time"
+              name="eventEndTime"
+              placeholder="Event End"
+              onChange={handleOnChange}
+              value={eventData.eventEndTime}
+              required
+            />
+          </section>
         )}
         {eventData.eventCheck && (
           <textarea
@@ -201,15 +225,16 @@ export default function CreateEvent() {
             placeholder="Description"
             onChange={handleOnChange}
             value={eventData.eventDescription}
+            required
           ></textarea>
         )}
 
-        {(eventData.eventCheck || eventData.transportCheck) && (
+        {(eventData.eventCheck || eventData.transportCheck) && (
           <>
             <TagsInput
               name="invited"
               value={invitedEmails}
-              onChange={setEmailList}
+              onChange={setInvitedEmails}
               placeHolder="guest's email"
             />
             <pre>{invitedEmails.toString()}</pre>
@@ -223,17 +248,22 @@ export default function CreateEvent() {
             placeholder="Transport mode"
             onChange={handleOnChange}
             value={eventData.transportMode}
+            required
           />
         )}
 
         {eventData.transportCheck && (
-          <input
-            type="text"
-            name="transportCost"
-            placeholder="Cost per person"
-            onChange={handleOnChange}
-            value={eventData.transportCost}
-          />
+          <section>
+            <label>Cost per passenger (SEK)</label>
+            <input
+              type="number"
+              name="transportCost"
+              placeholder="Cost per person"
+              onChange={handleOnChange}
+              value={eventData.transportCost}
+              required
+            />
+          </section>
         )}
         {eventData.transportCheck && (
           <input
@@ -242,43 +272,66 @@ export default function CreateEvent() {
             placeholder="Pickup location"
             onChange={handleOnChange}
             value={eventData.pickupLocation}
+            required
           />
         )}
         {eventData.transportCheck && (
-          <input
-            type="text"
-            name="pickupTime"
-            placeholder="Pickup time"
-            onChange={handleOnChange}
-            value={eventData.pickupTime}
-          />
+          <section>
+            <label>Pickup Time</label>
+            <input
+              type="time"
+              name="pickupTime"
+              placeholder="Pickup time"
+              onChange={handleOnChange}
+              value={eventData.pickupTime}
+              required
+            />
+          </section>
         )}
         {eventData.transportCheck && (
-          <input
-            type="text"
-            name="returnTime"
-            placeholder="Return time"
-            onChange={handleOnChange}
-            value={eventData.returnTime}
-          />
+          <section>
+            <label>Return time/date (optional)</label>
+            <input
+              type="time"
+              name="returnTime"
+              placeholder="Return time"
+              onChange={handleOnChange}
+              value={eventData.returnTime}
+            />
+            <input
+              type="date"
+              name="returnDate"
+              placeholder="Return date"
+              onChange={handleOnChange}
+              value={eventData.returnDate}
+            />
+          </section>
         )}
         {eventData.transportCheck && (
-          <input
-            type="text"
-            name="travelTime"
-            placeholder="Travel time"
-            onChange={handleOnChange}
-            value={eventData.travelTime}
-          />
+          <section>
+            <label>Travel Time</label>
+            <input
+              type="text"
+              name="travelTime"
+              placeholder="Travel time"
+              onChange={handleOnChange}
+              value={eventData.travelTime}
+              required
+            />
+          </section>
         )}
         {eventData.transportCheck && (
-          <input
-            type="text"
-            name="seatsAvailable"
-            placeholder="Seats Available"
-            onChange={handleOnChange}
-            value={eventData.seatsAvailable}
-          />
+          <section>
+            <label>Seats Available</label>
+            <input
+              type="number"
+              name="seatsAvailable"
+              placeholder="Seats Available"
+              onChange={handleOnChange}
+              value={eventData.seatsAvailable}
+              required
+            />
+          </section>
         )}
         {eventData.transportCheck && (
           <textarea
@@ -288,6 +341,7 @@ export default function CreateEvent() {
             placeholder="Descritpion"
             onChange={handleOnChange}
             value={eventData.transportDescription}
+            required
           ></textarea>
         )}
 
