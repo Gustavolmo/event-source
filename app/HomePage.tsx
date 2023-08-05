@@ -28,7 +28,8 @@ export default function HomePage() {
   useEffect(() => {
     if (status !== 'authenticated') return;
 
-    handleLogin();
+    handleLogin()
+      .catch(console.error);
   }, [status]);
 
   return (
