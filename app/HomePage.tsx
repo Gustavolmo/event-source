@@ -33,9 +33,9 @@ export default function HomePage() {
   }, [status]);
 
   return (
-    <>
+    <section className='main__public-page'>
       <p>HOME PAGE + DESCRIPTION WITH IMAGES</p>
       {/* <AdditionalUserInfo visibility={popupVisibility}/> */}
-    </>
+    </section>
   );
 }

@@ -58,10 +58,6 @@ export default function AccountPage() {
         </button>
       </header>
 
-      <div className='greeting-image'>
-        <Greeting />
-      </div>
-
       <section className="account-components">
         {selection === 'info' && <MyInfo />}
         {selection === 'create' && <CreateEvent />}

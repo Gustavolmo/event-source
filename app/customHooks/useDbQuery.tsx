@@ -3,16 +3,16 @@
 import { Document } from 'mongodb';
 import { useSession } from 'next-auth/react';
 import { useCallback, useEffect, useState } from 'react';
-import { User } from '@/app-types/types';
+import { EventData, User } from '@/app-types/types';
 import { WithId } from 'mongodb';
 
 export const useDbQuery = (
   dbFunction: (
     userEmail: User['email']
-  ) => Promise<false | WithId<Document>[] | undefined>
+  ) => Promise<false | EventData[] | undefined>
 ) => {
   const { data: session, status } = useSession();
-  const [dbData, setDbData] = useState<false | WithId<Document>[] | undefined>();
+  const [dbData, setDbData] = useState<false | EventData[] | undefined>();
 
   const fetchDbEvents = useCallback(async () => {
     if (status !== 'authenticated') return;

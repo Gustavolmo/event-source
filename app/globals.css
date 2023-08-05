@@ -28,7 +28,11 @@ p {
 .main {
   display: flex;
   flex-direction: column;
-  margin: 60px 0 80px 0;
+  margin: 0px 0 80px 0;
+}
+
+.main__public-page {
+  margin-top: 60px;
 }
 
 .footer {
@@ -46,11 +50,11 @@ p {
 }
 
 .account-components {
-  margin-top: 60px;
+  margin-top: 0px;
 }
 
 .greeting-image {
-  margin-top: 60px;
+  margin-top: 120px;
 }
 /*______________________________________*/
 
@@ -78,6 +82,7 @@ p {
 }
 .account-buttons{
   position: fixed;
+  top: 60px;
 }
 /*______________________________________*/
 
@@ -105,5 +110,11 @@ input {
 
 .inline-label-input {
   display: flex;
+}
+/*______________________________________*/
+
+/*______________________________________ CARDS */
+.event-card {
+  margin: 16px;
 }
 /*______________________________________*/

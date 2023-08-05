@@ -68,7 +68,7 @@ export const getAllMyEvents = async (userEmail: User['email']) => {
     if (userDbEntry) {
       const userId = String(userDbEntry._id)
       const allMyEvents = await eventCollection.find({organizerId: userId}).toArray();
-      return allMyEvents
+      return allMyEvents as EventData[]
     } else {
       return false
     }

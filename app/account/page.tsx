@@ -4,6 +4,7 @@ import { LoginButton } from '../components/Login';
 import UserImage from '../components/UserImage';
 import PathButton from '../components/PathButton';
 import AccountPage from '../components/accountComponents/AccountPage';
+import Greeting from '../components/Greeting';
 
 export default async function MyAccount() {
 
@@ -14,6 +15,9 @@ export default async function MyAccount() {
         <PathButton path={'/'} title={'Home'} className={"navbar__button"}/>
         <UserImage width={50} height={50} />
       </nav>
+      <div className='greeting-image'>
+        <Greeting />
+      </div>
       <main className="main">
         <AccountPage />
       </main>
