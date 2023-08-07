@@ -1,29 +1,22 @@
 
 'use client';
-import { Document } from 'mongodb';
 import { useSession } from 'next-auth/react';
-import { useCallback, useEffect, useState } from 'react';
-import { EventData, User } from '@/app-types/types';
-import { WithId } from 'mongodb';
+import { useEffect, useState } from 'react';
+import { DbData, User } from '@/app-types/types';
 
-export const useDbQuery = (
-  dbFunction: (
-    userEmail: User['email']
-  ) => Promise<false | EventData[] | undefined>
+export const useDbQuery = ( dbFunction: (userEmail: User['email']) => Promise<DbData[] | undefined>,
+clickToRender?: Boolean
 ) => {
-  const { data: session, status } = useSession();
-  const [dbData, setDbData] = useState<false | EventData[] | undefined>();
-
-  const fetchDbEvents = useCallback(async () => {
-    if (status !== 'authenticated') return;
-    const eventData = await dbFunction(session?.user?.email);
-    setDbData(eventData);
-  }, [status]);
+  const { data: session } = useSession();
+  const [dbData, setDbData] = useState<DbData[] | undefined>();
 
   useEffect(() => {
-    if (status !== 'authenticated') return;
+    const fetchDbEvents = async () => {
+      const eventData = await dbFunction(session?.user?.email);
+      setDbData(eventData);
+    }
     fetchDbEvents().catch(console.error);
-  }, [status]);
+  }, [clickToRender]);
 
   return [dbData];
 };

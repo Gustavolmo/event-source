@@ -1,5 +1,5 @@
 'use server';
-import { EventData, User, UserPreferences } from '@/app-types/types';
+import { EventData, User, UserPreferences, DbData } from '@/app-types/types';
 import { client, runMongoDb } from './mongoConnect';
 
 runMongoDb();
@@ -9,7 +9,7 @@ const collectionEvent = 'event';
 const userCollection = client.db(databaseName).collection(collectionUser);
 const eventCollection = client.db(databaseName).collection(collectionEvent);
 
-// CREATE NEW USERS ->
+// CREATE NEW USER ->
 export const createNewUserIfFirstLogin = async (userData: User) => {
   try {
     if (userData.email) {
@@ -28,7 +28,7 @@ export const createNewUserIfFirstLogin = async (userData: User) => {
   }
 };
 
-// UPDATE USER PREFERENCES ->
+// UPDATE USER PREFERENCES
 export const updateUserPreferences = async (userEmail: User['email'], userPreferences: UserPreferences) => {
   console.log(userPreferences)
   try {
@@ -40,7 +40,7 @@ export const updateUserPreferences = async (userEmail: User['email'], userPrefer
   }
 }
 
-// NEW EVENT ->
+// CREATE NEW EVENT
 export const createNewEvent = async (userEmail: User['email'], event: EventData) => {
   try {
     const userDbEntry = await userCollection.findOne({
@@ -60,7 +60,7 @@ export const createNewEvent = async (userEmail: User['email'], event: EventData)
 };
 
 // GET ALL USER EVENTS
-export const getAllMyEvents = async (userEmail: User['email']) => {
+export const getAllUserEvents = async (userEmail: User['email']) => {
   try {
     const userDbEntry = await userCollection.findOne({
       email: userEmail,
@@ -68,15 +68,34 @@ export const getAllMyEvents = async (userEmail: User['email']) => {
     if (userDbEntry) {
       const userId = String(userDbEntry._id)
       const allMyEvents = await eventCollection.find({organizerId: userId}).toArray();
-      return allMyEvents as EventData[]
-    } else {
-      return false
-    }
+      return allMyEvents as DbData[]
+    } 
   } catch (e) {
     console.error(e);
   }
 };
 
+// GET USER PREFERENCES
+export const getUserPreferences = async (userEmail: User['email']) => {
+  try {
+    const dbData = await userCollection.findOne({
+      email: userEmail,
+    });
+    return [dbData] as DbData[]
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+// GET USER INVITATIONS
+export const getUserInvitations = async (userEmail: User['email']) => {
+  try {
+    const data = await eventCollection.find({ invited: userEmail }).toArray();
+    return data as DbData[]
+  } catch (e) {
+    console.error(e);
+  }
+}
 
 /*
 ================================================

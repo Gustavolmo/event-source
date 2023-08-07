@@ -1,11 +1,11 @@
 'use client';
-import { getAllMyEvents } from '@/app-library/DbControls';
+import { getAllUserEvents } from '@/app-library/DbControls';
 import useDbQuery from '@/app/customHooks/useDbQuery';
 import React from 'react';
 import CardManageEvent from '../cardComponents/CardManageEvent';
 
 export default function ManageEvent() {
-  const [dbData] = useDbQuery(getAllMyEvents)
+  const [dbData] = useDbQuery(getAllUserEvents)
 
   return (
     <>

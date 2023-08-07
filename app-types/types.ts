@@ -16,6 +16,8 @@ export type UserPreferences = {
   additionalRemarks?: string;
 };
 
+export interface DbData extends User, EventData {} 
+
 export type EventData = {
   _id?: ObjectId;
   eventTitle: string;

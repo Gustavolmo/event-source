@@ -4,15 +4,26 @@ import CreateEvent from './CreateEvent';
 import ManageEvent from './ManageEvent';
 import MyInvitation from './MyInvitation';
 import MyInfo from './MyInfo';
-import Greeting from '../Greeting';
+import { useSession } from 'next-auth/react';
 
 export default function AccountPage() {
-  const [selection, setSelection] = useState(localStorage.getItem('lastSelection') || 'info');
+  const [selection, setSelection] = useState(
+    localStorage.getItem('lastSelection') || 'info'
+  );
+  const { data: session, status } = useSession();
 
   const selectionHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     setSelection(e.currentTarget.name);
-    localStorage.setItem('lastSelection', e.currentTarget.name)
+    localStorage.setItem('lastSelection', e.currentTarget.name);
   };
+
+  if (status !== 'authenticated') {
+    return (
+      <div className="Loading-ui">
+        <h1>'Loading...'</h1>
+      </div>
+    );
+  }
 
   return (
     <>

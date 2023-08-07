@@ -1,13 +1,22 @@
 'use client';
-import { updateUserPreferences } from '@/app-library/DbControls';
-import { UserPreferences } from '@/app-types/types';
+import {
+  getUserPreferences,
+  updateUserPreferences,
+} from '@/app-library/DbControls';
+import { DbData, UserPreferences } from '@/app-types/types';
 import { useSession } from 'next-auth/react';
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import useDbQuery from '@/app/customHooks/useDbQuery';
 
-export default function UpdatePreferencesForm(props: {doesRedirect: boolean, path?: string}) {
+export default function UpdatePreferencesForm(props: {
+  doesRedirect: boolean;
+  path?: string;
+}) {
   const router = useRouter();
   const { data: session } = useSession();
+  const [click, setClick] = useState<boolean>();
+  const [dbData] = useDbQuery(getUserPreferences, click);
   const [userPreferences, setUserPreferences] = useState<UserPreferences>({
     dietaryRestrictions: '',
     accessibilityNeeds: '',
@@ -16,12 +25,13 @@ export default function UpdatePreferencesForm(props: {doesRedirect: boolean, pat
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setClick(!click)
     updateUserPreferences(session?.user?.email, userPreferences);
     setUserPreferences({
       dietaryRestrictions: '',
       accessibilityNeeds: '',
       additionalRemarks: '',
-    })
+    });
     if (props.doesRedirect && props.path) {
       router.push(props.path);
     }
@@ -38,6 +48,11 @@ export default function UpdatePreferencesForm(props: {doesRedirect: boolean, pat
 
   return (
     <>
+      <p>Current preferences</p>
+      <p>Dietary Restrictions: {dbData && dbData[0].dietaryRestrictions}</p>
+      <p>Accessibility Needs: {dbData && dbData[0].accessibilityNeeds}</p>
+
+      <p>Update Preferences</p>
       <form className="create-event-form" onSubmit={handleSubmit}>
         <div className="inline-label-input">
           <label>Dietary Restrictions</label>
