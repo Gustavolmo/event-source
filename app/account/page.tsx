@@ -15,7 +15,7 @@ export default async function MyAccount() {
         <PathButton path={'/'} title={'Home'} className={"navbar__button"}/>
         <UserImage width={50} height={50} />
       </nav>
-      <div className='greeting-image'>
+      <div className='greeting'>
         <Greeting />
       </div>
       <main className="main">

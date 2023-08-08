@@ -27,6 +27,7 @@ export type EventData = {
   invited: string[];
   eventCheck: boolean;
   transportCheck: boolean;
+  roundTripCheck: boolean;
   eventDate: string;
   eventTime: string;
   eventLocation: string;

@@ -1,22 +1,18 @@
 'use client';
-import {
-  getUserPreferences,
-  updateUserPreferences,
-} from '@/app-library/DbControls';
-import { DbData, UserPreferences } from '@/app-types/types';
+import { updateUserPreferences } from '@/app-library/DbControls';
+import { UserPreferences } from '@/app-types/types';
 import { useSession } from 'next-auth/react';
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import useDbQuery from '@/app/customHooks/useDbQuery';
+import CurrentInfo from './CurrentInfo';
 
 export default function UpdatePreferencesForm(props: {
   doesRedirect: boolean;
   path?: string;
 }) {
   const router = useRouter();
-  const { data: session } = useSession();
-  const [click, setClick] = useState<boolean>();
-  const [dbData] = useDbQuery(getUserPreferences, click);
+  const { data: session, status } = useSession();
+  const [rerenderClick, setRerenderClick] = useState<boolean>(false);
   const [userPreferences, setUserPreferences] = useState<UserPreferences>({
     dietaryRestrictions: '',
     accessibilityNeeds: '',
@@ -25,7 +21,7 @@ export default function UpdatePreferencesForm(props: {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setClick(!click)
+    setRerenderClick(!rerenderClick);
     updateUserPreferences(session?.user?.email, userPreferences);
     setUserPreferences({
       dietaryRestrictions: '',
@@ -46,13 +42,19 @@ export default function UpdatePreferencesForm(props: {
     }));
   };
 
+  if (status !== 'authenticated') {
+    return (
+      <div className="Loading-ui">
+        <h1>'Loading...'</h1>
+      </div>
+    );
+  }
+
   return (
     <>
-      <p>Current preferences</p>
-      <p>Dietary Restrictions: {dbData && dbData[0].dietaryRestrictions}</p>
-      <p>Accessibility Needs: {dbData && dbData[0].accessibilityNeeds}</p>
+      <CurrentInfo rerenderClick={rerenderClick} />
 
-      <p>Update Preferences</p>
+      <p>Update Preferences |MAKE THIS A TOGGLE|</p>
       <form className="create-event-form" onSubmit={handleSubmit}>
         <div className="inline-label-input">
           <label>Dietary Restrictions</label>

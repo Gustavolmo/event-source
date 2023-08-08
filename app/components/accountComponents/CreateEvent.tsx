@@ -6,11 +6,11 @@ import React, { ChangeEvent, useState } from 'react';
 import { TagsInput } from 'react-tag-input-component';
 
 export default function CreateEvent() {
+  const date = String(new Date().toDateString());
   const { data: session } = useSession();
   const sessionEmail = session?.user?.email;
   const [invitedEmails, setInvitedEmails] = useState<string[]>([]);
-  const date = String(new Date().toDateString());
-  const [eventData, setEventData] = useState<EventData>({
+  const defaultFormValues = {
     eventTitle: '',
     dateCreated: date,
     organizerId: '',
@@ -18,6 +18,7 @@ export default function CreateEvent() {
     invited: [],
     eventCheck: true,
     transportCheck: false,
+    roundTripCheck: false,
     eventDate: '',
     eventTime: '',
     eventLocation: '',
@@ -39,7 +40,8 @@ export default function CreateEvent() {
     returnDate: '',
     seatsAvailable: 0,
     passengers: [],
-  });
+  };
+  const [eventData, setEventData] = useState<EventData>(defaultFormValues);
 
   const handleOnChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -63,36 +65,7 @@ export default function CreateEvent() {
     eventData.organizerName = String(session?.user?.name);
     createNewEvent(sessionEmail, eventData);
 
-    setEventData({
-      eventTitle: '',
-      dateCreated: date,
-      organizerId: '',
-      organizerName: '',
-      invited: [],
-      eventCheck: true,
-      transportCheck: false,
-      eventDate: '',
-      eventTime: '',
-      eventLocation: '',
-      eventEndTime: '',
-      eventDescription: '',
-      eventRSVP: '',
-      eventCost: 0,
-      acceptedLive: [],
-      acceptedVirtually: [],
-      rejected: [],
-      virtualLink: '',
-      transportMode: '',
-      transportCost: 0,
-      transportDescription: '',
-      travelTime: '',
-      pickupLocation: '',
-      pickupTime: '',
-      returnTime: '',
-      returnDate: '',
-      seatsAvailable: 0,
-      passengers: [],
-    });
+    setEventData(defaultFormValues);
     setInvitedEmails([]);
   };
 
@@ -119,7 +92,7 @@ export default function CreateEvent() {
           Transportation
         </span>
 
-        {(eventData.eventCheck || eventData.transportCheck) && (
+        {(eventData.eventCheck || eventData.transportCheck) && (
           <input
             type="text"
             name="eventTitle"
@@ -235,7 +208,7 @@ export default function CreateEvent() {
               name="invited"
               value={invitedEmails}
               onChange={setInvitedEmails}
-              placeHolder="guest's email"
+              placeHolder="guests email"
             />
             <pre>{invitedEmails.toString()}</pre>
           </>
@@ -289,23 +262,36 @@ export default function CreateEvent() {
           </section>
         )}
         {eventData.transportCheck && (
-          <section>
-            <label>Return time/date (optional)</label>
-            <input
-              type="time"
-              name="returnTime"
-              placeholder="Return time"
-              onChange={handleOnChange}
-              value={eventData.returnTime}
-            />
-            <input
-              type="date"
-              name="returnDate"
-              placeholder="Return date"
-              onChange={handleOnChange}
-              value={eventData.returnDate}
-            />
-          </section>
+          <>
+            <div>
+              <label>Round Trip</label>
+              <input
+                type="checkbox"
+                name="roundTripCheck"
+                checked={eventData.roundTripCheck}
+                onChange={handleOnCheckBox}
+              />
+            </div>
+            {eventData.roundTripCheck && (
+              <section>
+                <label>Return time/date (optional)</label>
+                <input
+                  type="time"
+                  name="returnTime"
+                  placeholder="Return time"
+                  onChange={handleOnChange}
+                  value={eventData.returnTime}
+                />
+                <input
+                  type="date"
+                  name="returnDate"
+                  placeholder="Return date"
+                  onChange={handleOnChange}
+                  value={eventData.returnDate}
+                />
+              </section>
+            )}
+          </>
         )}
         {eventData.transportCheck && (
           <section>

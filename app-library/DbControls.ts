@@ -1,6 +1,7 @@
 'use server';
 import { EventData, User, UserPreferences, DbData } from '@/app-types/types';
 import { client, runMongoDb } from './mongoConnect';
+import { ObjectId } from 'mongodb';
 
 runMongoDb();
 const databaseName = 'eventsource';
@@ -29,19 +30,30 @@ export const createNewUserIfFirstLogin = async (userData: User) => {
 };
 
 // UPDATE USER PREFERENCES
-export const updateUserPreferences = async (userEmail: User['email'], userPreferences: UserPreferences) => {
-  console.log(userPreferences)
+export const updateUserPreferences = async (
+  userEmail: User['email'],
+  userPreferences: UserPreferences
+) => {
+  console.log(userPreferences);
   try {
     const query = { email: userEmail };
-    const update = { $set: { dietaryRestrictions: userPreferences.dietaryRestrictions, accessibilityNeeds: userPreferences.accessibilityNeeds } };
+    const update = {
+      $set: {
+        dietaryRestrictions: userPreferences.dietaryRestrictions,
+        accessibilityNeeds: userPreferences.accessibilityNeeds,
+      },
+    };
     await userCollection.updateOne(query, update);
   } catch (e) {
     console.error(e);
   }
-}
+};
 
 // CREATE NEW EVENT
-export const createNewEvent = async (userEmail: User['email'], event: EventData) => {
+export const createNewEvent = async (
+  userEmail: User['email'],
+  event: EventData
+) => {
   try {
     const userDbEntry = await userCollection.findOne({
       email: userEmail,
@@ -49,10 +61,10 @@ export const createNewEvent = async (userEmail: User['email'], event: EventData)
     if (userDbEntry) {
       event.organizerId = String(userDbEntry._id);
       await eventCollection.insertOne(event);
-      console.log(event)
-      return true
+      console.log(event);
+      return true;
     } else {
-      return false
+      return false;
     }
   } catch (e) {
     console.error(e);
@@ -66,36 +78,67 @@ export const getAllUserEvents = async (userEmail: User['email']) => {
       email: userEmail,
     });
     if (userDbEntry) {
-      const userId = String(userDbEntry._id)
-      const allMyEvents = await eventCollection.find({organizerId: userId}).toArray();
-      return allMyEvents as DbData[]
-    } 
+      const userId = String(userDbEntry._id);
+      const allMyEvents = await eventCollection
+        .find({ organizerId: userId })
+        .toArray();
+      return allMyEvents as DbData[];
+    }
   } catch (e) {
     console.error(e);
   }
 };
 
 // GET USER PREFERENCES
-export const getUserPreferences = async (userEmail: User['email']) => {
+export const getUserPreferences = async (
+  userEmail: User['email']
+): Promise<DbData[] | undefined> => {
   try {
     const dbData = await userCollection.findOne({
       email: userEmail,
     });
-    return [dbData] as DbData[]
+    if (dbData) {
+      return [dbData] as DbData[];
+    } else {
+      return undefined;
+    }
   } catch (e) {
     console.error(e);
   }
-}
+};
 
 // GET USER INVITATIONS
 export const getUserInvitations = async (userEmail: User['email']) => {
   try {
     const data = await eventCollection.find({ invited: userEmail }).toArray();
-    return data as DbData[]
+    return data as DbData[];
   } catch (e) {
     console.error(e);
   }
-}
+};
+
+// ADD UNIQUE USERS TO EVENT BY ID
+export const addUsersToEvent = async (
+  guestEmails: User['email'][],
+  eventId: EventData['_id']
+) => {
+  try {
+    const targetEvent = (await eventCollection.findOne({
+      _id: new ObjectId(eventId),
+    })) as EventData;
+
+    const noRepeatedeMailList = guestEmails.filter(
+      (email) => !targetEvent.invited.includes(String(email))
+    );
+
+    await eventCollection.updateOne(
+      { _id: new ObjectId(eventId) },
+      { $push: { invited: { $each: noRepeatedeMailList } } }
+    );
+  } catch (e) {
+    console.error(e);
+  }
+};
 
 /*
 ================================================
