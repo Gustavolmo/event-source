@@ -5,6 +5,7 @@ import { useSession } from 'next-auth/react';
 import React, { ChangeEvent, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import CurrentInfo from './CurrentInfo';
+import LoadingUi from '../LoadingUi';
 
 export default function UpdatePreferencesForm(props: {
   doesRedirect: boolean;
@@ -45,7 +46,7 @@ export default function UpdatePreferencesForm(props: {
   if (status !== 'authenticated') {
     return (
       <div className="Loading-ui">
-        <h1>'Loading...'</h1>
+        <LoadingUi/>
       </div>
     );
   }

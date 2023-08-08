@@ -5,6 +5,7 @@ import ManageEvent from './ManageEvent';
 import MyInvitation from './MyInvitation';
 import MyInfo from './MyInfo';
 import { useSession } from 'next-auth/react';
+import LoadingUi from '../LoadingUi';
 
 export default function AccountPage() {
   const [selection, setSelection] = useState(
@@ -20,7 +21,7 @@ export default function AccountPage() {
   if (status !== 'authenticated') {
     return (
       <div className="Loading-ui">
-        <h1>'Loading...'</h1>
+        <LoadingUi/>
       </div>
     );
   }
