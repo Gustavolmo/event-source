@@ -1,4 +1,3 @@
-
 'use client';
 import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
@@ -10,17 +9,20 @@ export const useDbQuery = ( dbFunction: (
   clickToRender?: Boolean
 ) => {
   const { data: session } = useSession();
+  const [loading, setLoading] = useState(true)
   const [dbData, setDbData] = useState<DbData[] | undefined>();
 
   useEffect(() => {
     const fetchDbEvents = async () => {
+      setLoading(true);
       const eventData = await dbFunction(userEmail || session?.user?.email);
       setDbData(eventData);
+      setLoading(false);
     }
     fetchDbEvents().catch(console.error);
   }, [clickToRender]);
 
-  return [dbData];
+  return {dbData, loading};
 };
 
 export default useDbQuery;

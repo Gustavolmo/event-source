@@ -28,9 +28,11 @@ export type EventData = {
   eventCheck: boolean;
   transportCheck: boolean;
   roundTripCheck: boolean;
+  multiDayCheck: boolean;
   eventDate: string;
   eventTime: string;
   eventLocation: string;
+  eventEndDate: string;
   eventEndTime: string;
   eventDescription: string;
   eventRSVP: string;

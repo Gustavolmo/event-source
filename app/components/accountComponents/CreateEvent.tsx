@@ -10,7 +10,7 @@ export default function CreateEvent() {
   const { data: session } = useSession();
   const sessionEmail = session?.user?.email;
   const [invitedEmails, setInvitedEmails] = useState<string[]>([]);
-  const defaultFormValues = {
+  const defaultFormValues: EventData = {
     eventTitle: '',
     dateCreated: date,
     organizerId: '',
@@ -19,9 +19,11 @@ export default function CreateEvent() {
     eventCheck: true,
     transportCheck: false,
     roundTripCheck: false,
+    multiDayCheck: false,
     eventDate: '',
     eventTime: '',
     eventLocation: '',
+    eventEndDate: '',
     eventEndTime: '',
     eventDescription: '',
     eventRSVP: '',
@@ -178,6 +180,31 @@ export default function CreateEvent() {
           </section>
         )}
         {eventData.eventCheck && (
+          <>
+            <div>
+              <label>Ends in a different date?</label>
+              <input
+                type="checkbox"
+                name="multiDayCheck"
+                checked={eventData.multiDayCheck}
+                onChange={handleOnCheckBox}
+              />
+            </div>
+            {eventData.multiDayCheck && (
+              <section>
+                <label>Event End Date</label>
+                <input
+                  type="date"
+                  name="eventEndDate"
+                  onChange={handleOnChange}
+                  value={eventData.eventEndDate}
+                  required
+                />
+              </section>
+            )}
+          </>
+        )}
+        {eventData.eventCheck && (
           <section>
             <label>Event Ending Time</label>
             <input
@@ -264,7 +291,7 @@ export default function CreateEvent() {
         {eventData.transportCheck && (
           <>
             <div>
-              <label>Round Trip</label>
+              <label>Round Trip?</label>
               <input
                 type="checkbox"
                 name="roundTripCheck"
@@ -274,13 +301,14 @@ export default function CreateEvent() {
             </div>
             {eventData.roundTripCheck && (
               <section>
-                <label>Return time/date (optional)</label>
+                <label>Return time/date </label>
                 <input
                   type="time"
                   name="returnTime"
                   placeholder="Return time"
                   onChange={handleOnChange}
                   value={eventData.returnTime}
+                  required
                 />
                 <input
                   type="date"

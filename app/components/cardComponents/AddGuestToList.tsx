@@ -5,17 +5,17 @@ import { TagsInput } from 'react-tag-input-component';
 
 type Props = {
   eventId: EventData['_id'],
-  funcUpdate: Function,
+  funcUpdateClick: Function,
 }
 
 export default function AddGuestToList(
-  {eventId, funcUpdate}: Props
+  {eventId, funcUpdateClick: funcUpdateClick}: Props
 ) {
   const [newGuests, setNewGuests] = useState<string[]>([]);
 
   const handleAddGuestToEvent = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    funcUpdate()
+    funcUpdateClick()
     addUsersToEvent(newGuests, eventId);
   };
 

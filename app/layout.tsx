@@ -6,8 +6,8 @@ import ProviderWrap from './providerWrap';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Pendel Hub',
-  description: 'Navigate Together, Commute Better',
+  title: 'Event Source',
+  description: 'Source of truth for your events',
 };
 
 export default function RootLayout({

@@ -7,7 +7,7 @@ type Props = {
 }
 
 export default function CurrentInfo({rerenderClick}: Props) {
-  const [dbData] = useDbQuery(getUserPreferences, null, rerenderClick)
+  const {dbData} = useDbQuery(getUserPreferences, null, rerenderClick)
   
 
   return (
