@@ -8,10 +8,12 @@ import { useSession } from 'next-auth/react';
 import LoadingUi from '../LoadingUi';
 
 export default function AccountPage() {
-  const [selection, setSelection] = useState(
-    localStorage.getItem('lastSelection') || 'info'
-  );
   const { data: session, status } = useSession();
+  const [selection, setSelection] = useState<string | null>(
+    typeof window !== 'undefined'
+      ? localStorage.getItem('lastSelection')
+      : 'info'
+  );
 
   const selectionHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     setSelection(e.currentTarget.name);
@@ -21,7 +23,7 @@ export default function AccountPage() {
   if (status !== 'authenticated') {
     return (
       <div className="Loading-ui">
-        <LoadingUi/>
+        <LoadingUi />
       </div>
     );
   }
