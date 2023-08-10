@@ -72,7 +72,7 @@ export default function CreateEvent() {
   };
 
   return (
-    <>
+    <section className='event-card'>
       <form className="create-event-form" onSubmit={handleFormSubmit}>
         <label>I am offering:</label>
         <span>
@@ -360,11 +360,11 @@ export default function CreateEvent() {
         )}
 
         {(eventData.eventCheck || eventData.transportCheck) && (
-          <button className="page-button" type="submit">
+          <button className="navbar__button" type="submit">
             Create Event!
           </button>
         )}
       </form>
-    </>
+    </section>
   );
 }

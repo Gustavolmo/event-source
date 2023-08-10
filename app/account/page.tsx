@@ -12,23 +12,21 @@ export default async function MyAccount() {
     <>
       <Suspense fallback={<Loading />}>
         <nav className="navbar">
-          <LoginButton />
-          <PathButton path={'/'} title={'Home'} className={'navbar__button'} />
-          <UserImage width={50} height={50} />
+          <p>future logo</p>
+          {/* logo in here - add div above and space-between */}
+          <div>
+            <PathButton
+              path={'/'}
+              title={'Home'}
+              className={'navbar__button'}
+            />
+            <LoginButton />
+          </div>
         </nav>
-        <div className="greeting">
-          <Greeting />
-        </div>
         <main className="main">
           <AccountPage />
         </main>
       </Suspense>
-      <footer className="footer">
-        <p>
-          Developed by:{' '}
-          <a href="https://github.com/Gustavolmo">Gustavo L.M. de Oliveira</a>
-        </p>
-      </footer>
     </>
   );
 }

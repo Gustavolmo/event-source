@@ -1,11 +1,14 @@
 'use client';
-import { updateUserPreferences } from '@/app-library/DbControls';
+import {
+  getUserPreferences,
+  updateUserPreferences,
+} from '@/app-library/DbControls';
 import { UserPreferences } from '@/app-types/types';
 import { useSession } from 'next-auth/react';
 import React, { ChangeEvent, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import CurrentInfo from './CurrentInfo';
 import LoadingUi from '../LoadingUi';
+import useDbQuery from '@/app/customHooks/useDbQuery';
 
 export default function UpdatePreferencesForm(props: {
   doesRedirect: boolean;
@@ -13,7 +16,9 @@ export default function UpdatePreferencesForm(props: {
 }) {
   const router = useRouter();
   const { data: session, status } = useSession();
+  const [seeEdit, setSeeEdit] = useState(false);
   const [rerenderClick, setRerenderClick] = useState<boolean>(false);
+  const { dbData } = useDbQuery(getUserPreferences, null, rerenderClick);
   const [userPreferences, setUserPreferences] = useState<UserPreferences>({
     dietaryRestrictions: '',
     accessibilityNeeds: '',
@@ -23,6 +28,7 @@ export default function UpdatePreferencesForm(props: {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setRerenderClick(!rerenderClick);
+    setSeeEdit(false);
     updateUserPreferences(session?.user?.email, userPreferences);
     setUserPreferences({
       dietaryRestrictions: '',
@@ -43,54 +49,78 @@ export default function UpdatePreferencesForm(props: {
     }));
   };
 
+  const toggleEdit = () => {
+    setSeeEdit(!seeEdit);
+  };
+
   if (status !== 'authenticated') {
     return (
       <div className="Loading-ui">
-        <LoadingUi/>
+        <LoadingUi />
       </div>
     );
   }
 
   return (
     <>
-      <CurrentInfo rerenderClick={rerenderClick} />
+      <h3>Your preferences</h3>
+      <>
+        <form className="create-event-form" onSubmit={handleSubmit}>
+          <div className="inline-label-input">
+            <p> Accessibility Needs - </p>
 
-      <p>Update Preferences |MAKE THIS A TOGGLE|</p>
-      <form className="create-event-form" onSubmit={handleSubmit}>
-        <div className="inline-label-input">
-          <label>Dietary Restrictions</label>
-          <input
-            name="dietaryRestrictions"
-            placeholder="Dietary Restrictions"
-            onChange={handleOnChange}
-            value={userPreferences.dietaryRestrictions}
-            required
-          />
-        </div>
+            {seeEdit ? (
+              <input
+                name="dietaryRestrictions"
+                placeholder="Dietary Restrictions"
+                onChange={handleOnChange}
+                value={userPreferences.dietaryRestrictions}
+                required
+              />
+            ) : (
+              <p>
+                <b>{dbData && String(dbData[0].accessibilityNeeds)}</b>
+              </p>
+            )}
+          </div>
 
-        <div className="inline-label-input">
-          <label>Accessibility Needs</label>
-          <input
-            name="accessibilityNeeds"
-            placeholder="Accessibility Needs"
-            onChange={handleOnChange}
-            value={userPreferences.accessibilityNeeds}
-            required
-          />
-        </div>
+          <div className="inline-label-input">
+            <p>Dietary Restrictions -</p>
 
-        {/* <label>Additional Remarks</label>
+            {seeEdit ? (
+              <input
+                name="accessibilityNeeds"
+                placeholder="Accessibility Needs"
+                onChange={handleOnChange}
+                value={userPreferences.accessibilityNeeds}
+                required
+              />
+            ) : (
+              <p>
+                <b> {dbData && String(dbData[0].dietaryRestrictions)}</b>
+              </p>
+            )}
+          </div>
+
+          {/* <label>Additional Remarks</label>
         <textarea
-          name=""
-          id=""
-          cols={30}
-          rows={10}
-          onChange={handleOnChange}
+        name=""
+        id=""
+        cols={30}
+        rows={10}
+        onChange={handleOnChange}
           value={userPreferences.additionalRemarks}
         ></textarea> */}
 
-        <button className="page-button">Update Info</button>
-      </form>
+          {seeEdit && <button className="navbar__button">Update</button>}
+        </form>
+        <button
+          className="navbar__button absolute-button-top-right"
+          onClick={toggleEdit}
+        >
+          {seeEdit ? 'Cancel' : 'Edit'}
+        </button>
+      </>
     </>
   );
 }

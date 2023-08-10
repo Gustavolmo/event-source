@@ -14,7 +14,6 @@ export default function ManageEvent() {
 
   return (
     <>
-      <h2>Manage Event</h2>
       {dbData && dbData.map((event, index) => {
         return (
           <div key={`${index}_${event._id}`}>

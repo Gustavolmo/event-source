@@ -3,6 +3,7 @@ import React from 'react';
 import UpdatePreferencesForm from '../formComponents/UpdatePreferencesForm';
 import { signOut, useSession } from 'next-auth/react';
 import { deleteUser } from '@/app-library/DbControls';
+import Greeting from '../Greeting';
 
 export default function MyInfo() {
   const { data: session, status } = useSession();
@@ -14,11 +15,14 @@ export default function MyInfo() {
 
   return (
     <>
-      <UpdatePreferencesForm doesRedirect={false} />
-      <section>
-        <button onClick={handleDeleteUser} className="navbar__button">
-          Delete Account
-        </button>
+      <Greeting />
+      <section className='event-card'>
+        <UpdatePreferencesForm doesRedirect={false} />      
+        <div className='delete-account'>
+          <button onClick={handleDeleteUser} className="navbar__button absolute-button-bottom-left">
+            Delete Account
+          </button>
+        </div>
       </section>
     </>
   );

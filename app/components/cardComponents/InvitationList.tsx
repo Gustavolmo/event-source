@@ -1,6 +1,5 @@
 'use client';
 import {
-  createNewUserIfFirstLogin,
   getUserPreferences,
 } from '@/app-library/DbControls';
 import { User } from '@/app-types/types';
@@ -14,7 +13,7 @@ type Props = {
 };
 
 export default function InvitationList({ guest, details }: Props) {
-  const {dbData, loading} = useDbQuery(getUserPreferences, guest);
+  const { dbData, loading } = useDbQuery(getUserPreferences, guest);
 
   if (loading) {
     return <LoadingUi />;
@@ -24,10 +23,12 @@ export default function InvitationList({ guest, details }: Props) {
     return (
       <p>
         {dbData[0].name}{' '}
-        {details && <span>
-          - DR: {dbData[0].dietaryRestrictions} {' '}
-          AN: {dbData[0].accessibilityNeeds}
-        </span>}
+        {details && (
+          <span>
+            - DR: {dbData[0].dietaryRestrictions} AN:{' '}
+            {dbData[0].accessibilityNeeds}
+          </span>
+        )}
       </p>
     );
   }

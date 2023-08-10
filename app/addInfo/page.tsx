@@ -15,12 +15,14 @@ export default function UserPreferences() {
           <Greeting />
         </div>
         <p>Let's save your preferences for future reference</p>
-        <UpdatePreferencesForm doesRedirect={true} path={'/'} />
+        <section className="event-card">
+          <UpdatePreferencesForm doesRedirect={true} path={'/'} />
         <PathButton
           path={'/account'}
           title={'Prefer not to say'}
-          className={'page-button'}
-        />
+          className={'navbar__button'}
+          />
+          </section>
       </Suspense>
     </>
   );

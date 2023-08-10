@@ -1,12 +1,14 @@
 'use client';
 import { useSession } from 'next-auth/react';
 import React from 'react';
+import UserImage from './UserImage';
 
 export default function Greeting() {
   const { data: session } = useSession();
   return (
-    <>
-      <h1>Welcome {session?.user?.name}</h1>
-    </>
+    <div className="greeting">
+      <UserImage width={36} height={36} />
+      <h2>{session?.user?.name}</h2>
+    </div>
   );
 }

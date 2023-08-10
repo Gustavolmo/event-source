@@ -1,6 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Alegreya+Sans:ital,wght@0,100;0,300;0,400;0,700;1,100;1,300;1,400;1,700&display=swap');
+
+/* ______________________________________ FONTS
+font-family: 'Alegreya Sans', sans-serif;
+*/
+
+/* ______________________________________ COLOR THEMES
+default text
+787878
+
+Active -> red
+c32929
+
+outline -> gray
+cccccc
+
+shade -> light gray
+f1f1f1
+
+light -> almost white
+fbfbfb
+*/
+
 /*______________________________________ PRIMITIVE STYLES */
 * {
   /* outline: dashed red; */
+  font-family: 'Alegreya Sans', sans-serif;
+  box-sizing: inherit;
+  color: #787878;
 }
 
 html,
@@ -8,21 +34,35 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  background-color: #fbfbfb;
+}
+
+h2 {
+  margin: 0;
+}
+
+h4,
+h3 {
+  margin: 0;
 }
 
 p {
   margin: 0;
 }
-/*______________________________________*/
 
 /*______________________________________ HIGH-LEVEL */
 .navbar {
+  z-index: 100;
   position: fixed;
-  height: 60px;
+  height: 40px;
   top: 0px;
   width: 100vw;
   display: flex;
-  background-color: rgb(160, 160, 160);
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fbfbfb;
+  border-bottom: 1px solid #cccccc;
+  padding: 0;
 }
 
 .main {
@@ -35,56 +75,102 @@ p {
   margin-top: 60px;
 }
 
+/* app description */
+.app-description {
+  text-align: center;
+  margin: 32px 16px;
+}
+
+.app-description__section {
+  margin: 32px 16px;
+  text-align: center;
+}/* __________ */
+
 .footer {
   position: fixed;
-  padding: 0;
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
   bottom: 0px;
   width: 100vw;
-  height: 40px;
-  display: flex;
-  background-color: rgb(160, 160, 160);
+  height: 32px;
+  background-color: rgba(248, 248, 248, .8);
+  backdrop-filter: blur(8px);
+  border-top: 2px solid #fbfbfb;
 }
 
 .user-image {
   border-radius: 99px;
+  margin-right:8px;
 }
 
 .account-components {
-  margin-top: 0px;
+  margin-top: 80px;
 }
 
 .greeting {
-  margin-top: 120px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 40px;
 }
-/*______________________________________*/
 
 /*______________________________________ BUTTONS */
+.absolute-button-top-right {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  width: 80px;
+}
+
+.absolute-button-bottom-left {
+  position: absolute;
+  bottom: 8px;
+}
+
 .navbar__button {
-  background-color: aliceblue;
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+  color: #c32929;
+  border-radius: 4px;
+  height: 24px;
+  max-width: 100px;
+  margin-right: 8px;
 }
 .navbar__button:hover {
   cursor: pointer;
-  background-color: rgb(200, 214, 227);
+  font-weight: bold;
 }
 
+.account-buttons{
+  z-index: 100;
+  position: fixed;
+  display: grid;
+  grid-template: 'a b c d';
+  width: 100vw;
+  bottom: 0px;
+  height: 48px;
+  align-items: center;
+}
 .page-button{
-  background-color: antiquewhite;
-  margin: 4px;
+  background-color: #fbfbfb;
+  border: none;
+  border-top: solid 1px #cccccc;
+  color: #c32929;
+  height: 48px;
 }
 .page-button:hover {
   cursor: pointer;
-  background-color: rgb(199, 189, 177);
+  background-color: #f1f1f1;
 }
 .page-button--selected {
-  background-color:rgb(111, 92, 68);
-  color: rgb(240, 240, 240);
-  margin: 4px;
+  background-color: #fbfbfb;
+  border: none;
+  border-top: solid 1px #cccccc;
+  color: #c32929;
+  height: 48px;
+  font-weight: bold;
 }
-.account-buttons{
-  position: fixed;
-  top: 60px;
-}
-/*______________________________________*/
 
 /*______________________________________ FORM */
 pre {
@@ -97,7 +183,7 @@ pre {
 }
 textarea,
 input {
-  margin: 4px;
+  margin: 0px;
   border-radius: .375rem;
   border: solid gray .5px;
 }
@@ -110,14 +196,26 @@ input {
 
 .inline-label-input {
   display: flex;
+  align-items: center;
+  margin-top: 12px;
+
 }
-/*______________________________________*/
 
 /*______________________________________ CARDS */
 .event-card {
-  margin: 16px;
+  position: relative;
+  margin: 16px 16px 32px;
   padding: 8px;
-  border: solid black 2px;
   border-radius: 8px;
+  background-color: #fbfbfb;
+  box-shadow: #cccccc 0px 2px 4px 1px;
+  display: flex;
+  flex-direction: column;
+  min-width: 340px;
+  max-width: 400px;
+  min-height: 240px;
 }
+/*______________________________________ TITLES */
+
+
 /*______________________________________*/

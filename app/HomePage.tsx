@@ -4,6 +4,7 @@ import { User } from '@/app-types/types';
 import { useSession } from 'next-auth/react';
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import AppDescription from './components/landPageComponents/AppDescription';
 
 export default function HomePage() {
   const router = useRouter();
@@ -34,8 +35,7 @@ export default function HomePage() {
 
   return (
     <section className='main__public-page'>
-      <p>HOME PAGE + DESCRIPTION WITH IMAGES</p>
-      {/* <AdditionalUserInfo visibility={popupVisibility}/> */}
+      <AppDescription/>
     </section>
   );
 }

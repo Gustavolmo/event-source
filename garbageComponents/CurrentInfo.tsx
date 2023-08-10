@@ -12,7 +12,7 @@ export default function CurrentInfo({rerenderClick}: Props) {
 
   return (
     <>
-      <p>Current preferences</p>
+      <h3>Current preferences</h3>
       <p>Dietary Restrictions: {dbData && String(dbData[0].dietaryRestrictions)}</p>
       <p>Accessibility Needs: {dbData && String(dbData[0].accessibilityNeeds)}</p>
     </>

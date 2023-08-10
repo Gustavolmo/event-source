@@ -4,7 +4,6 @@ import { Suspense } from 'react';
 import HomePage from './HomePage';
 import { LoginButton } from './components/Login';
 import PathButton from './components/PathButton';
-import UserImage from './components/UserImage';
 import Loading from './components/Loading';
 
 export default async function Home() {
@@ -12,23 +11,24 @@ export default async function Home() {
     <>
       <Suspense fallback={<Loading />}>
         <nav className="navbar">
-          <LoginButton />
-          <PathButton
-            path={'/account'}
-            title={'My Account'}
-            className={'navbar__button'}
-          />
-          <UserImage width={50} height={50} />
+          <p>future logo</p>
+          {/* logo in here - add div above and space-between */}
+          <div>
+            <PathButton
+              path={'/account'}
+              title={'My Account'}
+              className={'navbar__button'}
+            />
+            <LoginButton />
+          </div>
         </nav>
         <main className="main">
           <HomePage />
         </main>
       </Suspense>
       <footer className="footer">
-        <p>
-          Developed by:{' '}
-          <a href="https://github.com/Gustavolmo">Gustavo L.M. de Oliveira</a>
-        </p>
+        <p> &#x1F4BB;{'->'}</p>
+        <a href="https://github.com/Gustavolmo">About</a>
       </footer>
     </>
   );

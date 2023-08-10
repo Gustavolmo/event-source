@@ -48,7 +48,7 @@ export default function AccountPage() {
           }
           name="create"
         >
-          Create Event
+          Create
         </button>
 
         <button
@@ -58,7 +58,7 @@ export default function AccountPage() {
           }
           name="manage"
         >
-          Manage Event
+          Manage
         </button>
 
         <button
@@ -68,7 +68,7 @@ export default function AccountPage() {
           }
           name="invitation"
         >
-          My Invitations
+          Invitations
         </button>
       </header>
 

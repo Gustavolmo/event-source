@@ -13,7 +13,6 @@ export default function MyInvitation() {
 
   return (
     <>
-      <h2>My Invitations</h2>
       {dbData && dbData.map((event, index) => {
         return (
           <div key={`${index}_${event._id}`}>

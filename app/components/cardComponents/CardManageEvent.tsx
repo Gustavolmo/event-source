@@ -29,12 +29,12 @@ export default function CardManageEvent({event, funcUpdateClick: funcUpdateClick
       <h4>{event.eventTitle}</h4>
       <p>*<b>When:</b> {event.eventDate}</p>
 
-      <section className='guest-list'>*<b>Guest list:</b>
+      <div className='guest-list'>*<b>Guest list:</b>
         <AddGuestToList eventId={event._id} funcUpdateClick={funcUpdateClick}/>
         {event.invited.map((guest, index) => {
           return <InvitationList guest={guest} details={true} key={`${index}_${event._id}`}/>
         })}
-      </section>
+      </div>
 
       {event.eventCheck &&
       <>
@@ -45,15 +45,15 @@ export default function CardManageEvent({event, funcUpdateClick: funcUpdateClick
       <p>E*<b>Entrance fee:</b> {event.eventCost}kr <b>Revenue:</b> {event.eventCost * event.acceptedLive.length}kr</p>
       <p>E*<b>Virtual attendance:</b> {event.virtualLink}</p>
       <p>E*<b>About:</b> {event.eventDescription}</p>
-      <p>E*<b>Confirmed:</b> {event.acceptedLive.map((guest, index) => {
+      <div>E*<b>Confirmed:</b> {event.acceptedLive.map((guest, index) => {
           return <InvitationList guest={guest} details={true} key={`${index}_${event._id}`}/>
-        })}</p>
-      <p>E*<b>Confirmed Virtually:</b> {event.acceptedVirtually.map((guest, index) => {
+        })}</div>
+      <div>E*<b>Confirmed Virtually:</b> {event.acceptedVirtually.map((guest, index) => {
           return <InvitationList guest={guest} details={false} key={`${index}_${event._id}`}/>
-        })}</p>
-      <p>E*<b>Rejected:</b> {event.rejected.map((guest, index) => {
+        })}</div>
+      <div>E*<b>Rejected:</b> {event.rejected.map((guest, index) => {
           return <InvitationList guest={guest} details={false} key={`${index}_${event._id}`}/>
-        })}</p>
+        })}</div>
       </>
       } 
       
@@ -68,9 +68,9 @@ export default function CardManageEvent({event, funcUpdateClick: funcUpdateClick
     }
       <p>T*<b>Seats available:</b> {event.seatsAvailable - event.passengers.length} out of {event.seatsAvailable}</p>
       <p>T*<b>About the transport:</b> {event.transportDescription}</p>
-      <p>T*<b>Confirmed Passangers:</b> {event.passengers.map((guest, index) => {
+      <div>T*<b>Confirmed Passangers:</b> {event.passengers.map((guest, index) => {
           return <InvitationList guest={guest} details={false} key={`${index}_${event._id}`}/>
-        })}</p>
+        })}</div>
       </>
       }
 
