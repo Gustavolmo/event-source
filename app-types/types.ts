@@ -11,6 +11,7 @@ export type User = {
 };
 
 export type UserPreferences = {
+  name: string | null | undefined;
   dietaryRestrictions: string;
   accessibilityNeeds: string;
   additionalRemarks?: string;

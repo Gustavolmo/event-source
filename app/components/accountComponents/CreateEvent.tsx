@@ -72,299 +72,328 @@ export default function CreateEvent() {
   };
 
   return (
-    <section className='event-card'>
-      <form className="create-event-form" onSubmit={handleFormSubmit}>
-        <label>I am offering:</label>
-        <span>
-          <input
-            type="checkbox"
-            name="eventCheck"
-            checked={eventData.eventCheck}
-            onChange={handleOnCheckBox}
-          />
-          An Event
-        </span>
-        <span>
-          <input
-            type="checkbox"
-            name="transportCheck"
-            checked={eventData.transportCheck}
-            onChange={handleOnCheckBox}
-          />
-          Transportation
-        </span>
-
-        {(eventData.eventCheck || eventData.transportCheck) && (
-          <input
-            type="text"
-            name="eventTitle"
-            placeholder="Event Title"
-            onChange={handleOnChange}
-            value={eventData.eventTitle}
-            required
-          />
-        )}
-
-        {eventData.eventCheck && (
-          <input
-            type="text"
-            name="eventLocation"
-            placeholder="Event Venue"
-            onChange={handleOnChange}
-            value={eventData.eventLocation}
-            required
-          />
-        )}
-
-        {eventData.eventCheck && (
-          <section>
-            <label>Cost per person (SEK)</label>
-            <input
-              type="number"
-              name="eventCost"
-              placeholder="Cost per person"
-              onChange={handleOnChange}
-              value={eventData.eventCost}
-              required
-            />
-          </section>
-        )}
-
-        {eventData.eventCheck && (
-          <section>
-            <label>RSVP</label>
-            <input
-              type="date"
-              name="eventRSVP"
-              placeholder="RSVP"
-              onChange={handleOnChange}
-              value={eventData.eventRSVP}
-              required
-            />
-          </section>
-        )}
-        {eventData.eventCheck && (
-          <input
-            type="text"
-            name="virtualLink"
-            placeholder="Virtual Attendance Link"
-            onChange={handleOnChange}
-            value={eventData.virtualLink}
-            required
-          />
-        )}
-        {(eventData.eventCheck || eventData.transportCheck) && (
-          <section>
-            <label>Event Date</label>
-            <input
-              type="date"
-              name="eventDate"
-              placeholder="Event date"
-              onChange={handleOnChange}
-              value={eventData.eventDate}
-              required
-            />
-          </section>
-        )}
-        {eventData.eventCheck && (
-          <section>
-            <label>Starting Time</label>
-            <input
-              type="time"
-              name="eventTime"
-              placeholder="Event time"
-              onChange={handleOnChange}
-              value={eventData.eventTime}
-              required
-            />
-          </section>
-        )}
-        {eventData.eventCheck && (
-          <>
-            <div>
-              <label>Ends in a different date?</label>
+    <>
+      <h2>CREATE</h2>
+      <section className="event-card">
+        <form className="create-event-form" onSubmit={handleFormSubmit}>
+          <section className="form__offerings">
+            <div className="form__offerings">
               <input
                 type="checkbox"
-                name="multiDayCheck"
-                checked={eventData.multiDayCheck}
+                name="eventCheck"
+                checked={eventData.eventCheck}
                 onChange={handleOnCheckBox}
               />
+              <b>An Event</b>
             </div>
-            {eventData.multiDayCheck && (
-              <section>
-                <label>Event End Date</label>
-                <input
-                  type="date"
-                  name="eventEndDate"
-                  onChange={handleOnChange}
-                  value={eventData.eventEndDate}
-                  required
-                />
-              </section>
-            )}
-          </>
-        )}
-        {eventData.eventCheck && (
-          <section>
-            <label>Event Ending Time</label>
-            <input
-              type="time"
-              name="eventEndTime"
-              placeholder="Event End"
-              onChange={handleOnChange}
-              value={eventData.eventEndTime}
-              required
-            />
-          </section>
-        )}
-        {eventData.eventCheck && (
-          <textarea
-            name="eventDescription"
-            cols={30}
-            rows={10}
-            placeholder="Description"
-            onChange={handleOnChange}
-            value={eventData.eventDescription}
-            required
-          ></textarea>
-        )}
 
-        {(eventData.eventCheck || eventData.transportCheck) && (
-          <>
-            <TagsInput
-              name="invited"
-              value={invitedEmails}
-              onChange={setInvitedEmails}
-              placeHolder="guests email"
-            />
-            <pre>{invitedEmails.toString()}</pre>
-          </>
-        )}
-
-        {eventData.transportCheck && (
-          <input
-            type="text"
-            name="transportMode"
-            placeholder="Transport mode"
-            onChange={handleOnChange}
-            value={eventData.transportMode}
-            required
-          />
-        )}
-
-        {eventData.transportCheck && (
-          <section>
-            <label>Cost per passenger (SEK)</label>
-            <input
-              type="number"
-              name="transportCost"
-              placeholder="Cost per person"
-              onChange={handleOnChange}
-              value={eventData.transportCost}
-              required
-            />
-          </section>
-        )}
-        {eventData.transportCheck && (
-          <input
-            type="text"
-            name="pickupLocation"
-            placeholder="Pickup location"
-            onChange={handleOnChange}
-            value={eventData.pickupLocation}
-            required
-          />
-        )}
-        {eventData.transportCheck && (
-          <section>
-            <label>Pickup Time</label>
-            <input
-              type="time"
-              name="pickupTime"
-              placeholder="Pickup time"
-              onChange={handleOnChange}
-              value={eventData.pickupTime}
-              required
-            />
-          </section>
-        )}
-        {eventData.transportCheck && (
-          <>
-            <div>
-              <label>Round Trip?</label>
+            <div className="form__offerings">
               <input
                 type="checkbox"
-                name="roundTripCheck"
-                checked={eventData.roundTripCheck}
+                name="transportCheck"
+                checked={eventData.transportCheck}
                 onChange={handleOnCheckBox}
               />
+              <b>Transportation</b>
             </div>
-            {eventData.roundTripCheck && (
-              <section>
-                <label>Return time/date </label>
-                <input
-                  type="time"
-                  name="returnTime"
-                  placeholder="Return time"
-                  onChange={handleOnChange}
-                  value={eventData.returnTime}
-                  required
-                />
-                <input
-                  type="date"
-                  name="returnDate"
-                  placeholder="Return date"
-                  onChange={handleOnChange}
-                  value={eventData.returnDate}
-                />
-              </section>
-            )}
-          </>
-        )}
-        {eventData.transportCheck && (
-          <section>
-            <label>Travel Time</label>
+          </section>
+          {eventData.eventCheck && <b className="form__section-title">EVENT</b>}
+          {(eventData.eventCheck || eventData.transportCheck) && (
             <input
+              className="--with-margin-n-8px"
               type="text"
-              name="travelTime"
-              placeholder="Travel time"
+              name="eventTitle"
+              placeholder="Title"
               onChange={handleOnChange}
-              value={eventData.travelTime}
+              value={eventData.eventTitle}
               required
             />
-          </section>
-        )}
-        {eventData.transportCheck && (
-          <section>
-            <label>Seats Available</label>
-            <input
-              type="number"
-              name="seatsAvailable"
-              placeholder="Seats Available"
-              onChange={handleOnChange}
-              value={eventData.seatsAvailable}
-              required
-            />
-          </section>
-        )}
-        {eventData.transportCheck && (
-          <textarea
-            name="transportDescription"
-            cols={30}
-            rows={10}
-            placeholder="Descritpion"
-            onChange={handleOnChange}
-            value={eventData.transportDescription}
-            required
-          ></textarea>
-        )}
+          )}
 
-        {(eventData.eventCheck || eventData.transportCheck) && (
-          <button className="action-button" type="submit">
-            Create Event!
-          </button>
-        )}
-      </form>
-    </section>
+          {eventData.eventCheck && (
+            <input
+              className="--with-margin-n-8px"
+              type="text"
+              name="eventLocation"
+              placeholder="Event Venue"
+              onChange={handleOnChange}
+              value={eventData.eventLocation}
+              required
+            />
+          )}
+          {eventData.eventCheck && (
+            <input
+              className="--with-margin-n-8px"
+              type="text"
+              name="virtualLink"
+              placeholder="Virtual Link (opt)"
+              onChange={handleOnChange}
+              value={eventData.virtualLink}
+            />
+          )}
+
+          {(eventData.eventCheck || eventData.transportCheck) && (
+            <>
+              <TagsInput
+                name="invited"
+                value={invitedEmails}
+                onChange={setInvitedEmails}
+                placeHolder="guests email"
+              />
+              <pre>{invitedEmails.toString()}</pre>
+            </>
+          )}
+
+          {eventData.eventCheck && (
+            <textarea
+              className="--with-margin-n-8px"
+              name="eventDescription"
+              cols={30}
+              rows={10}
+              placeholder="Description"
+              onChange={handleOnChange}
+              value={eventData.eventDescription}
+              required
+            ></textarea>
+          )}
+
+          {eventData.eventCheck && (
+            <section>
+              <input
+                className="form__input-120w"
+                type="number"
+                name="eventCost"
+                placeholder="Cost per person"
+                onChange={handleOnChange}
+                value={eventData.eventCost}
+                required
+              />
+              <b className='--bold-gray'>Cost per person (SEK)</b>
+            </section>
+          )}
+
+          {eventData.eventCheck && (
+            <section>
+              <input
+                className="form__input-120w"
+                type="date"
+                name="eventRSVP"
+                placeholder="RSVP"
+                onChange={handleOnChange}
+                value={eventData.eventRSVP}
+                required
+              />
+              <b className='--bold-gray'>RSVP</b>
+            </section>
+          )}
+          {(eventData.eventCheck || eventData.transportCheck) && (
+            <section>
+              <input
+                className="form__input-120w"
+                type="date"
+                name="eventDate"
+                placeholder="Event date"
+                onChange={handleOnChange}
+                value={eventData.eventDate}
+                required
+              />
+              <b className='--bold-gray'>Start Date</b>
+            </section>
+          )}
+          {eventData.eventCheck && (
+            <section>
+              <input
+                className="form__input-120w"
+                type="time"
+                name="eventTime"
+                placeholder="Event time"
+                onChange={handleOnChange}
+                value={eventData.eventTime}
+                required
+              />
+              <b className='--bold-gray'>Starting Time</b>
+            </section>
+          )}
+
+          {eventData.eventCheck && (
+            <section>
+              <input
+                className="form__input-120w"
+                type="time"
+                name="eventEndTime"
+                placeholder="Event End"
+                onChange={handleOnChange}
+                value={eventData.eventEndTime}
+                required
+              />
+              <b className='--bold-gray'>Event Ending Time</b>
+            </section>
+          )}
+
+          {eventData.eventCheck && (
+            <>
+              <div className="form__offerings-alone">
+                <input
+                  type="checkbox"
+                  name="multiDayCheck"
+                  checked={eventData.multiDayCheck}
+                  onChange={handleOnCheckBox}
+                />
+                <b className='--bold-gray'>Ends in a different date?</b>
+                {eventData.multiDayCheck && (
+                  <section>
+                    <input
+                      type="date"
+                      name="eventEndDate"
+                      onChange={handleOnChange}
+                      value={eventData.eventEndDate}
+                      required
+                    />
+                  </section>
+                )}
+              </div>
+            </>
+          )}
+
+          {eventData.transportCheck && (
+            <b className="form__section-title">TRANSPORT</b>
+          )}
+
+          {eventData.transportCheck && (
+            <input
+              className="--with-margin-n-8px"
+              type="text"
+              name="transportMode"
+              placeholder="Transport mode"
+              onChange={handleOnChange}
+              value={eventData.transportMode}
+              required
+            />
+          )}
+
+          {eventData.transportCheck && (
+            <input
+              className="--with-margin-n-8px"
+              type="text"
+              name="pickupLocation"
+              placeholder="Pickup location"
+              onChange={handleOnChange}
+              value={eventData.pickupLocation}
+              required
+            />
+          )}
+          {eventData.transportCheck && (
+            <textarea
+              className="--with-margin-n-8px"
+              name="transportDescription"
+              cols={30}
+              rows={10}
+              placeholder="Descritpion"
+              onChange={handleOnChange}
+              value={eventData.transportDescription}
+              required
+            ></textarea>
+          )}
+
+          {eventData.transportCheck && (
+            <section>
+              <input
+                className="form__input-120w"
+                type="number"
+                name="seatsAvailable"
+                placeholder="Seats Available"
+                onChange={handleOnChange}
+                value={eventData.seatsAvailable}
+                required
+              />
+              <b className='--bold-gray'>Seats Available</b>
+            </section>
+          )}
+
+          {eventData.transportCheck && (
+            <section>
+              <input
+                className="form__input-120w"
+                type="number"
+                name="transportCost"
+                placeholder="Cost per person"
+                onChange={handleOnChange}
+                value={eventData.transportCost}
+                required
+              />
+              <b className='--bold-gray'>Cost per passenger (SEK)</b>
+            </section>
+          )}
+          {eventData.transportCheck && (
+            <section>
+              <input
+                className="form__input-120w"
+                type="time"
+                name="pickupTime"
+                placeholder="Pickup time"
+                onChange={handleOnChange}
+                value={eventData.pickupTime}
+                required
+              />
+              <b className='--bold-gray'>Pickup Time</b>
+            </section>
+          )}
+
+          {eventData.transportCheck && (
+            <section>
+              <input
+                className="form__input-120w"
+                type="text"
+                name="travelTime"
+                placeholder="Travel time"
+                onChange={handleOnChange}
+                value={eventData.travelTime}
+                required
+              />
+              <b className='--bold-gray'>Travel Time</b>
+            </section>
+          )}
+
+          {eventData.transportCheck && (
+            <>
+              <div className="form__offerings-alone ">
+                <input
+                  type="checkbox"
+                  name="roundTripCheck"
+                  checked={eventData.roundTripCheck}
+                  onChange={handleOnCheckBox}
+                />
+                <b className='--bold-gray'>Round Trip?</b>
+                {eventData.roundTripCheck && (
+                  <section>
+                    <input
+                      type="time"
+                      name="returnTime"
+                      placeholder="Return time"
+                      onChange={handleOnChange}
+                      value={eventData.returnTime}
+                      required
+                    />
+                    <input
+                      type="date"
+                      name="returnDate"
+                      placeholder="Return date"
+                      onChange={handleOnChange}
+                      value={eventData.returnDate}
+                    />
+                  </section>
+                )}
+              </div>
+            </>
+          )}
+
+          {(eventData.eventCheck || eventData.transportCheck) && (
+            <button className="action-button" type="submit">
+              Create Event!
+            </button>
+          )}
+        </form>
+      </section>
+    </>
   );
 }

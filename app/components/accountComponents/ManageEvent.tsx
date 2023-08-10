@@ -5,22 +5,27 @@ import React, { useState } from 'react';
 import CardManageEvent from '../cardComponents/CardManageEvent';
 
 export default function ManageEvent() {
-  const [updateClick, setUpdateClick] = useState<boolean>(false)
-  const {dbData} = useDbQuery(getAllUserEvents, null, updateClick)
+  const [updateClick, setUpdateClick] = useState<boolean>(false);
+  const { dbData } = useDbQuery(getAllUserEvents, null, updateClick);
 
   const handleUpdateClick = () => {
-    setUpdateClick(!updateClick)
-  }
+    setUpdateClick(!updateClick);
+  };
 
   return (
     <>
-      {dbData && dbData.map((event, index) => {
-        return (
-          <div key={`${index}_${event._id}`}>
-            <CardManageEvent event={event} funcUpdateClick={handleUpdateClick}/>
-          </div>
-        )
-      })}
+      <h2>MANAGE</h2>
+      {dbData &&
+        dbData.map((event, index) => {
+          return (
+            <div key={`${index}_${event._id}`}>
+              <CardManageEvent
+                event={event}
+                funcUpdateClick={handleUpdateClick}
+              />
+            </div>
+          );
+        })}
     </>
   );
 }

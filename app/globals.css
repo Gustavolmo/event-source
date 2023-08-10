@@ -40,12 +40,17 @@ body {
 }
 
 h2 {
-  margin: 0;
+  margin: 4px 0 0 0;
+  color: #Ef4b4c;
 }
 
-h4,
-h3 {
+h4 {
   margin: 0;
+  text-align: center;
+}
+
+h3 {
+  margin: 0 0 16px 0;
 }
 
 p {
@@ -111,6 +116,9 @@ p {
 }
 
 .account-components {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin-top: 80px;
 }
 
@@ -124,14 +132,25 @@ p {
 /*______________________________________ BUTTONS */
 .absolute-button-top-right {
   position: absolute;
-  right: 8px;
+  right: 0px;
   top: 8px;
-  width: 80px;
+}
+
+.absolute-button-top-right--second {
+  position: absolute;
+  right: 50px;
+  top: 8px;
 }
 
 .absolute-button-bottom-left {
   position: absolute;
   bottom: 8px;
+}
+
+.absolute-button-bottom-right {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
 }
 
 .action-button {
@@ -141,6 +160,7 @@ p {
   border-radius: 4px;
   height: 24px;
   max-width: 100px;
+  min-width: 60px;
   margin-right: 8px;
 }
 
@@ -152,7 +172,6 @@ p {
 .navbar__button {
   background-color: #ffffff;
   border: 1px solid #cccccc;
-  /* color: #Ef4b4c; */
   border-radius: 4px;
   height: 24px;
   max-width: 100px;
@@ -185,7 +204,6 @@ p {
 }
 .page-button:hover {
   cursor: pointer;
-  /* background-color: #f1f1f1; */
   font-size: 18px;
   transition: .2s;
 }
@@ -205,10 +223,40 @@ p {
   transition: .2s;
 }
 
+.toggle-button {
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  margin-left: 8px;
+  height: 20px;
+}
+
+.toggle-button:hover {
+  background-color: #f1f1f1;
+}
+
 /*______________________________________ FORM */
 pre {
   margin: 4px;
 }
+
+b {
+  margin: 0 8px;
+}
+
+.form__offerings {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: 0;
+}
+
+.form__offerings-alone {
+  display: flex;
+  align-items: center;
+  margin: 8px 0;
+}
+
 .create-event-form {
   display: flex;
   flex-direction: column;
@@ -218,29 +266,37 @@ textarea,
 input {
   margin: 0px;
   border-radius: .375rem;
-  border: solid gray .5px;
+  border: solid #cccccc .5px;
 }
+
 input {
-  height: 20px;
+  height: 28px;
 }
-.rti--container {
-  margin: 4px;
-}
+/* .rti--container {
+  EMAILS INPUT
+} */
 
 .inline-label-input {
   display: flex;
   align-items: center;
-  margin-top: 12px;
+  margin-top: 6px;
 }
 
-.--with-margin-t-8px {
-  margin-top: 8px;
+.form__input-120w {
+  width: 120px;
+  margin-bottom: 8px;
+}
+
+.form__section-title {
+  color: #Ef4b4c;
+  text-align: center;
+  margin: 32px 0 8px 0;
 }
 
 /*______________________________________ CARDS */
 .event-card {
   position: relative;
-  margin: 16px 16px 32px;
+  margin: 8px 16px 32px;
   padding: 8px;
   border-radius: 8px;
   background-color: #fff;
@@ -251,7 +307,48 @@ input {
   max-width: 400px;
   min-height: 240px;
 }
-/*______________________________________ TITLES */
+
+.manage__create-by {
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+}
+
+.manage__add-guest {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.guest-list {
+  margin: 4px;
+  padding: 4px;
+  border: #cccccc 1px solid;
+  border-radius: 4px;
+}
 
 
+/*______________________________________ MODS */
+.--grey-text {
+  color: #cccccc;
+  margin: 0;
+  line-height: 12px;
+}
+
+.--with-margin-t-8px {
+  margin-top: 8px;
+}
+
+.--with-margin-n-8px {
+  margin-bottom: 8px;
+}
+
+.--bold-gray {
+  font-weight: bold;
+  margin: 0 8px;
+  color: #cccccc;
+}
 /*______________________________________*/

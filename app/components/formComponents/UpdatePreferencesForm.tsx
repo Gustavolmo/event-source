@@ -20,6 +20,7 @@ export default function UpdatePreferencesForm(props: {
   const [rerenderClick, setRerenderClick] = useState<boolean>(false);
   const { dbData } = useDbQuery(getUserPreferences, null, rerenderClick);
   const [userPreferences, setUserPreferences] = useState<UserPreferences>({
+    name: session?.user?.name,
     dietaryRestrictions: '',
     accessibilityNeeds: '',
     additionalRemarks: '',
@@ -31,6 +32,7 @@ export default function UpdatePreferencesForm(props: {
     setSeeEdit(false);
     updateUserPreferences(session?.user?.email, userPreferences);
     setUserPreferences({
+      name: '',
       dietaryRestrictions: '',
       accessibilityNeeds: '',
       additionalRemarks: '',
@@ -66,6 +68,25 @@ export default function UpdatePreferencesForm(props: {
       <h3>Your preferences</h3>
       <>
         <form className="create-event-form" onSubmit={handleSubmit}>
+
+        <div className="inline-label-input">
+            <p> Name Displayed : </p>
+
+            {seeEdit ? (
+              <input
+                name="name"
+                placeholder="Dietary Restrictions"
+                onChange={handleOnChange}
+                value={userPreferences.name? userPreferences.name : 'n/a'}
+                required
+              />
+            ) : (
+              <p>
+                <b>{dbData && String(dbData[0].name)}</b>
+              </p>
+            )}
+          </div>
+
           <div className="inline-label-input">
             <p> Accessibility Needs : </p>
 
@@ -112,7 +133,7 @@ export default function UpdatePreferencesForm(props: {
           value={userPreferences.additionalRemarks}
         ></textarea> */}
 
-          {seeEdit && <button className="action-button --with-margin-t-8px">Update</button>}
+          {seeEdit && <button className="action-button absolute-button-top-right--second">Update</button>}
         </form>
         <button
           className={seeEdit? "navbar__button absolute-button-top-right" :"action-button absolute-button-top-right"}

@@ -17,18 +17,19 @@ export default function AddGuestToList(
     e.preventDefault();
     funcUpdateClick()
     addUsersToEvent(newGuests, eventId);
+    setNewGuests([])
   };
 
   return (
     <form onSubmit={handleAddGuestToEvent}>
-      <div>
+      <div className='manage__add-guest'>
+        <button className='navbar__button absolute-button-top-right' type="submit">Add Guests</button>
         <TagsInput
           name="invited"
           value={newGuests}
           onChange={setNewGuests}
           placeHolder="guests email"
         />
-        <button className='navbar__button' type="submit">Add Guests</button>
       </div>
     </form>
   );

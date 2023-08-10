@@ -39,6 +39,7 @@ export const updateUserPreferences = async (
     const query = { email: userEmail };
     const update = {
       $set: {
+        name: userPreferences.name,
         dietaryRestrictions: userPreferences.dietaryRestrictions,
         accessibilityNeeds: userPreferences.accessibilityNeeds,
       },
