@@ -228,10 +228,12 @@ p {
   border: 1px solid #cccccc;
   border-radius: 4px;
   margin-left: 8px;
-  height: 20px;
+  height: 24px;
+  width: 100px;
 }
 
 .toggle-button:hover {
+  cursor: pointer;
   background-color: #f1f1f1;
 }
 
@@ -325,11 +327,20 @@ input {
 
 .guest-list {
   margin: 4px;
-  padding: 4px;
-  border: #cccccc 1px solid;
+  padding: 8px;
+  background-color: #f1f1f1;
   border-radius: 4px;
+  height: fit-content;
+  opacity: 1;
+  transition: .2s ease-in-out;
 }
 
+.guest-list--hidden {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: .2s ease-in-out;
+}
 
 /*______________________________________ MODS */
 .--grey-text {

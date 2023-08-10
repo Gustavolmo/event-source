@@ -1,6 +1,6 @@
 'use client'
 import { EventData } from '@/app-types/types'
-import React from 'react'
+import React, { useState } from 'react'
 import InvitationList from './InvitationList'
 import AddGuestToList from './AddGuestToList'
 import { deleteEvent } from '@/app-library/DbControls'
@@ -11,6 +11,11 @@ type Props = {
 }
 
 export default function CardManageEvent({event, funcUpdateClick: funcUpdateClick}: Props) {
+  const [seeGuests, setSeeGuests] = useState(false)
+
+  const handleSeeGuests = () => {
+    setSeeGuests(!seeGuests)
+  }
 
   const handleDelete = () => {
     deleteEvent(event._id)
@@ -37,12 +42,10 @@ export default function CardManageEvent({event, funcUpdateClick: funcUpdateClick
       <h4>{event.eventTitle}</h4>
       </div>
 
-      <div>
-        <button className='toggle-button'>Guest list {'>'}</button>
-      </div>
+        <button onClick={handleSeeGuests} className='toggle-button'> Invited {seeGuests? <span> &#10687; &#10687;</span> : <span> &#10677;&#10677;</span>}</button>
 
 
-        <div className='guest-list'>
+        <div className={seeGuests? 'guest-list' : 'guest-list--hidden'}>
           <AddGuestToList eventId={event._id} funcUpdateClick={funcUpdateClick}/>
           {event.invited.map((guest, index) => {
             return <InvitationList guest={guest} details={true} key={`${index}_${event._id}`}/>
