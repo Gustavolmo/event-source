@@ -360,7 +360,7 @@ export default function CreateEvent() {
         )}
 
         {(eventData.eventCheck || eventData.transportCheck) && (
-          <button className="navbar__button" type="submit">
+          <button className="action-button" type="submit">
             Create Event!
           </button>
         )}

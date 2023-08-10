@@ -12,7 +12,7 @@ export function LoginButton() {
     );
   } else {
     return (
-      <button className="navbar__button" onClick={() => signIn()}>
+      <button className="action-button" onClick={() => signIn()}>
         SignIn
       </button>
     );

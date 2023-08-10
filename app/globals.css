@@ -6,10 +6,12 @@ font-family: 'Alegreya Sans', sans-serif;
 
 /* ______________________________________ COLOR THEMES
 default text
-787878
+636363
 
-Active -> red
-c32929
+functional -> red 
+Ef4b4c 
+hover
+f66161
 
 outline -> gray
 cccccc
@@ -26,7 +28,7 @@ fbfbfb
   /* outline: dashed red; */
   font-family: 'Alegreya Sans', sans-serif;
   box-sizing: inherit;
-  color: #787878;
+  color: #636363;
 }
 
 html,
@@ -50,6 +52,10 @@ p {
   margin: 0;
 }
 
+.--red-highlight-text {
+  color: #Ef4b4c
+}
+
 /*______________________________________ HIGH-LEVEL */
 .navbar {
   z-index: 100;
@@ -60,7 +66,7 @@ p {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #fbfbfb;
+  background-color: #fff;
   border-bottom: 1px solid #cccccc;
   padding: 0;
 }
@@ -96,7 +102,7 @@ p {
   height: 32px;
   background-color: rgba(248, 248, 248, .8);
   backdrop-filter: blur(8px);
-  border-top: 2px solid #fbfbfb;
+  border-top: 2px solid #fff;
 }
 
 .user-image {
@@ -128,10 +134,25 @@ p {
   bottom: 8px;
 }
 
+.action-button {
+  background-color: #Ef4b4c;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  height: 24px;
+  max-width: 100px;
+  margin-right: 8px;
+}
+
+.action-button:hover {
+  cursor: pointer;
+  background-color: #f66161;
+}
+
 .navbar__button {
   background-color: #ffffff;
   border: 1px solid #cccccc;
-  color: #c32929;
+  /* color: #Ef4b4c; */
   border-radius: 4px;
   height: 24px;
   max-width: 100px;
@@ -139,7 +160,7 @@ p {
 }
 .navbar__button:hover {
   cursor: pointer;
-  font-weight: bold;
+  background-color: #f1f1f1;
 }
 
 .account-buttons{
@@ -151,25 +172,37 @@ p {
   bottom: 0px;
   height: 48px;
   align-items: center;
+  background-color: #fff;
 }
 .page-button{
-  background-color: #fbfbfb;
+  font-size: 16px;
+  background-color: #fff;
   border: none;
   border-top: solid 1px #cccccc;
-  color: #c32929;
+  color: #Ef4b4c;
   height: 48px;
+  transition: .2s;
 }
 .page-button:hover {
   cursor: pointer;
-  background-color: #f1f1f1;
+  /* background-color: #f1f1f1; */
+  font-size: 18px;
+  transition: .2s;
 }
 .page-button--selected {
-  background-color: #fbfbfb;
+  font-size: 16px;
+  background-color: #fff;
   border: none;
   border-top: solid 1px #cccccc;
-  color: #c32929;
+  color: #Ef4b4c;
   height: 48px;
   font-weight: bold;
+  transition: .2s;
+}
+
+.page-button--selected:hover {
+  font-size: 18px;
+  transition: .2s;
 }
 
 /*______________________________________ FORM */
@@ -198,7 +231,10 @@ input {
   display: flex;
   align-items: center;
   margin-top: 12px;
+}
 
+.--with-margin-t-8px {
+  margin-top: 8px;
 }
 
 /*______________________________________ CARDS */
@@ -207,7 +243,7 @@ input {
   margin: 16px 16px 32px;
   padding: 8px;
   border-radius: 8px;
-  background-color: #fbfbfb;
+  background-color: #fff;
   box-shadow: #cccccc 0px 2px 4px 1px;
   display: flex;
   flex-direction: column;

@@ -67,7 +67,7 @@ export default function UpdatePreferencesForm(props: {
       <>
         <form className="create-event-form" onSubmit={handleSubmit}>
           <div className="inline-label-input">
-            <p> Accessibility Needs - </p>
+            <p> Accessibility Needs : </p>
 
             {seeEdit ? (
               <input
@@ -85,7 +85,7 @@ export default function UpdatePreferencesForm(props: {
           </div>
 
           <div className="inline-label-input">
-            <p>Dietary Restrictions -</p>
+            <p>Dietary Restrictions :</p>
 
             {seeEdit ? (
               <input
@@ -103,7 +103,7 @@ export default function UpdatePreferencesForm(props: {
           </div>
 
           {/* <label>Additional Remarks</label>
-        <textarea
+        <textarea 
         name=""
         id=""
         cols={30}
@@ -112,10 +112,10 @@ export default function UpdatePreferencesForm(props: {
           value={userPreferences.additionalRemarks}
         ></textarea> */}
 
-          {seeEdit && <button className="navbar__button">Update</button>}
+          {seeEdit && <button className="action-button --with-margin-t-8px">Update</button>}
         </form>
         <button
-          className="navbar__button absolute-button-top-right"
+          className={seeEdit? "navbar__button absolute-button-top-right" :"action-button absolute-button-top-right"}
           onClick={toggleEdit}
         >
           {seeEdit ? 'Cancel' : 'Edit'}

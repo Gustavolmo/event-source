@@ -17,7 +17,7 @@ export default async function Home() {
             <PathButton
               path={'/account'}
               title={'My Account'}
-              className={'navbar__button'}
+              className={'action-button'}
             />
             <LoginButton />
           </div>
