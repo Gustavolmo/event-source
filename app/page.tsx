@@ -27,7 +27,7 @@ export default async function Home() {
         </main>
       </Suspense>
       <footer className="footer">
-        <p> &#x1F4BB;{'->'}</p>
+        <p> &#x1F4BB;{' '}</p>
         <a href="https://github.com/Gustavolmo">About</a>
       </footer>
     </>

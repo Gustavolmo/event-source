@@ -18,12 +18,12 @@ export default function ManageEvent() {
       {dbData &&
         dbData.map((event, index) => {
           return (
-            <div key={`${index}_${event._id}`}>
+            <section className='event-card' key={`${index}_${event._id}`}>
               <CardManageEvent
                 event={event}
                 funcUpdateClick={handleUpdateClick}
               />
-            </div>
+            </section>
           );
         })}
     </>

@@ -8,22 +8,21 @@ import Loading from '../components/Loading';
 
 export default function UserPreferences() {
   return (
-    <>
+    <section className='main'>
       <Suspense fallback={<Loading />}>
-        <UserImage width={50} height={50} />
-        <div className="greeting">
+        <header className="add-info__title">
           <Greeting />
-        </div>
-        <p>Let's save your preferences for future reference</p>
+          <p>Let's save your preferences for future reference</p>
+        </header>
         <section className="event-card">
           <UpdatePreferencesForm doesRedirect={true} path={'/'} />
-        <PathButton
-          path={'/account'}
-          title={'Prefer not to say'}
-          className={'navbar__button'}
+          <PathButton
+            path={'/account'}
+            title={'Prefer not to say'}
+            className={'navbar__button absolute-button-bottom-left'}
           />
-          </section>
+        </section>
       </Suspense>
-    </>
+    </section>
   );
 }
