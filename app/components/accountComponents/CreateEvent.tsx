@@ -128,7 +128,7 @@ export default function CreateEvent() {
           )}
           {eventData.eventCheck && (
             <section className="form__offerings">
-              <div className='form__offerings'>
+              <div className="form__offerings">
                 <input
                   type="checkbox"
                   name="virtualLink"
@@ -136,7 +136,7 @@ export default function CreateEvent() {
                   checked={eventData.virtualLink}
                   onChange={handleOnCheckBox}
                 />
-                <b  className="--bold-gray">Add Google meet link?</b>
+                <b className="--bold-gray">Add Google meet link?</b>
               </div>
             </section>
           )}
@@ -205,7 +205,7 @@ export default function CreateEvent() {
                 value={eventData.eventDate}
                 required
               />
-              <b className="--bold-gray">Start Date</b>
+              <b className="--bold-gray">Event Date</b>
             </section>
           )}
           {eventData.eventCheck && (
@@ -234,7 +234,7 @@ export default function CreateEvent() {
                 value={eventData.eventEndTime}
                 required
               />
-              <b className="--bold-gray">Event Ending Time</b>
+              <b className="--bold-gray">Ending Time</b>
             </section>
           )}
 
@@ -345,6 +345,22 @@ export default function CreateEvent() {
               <b className="--bold-gray">Cost per passenger (SEK)</b>
             </section>
           )}
+
+          {eventData.transportCheck && (
+            <section>
+              <input
+                className="form__input-120w"
+                type="text"
+                name="travelTime"
+                placeholder="Travel time"
+                onChange={handleOnChange}
+                value={eventData.travelTime}
+                required
+              />
+              <b className="--bold-gray">Travel Time</b>
+            </section>
+          )}
+
           {eventData.transportCheck && (
             <section>
               <input
@@ -375,21 +391,6 @@ export default function CreateEvent() {
           )}
 
           {eventData.transportCheck && (
-            <section>
-              <input
-                className="form__input-120w"
-                type="text"
-                name="travelTime"
-                placeholder="Travel time"
-                onChange={handleOnChange}
-                value={eventData.travelTime}
-                required
-              />
-              <b className="--bold-gray">Travel Time</b>
-            </section>
-          )}
-
-          {eventData.transportCheck && (
             <>
               <div className="form__offerings-alone ">
                 <input
@@ -400,7 +401,7 @@ export default function CreateEvent() {
                 />
                 <b className="--bold-gray">Round Trip?</b>
                 {eventData.roundTripCheck && (
-                  <section className='--gap8px'>
+                  <section className="--gap8px">
                     <input
                       type="date"
                       name="returnDate"
@@ -419,11 +420,12 @@ export default function CreateEvent() {
                   </section>
                 )}
               </div>
+              <div className='--spacer-60px'></div>
             </>
           )}
 
           {(eventData.eventCheck || eventData.transportCheck) && (
-            <button className="action-button" type="submit">
+            <button className="action-button absolute-button-bottom-right" type="submit">
               Send Invites!
             </button>
           )}

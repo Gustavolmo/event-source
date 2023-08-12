@@ -14,9 +14,14 @@ hover
 f66161
 active
 f89292
+extra-light
+f99494
 
 outline -> gray
 cccccc
+
+soft-shadow -> gray
+eaeaea
 
 normal button -> white to gray
 ffffff
@@ -126,7 +131,7 @@ a {
   width: 100vw;
   height: 40px;
   background-color: #fff;
-  border-top: 2px solid #ccc;
+  border-top: 1px solid #ccc;
 }
 
 .user-image {
@@ -273,7 +278,7 @@ pre {
 }
 
 b {
-  margin: 0 8px;
+  margin: 0 8px 0 0;
 }
 
 .form__offerings {
@@ -338,7 +343,7 @@ input {
   padding: 8px;
   border-radius: 8px;
   background-color: #fff;
-  box-shadow: #cccccc 0px 2px 4px 1px;
+  box-shadow: #eaeaea -2px 4px 4px 4px;
   display: flex;
   flex-direction: column;
   width: 340px;
@@ -357,34 +362,6 @@ input {
   flex-direction: column;
   gap: 8px;
   justify-content: space-between;
-  margin-bottom: 8px;
-}
-
-.guest-list {
-  margin: 4px 16px 8px;
-  padding: 4px;
-  background-color: #f1f1f1;
-  border-radius: 4px;
-  height: fit-content;
-  opacity: 1;
-  transition: .2s ease-in-out;
-}
-
-.guest-list-inner {
-  margin: 4px 0 0 0;
-  padding: 4px;
-  background-color: #f1f1f1;
-  border-radius: 4px;
-  height: fit-content;
-  opacity: 1;
-  transition: .2s ease-in-out;
-}
-
-.guest-list--hidden {
-  overflow: hidden;
-  max-height: 0;
-  opacity: 0;
-  transition: .2s ease-in-out;
 }
 
 .add-info__title {
@@ -427,19 +404,59 @@ input {
   align-items: center;
   margin: 0 16px;
   margin-bottom: 8px;
-  padding: 0 32px;
+  padding: 4px 0 4px 40px;
+  border-radius: 4px;
+  border: .6px solid #ccc
+}
+
+.manage__info-time-date-event {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 16px;
+  margin-bottom: 8px;
+  padding: 4px 20px;
   border-radius: 4px;
   border: .6px solid #ccc
 }
 
 /*________________________________ LIST DISPLAY */
+
+.guest-list {
+  margin: 4px 16px 8px;
+  padding: 4px;
+  background-color: #f1f1f1;
+  border-radius: 4px;
+  height: fit-content;
+  opacity: 1;
+  transition: .2s ease-in-out;
+}
+
+.guest-list-inner {
+  margin: 4px 0 0 0;
+  padding: 4px;
+  background-color: #f1f1f1;
+  border-radius: 4px;
+  height: fit-content;
+  opacity: 1;
+  transition: .2s ease-in-out;
+}
+
+.guest-list--hidden {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: .2s ease-in-out;
+}
+
 .list__names{
-  /* box-shadow: #ccc inset 0px 2px 4px 1px; */
-  /* border: 1px solid #ccc; */
-  /* background-color: #fff; */
-  padding: 0 8px 8px 8px;
-  /* border-radius: 4px; */
+  padding: 4px 8px;
   font-size: 14px;
+  max-height: 320px;
+  overflow: auto;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
 .guest-restrictions {
@@ -465,13 +482,14 @@ input {
 
 .restriction-alert {
   border-radius: 4px;
-  padding: 0 4px;
+  font-weight: bold;
+  padding: 2px;
   color: #Ef4b4c;
   font-size: 12px;
 }
 
 .restriction-alert:hover {
-  background-color: #fff;
+  color: #f99494;
   cursor: pointer;
 }
 
@@ -479,6 +497,12 @@ input {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.answer-invite-buttons {
+  display: flex;
+  justify-content: center;
+  margin: 16px;
 }
 
 /*______________________________________  */
@@ -583,6 +607,18 @@ input {
 
 .--margin-left4px{
   margin-left: 4px ;
+}
+
+.--margin-ltr16px{
+  margin: 16px 16px 0 16px;
+}
+
+.--padding-left8px {
+  padding-left: 8px;
+}
+
+.--margin12px {
+  margin: 12px;
 }
 
 /*______________________________________*/

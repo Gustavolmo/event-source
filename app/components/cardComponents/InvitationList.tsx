@@ -24,23 +24,20 @@ export default function InvitationList({ guest, details }: Props) {
 
   if (dbData) {
     return (
-      <div>
-
-
-
-
-        <article className='restriction-alert-wrapper'>
+      <>
+        <article className="restriction-alert-wrapper">
           <b>{dbData[0].name}</b>
 
-          {details && (dbData[0].dietaryRestrictions || dbData[0].accessibilityNeeds) && (
-            <b onClick={hadnleExpandRestrictions} className="restriction-alert">
-              Restrictions
-            </b>
-          )}
+          {details &&
+            (dbData[0].dietaryRestrictions || dbData[0].accessibilityNeeds) && (
+              <p
+                onClick={hadnleExpandRestrictions}
+                className="restriction-alert"
+              >
+                ! Restrictions
+              </p>
+            )}
         </article>
-
-
-
 
         <article
           className={
@@ -64,17 +61,15 @@ export default function InvitationList({ guest, details }: Props) {
             </>
           )}
         </article>
-
-      </div>
+      </>
     );
   }
 
   if (!dbData) {
     return (
-      <>
+      <div className='--with-margin-n-8px'>
         <b>{guest}</b>
-        {/* <p> - guest has no account</p>; */}
-      </>
+      </div>
     );
   }
 }

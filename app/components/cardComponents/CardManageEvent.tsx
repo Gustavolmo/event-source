@@ -124,12 +124,14 @@ export default function CardManageEvent({
           />
 
           {event.eventCheck && <h5>Event Details</h5>}
+
           <article className="manage__form-details">
+
             <p className="--centered-text">
               {!event.multiDayCheck && event.eventDate}
             </p>
 
-            <section className="manage__info-time-date">
+            <section className="manage__info-time-date-event">
               <span className="--centered-text">
                 <p>{event.multiDayCheck ? event.eventDate : 'From:'}</p>
                 <b>{event.eventTime}</b>
@@ -148,7 +150,7 @@ export default function CardManageEvent({
             </section>
 
             <section className="manage__info --gray-shading">
-              <b>Rsvp:</b> <p>{event.eventRSVP}</p>
+              <b>RSVP:</b> <p>{event.eventRSVP}</p>
             </section>
 
             {event.virtualLink && (
@@ -164,7 +166,7 @@ export default function CardManageEvent({
 
             <div className="manage__info-column --gray-shading">
               <div className="--inline-tags">
-                <b>Entrance fee:</b> <p>{event.eventCost}kr</p>
+                <b>Price:</b> <p>{event.eventCost}kr</p>
               </div>
 
               <div className="--inline-tags">
@@ -173,7 +175,7 @@ export default function CardManageEvent({
               </div>
             </div>
 
-            <section className="manage__info --gray-shading">
+            <section className="manage__info --gray-shading --padding-left8px">
               {event.eventDescription.length > 20 ? (
                 <>
                   <p>
@@ -283,7 +285,7 @@ export default function CardManageEvent({
           </div>
 
           <section className="manage__info --gray-shading">
-            {event.eventDescription.length > 12 ? (
+            {event.transportDescription.length > 16 ? (
               <>
                 <p>
                   <b>Transit details:</b> {event.transportDescription}

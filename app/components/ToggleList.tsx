@@ -37,11 +37,13 @@ export default function ToggleList({
           <b className="--red-highlight-text">{listChoice.length}</b>
           <b>{buttonTitle}</b>{' '}
         </div>{' '}
+
         {seeList ? (
           <span> &#10687;.&#10687;</span>
         ) : (
           <span> &#10677;.&#10677;</span>
         )}
+
       </button>
       <div className={seeList ? 'guest-list-inner' : 'guest-list--hidden'}>
         {hasAddGuest && (
@@ -54,11 +56,13 @@ export default function ToggleList({
           {listChoice.map((guest, index) => {
 
             return (
+
               <InvitationList
                 guest={guest}
                 details={hasDetails}
                 key={`${index}_${event._id}`}
               />
+
             );
           })}
         </article>

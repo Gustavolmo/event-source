@@ -17,12 +17,12 @@ export default function MyInvitation() {
       {dbData &&
         dbData.map((event, index) => {
           return (
-            <div key={`${index}_${event._id}`}>
+            <section className='event-card' key={`${index}_${event._id}`}>
               <CardMyInvitation
                 event={event}
                 handleUpdateClick={handleUpdateClick}
               />
-            </div>
+            </section>
           );
         })}
     </>
