@@ -31,7 +31,10 @@ export default function ToggleList({
         className="toggle-button"
       >
         {' '}
-        <b>{buttonTitle}</b>{' '}
+        <div>
+          {listChoice.length}
+          <b>{buttonTitle}</b>{' '}
+        </div>{' '}
         {seeList ? (
           <span> &#10687;.&#10687;</span>
         ) : (
@@ -59,8 +62,8 @@ export default function ToggleList({
   );
 }
 
-
-{/* TEMPLATE
+{
+  /* TEMPLATE
 
 <ToggleList
 handleListToggle={() => handleListToggle()}
@@ -73,4 +76,5 @@ listChoice={}
 buttonTitle={}
 />
 
-*/}
+*/
+}

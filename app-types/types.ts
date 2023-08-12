@@ -48,6 +48,8 @@ export type EventData = {
   travelTime: string;
   pickupLocation: string;
   pickupTime: string;
+  pickupDate: string;
+  dropOffLocation: string;
   returnTime: string;
   returnDate: string ,
   seatsAvailable: number;

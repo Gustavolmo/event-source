@@ -163,13 +163,15 @@ export default function CardManageEvent({
             </div>
 
             <section className="manage__info --gray-shading">
-              {event.eventDescription.length < 25 ? (
+              {event.eventDescription.length > 20 ? (
                 <>
-                  <b>About:</b> <p>{event.eventDescription}</p>
+                  <p>
+                    <b>Description:</b> {event.eventDescription}
+                  </p>
                 </>
               ) : (
                 <>
-                  <b>About:</b> <p>{event.eventDescription}</p>
+                  <b>Description:</b> <p>{event.eventDescription}</p>
                 </>
               )}
             </section>
@@ -185,36 +187,49 @@ export default function CardManageEvent({
             </>
           )}
 
-          <section className="manage__info-time-date">
-            <span className="--centered-text">
-              <p>{event.roundTripCheck ? event.eventDate : 'Pickup:'}</p>
-              <b>{event.pickupTime}</b>
-            </span>
+          <p className="--centered-text"> &#9201; {event.travelTime}</p>
+          {event.roundTripCheck ? (
+            <section className="manage__info-time-date">
+              <div className="--roundtrip-symbol">
+                <p className='--text20px'>&#10607;</p>
+              </div>
 
-            <b> &#128337; </b>
+              <article>
+                <div>
+                  <p>
+                    {' '}
+                    <b>{event.pickupTime}</b> {event.pickupDate} HC
+                  </p>
+                  <b className=" --text12px">{event.pickupLocation}</b>
+                </div>
 
-            <span className="--centered-text">
-              <p>{event.roundTripCheck ? event.returnDate : 'Duration:'}</p>
-              <b>
-                {event.roundTripCheck ? event.returnTime : event.travelTime}
-              </b>
-            </span>
-          </section>
-
-          <section className="manage__info --gray-shading">
-            <div>
-              {/* {event.roundTripCheck? <div>&#8635;</div> : <p>&#10132;</p>} */}
-              {event.roundTripCheck ? (
-                <b className="--centered-text">Two-way</b>
-              ) : (
-                <b className="--centered-text">One-way</b>
-              )}
-            </div>
-            <div>
-              <p className=" --text12px">{event.pickupLocation}</p>
-              <p className=" --text12px">{}Add Destination to form</p>
-            </div>
-          </section>
+                <div>
+                  <p>
+                    {' '}
+                    <b>{event.returnTime}</b> {event.returnDate}
+                  </p>
+                  <b className=" --text12px">
+                    {event.dropOffLocation} HARDCODE
+                  </b>
+                </div>
+              </article>
+            </section>
+          ) : (
+            <section className="manage__info --gray-shading">
+              <div>
+                <p>&#11107;</p>
+                {event.roundTripCheck ? (
+                  <b className="--centered-text">Two-way</b>
+                ) : (
+                  <b className="--centered-text">One-way</b>
+                )}
+              </div>
+              <div>
+                <p className=" --text12px">{event.pickupLocation}</p>
+                <p className=" --text12px">{event.dropOffLocation} HARDCODE</p>
+              </div>
+            </section>
+          )}
 
           <ToggleList
             handleListToggle={() => handleListToggle(seePax, setSeePax)}
@@ -250,13 +265,15 @@ export default function CardManageEvent({
           </div>
 
           <section className="manage__info --gray-shading">
-            {event.eventDescription.length < 12 ? (
+            {event.eventDescription.length > 12 ? (
               <>
-                <b>About the transit:</b> <p>{event.transportDescription}</p>
+                <p>
+                  <b>Transit details:</b> {event.transportDescription}
+                </p>
               </>
             ) : (
               <>
-                <b>About:</b> <p>{event.transportDescription}</p>
+                <b>Transit details:</b> <p>{event.transportDescription}</p>
               </>
             )}
           </section>

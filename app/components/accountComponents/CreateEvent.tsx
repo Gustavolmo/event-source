@@ -38,6 +38,8 @@ export default function CreateEvent() {
     travelTime: '',
     pickupLocation: '',
     pickupTime: '',
+    pickupDate: '',
+    dropOffLocation: '',
     returnTime: '',
     returnDate: '',
     seatsAvailable: 0,
@@ -98,6 +100,9 @@ export default function CreateEvent() {
             </div>
           </section>
           {eventData.eventCheck && <b className="form__section-title">EVENT</b>}
+          {!eventData.eventCheck && eventData.transportCheck && (
+            <b className="form__section-title">TRANSPORT</b>
+          )}
           {(eventData.eventCheck || eventData.transportCheck) && (
             <input
               className="--with-margin-n-8px"
@@ -168,7 +173,7 @@ export default function CreateEvent() {
                 value={eventData.eventCost}
                 required
               />
-              <b className='--bold-gray'>Cost per person (SEK)</b>
+              <b className="--bold-gray">Cost per person (SEK)</b>
             </section>
           )}
 
@@ -183,10 +188,10 @@ export default function CreateEvent() {
                 value={eventData.eventRSVP}
                 required
               />
-              <b className='--bold-gray'>RSVP</b>
+              <b className="--bold-gray">RSVP</b>
             </section>
           )}
-          {(eventData.eventCheck || eventData.transportCheck) && (
+          {eventData.eventCheck && (
             <section>
               <input
                 className="form__input-120w"
@@ -197,7 +202,7 @@ export default function CreateEvent() {
                 value={eventData.eventDate}
                 required
               />
-              <b className='--bold-gray'>Start Date</b>
+              <b className="--bold-gray">Start Date</b>
             </section>
           )}
           {eventData.eventCheck && (
@@ -211,7 +216,7 @@ export default function CreateEvent() {
                 value={eventData.eventTime}
                 required
               />
-              <b className='--bold-gray'>Starting Time</b>
+              <b className="--bold-gray">Starting Time</b>
             </section>
           )}
 
@@ -226,7 +231,7 @@ export default function CreateEvent() {
                 value={eventData.eventEndTime}
                 required
               />
-              <b className='--bold-gray'>Event Ending Time</b>
+              <b className="--bold-gray">Event Ending Time</b>
             </section>
           )}
 
@@ -239,7 +244,7 @@ export default function CreateEvent() {
                   checked={eventData.multiDayCheck}
                   onChange={handleOnCheckBox}
                 />
-                <b className='--bold-gray'>Ends in a different date?</b>
+                <b className="--bold-gray">Ends in a different date?</b>
                 {eventData.multiDayCheck && (
                   <section>
                     <input
@@ -255,7 +260,7 @@ export default function CreateEvent() {
             </>
           )}
 
-          {eventData.transportCheck && (
+          {eventData.transportCheck && eventData.eventCheck && (
             <b className="form__section-title">TRANSPORT</b>
           )}
 
@@ -282,13 +287,26 @@ export default function CreateEvent() {
               required
             />
           )}
+
+          {eventData.transportCheck && (
+            <input
+              className="--with-margin-n-8px"
+              type="text"
+              name="dropOffLocation"
+              placeholder="Drop-off location"
+              onChange={handleOnChange}
+              value={eventData.dropOffLocation}
+              required
+            />
+          )}
+
           {eventData.transportCheck && (
             <textarea
               className="--with-margin-n-8px"
               name="transportDescription"
               cols={30}
               rows={10}
-              placeholder="Descritpion"
+              placeholder="Transit details"
               onChange={handleOnChange}
               value={eventData.transportDescription}
               required
@@ -306,7 +324,7 @@ export default function CreateEvent() {
                 value={eventData.seatsAvailable}
                 required
               />
-              <b className='--bold-gray'>Seats Available</b>
+              <b className="--bold-gray">Seats Available</b>
             </section>
           )}
 
@@ -321,7 +339,21 @@ export default function CreateEvent() {
                 value={eventData.transportCost}
                 required
               />
-              <b className='--bold-gray'>Cost per passenger (SEK)</b>
+              <b className="--bold-gray">Cost per passenger (SEK)</b>
+            </section>
+          )}
+          {eventData.transportCheck && (
+            <section>
+              <input
+                className="form__input-120w"
+                type="time"
+                name="pickupDate"
+                placeholder="Pickup Date"
+                onChange={handleOnChange}
+                value={eventData.pickupDate}
+                required
+              />
+              <b className="--bold-gray">Pickup Date</b>
             </section>
           )}
           {eventData.transportCheck && (
@@ -335,7 +367,7 @@ export default function CreateEvent() {
                 value={eventData.pickupTime}
                 required
               />
-              <b className='--bold-gray'>Pickup Time</b>
+              <b className="--bold-gray">Pickup Time</b>
             </section>
           )}
 
@@ -350,7 +382,7 @@ export default function CreateEvent() {
                 value={eventData.travelTime}
                 required
               />
-              <b className='--bold-gray'>Travel Time</b>
+              <b className="--bold-gray">Travel Time</b>
             </section>
           )}
 
@@ -363,7 +395,7 @@ export default function CreateEvent() {
                   checked={eventData.roundTripCheck}
                   onChange={handleOnCheckBox}
                 />
-                <b className='--bold-gray'>Round Trip?</b>
+                <b className="--bold-gray">Round Trip?</b>
                 {eventData.roundTripCheck && (
                   <section>
                     <input
@@ -389,7 +421,7 @@ export default function CreateEvent() {
 
           {(eventData.eventCheck || eventData.transportCheck) && (
             <button className="action-button" type="submit">
-              Create Event!
+              Send Invites!
             </button>
           )}
         </form>
