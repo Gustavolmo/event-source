@@ -13,9 +13,9 @@ export default function HomePage() {
     name: session?.user?.name,
     email: session?.user?.email,
     image: session?.user?.image,
-    dietaryRestrictions: 'n/a',
-    accessibilityNeeds: 'n/a',
-    additionalRemarks: 'n/a',
+    dietaryRestrictions: '',
+    accessibilityNeeds: '',
+    additionalRemarks: '',
   };
 
   const handleLogin = async () => {

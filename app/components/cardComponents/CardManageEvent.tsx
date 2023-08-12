@@ -147,13 +147,16 @@ export default function CardManageEvent({
               <b>Rsvp:</b> <p>{event.eventRSVP}</p>
             </section>
 
-            <section className="manage__info --gray-shading">
-              {event.virtualLink && (
+            {event.virtualLink && (
+              <section className="manage__info --gray-shading">
                 <>
-                  <b>Google Meets:</b> <a href='/' className='--text12px '>GoogleMeetsLink</a>
+                  <b>Google Meets:</b>{' '}
+                  <a href="/" className="--text12px ">
+                    GoogleMeetsLink
+                  </a>
                 </>
-              )}
-            </section>
+              </section>
+            )}
 
             <div className="manage__info-column --gray-shading">
               <div className="--inline-tags">

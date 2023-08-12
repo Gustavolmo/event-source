@@ -12,9 +12,9 @@ export type User = {
 
 export type UserPreferences = {
   name: string | null | undefined;
-  dietaryRestrictions: string;
-  accessibilityNeeds: string;
-  additionalRemarks?: string;
+  dietaryRestrictions: string | null | undefined;
+  accessibilityNeeds: string | null | undefined;
+  additionalRemarks?: string | null | undefined;
 };
 
 export interface DbData extends User, EventData {} 

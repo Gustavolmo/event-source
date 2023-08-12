@@ -12,12 +12,18 @@ functional -> red
 Ef4b4c 
 hover
 f66161
+active
+f89292
 
 outline -> gray
 cccccc
 
-shade -> light gray
+normal button -> white to gray
+ffffff
+hover
 f1f1f1
+click
+f5f5f5
 
 light -> almost white
 fbfbfb
@@ -182,6 +188,11 @@ a {
   background-color: #f66161;
 }
 
+.action-button:hover:active {
+  cursor: pointer;
+  background-color: #f89292;
+}
+
 .navbar__button {
   background-color: #ffffff;
   border: 1px solid #cccccc;
@@ -193,6 +204,9 @@ a {
 .navbar__button:hover {
   cursor: pointer;
   background-color: #f1f1f1;
+}
+.navbar__button:active {
+  background-color: #f5f5f5;
 }
 
 .account-buttons{
@@ -418,6 +432,57 @@ input {
   border: .6px solid #ccc
 }
 
+/*________________________________ LIST DISPLAY */
+.list__names{
+  /* box-shadow: #ccc inset 0px 2px 4px 1px; */
+  /* border: 1px solid #ccc; */
+  /* background-color: #fff; */
+  padding: 0 8px 8px 8px;
+  /* border-radius: 4px; */
+  font-size: 14px;
+}
+
+.guest-restrictions {
+  background-color: #fff;
+  padding: 0 8px;
+  margin-bottom: 4px;
+  border-radius: 4px;
+  opacity: 0;
+  height: 0;
+  transition: .2s;
+}
+
+.guest-restrictions--selected {
+  background-color: #fff;
+  padding: 0 8px;
+  margin-bottom: 4px;
+  border-radius: 4px;
+  opacity: 1;
+  height: 1;
+  display: block;
+  transition: .2s;
+}
+
+.restriction-alert {
+  border-radius: 4px;
+  padding: 0 4px;
+  color: #Ef4b4c;
+  font-size: 12px;
+}
+
+.restriction-alert:hover {
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.restriction-alert-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/*______________________________________  */
+
 /*______________________________________ MODS */
 .--centered-text {
   text-align: center;
@@ -447,6 +512,10 @@ input {
 
 .--with-margin-n-8px {
   margin-bottom: 8px;
+}
+
+.--bold{
+  font-weight: bold;
 }
 
 .--bold-gray {
@@ -510,6 +579,10 @@ input {
 .--gap8px {
   display: flex;
   gap: 8px;
+}
+
+.--margin-left4px{
+  margin-left: 4px ;
 }
 
 /*______________________________________*/

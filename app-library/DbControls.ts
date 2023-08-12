@@ -101,7 +101,7 @@ export const getUserPreferences = async (
     if (dbData) {
       return [dbData] as DbData[];
     } else {
-      return undefined;
+      return;
     }
   } catch (e) {
     console.error(e);

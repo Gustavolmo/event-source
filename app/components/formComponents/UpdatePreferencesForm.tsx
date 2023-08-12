@@ -5,7 +5,7 @@ import {
 } from '@/app-library/DbControls';
 import { UserPreferences } from '@/app-types/types';
 import { useSession } from 'next-auth/react';
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import LoadingUi from '../LoadingUi';
 import useDbQuery from '@/app/customHooks/useDbQuery';
@@ -17,10 +17,16 @@ export default function UpdatePreferencesForm(props: {
   const router = useRouter();
   const { data: session, status } = useSession();
   const [seeEdit, setSeeEdit] = useState(false);
+  const [seeDiet, setSeeDiet] = useState(false);
+  const [seeNeeds, setSeeNeeds] = useState(false);
   const [rerenderClick, setRerenderClick] = useState<boolean>(false);
-  const { dbData } = useDbQuery(getUserPreferences, null, rerenderClick);
+  const { dbData, loading } = useDbQuery(
+    getUserPreferences,
+    session?.user?.email,
+    rerenderClick
+  );
   const [userPreferences, setUserPreferences] = useState<UserPreferences>({
-    name: session?.user?.name,
+    name: '',
     dietaryRestrictions: '',
     accessibilityNeeds: '',
     additionalRemarks: '',
@@ -30,13 +36,9 @@ export default function UpdatePreferencesForm(props: {
     e.preventDefault();
     setRerenderClick(!rerenderClick);
     setSeeEdit(false);
+    setSeeNeeds(false);
+    setSeeDiet(false);
     updateUserPreferences(session?.user?.email, userPreferences);
-    setUserPreferences({
-      name: '',
-      dietaryRestrictions: '',
-      accessibilityNeeds: '',
-      additionalRemarks: '',
-    });
     if (props.doesRedirect && props.path) {
       router.push(props.path);
     }
@@ -51,7 +53,17 @@ export default function UpdatePreferencesForm(props: {
     }));
   };
 
+  const toggleDietInput = (e: ChangeEvent<HTMLInputElement>) => {
+    setSeeDiet(!seeDiet);
+  };
+
+  const toggleNeedsInput = (e: ChangeEvent<HTMLInputElement>) => {
+    setSeeNeeds(!seeNeeds);
+  };
+
   const toggleEdit = () => {
+    setSeeNeeds(false);
+    setSeeDiet(false);
     setSeeEdit(!seeEdit);
   };
 
@@ -61,6 +73,10 @@ export default function UpdatePreferencesForm(props: {
         <LoadingUi />
       </div>
     );
+  }
+
+  if (loading) {
+    return <LoadingUi />;
   }
 
   return (
@@ -76,7 +92,7 @@ export default function UpdatePreferencesForm(props: {
                 name="name"
                 placeholder="Dietary Restrictions"
                 onChange={handleOnChange}
-                value={userPreferences.name ? userPreferences.name : 'n/a'}
+                value={userPreferences.name ? userPreferences.name : ''}
                 required
               />
             ) : (
@@ -87,37 +103,68 @@ export default function UpdatePreferencesForm(props: {
           </div>
 
           <div className="inline-label-input">
-            <p> Accessibility Needs : </p>
+            <p> Dietary Restrictions</p>
 
             {seeEdit ? (
-              <input
-                name="dietaryRestrictions"
-                placeholder="Dietary Restrictions"
-                onChange={handleOnChange}
-                value={userPreferences.dietaryRestrictions}
-                required
-              />
+              <>
+                <p className="--margin-left4px">?</p>
+                <input
+                  className="--margin-left4px"
+                  type="checkbox"
+                  onChange={toggleDietInput}
+                />
+                {seeDiet && (
+                  <input
+                    className="--margin-left4px"
+                    name="dietaryRestrictions"
+                    placeholder="Dietary Restrictions"
+                    onChange={handleOnChange}
+                    value={
+                      userPreferences.dietaryRestrictions
+                        ? userPreferences.dietaryRestrictions
+                        : ''
+                    }
+                    required
+                  />
+                )}
+              </>
             ) : (
               <p>
-                <b>{dbData && String(dbData[0].accessibilityNeeds)}</b>
+                <b>{dbData && String(dbData[0].dietaryRestrictions)}</b>
               </p>
             )}
           </div>
 
           <div className="inline-label-input">
-            <p>Dietary Restrictions :</p>
+            <p>Accessibility Needs</p>
 
             {seeEdit ? (
-              <input
-                name="accessibilityNeeds"
-                placeholder="Accessibility Needs"
-                onChange={handleOnChange}
-                value={userPreferences.accessibilityNeeds}
-                required
-              />
+              <>
+                <p className="--margin-left4px">?</p>
+                <input
+                  className="--margin-left4px"
+                  type="checkbox"
+                  onChange={toggleNeedsInput}
+                />
+
+                {seeNeeds && (
+                  <input
+                    className="--margin-left4px"
+                    name="accessibilityNeeds"
+                    placeholder="Accessibility Needs"
+                    onChange={handleOnChange}
+                    value={
+                      userPreferences.accessibilityNeeds
+                        ? userPreferences.accessibilityNeeds
+                        : ''
+                    }
+                    required
+                  />
+                )}
+              </>
             ) : (
               <p>
-                <b> {dbData && String(dbData[0].dietaryRestrictions)}</b>
+                <b> {dbData && String(dbData[0].accessibilityNeeds)}</b>
               </p>
             )}
           </div>

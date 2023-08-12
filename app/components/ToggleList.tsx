@@ -32,7 +32,7 @@ export default function ToggleList({
       >
         {' '}
         <div>
-          {listChoice.length}
+          <b className="--red-highlight-text">{listChoice.length}</b>
           <b>{buttonTitle}</b>{' '}
         </div>{' '}
         {seeList ? (
@@ -48,15 +48,17 @@ export default function ToggleList({
             funcUpdateClick={funcUpdateClick}
           />
         )}
-        {listChoice.map((guest, index) => {
-          return (
-            <InvitationList
-              guest={guest}
-              details={true}
-              key={`${index}_${event._id}`}
-            />
-          );
-        })}
+        <article className="list__names">
+          {listChoice.map((guest, index) => {
+            return (
+              <InvitationList
+                guest={guest}
+                details={true}
+                key={`${index}_${event._id}`}
+              />
+            );
+          })}
+        </article>
       </div>
     </section>
   );
