@@ -66,7 +66,7 @@ h4 {
 
 h5 {
   text-align: center;
-  margin: 16px 0 8px 8px;
+  margin: 16px 8px 8px 8px;
   color: #Ef4b4c;
 }
 
@@ -272,6 +272,15 @@ a {
   background-color: #f1f1f1;
 }
 
+.toggle-description-button {
+  display: flex;
+  justify-content: space-between;
+}
+
+.toggle-description-button:hover {
+  cursor: pointer;
+}
+
 /*______________________________________ FORM */
 pre {
   margin: 4px;
@@ -302,7 +311,7 @@ b {
 
 textarea,
 input {
-  margin: 0px;
+  margin: 0px 8px 0 0;
   border-radius: .375rem;
   border: solid #cccccc .5px;
   padding-left: 8px;
@@ -386,6 +395,15 @@ input {
   margin-bottom: 8px;
 }
 
+.manage__description {
+  display: flex;
+  flex-direction: column;
+  margin: 0 16px;
+  padding: 0 8px;
+  border-radius: 4px;
+  margin-bottom: 8px;
+}
+
 .manage__info-column {
   display: flex;
   flex-direction: column;
@@ -444,6 +462,7 @@ input {
 }
 
 .guest-list--hidden {
+  line-height: 0px;
   overflow: hidden;
   max-height: 0;
   opacity: 0;
@@ -505,6 +524,17 @@ input {
   margin: 16px;
 }
 
+.description-hidden {
+  height: 0;
+  overflow: hidden;
+  transition: .2s ease-in-out;
+}
+.description-visible {
+  min-height: 20px;
+  transition: .2s ease-in-out;
+}
+
+
 /*______________________________________  */
 
 /*______________________________________ MODS */
@@ -544,7 +574,7 @@ input {
 
 .--bold-gray {
   font-weight: bold;
-  margin: 0 8px;
+  margin: 0 8px 0 0;
   color: #cccccc;
 }
 

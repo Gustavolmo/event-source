@@ -18,6 +18,8 @@ export default function CardManageEvent({
   const [seeVirtual, setSeeVirtual] = useState(false);
   const [seeRejected, setSeeRejected] = useState(false);
   const [seePax, setSeePax] = useState(false);
+  const [seeAboutTransit, setSeeAboutTransit] = useState(false);
+  const [seeAboutEvent, setSeeAboutEvent] = useState(false);
 
   const handleListToggle = (list: boolean, cb: Function) => {
     cb(!list);
@@ -97,17 +99,21 @@ export default function CardManageEvent({
             buttonTitle={'Yeap!'}
           />
 
-          <ToggleList
-            handleListToggle={() => handleListToggle(seeVirtual, setSeeVirtual)}
-            seeList={seeVirtual}
-            setSeeList={setSeeVirtual}
-            hasAddGuest={false}
-            hasDetails={false}
-            funcUpdateClick={funcUpdateClick}
-            event={event}
-            listChoice={event.acceptedVirtually}
-            buttonTitle={'Remote'}
-          />
+          {event.virtualLink && (
+            <ToggleList
+              handleListToggle={() =>
+                handleListToggle(seeVirtual, setSeeVirtual)
+              }
+              seeList={seeVirtual}
+              setSeeList={setSeeVirtual}
+              hasAddGuest={false}
+              hasDetails={false}
+              funcUpdateClick={funcUpdateClick}
+              event={event}
+              listChoice={event.acceptedVirtually}
+              buttonTitle={'Remote'}
+            />
+          )}
 
           <ToggleList
             handleListToggle={() =>
@@ -126,7 +132,6 @@ export default function CardManageEvent({
           {event.eventCheck && <h5>Event Details</h5>}
 
           <article className="manage__form-details">
-
             <p className="--centered-text">
               {!event.multiDayCheck && event.eventDate}
             </p>
@@ -175,18 +180,29 @@ export default function CardManageEvent({
               </div>
             </div>
 
-            <section className="manage__info --gray-shading --padding-left8px">
-              {event.eventDescription.length > 20 ? (
-                <>
-                  <p>
-                    <b>Description:</b> {event.eventDescription}
-                  </p>
-                </>
-              ) : (
-                <>
-                  <b>Description:</b> <p>{event.eventDescription}</p>
-                </>
-              )}
+            <section className="manage__description --gray-shading">
+              <div
+                onClick={() =>
+                  handleListToggle(seeAboutEvent, setSeeAboutEvent)
+                }
+                className="toggle-description-button"
+              >
+                {' '}
+                <b>Event details</b>{' '}
+                {seeAboutEvent ? (
+                  <span className="--text12px"> &#128214;</span>
+                ) : (
+                  <span className="--text12px"> &#128213;</span>
+                )}
+              </div>
+
+              <div
+                className={
+                  seeAboutEvent ? 'description-visible' : 'description-hidden'
+                }
+              >
+                <p>{event.eventDescription}</p>
+              </div>
             </section>
           </article>
         </>
@@ -200,7 +216,11 @@ export default function CardManageEvent({
             </>
           )}
 
-          <p className="--centered-text"> &#9201; {event.travelTime}</p>
+          <p className="--centered-text">
+            {' '}
+            {event.roundTripCheck ? 'Round trip' : 'One-way trip'} &#9201;{' '}
+            {event.travelTime}
+          </p>
           {event.roundTripCheck ? (
             <section className="manage__info-time-date">
               <div className="--roundtrip-symbol">
@@ -284,18 +304,31 @@ export default function CardManageEvent({
             </div>
           </div>
 
-          <section className="manage__info --gray-shading">
-            {event.transportDescription.length > 16 ? (
-              <>
-                <p>
-                  <b>Transit details:</b> {event.transportDescription}
-                </p>
-              </>
-            ) : (
-              <>
-                <b>Transit details:</b> <p>{event.transportDescription}</p>
-              </>
-            )}
+          <section className="manage__description --gray-shading">
+            <div
+              onClick={() =>
+                handleListToggle(seeAboutTransit, setSeeAboutTransit)
+              }
+              className="toggle-description-button"
+            >
+              {' '}
+              <div>
+                <b>Transit details</b>{' '}
+              </div>{' '}
+              {seeAboutTransit ? (
+                <span className="--text12px"> &#128214;</span>
+              ) : (
+                <span className="--text12px"> &#128213;</span>
+              )}
+            </div>
+
+            <div
+              className={
+                seeAboutTransit ? 'description-visible' : 'description-hidden'
+              }
+            >
+              <p>{event.transportDescription}</p>
+            </div>
           </section>
 
           <div className="--spacer-60px"></div>

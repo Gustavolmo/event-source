@@ -1,6 +1,5 @@
 import { EventData } from '@/app-types/types';
 import React, { useState } from 'react';
-import InvitationList from './InvitationList';
 import { useSession } from 'next-auth/react';
 import {
   addGuestToListController,
@@ -20,6 +19,8 @@ export default function CardMyInvitation({ event, handleUpdateClick }: Props) {
   const [seeVirtual, setSeeVirtual] = useState(false);
   const [seeRejected, setSeeRejected] = useState(false);
   const [seePax, setSeePax] = useState(false);
+  const [seeAboutTransit, setSeeAboutTransit] = useState(false);
+  const [seeAboutEvent, setSeeAboutEvent] = useState(false);
 
   const handleListToggle = (list: boolean, cb: Function) => {
     cb(!list);
@@ -132,17 +133,21 @@ export default function CardMyInvitation({ event, handleUpdateClick }: Props) {
             buttonTitle={'Yeap!'}
           />
 
-          <ToggleList
-            handleListToggle={() => handleListToggle(seeVirtual, setSeeVirtual)}
-            seeList={seeVirtual}
-            setSeeList={setSeeVirtual}
-            hasAddGuest={false}
-            hasDetails={false}
-            funcUpdateClick={handleUpdateClick}
-            event={event}
-            listChoice={event.acceptedVirtually}
-            buttonTitle={'Remote'}
-          />
+          {event.virtualLink && (
+            <ToggleList
+              handleListToggle={() =>
+                handleListToggle(seeVirtual, setSeeVirtual)
+              }
+              seeList={seeVirtual}
+              setSeeList={setSeeVirtual}
+              hasAddGuest={false}
+              hasDetails={false}
+              funcUpdateClick={handleUpdateClick}
+              event={event}
+              listChoice={event.acceptedVirtually}
+              buttonTitle={'Remote'}
+            />
+          )}
 
           <ToggleList
             handleListToggle={() =>
@@ -202,19 +207,35 @@ export default function CardMyInvitation({ event, handleUpdateClick }: Props) {
               </div>
             </div>
 
-            <section className="manage__info --gray-shading --padding-left8px">
-              {event.eventDescription.length > 20 ? (
-                <>
-                  <p>
-                    <b>Description:</b> {event.eventDescription}
-                  </p>
-                </>
-              ) : (
-                <>
-                  <b>Description:</b> <p>{event.eventDescription}</p>
-                </>
-              )}
+            {/* THIS NEEDS TO BE A COMPONENT */}
+            <section className="manage__description --gray-shading">
+              <div
+                onClick={() =>
+                  handleListToggle(seeAboutEvent, setSeeAboutEvent)
+                }
+                className="toggle-description-button"
+              >
+                {' '}
+                <div>
+                  <b>Event details</b>{' '}
+                </div>{' '}
+                {seeAboutEvent ? (
+                  <span className="--text12px"> &#128214;</span>
+                ) : (
+                  <span className="--text12px"> &#128213;</span>
+                )}
+              </div>
+
+              <div
+                className={
+                  seeAboutEvent ? 'description-visible' : 'description-hidden'
+                }
+              >
+                <p>{event.eventDescription}</p>
+              </div>
             </section>
+            {/* _____END COMMENT______ */}
+            
           </article>
         </>
       )}
@@ -278,7 +299,7 @@ export default function CardMyInvitation({ event, handleUpdateClick }: Props) {
           )}
 
           {/* this could be a component */}
-          <section className='--margin-ltr16px'>
+          <section className="--margin-ltr16px">
             {event.passengers.includes(String(session?.user?.email)) ? (
               <button onClick={handleLeaveRide} className="navbar__button">
                 Leave
@@ -321,18 +342,31 @@ export default function CardMyInvitation({ event, handleUpdateClick }: Props) {
             </div>
           </div>
 
-          <section className="manage__info --gray-shading">
-            {event.transportDescription.length > 16 ? (
-              <>
-                <p>
-                  <b>Transit details:</b> {event.transportDescription}
-                </p>
-              </>
-            ) : (
-              <>
-                <b>Transit details:</b> <p>{event.transportDescription}</p>
-              </>
-            )}
+          <section className="manage__description --gray-shading">
+            <div
+              onClick={() =>
+                handleListToggle(seeAboutTransit, setSeeAboutTransit)
+              }
+              className="toggle-description-button"
+            >
+              {' '}
+              <div>
+                <b>Transit details</b>{' '}
+              </div>{' '}
+              {seeAboutTransit ? (
+                <span className="--text12px"> &#128214;</span>
+              ) : (
+                <span className="--text12px"> &#128213;</span>
+              )}
+            </div>
+
+            <div
+              className={
+                seeAboutTransit ? 'description-visible' : 'description-hidden'
+              }
+            >
+              <p>{event.transportDescription}</p>
+            </div>
           </section>
 
           <div className="--spacer-60px"></div>

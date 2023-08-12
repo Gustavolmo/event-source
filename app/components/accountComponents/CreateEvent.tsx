@@ -420,9 +420,10 @@ export default function CreateEvent() {
                   </section>
                 )}
               </div>
-              <div className='--spacer-60px'></div>
             </>
           )}
+          
+          <div className='--spacer-60px'></div>
 
           {(eventData.eventCheck || eventData.transportCheck) && (
             <button className="action-button absolute-button-bottom-right" type="submit">
