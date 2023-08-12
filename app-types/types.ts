@@ -41,7 +41,7 @@ export type EventData = {
   acceptedLive: string[];
   acceptedVirtually: string[];
   rejected: string[];
-  virtualLink: string;
+  virtualLink: boolean;
   transportMode: string;
   transportCost: number;
   transportDescription: string;

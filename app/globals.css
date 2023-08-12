@@ -65,12 +65,16 @@ p {
 }
 
 a {
+  color: rgb(0, 110, 255);
+}
+
+/*______________________________________ HIGH-LEVEL */
+.home__about {
   text-decoration: none;
   margin: 0 8px;
   color: #Ef4b4c;
 }
 
-/*______________________________________ HIGH-LEVEL */
 .navbar {
   z-index: 100;
   position: fixed;
@@ -288,9 +292,14 @@ input {
 input {
   height: 28px;
 }
-/* .rti--container {
-  EMAILS INPUT
-} */
+
+.rti--container {
+  margin-bottom: 8px;
+}
+.rti--input {
+  width: 70% !important;
+  height: 22px;
+}
 
 .inline-label-input {
   display: flex;
@@ -486,6 +495,21 @@ input {
   display: flex;
   align-items: center;
   padding: 8px;;
+}
+
+.--oneway-symbol {
+  position: absolute;
+  left: 0px;
+  border-right: 1px solid #ccc;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 6px;
+}
+
+.--gap8px {
+  display: flex;
+  gap: 8px;
 }
 
 /*______________________________________*/

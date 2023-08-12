@@ -31,7 +31,7 @@ export default function CreateEvent() {
     acceptedLive: [],
     acceptedVirtually: [],
     rejected: [],
-    virtualLink: '',
+    virtualLink: false,
     transportMode: '',
     transportCost: 0,
     transportDescription: '',
@@ -127,14 +127,18 @@ export default function CreateEvent() {
             />
           )}
           {eventData.eventCheck && (
-            <input
-              className="--with-margin-n-8px"
-              type="text"
-              name="virtualLink"
-              placeholder="Virtual Link (opt)"
-              onChange={handleOnChange}
-              value={eventData.virtualLink}
-            />
+            <section className="form__offerings">
+              <div className='form__offerings'>
+                <input
+                  type="checkbox"
+                  name="virtualLink"
+                  placeholder="Google Meets Link (opt)"
+                  checked={eventData.virtualLink}
+                  onChange={handleOnCheckBox}
+                />
+                <b  className="--bold-gray">Add Google meet link?</b>
+              </div>
+            </section>
           )}
 
           {(eventData.eventCheck || eventData.transportCheck) && (
@@ -145,7 +149,6 @@ export default function CreateEvent() {
                 onChange={setInvitedEmails}
                 placeHolder="guests email"
               />
-              <pre>{invitedEmails.toString()}</pre>
             </>
           )}
 
@@ -269,7 +272,7 @@ export default function CreateEvent() {
               className="--with-margin-n-8px"
               type="text"
               name="transportMode"
-              placeholder="Transport mode"
+              placeholder="Vehicle details"
               onChange={handleOnChange}
               value={eventData.transportMode}
               required
@@ -346,7 +349,7 @@ export default function CreateEvent() {
             <section>
               <input
                 className="form__input-120w"
-                type="time"
+                type="date"
                 name="pickupDate"
                 placeholder="Pickup Date"
                 onChange={handleOnChange}
@@ -397,7 +400,14 @@ export default function CreateEvent() {
                 />
                 <b className="--bold-gray">Round Trip?</b>
                 {eventData.roundTripCheck && (
-                  <section>
+                  <section className='--gap8px'>
+                    <input
+                      type="date"
+                      name="returnDate"
+                      placeholder="Return date"
+                      onChange={handleOnChange}
+                      value={eventData.returnDate}
+                    />
                     <input
                       type="time"
                       name="returnTime"
@@ -405,13 +415,6 @@ export default function CreateEvent() {
                       onChange={handleOnChange}
                       value={eventData.returnTime}
                       required
-                    />
-                    <input
-                      type="date"
-                      name="returnDate"
-                      placeholder="Return date"
-                      onChange={handleOnChange}
-                      value={eventData.returnDate}
                     />
                   </section>
                 )}

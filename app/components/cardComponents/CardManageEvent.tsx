@@ -148,7 +148,11 @@ export default function CardManageEvent({
             </section>
 
             <section className="manage__info --gray-shading">
-              <b>Link:</b> <p>{event.virtualLink}</p>
+              {event.virtualLink && (
+                <>
+                  <b>Google Meets:</b> <a href='/' className='--text12px '>GoogleMeetsLink</a>
+                </>
+              )}
             </section>
 
             <div className="manage__info-column --gray-shading">
@@ -157,7 +161,7 @@ export default function CardManageEvent({
               </div>
 
               <div className="--inline-tags">
-                <b>Revenue:</b>{' '}
+                <b>Expected return:</b>{' '}
                 <p>{event.eventCost * event.acceptedLive.length}kr</p>
               </div>
             </div>
@@ -191,14 +195,15 @@ export default function CardManageEvent({
           {event.roundTripCheck ? (
             <section className="manage__info-time-date">
               <div className="--roundtrip-symbol">
-                <p className='--text20px'>&#10607;</p>
+                <p className="--text20px">&#10607;</p>
               </div>
 
               <article>
                 <div>
                   <p>
                     {' '}
-                    <b>{event.pickupTime}</b> {event.pickupDate} HC
+                    <b>{event.pickupTime}</b>{' '}
+                    <span className="--grey-text">{event.pickupDate}</span>
                   </p>
                   <b className=" --text12px">{event.pickupLocation}</b>
                 </div>
@@ -206,28 +211,33 @@ export default function CardManageEvent({
                 <div>
                   <p>
                     {' '}
-                    <b>{event.returnTime}</b> {event.returnDate}
+                    <b>{event.returnTime}</b>{' '}
+                    <span className="--grey-text">{event.returnDate}</span>
                   </p>
-                  <b className=" --text12px">
-                    {event.dropOffLocation} HARDCODE
-                  </b>
+                  <b className=" --text12px">{event.dropOffLocation}</b>
                 </div>
               </article>
             </section>
           ) : (
-            <section className="manage__info --gray-shading">
-              <div>
-                <p>&#11107;</p>
-                {event.roundTripCheck ? (
-                  <b className="--centered-text">Two-way</b>
-                ) : (
-                  <b className="--centered-text">One-way</b>
-                )}
+            <section className="manage__info-time-date">
+              <div className="--oneway-symbol">
+                <p className="--text20px">&#11107;</p>
               </div>
-              <div>
-                <p className=" --text12px">{event.pickupLocation}</p>
-                <p className=" --text12px">{event.dropOffLocation} HARDCODE</p>
-              </div>
+
+              <article>
+                <div>
+                  <p>
+                    {' '}
+                    <b>{event.pickupTime}</b>{' '}
+                    <span className="--grey-text">{event.pickupDate} HC</span>
+                  </p>
+                  <b className=" --text12px">{event.pickupLocation}</b>
+                </div>
+
+                <div>
+                  <b className=" --text12px">{event.dropOffLocation}</b>
+                </div>
+              </article>
             </section>
           )}
 
@@ -259,7 +269,7 @@ export default function CardManageEvent({
             </div>
 
             <div className="--inline-tags">
-              <b>Revenue:</b>{' '}
+              <b>Expected return:</b>{' '}
               <p>{event.transportCost * event.passengers.length}kr</p>
             </div>
           </div>

@@ -28,7 +28,7 @@ export default async function Home() {
       </Suspense>
       <footer className="footer">
         <p> &#x1F4BB;{' '}</p>
-        <a href="https://github.com/Gustavolmo">About</a>
+        <a className='home__about' href="https://github.com/Gustavolmo">About</a>
       </footer>
     </>
   );
