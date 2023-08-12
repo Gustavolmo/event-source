@@ -157,8 +157,8 @@ export default function CreateEvent() {
               className="--with-margin-n-8px"
               name="eventDescription"
               cols={30}
-              rows={10}
-              placeholder="Description"
+              rows={5}
+              placeholder="Short description"
               onChange={handleOnChange}
               value={eventData.eventDescription}
               required
@@ -308,8 +308,8 @@ export default function CreateEvent() {
               className="--with-margin-n-8px"
               name="transportDescription"
               cols={30}
-              rows={10}
-              placeholder="Transit details"
+              rows={5}
+              placeholder="Short description"
               onChange={handleOnChange}
               value={eventData.transportDescription}
               required
