@@ -70,6 +70,7 @@ export default function CardManageEvent({
         seeList={seeGuests}
         setSeeList={setSeeGuests}
         hasAddGuest={true}
+        hasDetails={true}
         funcUpdateClick={funcUpdateClick}
         event={event}
         listChoice={event.invited}
@@ -89,6 +90,7 @@ export default function CardManageEvent({
             seeList={seeAccepted}
             setSeeList={setSeeAccepted}
             hasAddGuest={false}
+            hasDetails={true}
             funcUpdateClick={funcUpdateClick}
             event={event}
             listChoice={event.acceptedLive}
@@ -100,6 +102,7 @@ export default function CardManageEvent({
             seeList={seeVirtual}
             setSeeList={setSeeVirtual}
             hasAddGuest={false}
+            hasDetails={false}
             funcUpdateClick={funcUpdateClick}
             event={event}
             listChoice={event.acceptedVirtually}
@@ -113,6 +116,7 @@ export default function CardManageEvent({
             seeList={seeRejected}
             setSeeList={setSeeRejected}
             hasAddGuest={false}
+            hasDetails={false}
             funcUpdateClick={funcUpdateClick}
             event={event}
             listChoice={event.rejected}
@@ -249,6 +253,7 @@ export default function CardManageEvent({
             seeList={seePax}
             setSeeList={setSeePax}
             hasAddGuest={false}
+            hasDetails={false}
             funcUpdateClick={funcUpdateClick}
             event={event}
             listChoice={event.passengers}

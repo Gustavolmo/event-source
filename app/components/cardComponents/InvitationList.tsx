@@ -25,14 +25,22 @@ export default function InvitationList({ guest, details }: Props) {
   if (dbData) {
     return (
       <div>
+
+
+
+
         <article className='restriction-alert-wrapper'>
           <b>{dbData[0].name}</b>
-          {(dbData[0].dietaryRestrictions || dbData[0].accessibilityNeeds) && (
+
+          {details && (dbData[0].dietaryRestrictions || dbData[0].accessibilityNeeds) && (
             <b onClick={hadnleExpandRestrictions} className="restriction-alert">
               Restrictions
             </b>
           )}
         </article>
+
+
+
 
         <article
           className={
@@ -56,6 +64,7 @@ export default function InvitationList({ guest, details }: Props) {
             </>
           )}
         </article>
+
       </div>
     );
   }

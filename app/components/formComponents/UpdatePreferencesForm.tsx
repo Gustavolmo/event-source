@@ -90,7 +90,7 @@ export default function UpdatePreferencesForm(props: {
             {seeEdit ? (
               <input
                 name="name"
-                placeholder="Dietary Restrictions"
+                placeholder="Name Display"
                 onChange={handleOnChange}
                 value={userPreferences.name ? userPreferences.name : ''}
                 required

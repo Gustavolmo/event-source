@@ -8,6 +8,7 @@ type Props = {
   seeList: boolean;
   setSeeList: Function;
   hasAddGuest: boolean;
+  hasDetails: boolean;
   funcUpdateClick: Function;
   event: EventData;
   listChoice: string[];
@@ -19,6 +20,7 @@ export default function ToggleList({
   seeList,
   setSeeList,
   hasAddGuest,
+  hasDetails,
   funcUpdateClick,
   event,
   listChoice,
@@ -50,10 +52,11 @@ export default function ToggleList({
         )}
         <article className="list__names">
           {listChoice.map((guest, index) => {
+
             return (
               <InvitationList
                 guest={guest}
-                details={true}
+                details={hasDetails}
                 key={`${index}_${event._id}`}
               />
             );
