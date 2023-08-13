@@ -153,6 +153,16 @@ a {
   margin-top: 40px;
 }
 
+.logo {
+  border-radius: 99px;
+}
+
+.logo:hover {
+  cursor: pointer;
+  box-shadow: 0px 0px 2px 1px #f4c6c6;
+  background-color: #f4c6c6;
+}
+
 /*______________________________________ BUTTONS */
 .absolute-button-top-right {
   position: absolute;

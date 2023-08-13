@@ -24,7 +24,7 @@ export default function Navbar({
 
   return (
     <nav className="navbar --padding-left8px">
-      <Image onClick={handleLogoClick} height={30} width={30} src={logo} alt='Logo'/>
+      <Image className='logo' onClick={handleLogoClick} height={30} width={30} src={logo} alt='Logo'/>
       <div>
         <PathButton
           path={path}
