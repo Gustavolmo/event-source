@@ -6,6 +6,7 @@ import {
   removeGuestFromList,
 } from '@/app-library/InvitationControls';
 import ToggleList from '../ToggleList';
+import ToggleDescription from '../ToggleDescription';
 
 type Props = {
   event: EventData;
@@ -207,35 +208,13 @@ export default function CardMyInvitation({ event, handleUpdateClick }: Props) {
               </div>
             </div>
 
-            {/* THIS NEEDS TO BE A COMPONENT */}
-            <section className="manage__description --gray-shading">
-              <div
-                onClick={() =>
-                  handleListToggle(seeAboutEvent, setSeeAboutEvent)
-                }
-                className="toggle-description-button"
-              >
-                {' '}
-                <div>
-                  <b>Event details</b>{' '}
-                </div>{' '}
-                {seeAboutEvent ? (
-                  <span className="--text12px"> &#128214;</span>
-                ) : (
-                  <span className="--text12px"> &#128213;</span>
-                )}
-              </div>
+            <ToggleDescription 
+            handleListToggle={handleListToggle}
+            seeState={seeAboutEvent}
+            setSeeState={setSeeAboutEvent}
+            description={event.eventDescription}
+            />
 
-              <div
-                className={
-                  seeAboutEvent ? 'description-visible' : 'description-hidden'
-                }
-              >
-                <p>{event.eventDescription}</p>
-              </div>
-            </section>
-            {/* _____END COMMENT______ */}
-            
           </article>
         </>
       )}
@@ -342,32 +321,12 @@ export default function CardMyInvitation({ event, handleUpdateClick }: Props) {
             </div>
           </div>
 
-          <section className="manage__description --gray-shading">
-            <div
-              onClick={() =>
-                handleListToggle(seeAboutTransit, setSeeAboutTransit)
-              }
-              className="toggle-description-button"
-            >
-              {' '}
-              <div>
-                <b>Transit details</b>{' '}
-              </div>{' '}
-              {seeAboutTransit ? (
-                <span className="--text12px"> &#128214;</span>
-              ) : (
-                <span className="--text12px"> &#128213;</span>
-              )}
-            </div>
-
-            <div
-              className={
-                seeAboutTransit ? 'description-visible' : 'description-hidden'
-              }
-            >
-              <p>{event.transportDescription}</p>
-            </div>
-          </section>
+          <ToggleDescription 
+            handleListToggle={handleListToggle}
+            seeState={seeAboutTransit}
+            setSeeState={setSeeAboutTransit}
+            description={event.transportDescription}
+            />
 
           <div className="--spacer-60px"></div>
         </>

@@ -3,6 +3,7 @@ import { EventData } from '@/app-types/types';
 import React, { useState } from 'react';
 import { deleteEvent } from '@/app-library/DbControls';
 import ToggleList from '../ToggleList';
+import ToggleDescription from '../ToggleDescription';
 
 type Props = {
   event: EventData;
@@ -180,30 +181,13 @@ export default function CardManageEvent({
               </div>
             </div>
 
-            <section className="manage__description --gray-shading">
-              <div
-                onClick={() =>
-                  handleListToggle(seeAboutEvent, setSeeAboutEvent)
-                }
-                className="toggle-description-button"
-              >
-                {' '}
-                <b>Event details</b>{' '}
-                {seeAboutEvent ? (
-                  <span className="--text12px"> &#128214;</span>
-                ) : (
-                  <span className="--text12px"> &#128213;</span>
-                )}
-              </div>
-
-              <div
-                className={
-                  seeAboutEvent ? 'description-visible' : 'description-hidden'
-                }
-              >
-                <p>{event.eventDescription}</p>
-              </div>
-            </section>
+            <ToggleDescription 
+            handleListToggle={handleListToggle}
+            seeState={seeAboutEvent}
+            setSeeState={setSeeAboutEvent}
+            description={event.eventDescription}
+            />
+            
           </article>
         </>
       )}
@@ -304,32 +288,12 @@ export default function CardManageEvent({
             </div>
           </div>
 
-          <section className="manage__description --gray-shading">
-            <div
-              onClick={() =>
-                handleListToggle(seeAboutTransit, setSeeAboutTransit)
-              }
-              className="toggle-description-button"
-            >
-              {' '}
-              <div>
-                <b>Transit details</b>{' '}
-              </div>{' '}
-              {seeAboutTransit ? (
-                <span className="--text12px"> &#128214;</span>
-              ) : (
-                <span className="--text12px"> &#128213;</span>
-              )}
-            </div>
-
-            <div
-              className={
-                seeAboutTransit ? 'description-visible' : 'description-hidden'
-              }
-            >
-              <p>{event.transportDescription}</p>
-            </div>
-          </section>
+          <ToggleDescription 
+            handleListToggle={handleListToggle}
+            seeState={seeAboutTransit}
+            setSeeState={setSeeAboutTransit}
+            description={event.transportDescription}
+            />
 
           <div className="--spacer-60px"></div>
         </>
