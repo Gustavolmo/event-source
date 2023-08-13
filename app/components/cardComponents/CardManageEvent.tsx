@@ -4,6 +4,11 @@ import React, { useState } from 'react';
 import { deleteEvent } from '@/app-library/DbControls';
 import ToggleList from '../ToggleList';
 import ToggleDescription from '../ToggleDescription';
+import TransitInfoBoard from './TransitInfoBoard';
+import EventInfoBoard from './EventInfoBoard';
+import TitleSection from './TitleSection';
+import GoogleMeetLink from './GoogleMeetLink';
+import DeleteButton from '../buttonComponents/DeleteButton';
 
 type Props = {
   event: EventData;
@@ -33,40 +38,11 @@ export default function CardManageEvent({
 
   return (
     <>
-      <section className="manage__create-by">
-        <p className="--grey-text">
-          <b className="--grey-text">Created:</b>
-          {event.dateCreated}
-        </p>
-        <p className="--grey-text">
-          <b className="--grey-text">By:</b>
-          {event.organizerName}
-        </p>
-      </section>
-
-      {event.eventCheck && !event.transportCheck && (
-        <b className="form__section-title">
-          EVENT <h4>{event.eventDate}</h4>
-        </b>
-      )}
-      {!event.eventCheck && event.transportCheck && (
-        <b className="form__section-title">
-          TRANSPORTATION <h4>{event.eventDate}</h4>
-        </b>
-      )}
-      {event.eventCheck && event.transportCheck && (
-        <b className="form__section-title">
-          EVENT & TRANSIT <h4>{event.eventDate}</h4>
-        </b>
-      )}
-
       <button className="action-button absolute-button-top-right">
         Edit [TBD]
       </button>
 
-      <div className="--with-margin-t-8px --with-margin-n-8px">
-        <h4 className="--red-highlight-text">{event.eventTitle}</h4>
-      </div>
+      <TitleSection event={event} />
 
       <ToggleList
         handleListToggle={() => handleListToggle(seeGuests, setSeeGuests)}
@@ -133,23 +109,7 @@ export default function CardManageEvent({
           {event.eventCheck && <h5>Event Details</h5>}
 
           <article className="manage__form-details">
-            <p className="--centered-text">
-              {!event.multiDayCheck && event.eventDate}
-            </p>
-
-            <section className="manage__info-time-date-event">
-              <span className="--centered-text">
-                <p>{event.multiDayCheck ? event.eventDate : 'From:'}</p>
-                <b>{event.eventTime}</b>
-              </span>
-
-              <b> &#128197; </b>
-
-              <span className="--centered-text">
-                <p>{event.multiDayCheck ? event.eventEndDate : 'To:'}</p>
-                <b>{event.eventEndTime}</b>
-              </span>
-            </section>
+            <EventInfoBoard event={event} />
 
             <section className="manage__info --gray-shading">
               <b>Venue:</b> <p className="--text12px">{event.eventLocation}</p>
@@ -159,16 +119,7 @@ export default function CardManageEvent({
               <b>RSVP:</b> <p>{event.eventRSVP}</p>
             </section>
 
-            {event.virtualLink && (
-              <section className="manage__info --gray-shading">
-                <>
-                  <b>Google Meets:</b>{' '}
-                  <a href="/" className="--text12px ">
-                    GoogleMeetsLink
-                  </a>
-                </>
-              </section>
-            )}
+            <GoogleMeetLink event={event} meetLink="/" />
 
             <div className="manage__info-column --gray-shading">
               <div className="--inline-tags">
@@ -181,13 +132,12 @@ export default function CardManageEvent({
               </div>
             </div>
 
-            <ToggleDescription 
-            handleListToggle={handleListToggle}
-            seeState={seeAboutEvent}
-            setSeeState={setSeeAboutEvent}
-            description={event.eventDescription}
+            <ToggleDescription
+              handleListToggle={handleListToggle}
+              seeState={seeAboutEvent}
+              setSeeState={setSeeAboutEvent}
+              description={event.eventDescription}
             />
-            
           </article>
         </>
       )}
@@ -200,59 +150,7 @@ export default function CardManageEvent({
             </>
           )}
 
-          <p className="--centered-text">
-            {' '}
-            {event.roundTripCheck ? 'Round trip' : 'One-way trip'} &#9201;{' '}
-            {event.travelTime}
-          </p>
-          {event.roundTripCheck ? (
-            <section className="manage__info-time-date">
-              <div className="--roundtrip-symbol">
-                <p className="--text20px">&#10607;</p>
-              </div>
-
-              <article>
-                <div>
-                  <p>
-                    {' '}
-                    <b>{event.pickupTime}</b>{' '}
-                    <span className="--grey-text">{event.pickupDate}</span>
-                  </p>
-                  <b className=" --text12px">{event.pickupLocation}</b>
-                </div>
-
-                <div>
-                  <p>
-                    {' '}
-                    <b>{event.returnTime}</b>{' '}
-                    <span className="--grey-text">{event.returnDate}</span>
-                  </p>
-                  <b className=" --text12px">{event.dropOffLocation}</b>
-                </div>
-              </article>
-            </section>
-          ) : (
-            <section className="manage__info-time-date">
-              <div className="--oneway-symbol">
-                <p className="--text20px">&#11107;</p>
-              </div>
-
-              <article>
-                <div>
-                  <p>
-                    {' '}
-                    <b>{event.pickupTime}</b>{' '}
-                    <span className="--grey-text">{event.pickupDate} HC</span>
-                  </p>
-                  <b className=" --text12px">{event.pickupLocation}</b>
-                </div>
-
-                <div>
-                  <b className=" --text12px">{event.dropOffLocation}</b>
-                </div>
-              </article>
-            </section>
-          )}
+          <TransitInfoBoard event={event} />
 
           <ToggleList
             handleListToggle={() => handleListToggle(seePax, setSeePax)}
@@ -288,23 +186,18 @@ export default function CardManageEvent({
             </div>
           </div>
 
-          <ToggleDescription 
+          <ToggleDescription
             handleListToggle={handleListToggle}
             seeState={seeAboutTransit}
             setSeeState={setSeeAboutTransit}
             description={event.transportDescription}
-            />
+          />
 
           <div className="--spacer-60px"></div>
         </>
       )}
 
-      <button
-        className="navbar__button absolute-button-bottom-right"
-        onClick={handleDelete}
-      >
-        Delete
-      </button>
+      <DeleteButton handleDelete={handleDelete} mainText="Delete" toRight={true}/>
     </>
   );
 }

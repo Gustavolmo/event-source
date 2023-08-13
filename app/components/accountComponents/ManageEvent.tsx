@@ -3,6 +3,7 @@ import { getAllUserEvents } from '@/app-library/DbControls';
 import useDbQuery from '@/app/customHooks/useDbQuery';
 import React, { useState } from 'react';
 import CardManageEvent from '../cardComponents/CardManageEvent';
+import DotsDivider from '../DotsDivider';
 
 export default function ManageEvent() {
   const [updateClick, setUpdateClick] = useState<boolean>(false);
@@ -18,12 +19,15 @@ export default function ManageEvent() {
       {dbData &&
         dbData.map((event, index) => {
           return (
-            <section className='event-card' key={`${index}_${event._id}`}>
-              <CardManageEvent
-                event={event}
-                funcUpdateClick={handleUpdateClick}
-              />
-            </section>
+            <>
+              <section className="event-card" key={`${index}_${event._id}`}>
+                <CardManageEvent
+                  event={event}
+                  funcUpdateClick={handleUpdateClick}
+                />
+              </section>
+              <DotsDivider/>
+            </>
           );
         })}
     </>

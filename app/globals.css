@@ -171,10 +171,22 @@ a {
   bottom: 8px;
 }
 
+.absolute-button-bottom-left--second {
+  position: absolute;
+  bottom: 8px;
+  left: 80px;
+}
+
 .absolute-button-bottom-right {
   position: absolute;
   bottom: 8px;
   right: 8px;
+}
+
+.absolute-button-bottom-right--second {
+  position: absolute;
+  bottom: 8px;
+  right: 80px;
 }
 
 .action-button {
@@ -212,6 +224,16 @@ a {
 }
 .navbar__button:active {
   background-color: #f5f5f5;
+}
+
+.navbar__button--disabled {
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+  color: #cccccc;
+  border-radius: 4px;
+  height: 24px;
+  max-width: 100px;
+  margin-right: 8px;
 }
 
 .account-buttons{
@@ -649,6 +671,38 @@ input {
 
 .--margin12px {
   margin: 12px;
+}
+
+/* ______________________________________ */
+
+/* ______________________________________ DIVIDERS */
+.--tiny-dots {
+  border-top: dotted 5px #f99494;
+  width: 5px
+}
+
+.--small-dots {
+  border-top: dotted 10px #f99494;
+  width: 10px
+}
+
+.--medium-dots {
+  border-top: dotted 15px #f99494;
+  width: 15px
+}
+
+.--big-dots {
+  border-top: dotted 20px #f99494;
+  width: 20px
+}
+
+.--red-bar-divider {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  width: 160px;
+  margin: 20px 0 36px 0;
 }
 
 /*______________________________________*/
