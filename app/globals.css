@@ -703,22 +703,22 @@ input {
 
 /* ______________________________________ DIVIDERS */
 .--tiny-dots {
-  border-top: dotted 5px #f99494;
+  border-top: dotted 5px #ccc;
   width: 5px
 }
 
 .--small-dots {
-  border-top: dotted 10px #f99494;
+  border-top: dotted 10px #ccc;
   width: 10px
 }
 
 .--medium-dots {
-  border-top: dotted 15px #f99494;
+  border-top: dotted 15px #ccc;
   width: 15px
 }
 
 .--big-dots {
-  border-top: dotted 20px #f99494;
+  border-top: dotted 20px #ccc;
   width: 20px
 }
 
