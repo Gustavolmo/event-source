@@ -1,6 +1,5 @@
 'use client';
 import React, { Suspense } from 'react';
-import UserImage from '../components/UserImage';
 import Greeting from '../components/Greeting';
 import UpdatePreferencesForm from '../components/formComponents/UpdatePreferencesForm';
 import PathButton from '../components/PathButton';

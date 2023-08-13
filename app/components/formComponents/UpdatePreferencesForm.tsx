@@ -81,11 +81,11 @@ export default function UpdatePreferencesForm(props: {
 
   return (
     <>
-      <h3>Your preferences</h3>
+      <h3  className='--marginB16px'>Your preferences</h3>
       <>
         <form className="create-event-form" onSubmit={handleSubmit}>
           <div className="inline-label-input">
-            <p> Name Displayed : </p>
+            <p className='--maringRL'> Name Displayed</p>
 
             {seeEdit ? (
               <input
@@ -103,7 +103,7 @@ export default function UpdatePreferencesForm(props: {
           </div>
 
           <div className="inline-label-input">
-            <p> Dietary Restrictions</p>
+            <p  className='--maringRL'> Dietary Restrictions</p>
 
             {seeEdit ? (
               <>
@@ -136,7 +136,7 @@ export default function UpdatePreferencesForm(props: {
           </div>
 
           <div className="inline-label-input">
-            <p>Accessibility Needs</p>
+            <p  className='--maringRL'>Accessibility Needs</p>
 
             {seeEdit ? (
               <>

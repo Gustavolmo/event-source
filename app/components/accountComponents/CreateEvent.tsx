@@ -4,6 +4,7 @@ import { EventData } from '@/app-types/types';
 import { useSession } from 'next-auth/react';
 import React, { ChangeEvent, useState } from 'react';
 import { TagsInput } from 'react-tag-input-component';
+import EasterEgg from '../EasterEgg';
 
 export default function CreateEvent() {
   const date = String(new Date().toDateString());
@@ -422,15 +423,21 @@ export default function CreateEvent() {
               </div>
             </>
           )}
-          
-          <div className='--spacer-60px'></div>
 
           {(eventData.eventCheck || eventData.transportCheck) && (
-            <button className="action-button absolute-button-bottom-right" type="submit">
-              Send Invites!
-            </button>
+            <>
+              <div className="--spacer-60px"></div>
+              <button
+                className="action-button absolute-button-bottom-right"
+                type="submit"
+              >
+                Send Invites!
+              </button>
+            </>
           )}
         </form>
+
+        {!eventData.eventCheck && !eventData.transportCheck && <EasterEgg />}
       </section>
     </>
   );

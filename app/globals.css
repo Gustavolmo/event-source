@@ -345,6 +345,7 @@ input {
 
 .rti--container {
   margin-bottom: 8px;
+  margin-right: 8px;
 }
 .rti--input {
   width: 70% !important;
@@ -590,6 +591,12 @@ input {
   margin-bottom: 8px;
 }
 
+.--marginB16px {
+  margin-top: 32px;
+  margin-left: 16px;
+  margin-bottom: 16px;
+}
+
 .--bold{
   font-weight: bold;
 }
@@ -673,6 +680,10 @@ input {
   margin: 12px;
 }
 
+.--maringRL {
+  margin: 0 4px 0 12px;
+}
+
 /* ______________________________________ */
 
 /* ______________________________________ DIVIDERS */
@@ -703,6 +714,17 @@ input {
   position: relative;
   width: 160px;
   margin: 20px 0 36px 0;
+}
+
+.easter-egg {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 20px;
+  margin: 40px 10px 10px 10px;
 }
 
 /*______________________________________*/
