@@ -1,5 +1,7 @@
 import React from 'react';
 
 export default function LoadingUi() {
-  return <p>'Loading . . .'</p>;
+  return <section className='loading-ui'>
+    <div className="line line5 loading-animation"></div>
+  </section>;
 }

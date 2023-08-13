@@ -1,16 +1,23 @@
 import { getUserInvitations } from '@/app-library/DbControls';
 import useDbQuery from '@/app/customHooks/useDbQuery';
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import CardMyInvitation from '../cardComponents/CardMyInvitation';
 import DotsDivider from '../DotsDivider';
+import Loading from '../Loading';
 
 export default function MyInvitation() {
   const [updateClick, setUpdateClick] = useState<boolean>(false);
-  const { dbData } = useDbQuery(getUserInvitations, null, updateClick);
+  const { dbData, loading } = useDbQuery(getUserInvitations, null, updateClick);
+  const [doLoader, setDoLoader] = useState<boolean>(true);
 
   const handleUpdateClick = () => {
+    setDoLoader(false)
     setUpdateClick(!updateClick);
   };
+
+  if (loading && doLoader) {
+    return <Loading />
+  }
 
   return (
     <>
@@ -18,15 +25,15 @@ export default function MyInvitation() {
       {dbData &&
         dbData.map((event, index) => {
           return (
-            <>
+            <span key={`${index}__${event._id}`}>
               <section className="event-card" key={`${index}_${event._id}`}>
                 <CardMyInvitation
                   event={event}
                   handleUpdateClick={handleUpdateClick}
                 />
               </section>
-              <DotsDivider/>
-            </>
+              <DotsDivider key={`${index}${event._id}`}/>
+            </span>
           );
         })}
     </>

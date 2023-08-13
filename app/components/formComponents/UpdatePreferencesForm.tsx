@@ -9,6 +9,7 @@ import React, { ChangeEvent, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import LoadingUi from '../LoadingUi';
 import useDbQuery from '@/app/customHooks/useDbQuery';
+import Loading from '../Loading';
 
 export default function UpdatePreferencesForm(props: {
   doesRedirect: boolean;
@@ -66,14 +67,6 @@ export default function UpdatePreferencesForm(props: {
     setSeeDiet(false);
     setSeeEdit(!seeEdit);
   };
-
-  if (status !== 'authenticated') {
-    return (
-      <div className="Loading-ui">
-        <LoadingUi />
-      </div>
-    );
-  }
 
   if (loading) {
     return <LoadingUi />;

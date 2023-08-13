@@ -1,7 +1,13 @@
-import React from 'react'
+import React from 'react';
 
 export default function Loading() {
   return (
-    <h1>LOADING...</h1>
-  )
+    <section className='loading-suspense'>
+      <div className="jumping-dots-loader">
+        {' '}
+        <span></span> <span></span> <span></span>{' '}
+      </div>
+      <div className="moving-gradient"></div>
+    </section>
+  );
 }

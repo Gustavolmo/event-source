@@ -143,14 +143,14 @@ export default function CreateEvent() {
           )}
 
           {(eventData.eventCheck || eventData.transportCheck) && (
-            <>
+            <div className='--padding-right8px'>
               <TagsInput
                 name="invited"
                 value={invitedEmails}
                 onChange={setInvitedEmails}
                 placeHolder="guests email"
               />
-            </>
+            </div>
           )}
 
           {eventData.eventCheck && (
