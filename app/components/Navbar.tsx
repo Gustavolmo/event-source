@@ -6,7 +6,17 @@ import Image from 'next/image';
 import logo from '../assets/Logo1.png'
 import { useRouter } from 'next/navigation';
 
-export default function Navbar() {
+type Props = {
+  path: string;
+  title: string;
+  className: string;
+}
+
+export default function Navbar({
+  path,
+  title,
+  className
+}: Props) {
   const router = useRouter();
   const handleLogoClick = () => {
     router.push('/')
@@ -17,9 +27,9 @@ export default function Navbar() {
       <Image onClick={handleLogoClick} height={30} width={30} src={logo} alt='Logo'/>
       <div>
         <PathButton
-          path={'/account'}
-          title={'My Account'}
-          className={'action-button'}
+          path={path}
+          title={title}
+          className={className}
         />
         <LoginButton />
       </div>

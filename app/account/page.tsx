@@ -12,7 +12,7 @@ export default async function MyAccount() {
   return (
     <>
       <Suspense fallback={<Loading />}>
-        <Navbar/>
+        <Navbar path={'/'} title={'Home'} className={'navbar__button'} />
         <main className="main">
           <AccountPage />
         </main>
