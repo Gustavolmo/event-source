@@ -61,7 +61,7 @@ export default function CardMyInvitation({ event, handleUpdateClick }: Props) {
     removeGuestFromList(session?.user?.email, event._id, 'passengers');
     handleUpdateClick();
   };
-
+  
   return (
     <>
       <TitleSection event={event} />
