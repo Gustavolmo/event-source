@@ -148,7 +148,7 @@ export default function CreateEvent() {
                 name="invited"
                 value={invitedEmails}
                 onChange={setInvitedEmails}
-                placeHolder="guests email"
+                placeHolder="Guests email"
               />
             </div>
           )}

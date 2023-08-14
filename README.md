@@ -2,6 +2,8 @@
 
 # EventSauce
 
+- event-source-ochre.vercel.app
+
 Event Sauce is a web-based application that allows users to create, manage, and track events. It is designed to simplify the process of organizing and coordinating events.
 
 
@@ -35,4 +37,4 @@ Overall, the Event Management Application simplifies the process of event planni
 
 ## Try it for yourself
 
-- You can use the app by accessing (not deployed yet)
+- You can use the app by accessing event-source-ochre.vercel.app

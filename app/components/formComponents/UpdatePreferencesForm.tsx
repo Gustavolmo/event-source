@@ -82,7 +82,7 @@ export default function UpdatePreferencesForm(props: {
             {seeEdit ? (
               <input
                 name="name"
-                placeholder="Name Display"
+                placeholder="Name Displayed"
                 onChange={handleOnChange}
                 value={userPreferences.name ? userPreferences.name : ''}
                 required
