@@ -232,14 +232,16 @@ a {
   max-width: 100px;
   min-width: 60px;
   margin-right: 8px;
+  transition: .2s ease-in-out;
 }
 
 .action-button:hover {
   cursor: pointer;
   background-color: #f66161;
+  transition: .2s ease-in-out;
 }
 
-.action-button:hover:active {
+.action-button:active {
   cursor: pointer;
   background-color: #f89292;
 }
@@ -255,9 +257,11 @@ a {
 .navbar__button:hover {
   cursor: pointer;
   background-color: #f1f1f1;
+  transition: .2s ease-in-out;
 }
 .navbar__button:active {
   background-color: #f5f5f5;
+  transition: .2s ease-in-out;
 }
 
 .navbar__button--disabled {
@@ -321,11 +325,13 @@ a {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  transition: .2s ease-in-out;
 }
 
 .toggle-button:hover {
   cursor: pointer;
   background-color: #f1f1f1;
+  transition: .2s ease-in-out;
 }
 
 .toggle-description-button {
@@ -340,12 +346,14 @@ a {
 .delete-guest {
   margin: 0;
   padding: 0 4px;
-  color: #Ef4b4c;
+  color: #f89292;
   border-radius: 4px;
+  transition: .2s;
 }
 
 .delete-guest:hover {
-  border: solid 1px #Ef4b4c;
+  color: #Ef4b4c;
+  transition: .2s;
 }
 
 /*______________________________________ FORM */
@@ -568,7 +576,6 @@ input {
   border-radius: 4px;
   opacity: 0;
   height: 0;
-  transition: .2s;
 }
 
 .guest-restrictions--selected {
@@ -579,20 +586,21 @@ input {
   opacity: 1;
   height: 1;
   display: block;
-  transition: .2s;
 }
 
 .restriction-alert {
   border-radius: 4px;
   font-weight: bold;
   padding: 2px;
-  color: #Ef4b4c;
   font-size: 12px;
+  color: #f99494;
+  transition: .2s;
 }
 
 .restriction-alert:hover {
-  color: #f99494;
+  color: #Ef4b4c;
   cursor: pointer;
+  transition: .2s;
 }
 
 .restriction-alert-wrapper {
@@ -760,6 +768,7 @@ input {
   cursor: pointer;
   background-color: #fff;
   border-radius: 4px;
+  transition: .2s ease-in-out;
 } 
 
 .--position-relative {
