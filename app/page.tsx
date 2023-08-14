@@ -1,9 +1,6 @@
 'use server';
-
 import { Suspense } from 'react';
 import HomePage from './HomePage';
-import { LoginButton } from './components/Login';
-import PathButton from './components/PathButton';
 import Loading from './components/Loading';
 import Navbar from './components/Navbar';
 

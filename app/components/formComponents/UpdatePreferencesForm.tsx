@@ -5,7 +5,7 @@ import {
 } from '@/app-library/DbControls';
 import { UserPreferences } from '@/app-types/types';
 import { useSession } from 'next-auth/react';
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import LoadingUi from '../LoadingUi';
 import useDbQuery from '@/app/customHooks/useDbQuery';

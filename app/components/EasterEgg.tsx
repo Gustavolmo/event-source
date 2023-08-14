@@ -1,14 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import quotes from '../quotes';
-import DotsDivider from './DotsDivider';
 
-type Props = {
-  divider?: boolean
-}
-
-export default function EasterEgg({divider}: Props) {
+export default function EasterEgg() {
   const randomQuoteNumber = () => {
-    return Math.floor(Math.random() * 15);
+    return Math.floor(Math.random() * 14);
   };
 
   return (
