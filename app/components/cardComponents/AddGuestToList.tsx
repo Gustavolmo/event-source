@@ -28,7 +28,7 @@ export default function AddGuestToList(
           name="invited"
           value={newGuests}
           onChange={setNewGuests}
-          placeHolder="guests email"
+          placeHolder="Guests email"
         />
       </div>
     </form>
