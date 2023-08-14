@@ -82,6 +82,7 @@ export default function CardManageEvent({
         funcUpdateClick={funcUpdateClick}
         event={event}
         listChoice={event.invited}
+        listName='invited'
         buttonTitle={'All Guests'}
       />
 
@@ -102,6 +103,7 @@ export default function CardManageEvent({
             funcUpdateClick={funcUpdateClick}
             event={event}
             listChoice={event.acceptedLive}
+            listName='acceptedLive'
             buttonTitle={'Yeap!'}
           />
 
@@ -117,6 +119,7 @@ export default function CardManageEvent({
               funcUpdateClick={funcUpdateClick}
               event={event}
               listChoice={event.acceptedVirtually}
+              listName='acceptedVirtually'
               buttonTitle={'Remote'}
             />
           )}
@@ -132,6 +135,7 @@ export default function CardManageEvent({
             funcUpdateClick={funcUpdateClick}
             event={event}
             listChoice={event.rejected}
+            listName='rejected'
             buttonTitle={'Nope'}
           />
 
@@ -190,6 +194,7 @@ export default function CardManageEvent({
             funcUpdateClick={funcUpdateClick}
             event={event}
             listChoice={event.passengers}
+            listName='passengers'
             buttonTitle={'Passengers'}
           />
 

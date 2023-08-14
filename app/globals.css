@@ -319,6 +319,17 @@ a {
   cursor: pointer;
 }
 
+.delete-guest {
+  margin: 0;
+  padding: 0 4px;
+  color: #Ef4b4c;
+  border-radius: 4px;
+}
+
+.delete-guest:hover {
+  border: solid 1px #Ef4b4c;
+}
+
 /*______________________________________ FORM */
 pre {
   margin: 4px;
@@ -532,6 +543,7 @@ input {
 }
 
 .guest-restrictions {
+  display: none;
   background-color: #fff;
   padding: 0 8px;
   margin-bottom: 4px;
@@ -724,6 +736,8 @@ input {
 
 .--pointer-hover:hover {
   cursor: pointer;
+  background-color: #fff;
+  border-radius: 4px;
 } 
 /* ______________________________________ */
 
