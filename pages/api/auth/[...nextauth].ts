@@ -14,7 +14,8 @@ export const authOptions: NextAuthOptions = {
       clientId: id,
       clientSecret: secret
     })
-  ]
+  ],
+  secret: process.env.NEXTAUTH_SECRET
 }
 
 export default NextAuth(authOptions);
