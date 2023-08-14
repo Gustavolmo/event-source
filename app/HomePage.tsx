@@ -2,7 +2,7 @@
 import { createNewUserIfFirstLogin } from '@/app-library/DbControls';
 import { User } from '@/app-types/types';
 import { useSession } from 'next-auth/react';
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import AppDescription from './components/landPageComponents/AppDescription';
 

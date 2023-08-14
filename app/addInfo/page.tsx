@@ -11,7 +11,7 @@ export default function UserPreferences() {
       <Suspense fallback={<Loading />}>
         <header className="add-info__title">
           <Greeting />
-          <p>Let's save your preferences for future reference</p>
+          <p>Let&apos;s save your preferences for future reference</p>
         </header>
         <section className="event-card">
           <UpdatePreferencesForm doesRedirect={true} path={'/'} />
