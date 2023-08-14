@@ -195,6 +195,7 @@ export default function CardManageEvent({
               description={event.eventDescription}
             />
           </article>
+          {(event.eventCheck && !event.transportCheck) && <div className='--spacer-60px'></div>}
         </>
       )}
 
