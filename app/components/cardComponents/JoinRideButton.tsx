@@ -19,7 +19,7 @@ export default function JoinRideButton({event, handleLeaveRide, handleJoinRide, 
               <button className="navbar__button"> FULL </button>
             ) : (
               <button onClick={handleJoinRide} className="action-button">
-                Join
+                Join Ride
               </button>
             )}
           </section>

@@ -743,6 +743,13 @@ input {
 .--position-relative {
   position: relative;
 }
+
+.--self-centered {
+  text-align: center;
+  position: relative;
+  align-self: center;
+  justify-self: center;
+}
 /* ______________________________________ */
 
 /* ______________________________________ DIVIDERS */

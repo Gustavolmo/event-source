@@ -70,16 +70,62 @@ export default function CardMyInvitation({ event, handleUpdateClick }: Props) {
   if (!toggleCard) {
     return (
       <>
-        <section
-          className="event-card --pointer-hover"
-          onClick={handleEventToggle}
-        >
-          <button className="navbar__button absolute-top-left --width60px --grey-text">
-            Expand
+        <section className="event-card">
+          <button
+            onClick={handleEventToggle}
+            className="navbar__button absolute-top-left --width60px --grey-text"
+          >
+            Details
           </button>
           <TitleSection event={event} />
+
+          {event.eventCheck && (
+            <>
+              <section className="answer-invite-buttons">
+                <AnswerInvitationButton
+                  handleChoice={handleAccept}
+                  listChoice={event.acceptedLive}
+                  userEmail={session?.user?.email}
+                  text="Accept"
+                />
+
+                {event.virtualLink && (
+                  <AnswerInvitationButton
+                    handleChoice={handleAcceptVirtually}
+                    listChoice={event.acceptedVirtually}
+                    userEmail={session?.user?.email}
+                    text="Remote"
+                  />
+                )}
+
+                <AnswerInvitationButton
+                  handleChoice={handleReject}
+                  listChoice={event.rejected}
+                  userEmail={session?.user?.email}
+                  text="Reject"
+                />
+              </section>
+            </>
+          )}
+
           {event.eventCheck && <EventInfoBoard event={event} />}
-          {event.transportCheck && <TransitInfoBoard event={event} />}
+
+          {event.transportCheck && (
+            <div>
+              <div className="--spacer-20px"></div>
+              <h5>Transport</h5>
+
+              <JoinRideButton
+                event={event}
+                handleJoinRide={handleJoinRide}
+                handleLeaveRide={handleLeaveRide}
+                userEmail={session?.user?.email}
+              />
+
+              <TransitInfoBoard event={event} />
+            </div>
+          )}
+          <div className="--spacer-20px"></div>
         </section>
       </>
     );
@@ -132,7 +178,7 @@ export default function CardMyInvitation({ event, handleUpdateClick }: Props) {
         funcUpdateClick={handleUpdateClick}
         event={event}
         listChoice={event.invited}
-        listName='invited'
+        listName="invited"
         buttonTitle={'All Guests'}
       />
 
@@ -149,7 +195,7 @@ export default function CardMyInvitation({ event, handleUpdateClick }: Props) {
             funcUpdateClick={handleUpdateClick}
             event={event}
             listChoice={event.acceptedLive}
-            listName='acceptedLive'
+            listName="acceptedLive"
             buttonTitle={'Yeap!'}
           />
 
@@ -165,7 +211,7 @@ export default function CardMyInvitation({ event, handleUpdateClick }: Props) {
               funcUpdateClick={handleUpdateClick}
               event={event}
               listChoice={event.acceptedVirtually}
-              listName='acceptedVirtually'
+              listName="acceptedVirtually"
               buttonTitle={'Remote'}
             />
           )}
@@ -181,7 +227,7 @@ export default function CardMyInvitation({ event, handleUpdateClick }: Props) {
             funcUpdateClick={handleUpdateClick}
             event={event}
             listChoice={event.rejected}
-            listName='rejected'
+            listName="rejected"
             buttonTitle={'Nope'}
           />
 
@@ -240,7 +286,7 @@ export default function CardMyInvitation({ event, handleUpdateClick }: Props) {
             funcUpdateClick={handleUpdateClick}
             event={event}
             listChoice={event.passengers}
-            listName='passengers'
+            listName="passengers"
             buttonTitle={'Passengers'}
           />
 
