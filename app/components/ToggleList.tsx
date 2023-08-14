@@ -12,6 +12,7 @@ type Props = {
   funcUpdateClick: Function;
   event: EventData;
   listChoice: string[];
+  listName: string;
   buttonTitle: string;
 };
 
@@ -24,6 +25,7 @@ export default function ToggleList({
   funcUpdateClick,
   event,
   listChoice,
+  listName,
   buttonTitle,
 }: Props) {
   return (
@@ -60,6 +62,9 @@ export default function ToggleList({
               <InvitationList
                 guest={guest}
                 details={hasDetails}
+                event={event}
+                listName={listName}
+                funcUpdateClick={funcUpdateClick}
                 key={`${index}_${event._id}`}
               />
 

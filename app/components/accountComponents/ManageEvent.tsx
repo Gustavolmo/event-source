@@ -20,6 +20,14 @@ export default function ManageEvent() {
     return <Loading />
   }
 
+  if (dbData?.length === 0) {
+    return (
+      <section className="--centered-text">
+        <h2>You have no events</h2>
+      </section>
+    )
+  }
+
   return (
     <>
       <h2>MANAGE</h2>
@@ -27,7 +35,7 @@ export default function ManageEvent() {
         dbData.map((event, index) => {
           return (
             <span key={`${index}__${event._id}`}>
-              <section className="event-card" key={`${index}_${event._id}`}>
+              <section key={`${index}_${event._id}`}>
                 <CardManageEvent
                   event={event}
                   funcUpdateClick={handleUpdateClick}

@@ -9,6 +9,7 @@ import EventInfoBoard from './EventInfoBoard';
 import TitleSection from './TitleSection';
 import GoogleMeetLink from './GoogleMeetLink';
 import DeleteButton from '../buttonComponents/DeleteButton';
+import EditEvent from './EditEvent';
 
 type Props = {
   event: EventData;
@@ -26,6 +27,8 @@ export default function CardManageEvent({
   const [seePax, setSeePax] = useState(false);
   const [seeAboutTransit, setSeeAboutTransit] = useState(false);
   const [seeAboutEvent, setSeeAboutEvent] = useState(false);
+  const [toggleCard, setToggleCard] = useState(false);
+  const [edit, setEdit] = useState(false);
 
   const handleListToggle = (list: boolean, cb: Function) => {
     cb(!list);
@@ -36,10 +39,59 @@ export default function CardManageEvent({
     funcUpdateClick();
   };
 
+  const handleEdit = () => {
+    setEdit(!edit);
+  };
+
+  const handleEventToggle = () => {
+    setToggleCard(!toggleCard);
+  };
+
+  if (edit) {
+    return (
+      <section className="event-card">
+        <EditEvent event={event} handleEdit={handleEdit} funcUpdateClick={funcUpdateClick}/>
+        <button
+          onClick={handleEdit}
+          className="navbar__button absolute-button-top-right"
+        >
+          cancel
+        </button>
+      </section>
+    );
+  }
+
+  if (!toggleCard) {
+    return (
+      <>
+        <section
+          className="event-card --pointer-hover"
+          onClick={handleEventToggle}
+        >
+          <button className="navbar__button absolute-top-left --width60px --grey-text">
+            Expand
+          </button>
+          <TitleSection event={event} />
+          {event.eventCheck && <EventInfoBoard event={event} />}
+          {event.transportCheck && <TransitInfoBoard event={event} showTime={true}/>}
+        </section>
+      </>
+    );
+  }
+
   return (
-    <>
-      <button className="action-button absolute-button-top-right">
-        Edit [TBD]
+    <section className="event-card">
+      <button
+        className="navbar__button absolute-top-left --width60px --grey-text"
+        onClick={handleEventToggle}
+      >
+        Close
+      </button>
+      <button
+        onClick={handleEdit}
+        className="action-button absolute-button-top-right"
+      >
+        Edit
       </button>
 
       <TitleSection event={event} />
@@ -53,6 +105,7 @@ export default function CardManageEvent({
         funcUpdateClick={funcUpdateClick}
         event={event}
         listChoice={event.invited}
+        listName="invited"
         buttonTitle={'All Guests'}
       />
 
@@ -73,6 +126,7 @@ export default function CardManageEvent({
             funcUpdateClick={funcUpdateClick}
             event={event}
             listChoice={event.acceptedLive}
+            listName="acceptedLive"
             buttonTitle={'Yeap!'}
           />
 
@@ -88,6 +142,7 @@ export default function CardManageEvent({
               funcUpdateClick={funcUpdateClick}
               event={event}
               listChoice={event.acceptedVirtually}
+              listName="acceptedVirtually"
               buttonTitle={'Remote'}
             />
           )}
@@ -103,6 +158,7 @@ export default function CardManageEvent({
             funcUpdateClick={funcUpdateClick}
             event={event}
             listChoice={event.rejected}
+            listName="rejected"
             buttonTitle={'Nope'}
           />
 
@@ -150,7 +206,7 @@ export default function CardManageEvent({
             </>
           )}
 
-          <TransitInfoBoard event={event} />
+          <TransitInfoBoard event={event} showTime={true}/>
 
           <ToggleList
             handleListToggle={() => handleListToggle(seePax, setSeePax)}
@@ -161,6 +217,7 @@ export default function CardManageEvent({
             funcUpdateClick={funcUpdateClick}
             event={event}
             listChoice={event.passengers}
+            listName="passengers"
             buttonTitle={'Passengers'}
           />
 
@@ -197,7 +254,11 @@ export default function CardManageEvent({
         </>
       )}
 
-      <DeleteButton handleDelete={handleDelete} mainText="Delete" toRight={true}/>
-    </>
+      <DeleteButton
+        handleDelete={handleDelete}
+        mainText="Delete"
+        toRight={true}
+      />
+    </section>
   );
 }

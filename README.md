@@ -1,8 +1,8 @@
 <img src="app/assets/Logo1.png" alt="Logo" width="200" style="margin: auto;">
 
-# EventSouce
+# EventSauce
 
-Event Source is a web-based application that allows users to create, manage, and track events. It is designed to simplify the process of organizing and coordinating events.
+Event Sauce is a web-based application that allows users to create, manage, and track events. It is designed to simplify the process of organizing and coordinating events.
 
 
 ## Features

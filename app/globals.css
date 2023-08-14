@@ -115,12 +115,30 @@ a {
 .app-description {
   text-align: center;
   margin: 32px 16px;
+  padding: 16px;
 }
 
 .app-description__section {
-  margin: 32px 16px;
+  margin-top: 60px;
+  background-color: #f89292;
   text-align: center;
-}/* __________ */
+  min-height: 100vh;
+  width: 100vw;
+  padding: 16px;
+  box-shadow:1px 1px 16px 16px #f89292;
+}
+
+.promo-image {
+  margin-bottom: 40px;
+}
+
+.promo-title {
+  color: #fff;
+  font-weight: bold;
+  font-size: 32px;
+  margin-bottom: 0;
+}
+/* __________ */
 
 .footer {
   position: fixed;
@@ -198,6 +216,10 @@ a {
   position: absolute;
   bottom: 8px;
   right: 80px;
+}
+
+.absolute-top-left {
+  position: absolute;
 }
 
 .action-button {
@@ -315,6 +337,17 @@ a {
   cursor: pointer;
 }
 
+.delete-guest {
+  margin: 0;
+  padding: 0 4px;
+  color: #Ef4b4c;
+  border-radius: 4px;
+}
+
+.delete-guest:hover {
+  border: solid 1px #Ef4b4c;
+}
+
 /*______________________________________ FORM */
 pre {
   margin: 4px;
@@ -390,13 +423,28 @@ input {
   display: flex;
   flex-direction: column;
   width: 340px;
-  min-height: 240px;
+  min-height: 200px;
+}
+
+.my-info-card {
+  position: relative;
+  margin: 8px 16px 32px;
+  padding: 8px;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: #eaeaea -2px 4px 4px 4px;
+  display: flex;
+  flex-direction: column;
+  width: 340px;
+  min-height: 320px;
 }
 
 .manage__create-by {
   display: flex;
   flex-direction: column;
   font-size: 12px;
+  align-self: center;
+  text-align: center;
 }
 
 .manage__add-guest {
@@ -513,6 +561,7 @@ input {
 }
 
 .guest-restrictions {
+  display: none;
   background-color: #fff;
   padding: 0 8px;
   margin-bottom: 4px;
@@ -576,6 +625,10 @@ input {
   text-align: center;
 }
 
+.--width60px {
+  width: 60px;
+}
+
 .--gray-shading {
   background-color: #f1f1f1;
   border-bottom: 1px solid #ccc;
@@ -589,7 +642,7 @@ input {
 }
 
 .--grey-text {
-  color: #cccccc;
+  color: #ccc;
   margin: 0;
   line-height: 12px;
 }
@@ -635,6 +688,10 @@ input {
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
+}
+
+.--spacer-8px {
+  height: 8px;
 }
 
 .--spacer-20px {
@@ -699,6 +756,22 @@ input {
   padding-right: 8px;
 }
 
+.--pointer-hover:hover {
+  cursor: pointer;
+  background-color: #fff;
+  border-radius: 4px;
+} 
+
+.--position-relative {
+  position: relative;
+}
+
+.--self-centered {
+  text-align: center;
+  position: relative;
+  align-self: center;
+  justify-self: center;
+}
 /* ______________________________________ */
 
 /* ______________________________________ DIVIDERS */

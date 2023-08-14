@@ -6,7 +6,7 @@ import ProviderWrap from './providerWrap';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Event Source',
+  title: 'Event Souce',
   description: 'Source of truth for your events',
 };
 

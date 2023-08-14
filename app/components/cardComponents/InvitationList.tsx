@@ -1,18 +1,38 @@
 'use client';
 import { getUserPreferences } from '@/app-library/DbControls';
-import { User } from '@/app-types/types';
+import { EventData, User } from '@/app-types/types';
 import useDbQuery from '@/app/customHooks/useDbQuery';
 import React, { useState } from 'react';
 import LoadingUi from '../LoadingUi';
+import { removeGuestFromList } from '@/app-library/InvitationControls';
 
 type Props = {
   guest: User['email'];
   details: boolean;
+  event: EventData;
+  listName: string;
+  funcUpdateClick: Function;
 };
 
-export default function InvitationList({ guest, details }: Props) {
+export default function InvitationList({
+  guest,
+  details,
+  event,
+  listName,
+  funcUpdateClick,
+}: Props) {
   const { dbData, loading } = useDbQuery(getUserPreferences, guest);
   const [expand, setExpand] = useState(false);
+  const [seeDelete, setSeeDelete] = useState(false);
+
+  const handleRemoveGuest: React.MouseEventHandler<HTMLElement> = () => {
+    removeGuestFromList(guest, event._id, listName);
+    funcUpdateClick();
+  };
+
+  const handleGuestClick = () => {
+    setSeeDelete(!seeDelete);
+  };
 
   const hadnleExpandRestrictions = () => {
     setExpand(!expand);
@@ -26,8 +46,25 @@ export default function InvitationList({ guest, details }: Props) {
     return (
       <>
         <article className="restriction-alert-wrapper">
-          <b>{dbData[0].name}</b>
+          {!details && (
+            <div>
+              <b>{dbData[0].name}</b>
+            </div>
+          )}
 
+          {details && (
+            <div onClick={handleGuestClick} className="--pointer-hover">
+              <b>{dbData[0].name}</b>
+              {seeDelete && (
+                <b
+                  className="delete-guest  --pointer-hover"
+                  onClick={handleRemoveGuest}
+                >
+                  remove
+                </b>
+              )}
+            </div>
+          )}
           {details &&
             (dbData[0].dietaryRestrictions || dbData[0].accessibilityNeeds) && (
               <p
@@ -66,10 +103,26 @@ export default function InvitationList({ guest, details }: Props) {
   }
 
   if (!dbData) {
-    return (
-      <div className='--with-margin-n-8px'>
+    return details ? (
+      <article className="restriction-alert-wrapper">
+        <div onClick={handleGuestClick} className="--pointer-hover">
+          <b>
+            {guest}
+          </b>
+          {seeDelete && (
+            <b
+              className="delete-guest --pointer-hover"
+              onClick={handleRemoveGuest}
+            >
+              remove
+            </b>
+          )}
+        </div>
+      </article>
+    ) : (
+      <article className="--with-margin-n-8px">
         <b>{guest}</b>
-      </div>
+      </article>
     );
   }
 }
