@@ -1,7 +1,7 @@
 'use client';
 import { getAllUserEvents } from '@/app-library/DbControls';
 import useDbQuery from '@/app/customHooks/useDbQuery';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import CardManageEvent from '../cardComponents/CardManageEvent';
 import DotsDivider from '../DotsDivider';
 import Loading from '../Loading';

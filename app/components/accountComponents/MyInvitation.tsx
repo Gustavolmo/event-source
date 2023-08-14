@@ -1,6 +1,6 @@
 import { getUserInvitations } from '@/app-library/DbControls';
 import useDbQuery from '@/app/customHooks/useDbQuery';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import CardMyInvitation from '../cardComponents/CardMyInvitation';
 import DotsDivider from '../DotsDivider';
 import Loading from '../Loading';
