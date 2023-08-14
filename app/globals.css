@@ -115,12 +115,30 @@ a {
 .app-description {
   text-align: center;
   margin: 32px 16px;
+  padding: 16px;
 }
 
 .app-description__section {
-  margin: 32px 16px;
+  margin-top: 60px;
+  background-color: #f89292;
   text-align: center;
-}/* __________ */
+  min-height: 100vh;
+  width: 100vw;
+  padding: 16px;
+  box-shadow:1px 1px 16px 16px #f89292;
+}
+
+.promo-image {
+  margin-bottom: 40px;
+}
+
+.promo-title {
+  color: #fff;
+  font-weight: bold;
+  font-size: 32px;
+  margin-bottom: 0;
+}
+/* __________ */
 
 .footer {
   position: fixed;

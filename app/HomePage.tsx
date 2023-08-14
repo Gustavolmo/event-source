@@ -20,7 +20,6 @@ export default function HomePage() {
 
   const handleLogin = async () => {
     const isNewUser = await createNewUserIfFirstLogin(userData);
-    console.log(isNewUser);
     if (isNewUser) {
       router.push('/addInfo');
     }

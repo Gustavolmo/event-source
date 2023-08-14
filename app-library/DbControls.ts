@@ -34,7 +34,6 @@ export const updateUserPreferences = async (
   userEmail: User['email'],
   userPreferences: UserPreferences
 ) => {
-  console.log(userPreferences);
   try {
     const query = { email: userEmail };
     const update = {
@@ -62,7 +61,6 @@ export const createNewEvent = async (
     if (userDbEntry) {
       event.organizerId = String(userDbEntry._id);
       await eventCollection.insertOne(event);
-      console.log(event);
       return true;
     } else {
       return false;
