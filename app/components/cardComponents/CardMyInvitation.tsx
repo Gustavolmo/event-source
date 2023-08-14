@@ -28,6 +28,7 @@ export default function CardMyInvitation({ event, handleUpdateClick }: Props) {
   const [seePax, setSeePax] = useState(false);
   const [seeAboutTransit, setSeeAboutTransit] = useState(false);
   const [seeAboutEvent, setSeeAboutEvent] = useState(false);
+  const [toggleCard, setToggleCard] = useState(false);
 
   const handleListToggle = (list: boolean, cb: Function) => {
     cb(!list);
@@ -61,9 +62,38 @@ export default function CardMyInvitation({ event, handleUpdateClick }: Props) {
     removeGuestFromList(session?.user?.email, event._id, 'passengers');
     handleUpdateClick();
   };
-  
+
+  const handleEventToggle = () => {
+    setToggleCard(!toggleCard);
+  };
+
+  if (!toggleCard) {
+    return (
+      <>
+        <section
+          className="event-card --pointer-hover"
+          onClick={handleEventToggle}
+        >
+          <button className="navbar__button absolute-top-left --width60px --grey-text">
+            Expand
+          </button>
+          <TitleSection event={event} />
+          {event.eventCheck && <EventInfoBoard event={event} />}
+          {event.transportCheck && <TransitInfoBoard event={event} />}
+        </section>
+      </>
+    );
+  }
+
   return (
-    <>
+    <section className="event-card">
+      <button
+        className="navbar__button absolute-top-left --width60px --grey-text"
+        onClick={handleEventToggle}
+      >
+        Collapse
+      </button>
+
       <TitleSection event={event} />
 
       {event.eventCheck && (
@@ -162,7 +192,7 @@ export default function CardMyInvitation({ event, handleUpdateClick }: Props) {
               <b>RSVP:</b> <p>{event.eventRSVP}</p>
             </section>
 
-            <GoogleMeetLink event={event} meetLink='/'/>
+            <GoogleMeetLink event={event} meetLink="/" />
 
             <div className="manage__info-column --gray-shading">
               <div className="--inline-tags">
@@ -236,6 +266,6 @@ export default function CardMyInvitation({ event, handleUpdateClick }: Props) {
           <div className="--spacer-60px"></div>
         </>
       )}
-    </>
+    </section>
   );
 }

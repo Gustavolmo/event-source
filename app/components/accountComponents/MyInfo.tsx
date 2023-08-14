@@ -17,7 +17,7 @@ export default function MyInfo() {
   return (
     <>
       <Greeting />
-      <section className='event-card'>
+      <section className='my-info-card'>
         <UpdatePreferencesForm doesRedirect={false} />      
         <div className='delete-account'>
           

@@ -26,6 +26,7 @@ export default function CardManageEvent({
   const [seePax, setSeePax] = useState(false);
   const [seeAboutTransit, setSeeAboutTransit] = useState(false);
   const [seeAboutEvent, setSeeAboutEvent] = useState(false);
+  const [toggleCard, setToggleCard] = useState(false);
 
   const handleListToggle = (list: boolean, cb: Function) => {
     cb(!list);
@@ -36,11 +37,39 @@ export default function CardManageEvent({
     funcUpdateClick();
   };
 
+  const handleEdit = () => {}; // TODO
+
+  const handleEventToggle = () => {
+    setToggleCard(!toggleCard);
+  };
+
+  if (!toggleCard) {
+    return (
+      <>
+        <section
+          className="event-card --pointer-hover"
+          onClick={handleEventToggle}
+        >
+          <button className="navbar__button absolute-top-left --width60px --grey-text">
+            Expand
+          </button>
+          <TitleSection event={event} />
+          {event.eventCheck && <EventInfoBoard event={event} />}
+          {event.transportCheck && <TransitInfoBoard event={event} />}
+        </section>
+      </>
+    );
+  }
+
   return (
-    <>
-      <button className="action-button absolute-button-top-right">
-        Edit [TBD]
+    <section className="event-card">
+      <button
+        className="navbar__button absolute-top-left --width60px --grey-text"
+        onClick={handleEventToggle}
+      >
+        Close
       </button>
+      <button className="action-button absolute-button-top-right">Edit</button>
 
       <TitleSection event={event} />
 
@@ -197,7 +226,11 @@ export default function CardManageEvent({
         </>
       )}
 
-      <DeleteButton handleDelete={handleDelete} mainText="Delete" toRight={true}/>
-    </>
+      <DeleteButton
+        handleDelete={handleDelete}
+        mainText="Delete"
+        toRight={true}
+      />
+    </section>
   );
 }

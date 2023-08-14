@@ -10,15 +10,15 @@ export default function TitleSection({ event }: Props) {
     <>
       <section className="manage__create-by">
         <p className="--grey-text">
-          <b className="--grey-text">Created:</b>
+          <b className="--grey-text">Created: </b>
           {event.dateCreated}
         </p>
         <p className="--grey-text">
-          <b className="--grey-text">By:</b>
+          <b className="--grey-text">By: </b>
           {event.organizerName}
         </p>
+        
       </section>
-
       {event.eventCheck && !event.transportCheck && (
         <b className="form__section-title">
           EVENT <p>{event.eventDate}</p>
@@ -36,7 +36,7 @@ export default function TitleSection({ event }: Props) {
       )}
 
       <div className="--margin12px">
-        <h4 className="--red-highlight-text">
+        <h4 className="--red-highlight-text --text20px">
           <b>{event.eventTime}</b> {event.eventTitle}
         </h4>
       </div>

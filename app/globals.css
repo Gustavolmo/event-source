@@ -200,6 +200,10 @@ a {
   right: 80px;
 }
 
+.absolute-top-left {
+  position: absolute;
+}
+
 .action-button {
   background-color: #Ef4b4c;
   color: #ffffff;
@@ -390,13 +394,28 @@ input {
   display: flex;
   flex-direction: column;
   width: 340px;
-  min-height: 240px;
+  min-height: 200px;
+}
+
+.my-info-card {
+  position: relative;
+  margin: 8px 16px 32px;
+  padding: 8px;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: #eaeaea -2px 4px 4px 4px;
+  display: flex;
+  flex-direction: column;
+  width: 340px;
+  min-height: 320px;
 }
 
 .manage__create-by {
   display: flex;
   flex-direction: column;
   font-size: 12px;
+  align-self: center;
+  text-align: center;
 }
 
 .manage__add-guest {
@@ -576,6 +595,10 @@ input {
   text-align: center;
 }
 
+.--width60px {
+  width: 60px;
+}
+
 .--gray-shading {
   background-color: #f1f1f1;
   border-bottom: 1px solid #ccc;
@@ -589,7 +612,7 @@ input {
 }
 
 .--grey-text {
-  color: #cccccc;
+  color: #ccc;
   margin: 0;
   line-height: 12px;
 }
@@ -699,6 +722,9 @@ input {
   padding-right: 8px;
 }
 
+.--pointer-hover:hover {
+  cursor: pointer;
+} 
 /* ______________________________________ */
 
 /* ______________________________________ DIVIDERS */

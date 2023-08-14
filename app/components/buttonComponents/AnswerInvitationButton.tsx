@@ -42,7 +42,6 @@ export default function AnswerInvitationButton({
     >
       {spinner && <div className="spinner"></div>}
       {!spinner && text}
-      {!spinner && listChoice.includes(String(userEmail)) && '?'}
     </button>
   );
 }

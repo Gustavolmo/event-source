@@ -19,6 +19,14 @@ export default function MyInvitation() {
     return <Loading />
   }
 
+  if (dbData?.length === 0) {
+    return (
+      <section className="--centered-text">
+        <h2>You have no invitations</h2>
+      </section>
+    )
+  }
+
   return (
     <>
       <h2>INVITATIONS</h2>
@@ -26,7 +34,7 @@ export default function MyInvitation() {
         dbData.map((event, index) => {
           return (
             <span key={`${index}__${event._id}`}>
-              <section className="event-card" key={`${index}_${event._id}`}>
+              <section key={`${index}_${event._id}`}>
                 <CardMyInvitation
                   event={event}
                   handleUpdateClick={handleUpdateClick}
