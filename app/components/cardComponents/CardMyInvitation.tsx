@@ -113,16 +113,18 @@ export default function CardMyInvitation({ event, handleUpdateClick }: Props) {
           {event.transportCheck && (
             <div>
               <div className="--spacer-20px"></div>
-              <h5>Transport</h5>
+              {event.eventCheck && <h4>Transport</h4>}
+              <div className="--self-centered">
+                <JoinRideButton
+                  event={event}
+                  handleJoinRide={handleJoinRide}
+                  handleLeaveRide={handleLeaveRide}
+                  userEmail={session?.user?.email}
+                />
+              </div>
 
-              <JoinRideButton
-                event={event}
-                handleJoinRide={handleJoinRide}
-                handleLeaveRide={handleLeaveRide}
-                userEmail={session?.user?.email}
-              />
-
-              <TransitInfoBoard event={event} />
+              <div className="--spacer-8px"></div>
+              <TransitInfoBoard event={event} showTime={false} />
             </div>
           )}
           <div className="--spacer-20px"></div>
@@ -268,7 +270,7 @@ export default function CardMyInvitation({ event, handleUpdateClick }: Props) {
             </>
           )}
 
-          <TransitInfoBoard event={event} />
+          <TransitInfoBoard event={event} showTime={true} />
 
           <JoinRideButton
             event={event}

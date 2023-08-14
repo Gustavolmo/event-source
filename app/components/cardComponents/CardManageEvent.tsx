@@ -73,7 +73,7 @@ export default function CardManageEvent({
           </button>
           <TitleSection event={event} />
           {event.eventCheck && <EventInfoBoard event={event} />}
-          {event.transportCheck && <TransitInfoBoard event={event} />}
+          {event.transportCheck && <TransitInfoBoard event={event} showTime={true}/>}
         </section>
       </>
     );
@@ -206,7 +206,7 @@ export default function CardManageEvent({
             </>
           )}
 
-          <TransitInfoBoard event={event} />
+          <TransitInfoBoard event={event} showTime={true}/>
 
           <ToggleList
             handleListToggle={() => handleListToggle(seePax, setSeePax)}

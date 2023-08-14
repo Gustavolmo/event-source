@@ -2,18 +2,19 @@ import { EventData } from '@/app-types/types'
 import React from 'react'
 
 type Props = {
-  event: EventData
+  event: EventData,
+  showTime: boolean
 }
 
 export default function TransitInfoBoard(
-  {event}: Props) {
+  {event, showTime}: Props) {
   return (
     <>
-    <p className="--centered-text">
+    {showTime && <p className="--centered-text">
       {' '}
       {event.roundTripCheck ? 'Round trip' : 'One-way trip'} &#9201;{' '}
       {event.travelTime}
-    </p>
+    </p>}
     {event.roundTripCheck ? (
       <section className="manage__info-time-date">
         <div className="--roundtrip-symbol">

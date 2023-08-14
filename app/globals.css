@@ -672,6 +672,10 @@ input {
   width: 100%;
 }
 
+.--spacer-8px {
+  height: 8px;
+}
+
 .--spacer-20px {
   height: 20px;
 }
