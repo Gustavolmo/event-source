@@ -12,6 +12,8 @@ export default function AccountPage() {
   const [selection, setSelection] = useState<string | null>(
     typeof window !== 'undefined'
       ? localStorage.getItem('lastSelection')
+        ? localStorage.getItem('lastSelection')
+        : 'info'
       : 'info'
   );
 
