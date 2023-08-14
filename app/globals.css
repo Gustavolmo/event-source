@@ -423,7 +423,7 @@ input {
   display: flex;
   flex-direction: column;
   width: 340px;
-  min-height: 200px;
+  min-height: 240px;
 }
 
 .my-info-card {
