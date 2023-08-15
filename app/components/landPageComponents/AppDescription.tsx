@@ -19,10 +19,10 @@ export default async function AppDescription() {
         <p>We are in Beta, google calendar coming soon...</p>
         <h1>Features</h1>
 
-        <li>Keep track of attendance</li>
-        <li>Add and manage transportation</li>
-        <li>Manage all guest lists in one place</li>
-        <li>Let guests tell you their preferences</li>
+        <p>Keep track of attendance</p>
+        <p>Add and manage transportation</p>
+        <p>Manage all guest lists in one place</p>
+        <p>Let guests tell you their preferences</p>
       </header>
 
         <h1 className="--promo-text-highlight">FOR PLANNERS</h1>
