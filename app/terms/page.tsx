@@ -1,7 +1,7 @@
 'use server';
 import React from 'react';
 
-export default function Terms() {
+export default async function Terms() {
   return (
     <div className="policy-card">
       <div className="header">
