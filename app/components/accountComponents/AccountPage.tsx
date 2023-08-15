@@ -40,7 +40,7 @@ export default function AccountPage() {
           }
           name="info"
         >
-          Settings
+          Profile
         </button>
 
         <button
@@ -60,7 +60,7 @@ export default function AccountPage() {
           }
           name="manage"
         >
-          Manage
+          My Events
         </button>
 
         <button
@@ -70,7 +70,7 @@ export default function AccountPage() {
           }
           name="invitation"
         >
-          Invited
+          Inbox
         </button>
       </header>
 

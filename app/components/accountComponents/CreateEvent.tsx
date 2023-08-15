@@ -94,7 +94,7 @@ export default function CreateEvent({ setSelection }: Props) {
   return (
     <>
       <EventCreatedDialogue handleClose={handleCloseDialogue} open={openDialogue}/>
-      <h2>CREATE</h2>
+      <h2 className='--grey-text'>CREATE EVENT</h2>
       <section className="event-card">
         <form className="create-event-form" onSubmit={handleFormSubmit}>
           <section className="form__offerings">

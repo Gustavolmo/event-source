@@ -30,7 +30,7 @@ export default function ManageEvent() {
 
   return (
     <>
-      <h2>MANAGE</h2>
+      <h2 className='--grey-text'>MANAGE EVENTS</h2>
         {dbData &&
           dbData.slice().reverse().map((event, index) => {
             return (
