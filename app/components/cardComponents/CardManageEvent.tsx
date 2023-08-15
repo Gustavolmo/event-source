@@ -214,7 +214,7 @@ export default function CardManageEvent({
             seeList={seePax}
             setSeeList={setSeePax}
             hasAddGuest={false}
-            hasDetails={false}
+            hasDetails={true}
             funcUpdateClick={funcUpdateClick}
             event={event}
             listChoice={event.passengers}
