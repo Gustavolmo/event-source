@@ -35,6 +35,7 @@ export default async function AppDescription() {
             src={create}
             alt="create-form"
             width={width}
+            loading='lazy'
           />
         </div>
 
@@ -45,6 +46,7 @@ export default async function AppDescription() {
             src={guests}
             alt="manage-events"
             width={width}
+            loading='lazy'
           />
         </div>
 
@@ -55,6 +57,7 @@ export default async function AppDescription() {
             src={passengers}
             alt="invitations"
             width={width}
+            loading='lazy'
           />
         </div>
       </section>
@@ -69,6 +72,7 @@ export default async function AppDescription() {
             src={answers}
             alt="user-profile"
             width={width}
+            loading='lazy'
           />
         </div>
 
@@ -79,6 +83,7 @@ export default async function AppDescription() {
             src={joinRide}
             alt="user-profile"
             width={width}
+            loading='lazy'
           />
         </div>
 
@@ -89,6 +94,7 @@ export default async function AppDescription() {
             src={profile}
             alt="user-profile"
             width={width}
+            loading='lazy'
           />
         </div>
 
