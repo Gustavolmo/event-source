@@ -48,7 +48,8 @@ export default function InvitationList({
         <article className="restriction-alert-wrapper">
           {!details && (
             <div>
-              <b>{dbData[0].name}</b>
+              {/* ZZZ ... */}
+              <b>{dbData[0].name}</b> 
             </div>
           )}
 
@@ -71,6 +72,8 @@ export default function InvitationList({
                 onClick={hadnleExpandRestrictions}
                 className="restriction-alert"
               >
+                {dbData[0].dietaryRestrictions && <span>&#127860;</span>}
+                {dbData[0].accessibilityNeeds && <span>&#127939;</span>}
                 ! Restrictions
               </p>
             )}
