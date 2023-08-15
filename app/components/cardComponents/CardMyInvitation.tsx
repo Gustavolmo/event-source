@@ -73,9 +73,9 @@ export default function CardMyInvitation({ event, handleUpdateClick }: Props) {
         <section className="event-card">
           <button
             onClick={handleEventToggle}
-            className="navbar__button absolute-top-left --width60px --grey-text"
+            className="suttle-button absolute-top-left --width60px"
           >
-            Details
+            Expand
           </button>
           <TitleSection event={event} />
 
@@ -136,7 +136,7 @@ export default function CardMyInvitation({ event, handleUpdateClick }: Props) {
   return (
     <section className="event-card">
       <button
-        className="navbar__button absolute-top-left --width60px --grey-text"
+        className="suttle-button absolute-top-left --width60px --grey-text"
         onClick={handleEventToggle}
       >
         Collapse

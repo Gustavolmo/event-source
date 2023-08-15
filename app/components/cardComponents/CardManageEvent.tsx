@@ -68,7 +68,7 @@ export default function CardManageEvent({
           className="event-card --pointer-hover"
           onClick={handleEventToggle}
         >
-          <button className="navbar__button absolute-top-left --width60px --grey-text">
+          <button className="suttle-button absolute-top-left --width60px">
             Expand
           </button>
           <TitleSection event={event} />
@@ -82,7 +82,7 @@ export default function CardManageEvent({
   return (
     <section className="event-card">
       <button
-        className="navbar__button absolute-top-left --width60px --grey-text"
+        className="suttle-button absolute-top-left --width60px --grey-text"
         onClick={handleEventToggle}
       >
         Close
