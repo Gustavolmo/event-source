@@ -76,8 +76,8 @@ export default function AccountPage() {
 
       <section className="account-components">
         {selection === 'info' && <MyInfo />}
-        {selection === 'create' && <CreateEvent />}
-        {selection === 'manage' && <ManageEvent />}
+        {selection === 'create' && <CreateEvent setSelection={setSelection} />}
+        {selection === 'manage' && <ManageEvent/>}
         {selection === 'invitation' && <MyInvitation />}
       </section>
     </>
