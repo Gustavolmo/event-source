@@ -13,6 +13,7 @@ import EventInfoBoard from './EventInfoBoard';
 import JoinRideButton from './JoinRideButton';
 import TitleSection from './TitleSection';
 import GoogleMeetLink from './GoogleMeetLink';
+import ConfirmDeletionDialogue from '../ConfirmDeletionDialogue';
 
 type Props = {
   event: EventData;
@@ -66,6 +67,7 @@ export default function CardMyInvitation({ event, handleUpdateClick }: Props) {
   const handleEventToggle = () => {
     setToggleCard(!toggleCard);
   };
+
 
   if (!toggleCard) {
     return (
@@ -134,191 +136,194 @@ export default function CardMyInvitation({ event, handleUpdateClick }: Props) {
   }
 
   return (
-    <section className="event-card">
-      <button
-        className="suttle-button absolute-top-left --width60px --grey-text"
-        onClick={handleEventToggle}
-      >
-        Collapse
-      </button>
+    <>
+      <section className="event-card">
+        <button
+          className="suttle-button absolute-top-left --width60px --grey-text"
+          onClick={handleEventToggle}
+        >
+          Collapse
+        </button>
 
-      <TitleSection event={event} />
+        <TitleSection event={event} />
 
-      {event.eventCheck && (
-        <section className="answer-invite-buttons">
-          <AnswerInvitationButton
-            handleChoice={handleAccept}
-            listChoice={event.acceptedLive}
-            userEmail={session?.user?.email}
-            text="Accept"
-          />
-
-          {event.virtualLink && (
+        {event.eventCheck && (
+          <section className="answer-invite-buttons">
             <AnswerInvitationButton
-              handleChoice={handleAcceptVirtually}
-              listChoice={event.acceptedVirtually}
+              handleChoice={handleAccept}
+              listChoice={event.acceptedLive}
               userEmail={session?.user?.email}
-              text="Remote"
+              text="Accept"
             />
-          )}
 
-          <AnswerInvitationButton
-            handleChoice={handleReject}
-            listChoice={event.rejected}
-            userEmail={session?.user?.email}
-            text="Reject"
-          />
-        </section>
-      )}
+            {event.virtualLink && (
+              <AnswerInvitationButton
+                handleChoice={handleAcceptVirtually}
+                listChoice={event.acceptedVirtually}
+                userEmail={session?.user?.email}
+                text="Remote"
+              />
+            )}
 
-      <ToggleList
-        handleListToggle={() => handleListToggle(seeGuests, setSeeGuests)}
-        seeList={seeGuests}
-        setSeeList={setSeeGuests}
-        hasAddGuest={false}
-        hasDetails={false}
-        funcUpdateClick={handleUpdateClick}
-        event={event}
-        listChoice={event.invited}
-        listName="invited"
-        buttonTitle={'All Guests'}
-      />
+            <AnswerInvitationButton
+              handleChoice={handleReject}
+              listChoice={event.rejected}
+              userEmail={session?.user?.email}
+              text="Reject"
+            />
+          </section>
+        )}
 
-      {event.eventCheck && (
-        <>
-          <ToggleList
-            handleListToggle={() =>
-              handleListToggle(seeAccepted, setSeeAccepted)
-            }
-            seeList={seeAccepted}
-            setSeeList={setSeeAccepted}
-            hasAddGuest={false}
-            hasDetails={false}
-            funcUpdateClick={handleUpdateClick}
-            event={event}
-            listChoice={event.acceptedLive}
-            listName="acceptedLive"
-            buttonTitle={'Yeap!'}
-          />
+        <ToggleList
+          handleListToggle={() => handleListToggle(seeGuests, setSeeGuests)}
+          seeList={seeGuests}
+          setSeeList={setSeeGuests}
+          hasAddGuest={false}
+          hasDetails={false}
+          funcUpdateClick={handleUpdateClick}
+          event={event}
+          listChoice={event.invited}
+          listName="invited"
+          buttonTitle={'All Guests'}
+        />
 
-          {event.virtualLink && (
+        {event.eventCheck && (
+          <>
             <ToggleList
               handleListToggle={() =>
-                handleListToggle(seeVirtual, setSeeVirtual)
+                handleListToggle(seeAccepted, setSeeAccepted)
               }
-              seeList={seeVirtual}
-              setSeeList={setSeeVirtual}
+              seeList={seeAccepted}
+              setSeeList={setSeeAccepted}
               hasAddGuest={false}
               hasDetails={false}
               funcUpdateClick={handleUpdateClick}
               event={event}
-              listChoice={event.acceptedVirtually}
-              listName="acceptedVirtually"
-              buttonTitle={'Remote'}
+              listChoice={event.acceptedLive}
+              listName="acceptedLive"
+              buttonTitle={'Yeap!'}
             />
-          )}
 
-          <ToggleList
-            handleListToggle={() =>
-              handleListToggle(seeRejected, setSeeRejected)
-            }
-            seeList={seeRejected}
-            setSeeList={setSeeRejected}
-            hasAddGuest={false}
-            hasDetails={false}
-            funcUpdateClick={handleUpdateClick}
-            event={event}
-            listChoice={event.rejected}
-            listName="rejected"
-            buttonTitle={'Nope'}
-          />
+            {event.virtualLink && (
+              <ToggleList
+                handleListToggle={() =>
+                  handleListToggle(seeVirtual, setSeeVirtual)
+                }
+                seeList={seeVirtual}
+                setSeeList={setSeeVirtual}
+                hasAddGuest={false}
+                hasDetails={false}
+                funcUpdateClick={handleUpdateClick}
+                event={event}
+                listChoice={event.acceptedVirtually}
+                listName="acceptedVirtually"
+                buttonTitle={'Remote'}
+              />
+            )}
 
-          <article className="manage__form-details">
-            <EventInfoBoard event={event} />
+            <ToggleList
+              handleListToggle={() =>
+                handleListToggle(seeRejected, setSeeRejected)
+              }
+              seeList={seeRejected}
+              setSeeList={setSeeRejected}
+              hasAddGuest={false}
+              hasDetails={false}
+              funcUpdateClick={handleUpdateClick}
+              event={event}
+              listChoice={event.rejected}
+              listName="rejected"
+              buttonTitle={'Nope'}
+            />
+
+            <article className="manage__form-details">
+              <EventInfoBoard event={event} />
+
+              <section className="manage__info --gray-shading">
+                <b>Venue:</b>{' '}
+                <p className="--text12px">{event.eventLocation}</p>
+              </section>
+
+              <section className="manage__info --gray-shading">
+                <b>RSVP:</b> <p>{event.eventRSVP}</p>
+              </section>
+
+              <GoogleMeetLink event={event} meetLink="/" />
+
+              <div className="manage__info-column --gray-shading">
+                <div className="--inline-tags">
+                  <b>Price:</b> <p>{event.eventCost}kr</p>
+                </div>
+              </div>
+
+              <ToggleDescription
+                handleListToggle={handleListToggle}
+                seeState={seeAboutEvent}
+                setSeeState={setSeeAboutEvent}
+                description={event.eventDescription}
+              />
+            </article>
+          </>
+        )}
+
+        {event.transportCheck && (
+          <>
+            {event.transportCheck && (
+              <>
+                <h5>Transport Details</h5>
+              </>
+            )}
+
+            <TransitInfoBoard event={event} showTime={true} />
+
+            <JoinRideButton
+              event={event}
+              handleJoinRide={handleJoinRide}
+              handleLeaveRide={handleLeaveRide}
+              userEmail={session?.user?.email}
+            />
+
+            <ToggleList
+              handleListToggle={() => handleListToggle(seePax, setSeePax)}
+              seeList={seePax}
+              setSeeList={setSeePax}
+              hasAddGuest={false}
+              hasDetails={false}
+              funcUpdateClick={handleUpdateClick}
+              event={event}
+              listChoice={event.passengers}
+              listName="passengers"
+              buttonTitle={'Passengers'}
+            />
 
             <section className="manage__info --gray-shading">
-              <b>Venue:</b> <p className="--text12px">{event.eventLocation}</p>
+              <b>Seats available:</b>{' '}
+              <p>
+                {event.seatsAvailable - event.passengers.length} out of{' '}
+                {event.seatsAvailable}
+              </p>
             </section>
-
             <section className="manage__info --gray-shading">
-              <b>RSVP:</b> <p>{event.eventRSVP}</p>
+              <b>Vehicle:</b> <p>{event.transportMode}</p>
             </section>
-
-            <GoogleMeetLink event={event} meetLink="/" />
 
             <div className="manage__info-column --gray-shading">
               <div className="--inline-tags">
-                <b>Price:</b> <p>{event.eventCost}kr</p>
+                <b>Transit fee:</b> <p>{event.transportCost}kr</p>
               </div>
             </div>
 
             <ToggleDescription
               handleListToggle={handleListToggle}
-              seeState={seeAboutEvent}
-              setSeeState={setSeeAboutEvent}
-              description={event.eventDescription}
+              seeState={seeAboutTransit}
+              setSeeState={setSeeAboutTransit}
+              description={event.transportDescription}
             />
-          </article>
-        </>
-      )}
 
-      {event.transportCheck && (
-        <>
-          {event.transportCheck && (
-            <>
-              <h5>Transport Details</h5>
-            </>
-          )}
-
-          <TransitInfoBoard event={event} showTime={true} />
-
-          <JoinRideButton
-            event={event}
-            handleJoinRide={handleJoinRide}
-            handleLeaveRide={handleLeaveRide}
-            userEmail={session?.user?.email}
-          />
-
-          <ToggleList
-            handleListToggle={() => handleListToggle(seePax, setSeePax)}
-            seeList={seePax}
-            setSeeList={setSeePax}
-            hasAddGuest={false}
-            hasDetails={false}
-            funcUpdateClick={handleUpdateClick}
-            event={event}
-            listChoice={event.passengers}
-            listName="passengers"
-            buttonTitle={'Passengers'}
-          />
-
-          <section className="manage__info --gray-shading">
-            <b>Seats available:</b>{' '}
-            <p>
-              {event.seatsAvailable - event.passengers.length} out of{' '}
-              {event.seatsAvailable}
-            </p>
-          </section>
-          <section className="manage__info --gray-shading">
-            <b>Vehicle:</b> <p>{event.transportMode}</p>
-          </section>
-
-          <div className="manage__info-column --gray-shading">
-            <div className="--inline-tags">
-              <b>Transit fee:</b> <p>{event.transportCost}kr</p>
-            </div>
-          </div>
-
-          <ToggleDescription
-            handleListToggle={handleListToggle}
-            seeState={seeAboutTransit}
-            setSeeState={setSeeAboutTransit}
-            description={event.transportDescription}
-          />
-
-          <div className="--spacer-60px"></div>
-        </>
-      )}
-    </section>
+            <div className="--spacer-60px"></div>
+          </>
+        )}
+      </section>
+    </>
   );
 }

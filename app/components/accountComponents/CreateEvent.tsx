@@ -14,7 +14,7 @@ type Props = {
 
 export default function CreateEvent({ setSelection }: Props) {
   const date = String(new Date().toDateString());
-  const [openDialogue, setOpenDialogue] = React.useState(false);
+  const [openDialogue, setOpenDialogue] = useState(false);
   const { data: session } = useSession();
   const sessionEmail = session?.user?.email;
   const [invitedEmails, setInvitedEmails] = useState<string[]>([]);

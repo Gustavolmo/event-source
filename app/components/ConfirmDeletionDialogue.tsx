@@ -9,6 +9,7 @@ import { TransitionProps } from '@mui/material/transitions';
 
 type Props = {
   handleClose: any,
+  handleDeleteAsset: any,
   open: boolean
 }
 
@@ -21,7 +22,7 @@ const Transition = React.forwardRef(function Transition(
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function EventCreatedDialogue({handleClose, open}: Props) {
+export default function ConfirmDeletionDialogue({handleClose, handleDeleteAsset: handleDeleteAccount, open}: Props) {
 
   return (
     <div>
@@ -32,14 +33,15 @@ export default function EventCreatedDialogue({handleClose, open}: Props) {
         onClose={handleClose}
         aria-describedby="alert-dialog-slide-description"
       >
-        <DialogTitle>{"Done!"}</DialogTitle>
+        <DialogTitle>{"Danger Zone!"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
-            Event Successfully Created!
+            This action cannot be undone
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <button className='action-button' onClick={handleClose}>Close</button>
+          <button className='action-button' onClick={handleClose}>CANCEL</button>
+          <button className='navbar__button' onClick={handleDeleteAccount}>DELETE</button>
         </DialogActions>
       </Dialog>
     </div>
