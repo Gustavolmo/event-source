@@ -6,6 +6,7 @@ type Props = {
   listChoice: string[];
   userEmail: User['email'];
   text: string;
+  buttonType: string; 
 };
 
 export default function AnswerInvitationButton({
@@ -13,6 +14,7 @@ export default function AnswerInvitationButton({
   listChoice,
   userEmail,
   text,
+  buttonType
 }: Props) {
   const [spinner, setSpinner] = useState(false);
 
@@ -37,7 +39,7 @@ export default function AnswerInvitationButton({
       className={
         listChoice.includes(String(userEmail))
           ? 'navbar__button--disabled'
-          : 'action-button'
+          : buttonType
       }
     >
       {spinner && <div className="spinner"></div>}
