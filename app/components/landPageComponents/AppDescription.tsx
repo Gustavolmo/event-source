@@ -1,3 +1,4 @@
+'use client'
 import React from 'react';
 import Image from 'next/image';
 import create from '../../assets/create.png';
@@ -7,7 +8,7 @@ import answers from '../../assets/answer.png';
 import joinRide from '../../assets/join-ride.png';
 import profile from '../../assets/profile.png';
 
-export default function AppDescription() {
+export default async function AppDescription() {
   const width = '300';
   return (
     <>
@@ -92,6 +93,7 @@ export default function AppDescription() {
         </div>
 
         <div className="--spacer-20px"></div>
+
       </section>
     </>
   );
