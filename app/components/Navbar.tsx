@@ -15,7 +15,7 @@ type Props = {
 export default function Navbar({ path, title, className }: Props) {
   const router = useRouter();
   const handleLogoClick = () => {
-    router.push('/');
+    router.push('/account');
   };
 
   return (
