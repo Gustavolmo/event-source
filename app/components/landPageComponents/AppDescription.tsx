@@ -1,12 +1,12 @@
 'use client'
 import React from 'react';
 import Image from 'next/image';
-import create from '../../assets/create.png';
+import create from '../../assets/create-form.png';
 import guests from '../../assets/guests.png';
 import passengers from '../../assets/passengers.png';
 import answers from '../../assets/answer.png';
 import joinRide from '../../assets/join-ride.png';
-import profile from '../../assets/profile.png';
+import profile from '../../assets/user-profile.png';
 
 export default async function AppDescription() {
   const width = '300';
