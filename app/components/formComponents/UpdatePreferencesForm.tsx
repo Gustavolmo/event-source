@@ -26,7 +26,7 @@ export default function UpdatePreferencesForm(props: {
     rerenderClick
   );
   const [userPreferences, setUserPreferences] = useState<UserPreferences>({
-    name: '',
+    name: session?.user?.name,
     dietaryRestrictions: '',
     accessibilityNeeds: '',
     additionalRemarks: '',

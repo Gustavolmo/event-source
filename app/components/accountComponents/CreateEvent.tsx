@@ -5,9 +5,16 @@ import { useSession } from 'next-auth/react';
 import React, { ChangeEvent, useState } from 'react';
 import { TagsInput } from 'react-tag-input-component';
 import EasterEgg from '../EasterEgg';
+import EventCreatedDialogue from '../EventCreatedDialogue';
 
-export default function CreateEvent() {
+
+type Props = {
+  setSelection: Function;
+};
+
+export default function CreateEvent({ setSelection }: Props) {
   const date = String(new Date().toDateString());
+  const [openDialogue, setOpenDialogue] = useState(false);
   const { data: session } = useSession();
   const sessionEmail = session?.user?.email;
   const [invitedEmails, setInvitedEmails] = useState<string[]>([]);
@@ -48,6 +55,16 @@ export default function CreateEvent() {
   };
   const [eventData, setEventData] = useState<EventData>(defaultFormValues);
 
+
+  const handleOpenDialogue = () => {
+    setOpenDialogue(true);
+  };
+
+  const handleCloseDialogue = () => {
+    setSelection('manage')
+    setOpenDialogue(false);
+  };
+
   const handleOnChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -69,13 +86,14 @@ export default function CreateEvent() {
     eventData.invited = invitedEmails;
     eventData.organizerName = String(session?.user?.name);
     createNewEvent(sessionEmail, eventData);
-
     setEventData(defaultFormValues);
     setInvitedEmails([]);
+    handleOpenDialogue()
   };
 
   return (
     <>
+      <EventCreatedDialogue handleClose={handleCloseDialogue} open={openDialogue}/>
       <h2>CREATE</h2>
       <section className="event-card">
         <form className="create-event-form" onSubmit={handleFormSubmit}>
@@ -143,7 +161,7 @@ export default function CreateEvent() {
           )}
 
           {(eventData.eventCheck || eventData.transportCheck) && (
-            <div className='--padding-right8px'>
+            <div className="--padding-right8px">
               <TagsInput
                 name="invited"
                 value={invitedEmails}

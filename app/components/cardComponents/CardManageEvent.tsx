@@ -10,6 +10,7 @@ import TitleSection from './TitleSection';
 import GoogleMeetLink from './GoogleMeetLink';
 import DeleteButton from '../buttonComponents/DeleteButton';
 import EditEvent from './EditEvent';
+import ConfirmDeletionDialogue from '../ConfirmDeletionDialogue';
 
 type Props = {
   event: EventData;
@@ -29,6 +30,8 @@ export default function CardManageEvent({
   const [seeAboutEvent, setSeeAboutEvent] = useState(false);
   const [toggleCard, setToggleCard] = useState(false);
   const [edit, setEdit] = useState(false);
+  const [openDialogue, setOpenDialogue] = useState(false);
+
 
   const handleListToggle = (list: boolean, cb: Function) => {
     cb(!list);
@@ -45,6 +48,14 @@ export default function CardManageEvent({
 
   const handleEventToggle = () => {
     setToggleCard(!toggleCard);
+  };
+
+  const handleOpenDialogue = () => {
+    setOpenDialogue(true);
+  };
+
+  const handleCloseDialogue = () => {
+    setOpenDialogue(false);
   };
 
   if (edit) {
@@ -68,7 +79,7 @@ export default function CardManageEvent({
           className="event-card --pointer-hover"
           onClick={handleEventToggle}
         >
-          <button className="navbar__button absolute-top-left --width60px --grey-text">
+          <button className="suttle-button absolute-top-left --width60px">
             Expand
           </button>
           <TitleSection event={event} />
@@ -80,9 +91,15 @@ export default function CardManageEvent({
   }
 
   return (
+    <>
+    <ConfirmDeletionDialogue
+    handleClose={handleCloseDialogue}
+    handleDeleteAsset={handleDelete}
+    open={openDialogue}
+  />
     <section className="event-card">
       <button
-        className="navbar__button absolute-top-left --width60px --grey-text"
+        className="suttle-button absolute-top-left --width60px --grey-text"
         onClick={handleEventToggle}
       >
         Close
@@ -256,10 +273,11 @@ export default function CardManageEvent({
       )}
 
       <DeleteButton
-        handleDelete={handleDelete}
+        handleDelete={handleOpenDialogue}
         mainText="Delete"
         toRight={true}
       />
     </section>
+    </>
   );
 }

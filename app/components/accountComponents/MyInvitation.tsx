@@ -31,7 +31,7 @@ export default function MyInvitation() {
     <>
       <h2>INVITATIONS</h2>
       {dbData &&
-        dbData.map((event, index) => {
+        dbData.slice().reverse().map((event, index) => {
           return (
             <span key={`${index}__${event._id}`}>
               <section key={`${index}_${event._id}`}>
