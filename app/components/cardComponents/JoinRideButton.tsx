@@ -28,7 +28,7 @@ export default function JoinRideButton({event, handleLeaveRide, handleJoinRide, 
             ) : event.passengers.length >= event.seatsAvailable ? (
               <button className="navbar__button"> FULL </button>
             ) : (
-              <button onClick={(e) => {handleJoinRide(e); spinnerHandler()}} className="action-button">
+              <button onClick={(e) => {handleJoinRide(e); spinnerHandler()}} className="action-button-positive">
                 {spinner? <div className="spinner"></div> : 'Join'}
               </button>
             )}

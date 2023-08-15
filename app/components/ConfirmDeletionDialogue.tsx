@@ -40,8 +40,8 @@ export default function ConfirmDeletionDialogue({handleClose, handleDeleteAsset:
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <button className='action-button' onClick={handleClose}>CANCEL</button>
           <button className='navbar__button' onClick={handleDeleteAccount}>DELETE</button>
+          <button className='navbar__button' onClick={handleClose}>CANCEL</button>
         </DialogActions>
       </Dialog>
     </div>

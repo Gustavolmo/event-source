@@ -221,6 +221,35 @@ a {
   position: absolute;
 }
 
+
+.action-button-positive {
+  background-color: #4b8aef;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  height: 24px;
+  min-width: 64px;
+  max-width: 100px;
+  min-width: 60px;
+  margin-right: 8px;
+  transition: 0.2s ease-in-out;
+}
+
+.action-button-positive:hover {
+  cursor: pointer;
+  background-color: #72a2f0;
+  transition: 0.2s ease-in-out;
+}
+
+.action-button-positive:active {
+  cursor: pointer;
+  background-color: #94b9f4;
+}
+
+
+
+
+
 .action-button {
   background-color: #ef4b4c;
   color: #ffffff;

@@ -21,7 +21,7 @@ export default function CardManageEvent({
   event,
   funcUpdateClick: funcUpdateClick,
 }: Props) {
-  const [seeGuests, setSeeGuests] = useState(false);
+  const [seeGuests, setSeeGuests] = useState(true);
   const [seeAccepted, setSeeAccepted] = useState(false);
   const [seeVirtual, setSeeVirtual] = useState(false);
   const [seeRejected, setSeeRejected] = useState(false);
