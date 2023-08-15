@@ -446,6 +446,19 @@ input {
   min-height: 320px;
 }
 
+.policy-card {
+  position: relative;
+  margin: 60px auto;
+  padding: 8px 16px;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: #eaeaea -2px 4px 4px 4px;
+  display: flex;
+  flex-direction: column;
+  min-width: 340px;
+  max-width: 600px;
+}
+
 .manage__create-by {
   display: flex;
   flex-direction: column;
@@ -633,6 +646,10 @@ input {
 
 .--width60px {
   width: 60px;
+}
+
+.--width350px {
+  width: 350px;
 }
 
 .--gray-shading {
