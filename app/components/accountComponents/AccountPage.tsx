@@ -13,8 +13,8 @@ export default function AccountPage() {
     typeof window !== 'undefined'
       ? localStorage.getItem('lastSelection')
         ? localStorage.getItem('lastSelection')
-        : 'info'
-      : 'info'
+        : 'create'
+      : 'create'
   );
 
   const selectionHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -40,7 +40,7 @@ export default function AccountPage() {
           }
           name="info"
         >
-          My Info
+          Settings
         </button>
 
         <button
@@ -70,7 +70,7 @@ export default function AccountPage() {
           }
           name="invitation"
         >
-          Invitations
+          Invited
         </button>
       </header>
 
