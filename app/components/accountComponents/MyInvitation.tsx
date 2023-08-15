@@ -22,14 +22,14 @@ export default function MyInvitation() {
   if (dbData?.length === 0) {
     return (
       <section className="--centered-text">
-        <h2>You have no invitations</h2>
+        <h2>You have invitations</h2>
       </section>
     )
   }
 
   return (
     <>
-      <h2>INVITATIONS</h2>
+      <h2 className='--grey-text'>INBOX</h2>
       {dbData &&
         dbData.slice().reverse().map((event, index) => {
           return (
