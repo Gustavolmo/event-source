@@ -1,12 +1,12 @@
 'use client'
 import React from 'react';
 import Image from 'next/image';
-import create from '../../assets/create.png';
+// import create from '../../assets/create.png';
 import guests from '../../assets/guests.png';
 import passengers from '../../assets/passengers.png';
 import answers from '../../assets/answer.png';
 import joinRide from '../../assets/join-ride.png';
-import profile from '../../assets/profile.png';
+// import profile from '../../assets/profile.png';
 
 export default async function AppDescription() {
   const width = '300';
@@ -29,13 +29,14 @@ export default async function AppDescription() {
       <section className="app-description__section">
 
         <div className="promo-image">
-          <p className="promo-title">Create Events</p>
+          {/* <p className="promo-title">Create Events</p>
           <Image
             className="promo-image-unit"
             src={create}
             alt="create-form"
             width={width}
-          />
+            loading='lazy'
+          /> */}
         </div>
 
         <div className="promo-image">
@@ -45,6 +46,7 @@ export default async function AppDescription() {
             src={guests}
             alt="manage-events"
             width={width}
+            loading='lazy'
           />
         </div>
 
@@ -55,6 +57,7 @@ export default async function AppDescription() {
             src={passengers}
             alt="invitations"
             width={width}
+            loading='lazy'
           />
         </div>
       </section>
@@ -69,6 +72,7 @@ export default async function AppDescription() {
             src={answers}
             alt="user-profile"
             width={width}
+            loading='lazy'
           />
         </div>
 
@@ -79,17 +83,19 @@ export default async function AppDescription() {
             src={joinRide}
             alt="user-profile"
             width={width}
+            loading='lazy'
           />
         </div>
 
         <div className="promo-image">
-          <p className="promo-title">Save Your Preferences</p>
+          {/* <p className="promo-title">Save Your Preferences</p>
           <Image
             className="promo-image-unit"
             src={profile}
             alt="user-profile"
             width={width}
-          />
+            loading='lazy'
+          /> */}
         </div>
 
         <div className="--spacer-20px"></div>
