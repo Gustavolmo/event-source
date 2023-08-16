@@ -5,13 +5,18 @@ import CardMyInvitation from '../cardComponents/CardMyInvitation';
 // import DotsDivider from '../DotsDivider';
 import Loading from '../Loading';
 
-export default function MyInvitation() {
+type Props = {
+  handleUpdateCount: Function
+}
+
+export default function MyInvitation({handleUpdateCount}: Props) {
   const [updateClick, setUpdateClick] = useState<boolean>(false);
   const { dbData, loading } = useDbQuery(getUserInvitations, null, updateClick);
   const [doLoader, setDoLoader] = useState<boolean>(true);
 
   const handleUpdateClick = () => {
     setDoLoader(false)
+    handleUpdateCount()
     setUpdateClick(!updateClick);
   };
 

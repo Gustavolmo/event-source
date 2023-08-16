@@ -11,9 +11,13 @@ import { getAllUserEvents, getUserInvitations } from '@/app-library/DbControls';
 
 export default function AccountPage() {
   const { data: session, status } = useSession();
-  const [renderClick, setRenderClick] = useState(false)
-  const {dbData: allEvents} = useDbQuery(getAllUserEvents, null, renderClick)
-  const {dbData: allInvites} = useDbQuery(getUserInvitations)
+  const [renderClick, setRenderClick] = useState(false);
+  const { dbData: allEvents } = useDbQuery(getAllUserEvents, null, renderClick);
+  const { dbData: allInvites } = useDbQuery(
+    getUserInvitations,
+    null,
+    renderClick
+  );
   const [selection, setSelection] = useState<string | null>(
     typeof window !== 'undefined'
       ? localStorage.getItem('lastSelection')
@@ -22,9 +26,9 @@ export default function AccountPage() {
       : 'create'
   );
 
-  const handleUpdateInboxCount = () => {
-    setRenderClick(!renderClick)
-  }
+  const handleUpdateCount = () => {
+    setRenderClick(!renderClick);
+  };
 
   const selectionHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     setSelection(e.currentTarget.name);
@@ -69,7 +73,7 @@ export default function AccountPage() {
           }
           name="manage"
         >
-          {allEvents && <b>({allEvents?.length})</b>}
+          {allEvents && <i>( {allEvents?.length} ) </i>}
           Sent
         </button>
 
@@ -80,18 +84,24 @@ export default function AccountPage() {
           }
           name="invitation"
         >
-          {allInvites && <b>({allInvites?.length})</b>}
-          Inbox 
+          {allInvites && <i>( {allInvites?.length} ) </i>}
+          Inbox
         </button>
       </header>
 
       <section className="account-components">
         {selection === 'info' && <MyInfo />}
-        {selection === 'create' && <CreateEvent setSelection={setSelection} />}
-        {selection === 'manage' && <ManageEvent handleUpdateInboxCount={handleUpdateInboxCount}/>}
-        {selection === 'invitation' && <MyInvitation />}
+        {selection === 'create' && (
+          <CreateEvent
+            setSelection={setSelection}
+            handleUpdateCount={handleUpdateCount}
+          />
+        )}
+        {selection === 'manage' && (
+          <ManageEvent handleUpdateCount={handleUpdateCount} />
+        )}
+        {selection === 'invitation' && <MyInvitation handleUpdateCount={handleUpdateCount}/>}
       </section>
     </>
   );
 }
-

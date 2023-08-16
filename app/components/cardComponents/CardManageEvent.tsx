@@ -102,11 +102,6 @@ export default function CardManageEvent({
 
   return (
     <>
-      <ConfirmDeletionDialogue
-        handleClose={handleCloseDialogue}
-        handleDeleteAsset={handleDelete}
-        open={openDialogue}
-      />
       <section className="event-card">
         <button
           className="suttle-button absolute-top-left --width60px --grey-text"
@@ -294,6 +289,11 @@ export default function CardManageEvent({
           handleDelete={handleOpenDialogue}
           mainText="Delete"
           toRight={true}
+        />
+        <ConfirmDeletionDialogue
+          handleClose={handleCloseDialogue}
+          handleDeleteAsset={handleDelete}
+          open={openDialogue}
         />
       </section>
     </>

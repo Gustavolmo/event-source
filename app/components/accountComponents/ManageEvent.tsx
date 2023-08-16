@@ -7,10 +7,10 @@ import CardManageEvent from '../cardComponents/CardManageEvent';
 import Loading from '../Loading';
 
 type Props = {
-  handleUpdateInboxCount: Function
+  handleUpdateCount: Function
 }
 
-export default function ManageEvent({handleUpdateInboxCount: handleUpdateSentCount}: Props) {
+export default function ManageEvent({handleUpdateCount: handleUpdateSentCount}: Props) {
   const [updateClick, setUpdateClick] = useState<boolean>(false);
   const { dbData, loading } = useDbQuery(getAllUserEvents, null, updateClick);
   const [doLoader, setDoLoader] = useState<boolean>(true);

@@ -22,7 +22,7 @@ const Transition = React.forwardRef(function Transition(
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function ConfirmDeletionDialogue({handleClose, handleDeleteAsset: handleDeleteAccount, open}: Props) {
+export default function ConfirmDeletionDialogue({handleClose, handleDeleteAsset: handleDeleteAsset, open}: Props) {
 
   return (
     <div>
@@ -40,7 +40,7 @@ export default function ConfirmDeletionDialogue({handleClose, handleDeleteAsset:
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <button className='navbar__button' onClick={handleDeleteAccount}>DELETE</button>
+          <button className='navbar__button' onClick={() => {handleDeleteAsset(); handleClose()}}>DELETE</button>
           <button className='navbar__button' onClick={handleClose}>CANCEL</button>
         </DialogActions>
       </Dialog>
