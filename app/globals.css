@@ -448,10 +448,11 @@ input {
   border-radius: 0.375rem;
   border: solid #cccccc 0.5px;
   padding-left: 8px;
+  font-size: 16px;
 }
 
 input {
-  height: 28px;
+  height: 32px;
 }
 
 .rti--container {
