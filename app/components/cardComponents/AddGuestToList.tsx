@@ -4,26 +4,32 @@ import { useState } from 'react';
 import { TagsInput } from 'react-tag-input-component';
 
 type Props = {
-  eventId: EventData['_id'],
-  funcUpdateClick: Function,
-}
+  eventId: EventData['_id'];
+  funcUpdateClick: Function;
+};
 
-export default function AddGuestToList(
-  {eventId, funcUpdateClick: funcUpdateClick}: Props
-) {
+export default function AddGuestToList({
+  eventId,
+  funcUpdateClick: funcUpdateClick,
+}: Props) {
   const [newGuests, setNewGuests] = useState<string[]>([]);
 
   const handleAddGuestToEvent = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    funcUpdateClick()
+    funcUpdateClick();
     addUsersToEvent(newGuests, eventId);
-    setNewGuests([])
+    setNewGuests([]);
   };
 
   return (
     <form onSubmit={handleAddGuestToEvent}>
-      <div className='manage__add-guest'>
-        <button className='navbar__button absolute-button-top-right' type="submit">Add Guests</button>
+      <div className="manage__add-guest">
+        <button
+          className="navbar__button absolute-button-top-right"
+          type="submit"
+        >
+          Add Guests
+        </button>
         <TagsInput
           name="invited"
           value={newGuests}

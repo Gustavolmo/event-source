@@ -339,7 +339,7 @@ a {
   grid-template: 'a b c d';
   width: 100vw;
   bottom: 0px;
-  height: 48px;
+  height: 60px;
   align-items: center;
   background-color: #fff;
 }
@@ -349,7 +349,7 @@ a {
   border: none;
   border-top: solid 1px #cccccc;
   color: #ef4b4c;
-  height: 48px;
+  height: 60px;
   transition: 0.2s;
 }
 .page-button:hover {
@@ -363,7 +363,7 @@ a {
   border: none;
   border-top: solid 1px #cccccc;
   color: #ef4b4c;
-  height: 48px;
+  height: 60px;
   font-weight: bold;
   transition: 0.2s;
 }

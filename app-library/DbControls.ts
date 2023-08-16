@@ -60,6 +60,11 @@ export const createNewEvent = async (
     });
     if (userDbEntry) {
       event.organizerId = String(userDbEntry._id);
+      event.invited = Array.from(
+      new Set(event.invited.map((email) => email?.toLowerCase()))
+    );
+
+
       await eventCollection.insertOne(event);
       return true;
     } else {
@@ -126,13 +131,16 @@ export const addUsersToEvent = async (
       _id: new ObjectId(eventId),
     })) as EventData;
 
-    const noRepeatedeMailList = guestEmails.filter(
+    const noRepeatedEmail = Array.from(
+      new Set(guestEmails.map((email) => email?.toLowerCase()))
+    );
+    const uniqueNewEmails = noRepeatedEmail.filter(
       (email) => !targetEvent.invited.includes(String(email))
     );
 
     await eventCollection.updateOne(
       { _id: new ObjectId(eventId) },
-      { $push: { invited: { $each: noRepeatedeMailList } } }
+      { $push: { invited: { $each: uniqueNewEmails } } }
     );
   } catch (e) {
     console.error(e);
@@ -151,10 +159,10 @@ export const deleteEvent = async (eventId: EventData['_id']) => {
 // DELETE USER BY EMAIL
 export const deleteUser = async (userEmail: User['email']) => {
   try {
-    const user = await userCollection.findOne({ email: userEmail })
-    await eventCollection.deleteMany({ organizerId: String(user?._id) })
-    await userCollection.deleteOne({ _id: user?._id })
+    const user = await userCollection.findOne({ email: userEmail });
+    await eventCollection.deleteMany({ organizerId: String(user?._id) });
+    await userCollection.deleteOne({ _id: user?._id });
   } catch (e) {
-    console.error(e)
+    console.error(e);
   }
-}
+};
