@@ -2,7 +2,7 @@ import { getUserInvitations } from '@/app-library/DbControls';
 import useDbQuery from '@/app/customHooks/useDbQuery';
 import React, { useState } from 'react';
 import CardMyInvitation from '../cardComponents/CardMyInvitation';
-import DotsDivider from '../DotsDivider';
+// import DotsDivider from '../DotsDivider';
 import Loading from '../Loading';
 
 export default function MyInvitation() {
@@ -29,7 +29,7 @@ export default function MyInvitation() {
 
   return (
     <>
-      <h2 className='--grey-text'>INBOX</h2>
+      <h2 className='promo-image'>INBOX</h2>
       {dbData &&
         dbData.slice().reverse().map((event, index) => {
           return (
@@ -40,7 +40,8 @@ export default function MyInvitation() {
                   handleUpdateClick={handleUpdateClick}
                 />
               </section>
-              <DotsDivider key={`${index}${event._id}`}/>
+              <div className='--spacer-60px'></div>
+              {/* <DotsDivider key={`${index}${event._id}`}/> */}
             </span>
           );
         })}

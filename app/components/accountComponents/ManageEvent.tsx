@@ -3,7 +3,7 @@ import { getAllUserEvents } from '@/app-library/DbControls';
 import useDbQuery from '@/app/customHooks/useDbQuery';
 import React, { useState } from 'react';
 import CardManageEvent from '../cardComponents/CardManageEvent';
-import DotsDivider from '../DotsDivider';
+// import DotsDivider from '../DotsDivider';
 import Loading from '../Loading';
 
 export default function ManageEvent() {
@@ -30,7 +30,7 @@ export default function ManageEvent() {
 
   return (
     <>
-      <h2 className='--grey-text'>MANAGE EVENTS</h2>
+      <h2 className='promo-image'>MANAGE EVENTS</h2>
         {dbData &&
           dbData.slice().reverse().map((event, index) => {
             return (
@@ -41,7 +41,8 @@ export default function ManageEvent() {
                     funcUpdateClick={handleUpdateClick}
                   />
                 </section>
-                <DotsDivider key={`${index}${event._id}`} />
+                <div className='--spacer-60px'></div>
+                {/* <DotsDivider key={`${index}${event._id}`} /> */}
               </span>
             );
           })}
