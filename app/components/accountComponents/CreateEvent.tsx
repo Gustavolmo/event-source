@@ -15,7 +15,6 @@ export default function CreateEvent({ setSelection }: Props) {
   const date = String(new Date().toDateString());
   const [openDialogue, setOpenDialogue] = useState(false);
   const { data: session } = useSession();
-  const sessionEmail = session?.user?.email;
   const [invitedEmails, setInvitedEmails] = useState<string[]>([]);
   const defaultFormValues: EventData = {
     eventTitle: '',
@@ -56,13 +55,16 @@ export default function CreateEvent({ setSelection }: Props) {
 
   useEffect(() => {
     const storedData = localStorage.getItem('formData');
-    if (storedData) {
-      setEventData(JSON.parse(storedData));
-    }
+    if (storedData) setEventData(JSON.parse(storedData));
+
+    const storedEmails = localStorage.getItem('emailList')
+    if (storedEmails) setInvitedEmails(JSON.parse(storedEmails));
+    
   }, []);
   useEffect(() => {
     localStorage.setItem('formData', JSON.stringify(eventData));
-  }, [eventData]);
+    localStorage.setItem('emailList', JSON.stringify(invitedEmails))
+  }, [eventData, invitedEmails]);
 
 
   const handleOpenDialogue = () => {
@@ -94,7 +96,7 @@ export default function CreateEvent({ setSelection }: Props) {
     e.preventDefault();
     eventData.invited = invitedEmails;
     eventData.organizerName = String(session?.user?.name);
-    createNewEvent(sessionEmail, eventData);
+    createNewEvent(session?.user?.email, eventData);
     setEventData(defaultFormValues);
     localStorage.removeItem('formData');
     setInvitedEmails([]);
