@@ -2,20 +2,20 @@
 import { createNewEvent } from '@/app-library/DbControls';
 import { EventData } from '@/app-types/types';
 import { useSession } from 'next-auth/react';
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { TagsInput } from 'react-tag-input-component';
 import EasterEgg from '../EasterEgg';
 import EventCreatedDialogue from '../EventCreatedDialogue';
 
 type Props = {
   setSelection: Function;
+  handleUpdateCount: Function
 };
 
-export default function CreateEvent({ setSelection }: Props) {
+export default function CreateEvent({ setSelection, handleUpdateCount }: Props) {
   const date = String(new Date().toDateString());
   const [openDialogue, setOpenDialogue] = useState(false);
   const { data: session } = useSession();
-  const sessionEmail = session?.user?.email;
   const [invitedEmails, setInvitedEmails] = useState<string[]>([]);
   const defaultFormValues: EventData = {
     eventTitle: '',
@@ -54,6 +54,20 @@ export default function CreateEvent({ setSelection }: Props) {
   };
   const [eventData, setEventData] = useState<EventData>(defaultFormValues);
 
+  useEffect(() => {
+    const storedData = localStorage.getItem('formData');
+    if (storedData) setEventData(JSON.parse(storedData));
+
+    const storedEmails = localStorage.getItem('emailList')
+    if (storedEmails) setInvitedEmails(JSON.parse(storedEmails));
+    
+  }, []);
+  useEffect(() => {
+    localStorage.setItem('formData', JSON.stringify(eventData));
+    localStorage.setItem('emailList', JSON.stringify(invitedEmails))
+  }, [eventData, invitedEmails]);
+
+
   const handleOpenDialogue = () => {
     setOpenDialogue(true);
   };
@@ -83,8 +97,10 @@ export default function CreateEvent({ setSelection }: Props) {
     e.preventDefault();
     eventData.invited = invitedEmails;
     eventData.organizerName = String(session?.user?.name);
-    createNewEvent(sessionEmail, eventData);
+    createNewEvent(session?.user?.email, eventData);
     setEventData(defaultFormValues);
+    localStorage.removeItem('formData');
+    handleUpdateCount()
     setInvitedEmails([]);
     handleOpenDialogue();
   };
@@ -95,7 +111,7 @@ export default function CreateEvent({ setSelection }: Props) {
         handleClose={handleCloseDialogue}
         open={openDialogue}
       />
-      <h2 className="--grey-text">CREATE EVENT</h2>
+      <h2 className='promo-image'>CREATE EVENT</h2>
       <section className="event-card">
         <form className="create-event-form" onSubmit={handleFormSubmit}>
           <section className="form__offerings">

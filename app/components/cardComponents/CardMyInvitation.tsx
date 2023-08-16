@@ -14,6 +14,7 @@ import JoinRideButton from './JoinRideButton';
 import TitleSection from './TitleSection';
 import GoogleMeetLink from './GoogleMeetLink';
 import ConfirmDeletionDialogue from '../ConfirmDeletionDialogue';
+import DeleteButton from '../buttonComponents/DeleteButton';
 
 type Props = {
   event: EventData;
@@ -30,9 +31,27 @@ export default function CardMyInvitation({ event, handleUpdateClick }: Props) {
   const [seeAboutTransit, setSeeAboutTransit] = useState(false);
   const [seeAboutEvent, setSeeAboutEvent] = useState(false);
   const [toggleCard, setToggleCard] = useState(false);
+  const [openDialogue, setOpenDialogue] = useState(false);
 
   const handleListToggle = (list: boolean, cb: Function) => {
     cb(!list);
+  };
+
+  const deleteInvitation = () => {
+    handleUpdateClick()
+    removeGuestFromList(session?.user?.email, event._id, 'invited');
+    removeGuestFromList(session?.user?.email, event._id, 'acceptedVirtually');
+    removeGuestFromList(session?.user?.email, event._id, 'rejected');
+    removeGuestFromList(session?.user?.email, event._id, 'acceptedLive');
+    removeGuestFromList(session?.user?.email, event._id, 'passengers');
+  };
+
+  const handleOpenDialogue = () => {
+    setOpenDialogue(true);
+  };
+
+  const handleCloseDialogue = () => {
+    setOpenDialogue(false);
   };
 
   const handleAccept = () => {
@@ -153,7 +172,10 @@ export default function CardMyInvitation({ event, handleUpdateClick }: Props) {
           Collapse
         </button>
 
-        <section onClick={handleEventToggle} className="--pointer-hover --centered-text">
+        <section
+          onClick={handleEventToggle}
+          className="--pointer-hover --centered-text"
+        >
           <TitleSection event={event} />
         </section>
 
@@ -275,6 +297,7 @@ export default function CardMyInvitation({ event, handleUpdateClick }: Props) {
                 setSeeState={setSeeAboutEvent}
                 description={event.eventDescription}
               />
+              {!event.transportCheck && <div className="--spacer-60px"></div>}
             </article>
           </>
         )}
@@ -336,6 +359,16 @@ export default function CardMyInvitation({ event, handleUpdateClick }: Props) {
             <div className="--spacer-60px"></div>
           </>
         )}
+        <DeleteButton
+          handleDelete={handleOpenDialogue}
+          mainText="Ignore & Delete"
+          toRight={true}
+        />
+        <ConfirmDeletionDialogue
+          handleClose={handleCloseDialogue}
+          handleDeleteAsset={deleteInvitation}
+          open={openDialogue}
+        />
       </section>
     </>
   );
