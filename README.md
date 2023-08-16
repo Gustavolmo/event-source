@@ -1,9 +1,7 @@
 <img src="app/assets/Logo1.png" alt="Logo" width="100px">
 
 # EventSauce
-[Event Sauce](https://event-sauce.vercel.app)
-
-Event Sauce is a web-based application that allows users to create, manage, and track events. It is designed to simplify the process of organizing and coordinating events.
+[Event Sauce](https://event-sauce.vercel.app) is a web-based application that allows users to create, manage, and track events. It is designed to simplify the process of organizing and coordinating events.
 
 ## AS A PLANNER:
 1. **Create events** - <i>Specify the event details. Choose between event, event with transportaion or only transportation</i>
@@ -46,3 +44,5 @@ Event Sauce is a web-based application that allows users to create, manage, and 
 ## Try it for yourself
 
 [Event Sauce](https://event-sauce.vercel.app)
+
+User feedback is greatly appreciated - send me a DM on [LinkedIn](https://www.linkedin.com/in/gustavo-l-m-de-oliveira-037243108/)

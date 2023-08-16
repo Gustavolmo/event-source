@@ -32,7 +32,6 @@ export default function CardManageEvent({
   const [edit, setEdit] = useState(false);
   const [openDialogue, setOpenDialogue] = useState(false);
 
-
   const handleListToggle = (list: boolean, cb: Function) => {
     cb(!list);
   };
@@ -61,7 +60,11 @@ export default function CardManageEvent({
   if (edit) {
     return (
       <section className="event-card">
-        <EditEvent event={event} handleEdit={handleEdit} funcUpdateClick={funcUpdateClick}/>
+        <EditEvent
+          event={event}
+          handleEdit={handleEdit}
+          funcUpdateClick={funcUpdateClick}
+        />
         <button
           onClick={handleEdit}
           className="navbar__button absolute-button-top-right"
@@ -75,16 +78,20 @@ export default function CardManageEvent({
   if (!toggleCard) {
     return (
       <>
-        <section
-          className="event-card --pointer-hover"
-          onClick={handleEventToggle}
-        >
+        <section className="event-card">
           <button className="suttle-button absolute-top-left --width60px">
             Expand
           </button>
-          <TitleSection event={event} />
+          <section
+            className="--centered-text --pointer-hover"
+            onClick={handleEventToggle}
+          >
+            <TitleSection event={event} />
+          </section>
           {event.eventCheck && <EventInfoBoard event={event} />}
-          {event.transportCheck && <TransitInfoBoard event={event} showTime={true}/>}
+          {event.transportCheck && (
+            <TransitInfoBoard event={event} showTime={true} />
+          )}
         </section>
       </>
     );
@@ -92,192 +99,200 @@ export default function CardManageEvent({
 
   return (
     <>
-    <ConfirmDeletionDialogue
-    handleClose={handleCloseDialogue}
-    handleDeleteAsset={handleDelete}
-    open={openDialogue}
-  />
-    <section className="event-card">
-      <button
-        className="suttle-button absolute-top-left --width60px --grey-text"
-        onClick={handleEventToggle}
-      >
-        Close
-      </button>
-      <button
-        onClick={handleEdit}
-        className="action-button absolute-button-top-right"
-      >
-        Edit
-      </button>
-
-      <TitleSection event={event} />
-
-      <ToggleList
-        handleListToggle={() => handleListToggle(seeGuests, setSeeGuests)}
-        seeList={seeGuests}
-        setSeeList={setSeeGuests}
-        hasAddGuest={true}
-        hasDetails={true}
-        funcUpdateClick={funcUpdateClick}
-        event={event}
-        listChoice={event.invited}
-        listName="invited"
-        buttonTitle={'All Guests'}
+      <ConfirmDeletionDialogue
+        handleClose={handleCloseDialogue}
+        handleDeleteAsset={handleDelete}
+        open={openDialogue}
       />
+      <section className="event-card">
+        <button
+          className="suttle-button absolute-top-left --width60px --grey-text"
+          onClick={handleEventToggle}
+        >
+          Close
+        </button>
+        <button
+          onClick={handleEdit}
+          className="action-button absolute-button-top-right"
+        >
+          Edit
+        </button>
 
-      {event.transportCheck && !event.eventCheck && (
-        <div className="--spacer-20px"></div>
-      )}
+        <section
+          onClick={handleEventToggle}
+          className="--pointer-hover --centered-text"
+        >
+          <TitleSection event={event} />
+        </section>
 
-      {event.eventCheck && (
-        <>
-          <ToggleList
-            handleListToggle={() =>
-              handleListToggle(seeAccepted, setSeeAccepted)
-            }
-            seeList={seeAccepted}
-            setSeeList={setSeeAccepted}
-            hasAddGuest={false}
-            hasDetails={true}
-            funcUpdateClick={funcUpdateClick}
-            event={event}
-            listChoice={event.acceptedLive}
-            listName="acceptedLive"
-            buttonTitle={'Yeap!'}
-          />
+        <ToggleList
+          handleListToggle={() => handleListToggle(seeGuests, setSeeGuests)}
+          seeList={seeGuests}
+          setSeeList={setSeeGuests}
+          hasAddGuest={true}
+          hasDetails={true}
+          funcUpdateClick={funcUpdateClick}
+          event={event}
+          listChoice={event.invited}
+          listName="invited"
+          buttonTitle={'All Guests'}
+        />
 
-          {event.virtualLink && (
+        {event.transportCheck && !event.eventCheck && (
+          <div className="--spacer-20px"></div>
+        )}
+
+        {event.eventCheck && (
+          <>
             <ToggleList
               handleListToggle={() =>
-                handleListToggle(seeVirtual, setSeeVirtual)
+                handleListToggle(seeAccepted, setSeeAccepted)
               }
-              seeList={seeVirtual}
-              setSeeList={setSeeVirtual}
+              seeList={seeAccepted}
+              setSeeList={setSeeAccepted}
+              hasAddGuest={false}
+              hasDetails={true}
+              funcUpdateClick={funcUpdateClick}
+              event={event}
+              listChoice={event.acceptedLive}
+              listName="acceptedLive"
+              buttonTitle={'Yeap!'}
+            />
+
+            {event.virtualLink && (
+              <ToggleList
+                handleListToggle={() =>
+                  handleListToggle(seeVirtual, setSeeVirtual)
+                }
+                seeList={seeVirtual}
+                setSeeList={setSeeVirtual}
+                hasAddGuest={false}
+                hasDetails={false}
+                funcUpdateClick={funcUpdateClick}
+                event={event}
+                listChoice={event.acceptedVirtually}
+                listName="acceptedVirtually"
+                buttonTitle={'Remote'}
+              />
+            )}
+
+            <ToggleList
+              handleListToggle={() =>
+                handleListToggle(seeRejected, setSeeRejected)
+              }
+              seeList={seeRejected}
+              setSeeList={setSeeRejected}
               hasAddGuest={false}
               hasDetails={false}
               funcUpdateClick={funcUpdateClick}
               event={event}
-              listChoice={event.acceptedVirtually}
-              listName="acceptedVirtually"
-              buttonTitle={'Remote'}
+              listChoice={event.rejected}
+              listName="rejected"
+              buttonTitle={'Nope'}
             />
-          )}
 
-          <ToggleList
-            handleListToggle={() =>
-              handleListToggle(seeRejected, setSeeRejected)
-            }
-            seeList={seeRejected}
-            setSeeList={setSeeRejected}
-            hasAddGuest={false}
-            hasDetails={false}
-            funcUpdateClick={funcUpdateClick}
-            event={event}
-            listChoice={event.rejected}
-            listName="rejected"
-            buttonTitle={'Nope'}
-          />
+            {event.eventCheck && <h5>Event Details</h5>}
 
-          {event.eventCheck && <h5>Event Details</h5>}
+            <article className="manage__form-details">
+              <EventInfoBoard event={event} />
 
-          <article className="manage__form-details">
-            <EventInfoBoard event={event} />
+              <section className="manage__info --gray-shading">
+                <b>Venue:</b>{' '}
+                <p className="--text12px">{event.eventLocation}</p>
+              </section>
+
+              <section className="manage__info --gray-shading">
+                <b>RSVP:</b> <p>{event.eventRSVP}</p>
+              </section>
+
+              <GoogleMeetLink event={event} meetLink="/" />
+
+              <div className="manage__info-column --gray-shading">
+                <div className="--inline-tags">
+                  <b>Price:</b> <p>{event.eventCost}kr</p>
+                </div>
+
+                <div className="--inline-tags">
+                  <b>Expected return:</b>{' '}
+                  <p>{event.eventCost * event.acceptedLive.length}kr</p>
+                </div>
+              </div>
+
+              <ToggleDescription
+                handleListToggle={handleListToggle}
+                seeState={seeAboutEvent}
+                setSeeState={setSeeAboutEvent}
+                description={event.eventDescription}
+              />
+            </article>
+            {event.eventCheck && !event.transportCheck && (
+              <div className="--spacer-60px"></div>
+            )}
+          </>
+        )}
+
+        {event.transportCheck && (
+          <>
+            {event.transportCheck && (
+              <>
+                <h5>Transport Details</h5>
+              </>
+            )}
+
+            <TransitInfoBoard event={event} showTime={true} />
+
+            <ToggleList
+              handleListToggle={() => handleListToggle(seePax, setSeePax)}
+              seeList={seePax}
+              setSeeList={setSeePax}
+              hasAddGuest={false}
+              hasDetails={true}
+              funcUpdateClick={funcUpdateClick}
+              event={event}
+              listChoice={event.passengers}
+              listName="passengers"
+              buttonTitle={'Passengers'}
+            />
 
             <section className="manage__info --gray-shading">
-              <b>Venue:</b> <p className="--text12px">{event.eventLocation}</p>
+              <b>Seats available:</b>{' '}
+              <p>
+                {event.seatsAvailable - event.passengers.length} out of{' '}
+                {event.seatsAvailable}
+              </p>
             </section>
-
             <section className="manage__info --gray-shading">
-              <b>RSVP:</b> <p>{event.eventRSVP}</p>
+              <b>Vehicle:</b> <p>{event.transportMode}</p>
             </section>
-
-            <GoogleMeetLink event={event} meetLink="/" />
 
             <div className="manage__info-column --gray-shading">
               <div className="--inline-tags">
-                <b>Price:</b> <p>{event.eventCost}kr</p>
+                <b>Transit fee:</b> <p>{event.transportCost}kr</p>
               </div>
 
               <div className="--inline-tags">
                 <b>Expected return:</b>{' '}
-                <p>{event.eventCost * event.acceptedLive.length}kr</p>
+                <p>{event.transportCost * event.passengers.length}kr</p>
               </div>
             </div>
 
             <ToggleDescription
               handleListToggle={handleListToggle}
-              seeState={seeAboutEvent}
-              setSeeState={setSeeAboutEvent}
-              description={event.eventDescription}
+              seeState={seeAboutTransit}
+              setSeeState={setSeeAboutTransit}
+              description={event.transportDescription}
             />
-          </article>
-          {(event.eventCheck && !event.transportCheck) && <div className='--spacer-60px'></div>}
-        </>
-      )}
 
-      {event.transportCheck && (
-        <>
-          {event.transportCheck && (
-            <>
-              <h5>Transport Details</h5>
-            </>
-          )}
+            <div className="--spacer-60px"></div>
+          </>
+        )}
 
-          <TransitInfoBoard event={event} showTime={true}/>
-
-          <ToggleList
-            handleListToggle={() => handleListToggle(seePax, setSeePax)}
-            seeList={seePax}
-            setSeeList={setSeePax}
-            hasAddGuest={false}
-            hasDetails={true}
-            funcUpdateClick={funcUpdateClick}
-            event={event}
-            listChoice={event.passengers}
-            listName="passengers"
-            buttonTitle={'Passengers'}
-          />
-
-          <section className="manage__info --gray-shading">
-            <b>Seats available:</b>{' '}
-            <p>
-              {event.seatsAvailable - event.passengers.length} out of{' '}
-              {event.seatsAvailable}
-            </p>
-          </section>
-          <section className="manage__info --gray-shading">
-            <b>Vehicle:</b> <p>{event.transportMode}</p>
-          </section>
-
-          <div className="manage__info-column --gray-shading">
-            <div className="--inline-tags">
-              <b>Transit fee:</b> <p>{event.transportCost}kr</p>
-            </div>
-
-            <div className="--inline-tags">
-              <b>Expected return:</b>{' '}
-              <p>{event.transportCost * event.passengers.length}kr</p>
-            </div>
-          </div>
-
-          <ToggleDescription
-            handleListToggle={handleListToggle}
-            seeState={seeAboutTransit}
-            setSeeState={setSeeAboutTransit}
-            description={event.transportDescription}
-          />
-
-          <div className="--spacer-60px"></div>
-        </>
-      )}
-
-      <DeleteButton
-        handleDelete={handleOpenDialogue}
-        mainText="Delete"
-        toRight={true}
-      />
-    </section>
+        <DeleteButton
+          handleDelete={handleOpenDialogue}
+          mainText="Delete"
+          toRight={true}
+        />
+      </section>
     </>
   );
 }

@@ -68,7 +68,6 @@ export default function CardMyInvitation({ event, handleUpdateClick }: Props) {
     setToggleCard(!toggleCard);
   };
 
-
   if (!toggleCard) {
     return (
       <>
@@ -79,7 +78,13 @@ export default function CardMyInvitation({ event, handleUpdateClick }: Props) {
           >
             Expand
           </button>
-          <TitleSection event={event} />
+
+          <section
+            onClick={handleEventToggle}
+            className="--pointer-hover --centered-text"
+          >
+            <TitleSection event={event} />
+          </section>
 
           {event.eventCheck && (
             <>
@@ -88,7 +93,7 @@ export default function CardMyInvitation({ event, handleUpdateClick }: Props) {
                   handleChoice={handleAccept}
                   listChoice={event.acceptedLive}
                   userEmail={session?.user?.email}
-                  buttonType='action-button-positive'
+                  buttonType="action-button-positive"
                   text="Accept"
                 />
 
@@ -97,7 +102,7 @@ export default function CardMyInvitation({ event, handleUpdateClick }: Props) {
                     handleChoice={handleAcceptVirtually}
                     listChoice={event.acceptedVirtually}
                     userEmail={session?.user?.email}
-                    buttonType='action-button-positive'
+                    buttonType="action-button-positive"
                     text="Remote"
                   />
                 )}
@@ -106,7 +111,7 @@ export default function CardMyInvitation({ event, handleUpdateClick }: Props) {
                   handleChoice={handleReject}
                   listChoice={event.rejected}
                   userEmail={session?.user?.email}
-                  buttonType='action-button'
+                  buttonType="action-button"
                   text="Reject"
                 />
               </section>
@@ -148,7 +153,9 @@ export default function CardMyInvitation({ event, handleUpdateClick }: Props) {
           Collapse
         </button>
 
-        <TitleSection event={event} />
+        <section onClick={handleEventToggle} className="--pointer-hover --centered-text">
+          <TitleSection event={event} />
+        </section>
 
         {event.eventCheck && (
           <section className="answer-invite-buttons">
@@ -156,7 +163,7 @@ export default function CardMyInvitation({ event, handleUpdateClick }: Props) {
               handleChoice={handleAccept}
               listChoice={event.acceptedLive}
               userEmail={session?.user?.email}
-              buttonType='action-button-positive'
+              buttonType="action-button-positive"
               text="Accept"
             />
 
@@ -165,7 +172,7 @@ export default function CardMyInvitation({ event, handleUpdateClick }: Props) {
                 handleChoice={handleAcceptVirtually}
                 listChoice={event.acceptedVirtually}
                 userEmail={session?.user?.email}
-                buttonType='action-button-positive'
+                buttonType="action-button-positive"
                 text="Remote"
               />
             )}
@@ -174,7 +181,7 @@ export default function CardMyInvitation({ event, handleUpdateClick }: Props) {
               handleChoice={handleReject}
               listChoice={event.rejected}
               userEmail={session?.user?.email}
-              buttonType='action-button'
+              buttonType="action-button"
               text="Reject"
             />
           </section>

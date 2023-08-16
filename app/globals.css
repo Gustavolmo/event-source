@@ -738,6 +738,10 @@ input {
   margin-bottom: 8px;
 }
 
+.--margin-top-32px {
+  margin-top: 32px;
+}
+
 .--marginB16px {
   margin-top: 32px;
   margin-left: 16px;
