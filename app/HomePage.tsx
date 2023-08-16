@@ -35,10 +35,8 @@ export default function HomePage() {
   }, [status]);
 
   useEffect(() => {
-    if (session === null || !session) setShowLoader(false);
-  }, []);
-
-  if (showLoader) return <Loading />;
+    if (session === null) setShowLoader(false);
+  }, [session]);
 
   if (!showLoader)
     return (
@@ -46,4 +44,6 @@ export default function HomePage() {
         <AppDescription />
       </section>
     );
+
+  return <Loading />;
 }
