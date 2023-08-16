@@ -32,7 +32,7 @@ export default function Navbar({ path, title, className }: Props) {
         <cite className='--red-highlight-text'> EventSauce</cite>
       </section>
       <div>
-        <PathButton path={path} title={title} className={className} />
+        {/* <PathButton path={path} title={title} className={className} /> */}
         <LoginButton />
       </div>
     </nav>

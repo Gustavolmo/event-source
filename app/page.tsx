@@ -10,7 +10,7 @@ export default async function Home() {
       <Suspense fallback={<Loading />}>
         <Navbar
           path={'/account'}
-          title={'My Account'}
+          title={'Dashboard'}
           className={'action-button'}
         />
         <main className="main">
