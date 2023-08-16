@@ -66,7 +66,6 @@ export default function CreateEvent({ setSelection }: Props) {
   const handleOnChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    e.preventDefault()
     setEventData((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
