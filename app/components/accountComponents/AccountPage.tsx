@@ -6,9 +6,14 @@ import MyInvitation from './MyInvitation';
 import MyInfo from './MyInfo';
 import { useSession } from 'next-auth/react';
 import LoadingUi from '../LoadingUi';
+import useDbQuery from '@/app/customHooks/useDbQuery';
+import { getAllUserEvents, getUserInvitations } from '@/app-library/DbControls';
 
 export default function AccountPage() {
   const { data: session, status } = useSession();
+  const [renderClick, setRenderClick] = useState(false)
+  const {dbData: allEvents} = useDbQuery(getAllUserEvents, null, renderClick)
+  const {dbData: allInvites} = useDbQuery(getUserInvitations)
   const [selection, setSelection] = useState<string | null>(
     typeof window !== 'undefined'
       ? localStorage.getItem('lastSelection')
@@ -16,6 +21,10 @@ export default function AccountPage() {
         : 'create'
       : 'create'
   );
+
+  const handleUpdateInboxCount = () => {
+    setRenderClick(!renderClick)
+  }
 
   const selectionHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     setSelection(e.currentTarget.name);
@@ -60,7 +69,8 @@ export default function AccountPage() {
           }
           name="manage"
         >
-          My Events
+          {allEvents && <b>({allEvents?.length})</b>}
+          Sent
         </button>
 
         <button
@@ -70,16 +80,18 @@ export default function AccountPage() {
           }
           name="invitation"
         >
-          Inbox
+          {allInvites && <b>({allInvites?.length})</b>}
+          Inbox 
         </button>
       </header>
 
       <section className="account-components">
         {selection === 'info' && <MyInfo />}
         {selection === 'create' && <CreateEvent setSelection={setSelection} />}
-        {selection === 'manage' && <ManageEvent/>}
+        {selection === 'manage' && <ManageEvent handleUpdateInboxCount={handleUpdateInboxCount}/>}
         {selection === 'invitation' && <MyInvitation />}
       </section>
     </>
   );
 }
+
