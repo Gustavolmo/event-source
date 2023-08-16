@@ -62,7 +62,7 @@ body {
   padding: 0;
   box-sizing: border-box;
   background-color: #fbfbfb;
-  background-image: url(https://www.toptal.com/designers/subtlepatterns/uploads/memphis-mini.png);
+  /* background-image: url(https://www.toptal.com/designers/subtlepatterns/uploads/memphis-mini.png); */
   overflow: auto;
   height: 100vh;
 }
@@ -74,8 +74,8 @@ body::before {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(235, 243, 255, 0.1); 
-  pointer-events: none; 
+  background-color: rgba(235, 243, 255, 0.1);
+  pointer-events: none;
 }
 
 h2 {
@@ -194,6 +194,7 @@ a {
   flex-direction: column;
   align-items: center;
   margin-top: 80px;
+  transition: 0.2s ease-in-out;
 }
 
 .greeting {
@@ -508,6 +509,7 @@ input {
   flex-direction: column;
   width: 340px;
   min-height: 240px;
+  transition: 0.2s ease-in-out;
 }
 
 .my-info-card {
@@ -1062,8 +1064,55 @@ input {
 
 /*__________________________ BACKGROUND DECOR */
 
-.--background-pattern {
+/*______________________________________*/
 
+@media (min-width: 700px) {
+  .event-card {
+    width: 500px;
+    transition: 0.2s ease-in-out;
+  }
 }
 
-/*______________________________________*/
+@media (min-width: 800px) {
+
+  .account-components {
+    margin-left: 120px;
+    transition: 0.2s ease-in-out;
+  }
+
+  .account-buttons {
+    height: 100vh;
+    width: 100px;
+    display: flex;
+    flex-direction: column;
+    left: 0px;
+    border-top: none;
+    box-shadow: #e4e9ef -2px 4px 4px 4px;
+    z-index: 1;
+    justify-content: center;
+    padding: none;
+    transition: 0.2s ease-in-out;
+  }
+  .page-button {
+    width: 100%;
+    height: 120px;
+    border: none;
+  }
+
+  .page-button:hover {
+    width: 100%;
+    height: 120px;
+  }
+  .page-button--selected {
+    width: 100%;
+    height: 120px;
+    border: none;
+  }
+}
+
+@media (max-width: 350px) {
+  .event-card {
+    width: 260px;
+    transition: 0.2s ease-in-out;
+  }
+}
