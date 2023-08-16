@@ -79,7 +79,10 @@ export default function CardManageEvent({
     return (
       <>
         <section className="event-card">
-          <button className="suttle-button absolute-top-left --width60px">
+          <button
+            onClick={handleEventToggle}
+            className="suttle-button absolute-top-left --width60px"
+          >
             Expand
           </button>
           <section

@@ -7,7 +7,6 @@ import { TagsInput } from 'react-tag-input-component';
 import EasterEgg from '../EasterEgg';
 import EventCreatedDialogue from '../EventCreatedDialogue';
 
-
 type Props = {
   setSelection: Function;
 };
@@ -55,13 +54,12 @@ export default function CreateEvent({ setSelection }: Props) {
   };
   const [eventData, setEventData] = useState<EventData>(defaultFormValues);
 
-
   const handleOpenDialogue = () => {
     setOpenDialogue(true);
   };
 
   const handleCloseDialogue = () => {
-    setSelection('manage')
+    setSelection('manage');
     setOpenDialogue(false);
   };
 
@@ -88,13 +86,16 @@ export default function CreateEvent({ setSelection }: Props) {
     createNewEvent(sessionEmail, eventData);
     setEventData(defaultFormValues);
     setInvitedEmails([]);
-    handleOpenDialogue()
+    handleOpenDialogue();
   };
 
   return (
     <>
-      <EventCreatedDialogue handleClose={handleCloseDialogue} open={openDialogue}/>
-      <h2 className='--grey-text'>CREATE EVENT</h2>
+      <EventCreatedDialogue
+        handleClose={handleCloseDialogue}
+        open={openDialogue}
+      />
+      <h2 className="--grey-text">CREATE EVENT</h2>
       <section className="event-card">
         <form className="create-event-form" onSubmit={handleFormSubmit}>
           <section className="form__offerings">

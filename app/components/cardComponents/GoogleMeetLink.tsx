@@ -11,7 +11,7 @@ export default function GoogleMeetLink({event, meetLink}: Props) {
     <section className="manage__info --gray-shading">
         <b>Google Meets:</b>{' '}
         <a href={meetLink} className="--text12px ">
-          GoogleMeetsLink
+          Coming Soon...
         </a>
     </section>
   )
