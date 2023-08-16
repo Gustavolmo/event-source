@@ -9,27 +9,27 @@ Event Sauce is a web-based application that allows users to create, manage, and 
 ## AS A PLANNER:
 
 ### 1. **Create events**
-Choose between event, event with transportaion or only transportation
 <img src="app/assets/create-form.png" width="200px">
+Choose between event, event with transportaion or only transportation
 
 ### 2. **Manage guest lists**
-Edit, add, remove and see your guests restrictions
 <img src="app/assets/guests.png" width="200px">
+Edit, add, remove and see your guests restrictions
 
 ### 3. **Manage Passengers**
-See who opted in to your transportation offer
 <img src="app/assets/passengers.png" width="200px">
+See who opted in to your transportation offer
 
 ## AS A GUEST:
 
 ### 4. **Update your preferences**
-Save your restrictions and help planners know if you are alergic or need any assistance with accessibility needs
 <img src="app/assets/user-profile.png" width="200px">
+Save your restrictions and help planners know if you are alergic or need any assistance with accessibility needs
 
 ### 6. **Invitation management**
-Let planners know how you are joining the event and keep track of details
 <img src="app/assets/answer.png " width="200px">
 <img src="app/assets/join-ride.png" width="200px">
+Let planners know how you are joining the event and keep track of details
 
 ## COMING SOON...
 
