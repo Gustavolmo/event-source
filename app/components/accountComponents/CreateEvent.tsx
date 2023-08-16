@@ -2,7 +2,7 @@
 import { createNewEvent } from '@/app-library/DbControls';
 import { EventData } from '@/app-types/types';
 import { useSession } from 'next-auth/react';
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { TagsInput } from 'react-tag-input-component';
 import EasterEgg from '../EasterEgg';
 import EventCreatedDialogue from '../EventCreatedDialogue';
@@ -54,6 +54,17 @@ export default function CreateEvent({ setSelection }: Props) {
   };
   const [eventData, setEventData] = useState<EventData>(defaultFormValues);
 
+  useEffect(() => {
+    const storedData = localStorage.getItem('formData');
+    if (storedData) {
+      setEventData(JSON.parse(storedData));
+    }
+  }, []);
+  useEffect(() => {
+    localStorage.setItem('formData', JSON.stringify(eventData));
+  }, [eventData]);
+
+
   const handleOpenDialogue = () => {
     setOpenDialogue(true);
   };
@@ -85,6 +96,7 @@ export default function CreateEvent({ setSelection }: Props) {
     eventData.organizerName = String(session?.user?.name);
     createNewEvent(sessionEmail, eventData);
     setEventData(defaultFormValues);
+    localStorage.removeItem('formData');
     setInvitedEmails([]);
     handleOpenDialogue();
   };
