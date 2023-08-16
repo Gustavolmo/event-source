@@ -4,7 +4,11 @@
 [Event Sauce](https://event-sauce.vercel.app)
 
 Event Sauce is a web-based application that allows users to create, manage, and track events. It is designed to simplify the process of organizing and coordinating events.
-
+1. create events
+2. Manage guests
+3. Manage Passengers
+4. Update your preferences
+5. Invitation Inbox
 
 ## AS A PLANNER:
 ### 1. **Create events**
@@ -37,7 +41,7 @@ Event Sauce is a web-based application that allows users to create, manage, and 
 <img src="app/assets/user-profile.png" width="320px">
 <hr>
 
-### 6. **Invitation management**
+### 5. **Invitation Inbox**
 #### <i>Let planners know how you are</i> <br> <i>joining the event and keep track of details</i>
 <br>
 <br>
