@@ -44,3 +44,5 @@
 ## Try it for yourself
 
 [Event Sauce](https://event-sauce.vercel.app)
+
+User feedback is greatly appreciated - send me a DM on [LinkedIn](https://www.linkedin.com/in/gustavo-l-m-de-oliveira-037243108/)

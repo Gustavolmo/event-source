@@ -17,23 +17,25 @@ export default function TitleSection({ event }: Props) {
           <b className="--grey-text">By: </b>
           {event.organizerName}
         </p>
-        
       </section>
-      {event.eventCheck && !event.transportCheck && (
-        <b className="form__section-title">
-          EVENT <p>{event.eventDate}</p>
-        </b>
-      )}
-      {!event.eventCheck && event.transportCheck && (
-        <b className="form__section-title">
-          TRANSPORTATION <span>{event.eventDate}</span>
-        </b>
-      )}
-      {event.eventCheck && event.transportCheck && (
-        <b className="form__section-title">
-          EVENT & TRANSIT <h4>{event.eventDate}</h4>
-        </b>
-      )}
+
+      <section className=' --margin-top-32px'>
+        {event.eventCheck && !event.transportCheck && (
+          <b className="form__section-title">
+            EVENT <p>{event.eventDate}</p>
+          </b>
+        )}
+        {!event.eventCheck && event.transportCheck && (
+          <b className="form__section-title">
+            TRANSPORTATION <span>{event.eventDate}</span>
+          </b>
+        )}
+        {event.eventCheck && event.transportCheck && (
+          <b className="form__section-title">
+            EVENT & TRANSIT <h4>{event.eventDate}</h4>
+          </b>
+        )}
+      </section>
 
       <div className="--margin12px">
         <h4 className="--red-highlight-text --text20px">
