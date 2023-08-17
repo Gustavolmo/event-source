@@ -9,7 +9,7 @@ import joinRide from '../../assets/join-ride.png';
 import profile from '../../assets/user-profile.png';
 
 export default async function AppDescription() {
-  const width = '300';
+  const width = '332';
   return (
     <>
       <header className="app-description">

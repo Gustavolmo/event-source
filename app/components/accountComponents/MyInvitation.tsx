@@ -2,7 +2,6 @@ import { getUserInvitations } from '@/app-library/DbControls';
 import useDbQuery from '@/app/customHooks/useDbQuery';
 import React, { useState } from 'react';
 import CardMyInvitation from '../cardComponents/CardMyInvitation';
-// import DotsDivider from '../DotsDivider';
 import Loading from '../Loading';
 
 type Props = {
@@ -33,7 +32,7 @@ export default function MyInvitation() {
 
   return (
     <>
-      <h2 className='promo-image'>INBOX</h2>
+      <h2 className='promo-image'>INBOX <i>[ {dbData && dbData.length} ]</i></h2>
       {dbData &&
         dbData.slice().reverse().map((event, index) => {
           return (

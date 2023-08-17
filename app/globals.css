@@ -54,6 +54,7 @@ background-first-option -> https://www.toptal.com/designers/subtlepatterns/uploa
   font-family: 'Alegreya Sans', sans-serif;
   box-sizing: inherit;
   color: #636363;
+  z-index: 4;
 }
 
 html,
@@ -61,23 +62,24 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  background-color: rgba(235, 247, 255, 0.2);
+  /* background-color: rgba(235, 247, 255, 0.2); */
   /* background-color: #fbfbfb; */
-  /* background-image: url(https://www.toptal.com/designers/subtlepatterns/uploads/memphis-mini.png); */
+  background-image: url(https://www.toptal.com/designers/subtlepatterns/uploads/memphis-mini.png);
   overflow: auto;
   height: 100vh;
 }
 
-/* body::before {
+body::before {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(235, 243, 255, 0.1);
+  background-color: rgba(121, 121, 121, 0.1);
   pointer-events: none;
-} */
+  z-index: 0;
+}
 
 h2 {
   margin: 4px 0 0 0;
@@ -163,6 +165,8 @@ a {
 .promo-image-unit {
   border: dashed 2px #fff;
   border-radius: 4px;
+  padding: 16px;
+  background: url(https://www.toptal.com/designers/subtlepatterns/uploads/memphis-mini.png);
 }
 
 .promo-title {
@@ -505,7 +509,7 @@ input {
   padding: 8px;
   border-radius: 8px;
   background-color: #fff;
-  box-shadow: #e4e9ef -2px 4px 4px 4px;
+  box-shadow: #dcdcdc -2px 4px 4px 4px;
   display: flex;
   flex-direction: column;
   width: 340px;
@@ -519,7 +523,7 @@ input {
   padding: 8px;
   border-radius: 8px;
   background-color: #fff;
-  box-shadow: #eaeaea -2px 4px 4px 4px;
+  box-shadow: #dcdcdc -2px 4px 4px 4px;
   display: flex;
   flex-direction: column;
   width: 340px;
