@@ -9,14 +9,13 @@ type Props = {
   handleUpdateCount: Function
 }
 
-export default function MyInvitation({handleUpdateCount}: Props) {
+export default function MyInvitation() {
   const [updateClick, setUpdateClick] = useState<boolean>(false);
   const { dbData, loading } = useDbQuery(getUserInvitations, null, updateClick);
   const [doLoader, setDoLoader] = useState<boolean>(true);
 
   const handleUpdateClick = () => {
     setDoLoader(false)
-    handleUpdateCount()
     setUpdateClick(!updateClick);
   };
 

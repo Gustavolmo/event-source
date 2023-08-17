@@ -6,18 +6,13 @@ import CardManageEvent from '../cardComponents/CardManageEvent';
 // import DotsDivider from '../DotsDivider';
 import Loading from '../Loading';
 
-type Props = {
-  handleUpdateCount: Function
-}
-
-export default function ManageEvent({handleUpdateCount: handleUpdateSentCount}: Props) {
+export default function ManageEvent() {
   const [updateClick, setUpdateClick] = useState<boolean>(false);
   const { dbData, loading } = useDbQuery(getAllUserEvents, null, updateClick);
   const [doLoader, setDoLoader] = useState<boolean>(true);
 
   const handleUpdateClick = () => {
     setDoLoader(false);
-    handleUpdateSentCount()
     setUpdateClick(!updateClick);
   };
 

@@ -9,10 +9,9 @@ import EventCreatedDialogue from '../EventCreatedDialogue';
 
 type Props = {
   setSelection: Function;
-  handleUpdateCount: Function
 };
 
-export default function CreateEvent({ setSelection, handleUpdateCount }: Props) {
+export default function CreateEvent({ setSelection }: Props) {
   const date = String(new Date().toDateString());
   const [openDialogue, setOpenDialogue] = useState(false);
   const { data: session } = useSession();
@@ -100,7 +99,6 @@ export default function CreateEvent({ setSelection, handleUpdateCount }: Props) 
     createNewEvent(session?.user?.email, eventData);
     setEventData(defaultFormValues);
     localStorage.removeItem('formData');
-    handleUpdateCount()
     setInvitedEmails([]);
     handleOpenDialogue();
   };
