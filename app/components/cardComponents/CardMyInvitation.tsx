@@ -1,5 +1,5 @@
 import { EventData } from '@/app-types/types';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import {
   addGuestToListController,
@@ -38,7 +38,7 @@ export default function CardMyInvitation({ event, handleUpdateClick }: Props) {
   };
 
   const deleteInvitation = () => {
-    handleUpdateClick()
+    handleUpdateClick();
     removeGuestFromList(session?.user?.email, event._id, 'invited');
     removeGuestFromList(session?.user?.email, event._id, 'acceptedVirtually');
     removeGuestFromList(session?.user?.email, event._id, 'rejected');

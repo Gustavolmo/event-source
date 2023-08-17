@@ -54,7 +54,6 @@ background-first-option -> https://www.toptal.com/designers/subtlepatterns/uploa
   font-family: 'Alegreya Sans', sans-serif;
   box-sizing: inherit;
   color: #636363;
-  z-index: 4;
 }
 
 html,
@@ -79,6 +78,10 @@ body::before {
   background-color: rgba(121, 121, 121, 0.1);
   pointer-events: none;
   z-index: 0;
+}
+
+img {
+  z-index: 4;
 }
 
 h2 {
@@ -155,7 +158,6 @@ a {
   min-height: 60px;
   width: 100vw;
   padding: 16px;
-  /* box-shadow: 1px 1px 20px 20px #f89292; */
 }
 
 .promo-image {
@@ -775,6 +777,10 @@ input {
 
 .--bold {
   font-weight: bold;
+}
+
+.--high-opacity{
+  opacity: 0.4;
 }
 
 .--bold-gray {
