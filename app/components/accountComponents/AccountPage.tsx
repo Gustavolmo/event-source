@@ -8,12 +8,17 @@ import { useSession } from 'next-auth/react';
 import LoadingUi from '../loadingComponents/LoadingUi';
 import DashboardButton from '../buttonComponents/dashboardButton';
 
+const profile = 'Profile';
+const create = 'Create';
+const sent = 'Sent';
+const inbox = 'Inbox';
+
 const definedSelectionOnMount = () => {
   return typeof window !== 'undefined'
     ? localStorage.getItem('lastSelection')
       ? localStorage.getItem('lastSelection')
-      : 'Create'
-    : 'Create';
+      : create
+    : create;
 };
 
 export default function AccountPage() {
@@ -26,6 +31,10 @@ export default function AccountPage() {
     setSelection(e.currentTarget.name);
     localStorage.setItem('lastSelection', e.currentTarget.name);
   };
+
+  const redirectToSent = () => {
+    setSelection(sent)
+  }
 
   if (status !== 'authenticated') {
     return (
@@ -41,33 +50,33 @@ export default function AccountPage() {
         <DashboardButton
           selectionHandler={selectionHandler}
           selection={selection}
-          nameValue={'Profile'}
+          nameValue={profile}
         />
 
         <DashboardButton
           selectionHandler={selectionHandler}
           selection={selection}
-          nameValue={'Create'}
+          nameValue={create}
         />
 
         <DashboardButton
           selectionHandler={selectionHandler}
           selection={selection}
-          nameValue={'Sent'}
+          nameValue={sent}
         />
 
         <DashboardButton
           selectionHandler={selectionHandler}
           selection={selection}
-          nameValue={'Inbox'}
+          nameValue={inbox}
         />
       </header>
 
       <section className="account-components">
-        {selection === 'Profile' && <MyInfo />}
-        {selection === 'Create' && <CreateEvent setSelection={setSelection} />}
-        {selection === 'Sent' && <ManageEvent />}
-        {selection === 'Inbox' && <MyInvitation />}
+        {selection === profile && <MyInfo />}
+        {selection === create && <CreateEvent redirectToSent={redirectToSent} />}
+        {selection === sent && <ManageEvent />}
+        {selection === inbox && <MyInvitation />}
       </section>
     </>
   );
