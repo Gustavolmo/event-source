@@ -47,7 +47,7 @@ export default function MyInvitation() {
   return (
     <>
       <h2 className="promo-image">
-        INBOX <i>[ {dbData && dbData.length} ]</i>
+        INBOX <i className='--grey-text'>( {dbData && dbData.length} )</i>
       </h2>
       {dbData &&
         dbData
