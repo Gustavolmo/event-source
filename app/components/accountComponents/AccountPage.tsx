@@ -6,18 +6,10 @@ import MyInvitation from './MyInvitation';
 import MyInfo from './MyInfo';
 import { useSession } from 'next-auth/react';
 import LoadingUi from '../LoadingUi';
-import useDbQuery from '@/app/customHooks/useDbQuery';
-import { getAllUserEvents, getUserInvitations } from '@/app-library/DbControls';
 
 export default function AccountPage() {
   const { data: session, status } = useSession();
-  const [renderClick, setRenderClick] = useState(false);
-  const { dbData: allEvents } = useDbQuery(getAllUserEvents, null, renderClick);
-  const { dbData: allInvites } = useDbQuery(
-    getUserInvitations,
-    null,
-    renderClick
-  );
+  
   const [selection, setSelection] = useState<string | null>(
     typeof window !== 'undefined'
       ? localStorage.getItem('lastSelection')
@@ -25,10 +17,6 @@ export default function AccountPage() {
         : 'create'
       : 'create'
   );
-
-  const handleUpdateCount = () => {
-    setRenderClick(!renderClick);
-  };
 
   const selectionHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     setSelection(e.currentTarget.name);
@@ -73,7 +61,6 @@ export default function AccountPage() {
           }
           name="manage"
         >
-          {allEvents && <i>( {allEvents?.length} ) </i>}
           Sent
         </button>
 
@@ -84,7 +71,6 @@ export default function AccountPage() {
           }
           name="invitation"
         >
-          {allInvites && <i>( {allInvites?.length} ) </i>}
           Inbox
         </button>
       </header>
@@ -94,13 +80,12 @@ export default function AccountPage() {
         {selection === 'create' && (
           <CreateEvent
             setSelection={setSelection}
-            handleUpdateCount={handleUpdateCount}
           />
         )}
         {selection === 'manage' && (
-          <ManageEvent handleUpdateCount={handleUpdateCount} />
+          <ManageEvent />
         )}
-        {selection === 'invitation' && <MyInvitation handleUpdateCount={handleUpdateCount}/>}
+        {selection === 'invitation' && <MyInvitation />}
       </section>
     </>
   );
