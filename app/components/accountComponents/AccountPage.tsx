@@ -12,8 +12,8 @@ const definedSelectionOnMount = () => {
   return typeof window !== 'undefined'
     ? localStorage.getItem('lastSelection')
       ? localStorage.getItem('lastSelection')
-      : 'create'
-    : 'create';
+      : 'Create'
+    : 'Create';
 };
 
 export default function AccountPage() {
