@@ -6,16 +6,20 @@ import MyInvitation from './MyInvitation';
 import MyInfo from './MyInfo';
 import { useSession } from 'next-auth/react';
 import LoadingUi from '../loadingComponents/LoadingUi';
+import DashboardButton from '../buttonComponents/dashboardButton';
+
+const definedSelectionOnMount = () => {
+  return typeof window !== 'undefined'
+    ? localStorage.getItem('lastSelection')
+      ? localStorage.getItem('lastSelection')
+      : 'create'
+    : 'create';
+};
 
 export default function AccountPage() {
   const { data: session, status } = useSession();
-  
   const [selection, setSelection] = useState<string | null>(
-    typeof window !== 'undefined'
-      ? localStorage.getItem('lastSelection')
-        ? localStorage.getItem('lastSelection')
-        : 'create'
-      : 'create'
+    definedSelectionOnMount()
   );
 
   const selectionHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -34,58 +38,36 @@ export default function AccountPage() {
   return (
     <>
       <header className="account-buttons">
-        <button
-          onClick={(e) => selectionHandler(e)}
-          className={
-            selection === 'info' ? 'page-button--selected' : 'page-button'
-          }
-          name="info"
-        >
-          Profile
-        </button>
+        <DashboardButton
+          selectionHandler={selectionHandler}
+          selection={selection}
+          nameValue={'Profile'}
+        />
 
-        <button
-          onClick={(e) => selectionHandler(e)}
-          className={
-            selection === 'create' ? 'page-button--selected' : 'page-button'
-          }
-          name="create"
-        >
-          Create
-        </button>
+        <DashboardButton
+          selectionHandler={selectionHandler}
+          selection={selection}
+          nameValue={'Create'}
+        />
 
-        <button
-          onClick={(e) => selectionHandler(e)}
-          className={
-            selection === 'manage' ? 'page-button--selected' : 'page-button'
-          }
-          name="manage"
-        >
-          Sent
-        </button>
+        <DashboardButton
+          selectionHandler={selectionHandler}
+          selection={selection}
+          nameValue={'Sent'}
+        />
 
-        <button
-          onClick={(e) => selectionHandler(e)}
-          className={
-            selection === 'invitation' ? 'page-button--selected' : 'page-button'
-          }
-          name="invitation"
-        >
-          Inbox
-        </button>
+        <DashboardButton
+          selectionHandler={selectionHandler}
+          selection={selection}
+          nameValue={'Inbox'}
+        />
       </header>
 
       <section className="account-components">
-        {selection === 'info' && <MyInfo />}
-        {selection === 'create' && (
-          <CreateEvent
-            setSelection={setSelection}
-          />
-        )}
-        {selection === 'manage' && (
-          <ManageEvent />
-        )}
-        {selection === 'invitation' && <MyInvitation />}
+        {selection === 'Profile' && <MyInfo />}
+        {selection === 'Create' && <CreateEvent setSelection={setSelection} />}
+        {selection === 'Sent' && <ManageEvent />}
+        {selection === 'Inbox' && <MyInvitation />}
       </section>
     </>
   );

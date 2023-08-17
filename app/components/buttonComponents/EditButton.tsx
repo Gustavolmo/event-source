@@ -23,6 +23,7 @@ export default function EditButton({
       >
         {seeEdit ? 'Cancel' : 'Edit'}
       </button>
+
       {seeEdit && (
         <button
           onClick={handleSubmit}

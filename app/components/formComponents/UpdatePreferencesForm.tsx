@@ -10,7 +10,7 @@ import { useRouter } from 'next/navigation';
 import LoadingUi from '../loadingComponents/LoadingUi';
 import useDbQuery from '@/app/customHooks/useDbQuery';
 import UserInfoField from './UserInfoField';
-import UserNeedsField from './userNeedsField';
+import UserNeedsField from './UserNeedsField';
 import EditButton from '../buttonComponents/EditButton';
 
 export default function UpdatePreferencesForm(props: {
@@ -70,7 +70,9 @@ export default function UpdatePreferencesForm(props: {
     setSeeEdit(!seeEdit);
   };
 
-  if (loading) return <LoadingUi />;
+  if (loading) {
+    return <LoadingUi />
+  };
 
   return (
     <>

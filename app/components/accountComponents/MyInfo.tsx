@@ -19,7 +19,6 @@ export default function MyInfo() {
     setOpenDialogue(false);
   };
 
-
   const handleDeleteUser = () => {
     deleteUser(session?.user?.email);
     signOut({ callbackUrl: '/' });
@@ -27,19 +26,19 @@ export default function MyInfo() {
 
   return (
     <>
-      <ConfirmDeletionDialogue handleClose={handleCloseDialogue} handleDeleteAsset={handleDeleteUser} open={openDialogue}/>
+      <ConfirmDeletionDialogue
+        handleClose={handleCloseDialogue}
+        handleDeleteAsset={handleDeleteUser}
+        open={openDialogue}
+      />
       <Greeting />
-      <section className='my-info-card'>
+      <section className="my-info-card">
         <UpdatePreferencesForm doesRedirect={false} />
-        <div className='delete-account'>
-          
-        <DeleteButton
-        handleDelete={handleOpenDialogue}
-        mainText='Delete Account'
-        toRight={false}
-        />
-
-        </div>
+          <DeleteButton
+            handleDelete={handleOpenDialogue}
+            mainText="Delete Account"
+            toRight={false}
+          />
       </section>
     </>
   );
