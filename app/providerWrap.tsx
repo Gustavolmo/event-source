@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
@@ -16,9 +16,5 @@ export default function ProviderWrap({
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <SessionProvider>
-      {children}
-    </SessionProvider>
-  );
+  return <SessionProvider>{children}</SessionProvider>;
 }

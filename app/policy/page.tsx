@@ -27,7 +27,7 @@ export default async function Policy() {
               We use Your Personal data to provide and improve the Service. By
               using the Service, You agree to the collection and use of
               information in accordance with this Privacy Policy. This Privacy
-              Policy has been created with the help of the {' '}
+              Policy has been created with the help of the{' '}
               <a
                 href="https://www.termsfeed.com/privacy-policy-generator/"
                 target="_blank"
@@ -163,11 +163,11 @@ export default async function Policy() {
             <h3>Usage Data</h3>
             <p>Usage Data is collected automatically when using the Service.</p>
             <p>
-              Usage Data may include information such as Your Device&apos;s Internet
-              Protocol address (e.g. IP address), browser type, browser version,
-              the pages of our Service that You visit, the time and date of Your
-              visit, the time spent on those pages, unique device identifiers
-              and other diagnostic data.
+              Usage Data may include information such as Your Device&apos;s
+              Internet Protocol address (e.g. IP address), browser type, browser
+              version, the pages of our Service that You visit, the time and
+              date of Your visit, the time spent on those pages, unique device
+              identifiers and other diagnostic data.
             </p>
             <p>
               When You access the Service by or through a mobile device, We may
@@ -507,15 +507,15 @@ export default async function Policy() {
             <p>
               If We need to rely on consent as a legal basis for processing Your
               information and Your country requires consent from a parent, We
-              may require Your parent&apos;s consent before We collect and use that
-              information.
+              may require Your parent&apos;s consent before We collect and use
+              that information.
             </p>
             <h1>Links to Other Websites</h1>
             <p>
               Our Service may contain links to other websites that are not
               operated by Us. If You click on a third party link, You will be
-              directed to that third party&apos;s site. We strongly advise You to
-              review the Privacy Policy of every site You visit.
+              directed to that third party&apos;s site. We strongly advise You
+              to review the Privacy Policy of every site You visit.
             </p>
             <p>
               We have no control over and assume no responsibility for the

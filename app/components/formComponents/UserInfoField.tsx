@@ -1,4 +1,3 @@
-import { DbData, User, UserPreferences } from '@/app-types/types';
 import React from 'react';
 
 type Props = {

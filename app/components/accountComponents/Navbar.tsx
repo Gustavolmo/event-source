@@ -28,8 +28,9 @@ export default function Navbar({ path, title, className }: Props) {
           src={logo}
           alt="Logo"
         />
-        <cite className='--red-highlight-text'> EventSauce</cite>
+        <cite className="--red-highlight-text"> EventSauce</cite>
       </section>
+
       <div>
         <LoginButton />
       </div>

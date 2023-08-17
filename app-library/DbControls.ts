@@ -61,9 +61,8 @@ export const createNewEvent = async (
     if (userDbEntry) {
       event.organizerId = String(userDbEntry._id);
       event.invited = Array.from(
-      new Set(event.invited.map((email) => email?.toLowerCase()))
-    );
-
+        new Set(event.invited.map((email) => email?.toLowerCase()))
+      );
 
       await eventCollection.insertOne(event);
       return true;

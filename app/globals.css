@@ -781,7 +781,7 @@ input {
   font-weight: bold;
 }
 
-.--high-opacity{
+.--high-opacity {
   opacity: 0.4;
 }
 
@@ -1059,7 +1059,6 @@ input {
 }
 
 @media (min-width: 800px) {
-
   .account-components {
     margin-left: 100px;
     transition: 0.2s ease-in-out;
@@ -1108,7 +1107,7 @@ input {
     transition: 0.2s ease-in-out;
   }
 
-  .inline-label-input{
+  .inline-label-input {
     flex-direction: column;
   }
 }

@@ -1,9 +1,9 @@
 import { MongoClient, ServerApiVersion } from 'mongodb';
-import dotenv from 'dotenv'
+import dotenv from 'dotenv';
 
-dotenv.config()
+dotenv.config();
 
-const pw = process.env.MONGO_PW
+const pw = process.env.MONGO_PW;
 const uri = `mongodb+srv://gustavolmo:${pw}@logacluster.fpmn1bl.mongodb.net/?retryWrites=true&w=majority`;
 
 export const client: MongoClient = new MongoClient(uri, {
@@ -20,7 +20,7 @@ async function closeConnection() {
     await client.close();
     console.log('Disconnected');
   } catch (err) {
-    console.error(err)
+    console.error(err);
   } finally {
     process.exit();
   }
@@ -32,11 +32,11 @@ export async function runMongoDb() {
     process.on('SIGTERM', closeConnection);
     process.on('SIGINT', closeConnection);
   } catch (err) {
-    console.error(err)
+    console.error(err);
   }
 }
 
 export default {
   client,
-  runMongoDb
-}
+  runMongoDb,
+};

@@ -177,8 +177,8 @@ export default async function Terms() {
               liability of the Company and any of its suppiers under any
               provision of this Terms and Your exclusive remedy for all of the
               foregoing shall be imited to the amount actually paid by You
-              through the Service or 100 USD if You haven&apos;t purchased anything
-              through the Service.
+              through the Service or 100 USD if You haven&apos;t purchased
+              anything through the Service.
             </p>
             <p>
               To the maximum extent permitted by appicable law, in no event
@@ -223,11 +223,11 @@ export default async function Terms() {
             </p>
             <p>
               Without imiting the foregoing, neither the Company nor any of the
-              company&apos;s provider makes any representation or warranty of any
-              kind, express or impied: (i) as to the operation or availability
-              of the Service, or the information, content, and materials or
-              products included thereon; (ili) that the Service will be
-              uninterrupted or error-free; (ilii) as to the accuracy,
+              company&apos;s provider makes any representation or warranty of
+              any kind, express or impied: (i) as to the operation or
+              availability of the Service, or the information, content, and
+              materials or products included thereon; (ili) that the Service
+              will be uninterrupted or error-free; (ilii) as to the accuracy,
               reliability, or currency of any information or content provided
               through the Service; or (iv) that the Service, its servers, the
               content, or e-mails sent from or on behalf of the Company are free
@@ -283,8 +283,8 @@ export default async function Terms() {
             <p>
               Except as provided herein, the failure to exercise a right or to
               require performance of an obigation under these Terms shall not
-              effect a party&apos;s ability to exercise such right or require such
-              performance at any time thereafter nor shall the waiver of a
+              effect a party&apos;s ability to exercise such right or require
+              such performance at any time thereafter nor shall the waiver of a
               breach constitute a waiver of any subsequent breach.
             </p>
             <h1>Translation Interpretation</h1>
@@ -297,8 +297,8 @@ export default async function Terms() {
             <p>
               We reserve the right, at Our sole discretion, to modify or replace
               these Terms at any time. If a revision is material We will make
-              reasonable efforts to provide at least 30 days&apos; notice prior to
-              any new terms taking effect. What constitutes a material change
+              reasonable efforts to provide at least 30 days&apos; notice prior
+              to any new terms taking effect. What constitutes a material change
               will be determined at Our sole discretion.
             </p>
             <p>

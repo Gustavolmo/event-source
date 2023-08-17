@@ -2,11 +2,9 @@
 import { EventData } from '@/app-types/types';
 import React, { useState } from 'react';
 import { deleteEvent } from '@/app-library/DbControls';
-import TransitInfoBoard from './TransitInfoBoard';
-import EventInfoBoard from './EventInfoBoard';
-import TitleSection from './TitleSection';
-import CardManageSmall from './CardManageSmall';
+import CardManageEditMode from './CardManageEditMode';
 import CardManageBig from './CardManageBig';
+import CardManageSmall from './CardManageSmall';
 
 type Props = {
   event: EventData;
@@ -55,7 +53,7 @@ export default function CardManageEvent({
 
   if (edit) {
     return (
-      <CardManageSmall
+      <CardManageEditMode
         event={event}
         handleEdit={handleEdit}
         funcUpdateClick={funcUpdateClick}
@@ -65,55 +63,37 @@ export default function CardManageEvent({
 
   if (!toggleCard) {
     return (
-      <>
-        <section className="event-card">
-          <button
-            onClick={handleEventToggle}
-            className="suttle-button absolute-top-left --width60px"
-          >
-            Expand
-          </button>
-          <section
-            className="--centered-text --pointer-hover"
-            onClick={handleEventToggle}
-          >
-            <TitleSection event={event} />
-          </section>
-          {event.eventCheck && <EventInfoBoard event={event} />}
-          {event.transportCheck && (
-            <TransitInfoBoard event={event} showTime={true} />
-          )}
-        </section>
-      </>
+      <CardManageSmall
+        event={event}
+        handleEventToggle={handleEventToggle} />
     );
   }
 
   return (
-
     <CardManageBig
-    event={event}
-    funcUpdateClick={funcUpdateClick}
-    handleDelete={handleDelete}
-    handleEdit={handleEdit}
-    handleEventToggle={handleEventToggle}
-    handleListToggle={handleListToggle}
-    seeGuests={seeGuests}
-    setSeeGuests={setSeeGuests}
-    seeAccepted={seeAccepted}
-    setSeeAccepted={setSeeAccepted}
-    seeVirtual={seeVirtual}
-    setSeeVirtual={setSeeVirtual}
-    seeRejected={seeRejected}
-    setSeeRejected={setSeeRejected}
-    seeAboutEvent={seeAboutEvent}
-    setSeeAboutEvent={setSeeAboutEvent}
-    seePax={seePax}
-    setSeePax={setSeePax}
-    seeAboutTransit={seeAboutTransit}
-    setSeeAboutTransit={setSeeAboutTransit}
-    handleOpenDialogue={handleOpenDialogue}
-    handleCloseDialogue={handleCloseDialogue}
-    openDialogue={openDialogue}
+      event={event}
+      funcUpdateClick={funcUpdateClick}
+      handleDelete={handleDelete}
+      handleEdit={handleEdit}
+      handleEventToggle={handleEventToggle}
+      handleListToggle={handleListToggle}
+      seeGuests={seeGuests}
+      setSeeGuests={setSeeGuests}
+      seeAccepted={seeAccepted}
+      setSeeAccepted={setSeeAccepted}
+      seeVirtual={seeVirtual}
+      setSeeVirtual={setSeeVirtual}
+      seeRejected={seeRejected}
+      setSeeRejected={setSeeRejected}
+      seeAboutEvent={seeAboutEvent}
+      setSeeAboutEvent={setSeeAboutEvent}
+      seePax={seePax}
+      setSeePax={setSeePax}
+      seeAboutTransit={seeAboutTransit}
+      setSeeAboutTransit={setSeeAboutTransit}
+      handleOpenDialogue={handleOpenDialogue}
+      handleCloseDialogue={handleCloseDialogue}
+      openDialogue={openDialogue}
     />
   );
 }

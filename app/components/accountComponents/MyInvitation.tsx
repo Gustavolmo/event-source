@@ -1,15 +1,9 @@
 import { getUserInvitations } from '@/app-library/DbControls';
 import useDbQuery from '@/app/customHooks/useDbQuery';
-import React, { useEffect, useState } from 'react';
-import CardMyInvitation from '../cardComponents/CardMyInvitation';
+import React, { useState } from 'react';
 import Loading from '../loadingComponents/Loading';
-import { EventData } from '@/app-types/types';
 import SortNewEvents from '../cardComponents/SortNewEvents';
 import SortOldEvents from '../cardComponents/SortOldEvents';
-
-type Props = {
-  handleUpdateCount: Function;
-};
 
 export default function MyInvitation() {
   const [updateClick, setUpdateClick] = useState<boolean>(false);

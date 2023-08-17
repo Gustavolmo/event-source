@@ -4,7 +4,6 @@ import Greeting from '../components/accountComponents/Greeting';
 import UpdatePreferencesForm from '../components/formComponents/UpdatePreferencesForm';
 import PathButton from '../components/buttonComponents/PathButton';
 import Loading from '../components/loadingComponents/Loading';
-import LoadingUi from '../components/loadingComponents/LoadingUi';
 import { useSession } from 'next-auth/react';
 
 export default function UserPreferences() {

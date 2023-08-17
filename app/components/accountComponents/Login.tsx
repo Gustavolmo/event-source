@@ -7,13 +7,18 @@ export function LoginButton() {
 
   if (status === 'loading') {
     return (
-      <LoadingUi />
+    <div className='--with-margin-n-8px'>
+    <LoadingUi />
+    </div>
     )
   }
 
   if (session) {
     return (
-      <button className="navbar__button" onClick={() => signOut({ callbackUrl: '/' })}>
+      <button
+        className="navbar__button"
+        onClick={() => signOut({ callbackUrl: '/' })}
+      >
         SignOut
       </button>
     );

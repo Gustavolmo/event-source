@@ -12,24 +12,24 @@ import { EventData } from '@/app-types/types';
 type Props = {
   event: EventData;
   handleEventToggle: MouseEventHandler<HTMLButtonElement>;
-  funcUpdateClick: Function,
-  handleDelete: Function,
-  handleEdit: React.MouseEventHandler<HTMLButtonElement>,
+  funcUpdateClick: Function;
+  handleDelete: Function;
+  handleEdit: React.MouseEventHandler<HTMLButtonElement>;
   handleListToggle: Function;
-  seeGuests: boolean,
-  setSeeGuests: Function,
-  seeAccepted: boolean,
-  setSeeAccepted: Function,
-  seeVirtual: boolean,
-  setSeeVirtual: Function,
-  seeRejected: boolean,
-  setSeeRejected: Function,
-  seeAboutEvent: boolean,
-  setSeeAboutEvent: Function,
-  seePax: boolean,
-  setSeePax: Function,
-  seeAboutTransit: boolean,
-  setSeeAboutTransit: Function,
+  seeGuests: boolean;
+  setSeeGuests: Function;
+  seeAccepted: boolean;
+  setSeeAccepted: Function;
+  seeVirtual: boolean;
+  setSeeVirtual: Function;
+  seeRejected: boolean;
+  setSeeRejected: Function;
+  seeAboutEvent: boolean;
+  setSeeAboutEvent: Function;
+  seePax: boolean;
+  setSeePax: Function;
+  seeAboutTransit: boolean;
+  setSeeAboutTransit: Function;
   handleOpenDialogue: MouseEventHandler<HTMLButtonElement>;
   handleCloseDialogue: MouseEventHandler<HTMLButtonElement>;
   openDialogue: boolean;

@@ -22,7 +22,7 @@ export default function UserNeedsField({
   fieldName,
 }: Props) {
   return (
-    <div className='inline-label-input'>
+    <div className="inline-label-input">
       <p className="--maringRL">{title}</p>
 
       {seeEdit ? (
@@ -33,44 +33,21 @@ export default function UserNeedsField({
             onChange={toggleInput}
           />
 
-
-
-
-
-
           {seeField && (
             <input
               className="--margin-left4px"
               name={fieldName}
               placeholder={title}
               onChange={handleOnChange}
-              value={
-                userPreferencesValue
-                  ? userPreferencesValue
-                  : ''
-              }
+              value={userPreferencesValue ? userPreferencesValue : ''}
               required
             />
           )}
         </>
-
-
-
-
-
       ) : (
-
-
-
-
         <p>
           <b>{dbDataValue}</b>
         </p>
-
-
-
-
-
       )}
     </div>
   );
