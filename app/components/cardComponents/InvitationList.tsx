@@ -3,7 +3,7 @@ import { getUserPreferences } from '@/app-library/DbControls';
 import { EventData, User } from '@/app-types/types';
 import useDbQuery from '@/app/customHooks/useDbQuery';
 import React, { useState } from 'react';
-import LoadingUi from '../LoadingUi';
+import LoadingUi from '../loadingComponents/LoadingUi';
 import { removeGuestFromList } from '@/app-library/InvitationControls';
 
 type Props = {

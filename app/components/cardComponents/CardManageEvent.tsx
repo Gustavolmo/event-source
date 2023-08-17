@@ -2,15 +2,15 @@
 import { EventData } from '@/app-types/types';
 import React, { useState } from 'react';
 import { deleteEvent } from '@/app-library/DbControls';
-import ToggleList from '../ToggleList';
-import ToggleDescription from '../ToggleDescription';
+import ToggleList from './ToggleList';
+import ToggleDescription from './ToggleDescription';
 import TransitInfoBoard from './TransitInfoBoard';
 import EventInfoBoard from './EventInfoBoard';
 import TitleSection from './TitleSection';
 import GoogleMeetLink from './GoogleMeetLink';
 import DeleteButton from '../buttonComponents/DeleteButton';
 import EditEvent from './EditEvent';
-import ConfirmDeletionDialogue from '../ConfirmDeletionDialogue';
+import ConfirmDeletionDialogue from '../dialogueComponents/ConfirmDeletionDialogue';
 
 type Props = {
   event: EventData;

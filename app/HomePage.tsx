@@ -5,7 +5,7 @@ import { useSession } from 'next-auth/react';
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import AppDescription from './components/landPageComponents/AppDescription';
-import Loading from './components/Loading';
+import Loading from './components/loadingComponents/Loading';
 
 export default function HomePage() {
   const router = useRouter();

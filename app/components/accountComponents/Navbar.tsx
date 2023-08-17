@@ -1,9 +1,8 @@
 'use client';
 import React from 'react';
-import PathButton from './PathButton';
 import { LoginButton } from './Login';
 import Image from 'next/image';
-import logo from '../assets/Logo1.png';
+import logo from '../../assets/Logo1.png';
 import { useRouter } from 'next/navigation';
 
 type Props = {
@@ -32,7 +31,6 @@ export default function Navbar({ path, title, className }: Props) {
         <cite className='--red-highlight-text'> EventSauce</cite>
       </section>
       <div>
-        {/* <PathButton path={path} title={title} className={className} /> */}
         <LoginButton />
       </div>
     </nav>

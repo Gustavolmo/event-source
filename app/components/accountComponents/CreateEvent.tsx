@@ -5,7 +5,7 @@ import { useSession } from 'next-auth/react';
 import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { TagsInput } from 'react-tag-input-component';
 import EasterEgg from '../EasterEgg';
-import EventCreatedDialogue from '../EventCreatedDialogue';
+import EventCreatedDialogue from '../dialogueComponents/EventCreatedDialogue';
 
 type Props = {
   setSelection: Function;

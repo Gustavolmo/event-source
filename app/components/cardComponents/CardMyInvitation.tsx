@@ -5,15 +5,15 @@ import {
   addGuestToListController,
   removeGuestFromList,
 } from '@/app-library/InvitationControls';
-import ToggleList from '../ToggleList';
-import ToggleDescription from '../ToggleDescription';
+import ToggleList from './ToggleList';
+import ToggleDescription from './ToggleDescription';
 import AnswerInvitationButton from '../buttonComponents/AnswerInvitationButton';
 import TransitInfoBoard from './TransitInfoBoard';
 import EventInfoBoard from './EventInfoBoard';
 import JoinRideButton from './JoinRideButton';
 import TitleSection from './TitleSection';
 import GoogleMeetLink from './GoogleMeetLink';
-import ConfirmDeletionDialogue from '../ConfirmDeletionDialogue';
+import ConfirmDeletionDialogue from '../dialogueComponents/ConfirmDeletionDialogue';
 import DeleteButton from '../buttonComponents/DeleteButton';
 
 type Props = {

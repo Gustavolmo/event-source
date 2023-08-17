@@ -1,8 +1,9 @@
 'use server';
 import { Suspense } from 'react';
 import HomePage from './HomePage';
-import Loading from './components/Loading';
-import Navbar from './components/Navbar';
+import Loading from './components/loadingComponents/Loading';
+import Navbar from './components/accountComponents/Navbar';
+import Footer from './components/accountComponents/Footer';
 
 export default async function Home() {
   return (
@@ -17,12 +18,7 @@ export default async function Home() {
           <HomePage />
         </main>
       </Suspense>
-      <footer className="footer">
-        <p> &#x1F4BB; </p>
-        <a className="home__about" href="https://github.com/Gustavolmo">
-          About
-        </a>
-      </footer>
+      <Footer />
     </>
   );
 }

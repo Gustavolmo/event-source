@@ -3,9 +3,9 @@ import React, { useState } from 'react';
 import UpdatePreferencesForm from '../formComponents/UpdatePreferencesForm';
 import { signOut, useSession } from 'next-auth/react';
 import { deleteUser } from '@/app-library/DbControls';
-import Greeting from '../Greeting';
+import Greeting from './Greeting';
 import DeleteButton from '../buttonComponents/DeleteButton';
-import ConfirmDeletionDialogue from '../ConfirmDeletionDialogue';
+import ConfirmDeletionDialogue from '../dialogueComponents/ConfirmDeletionDialogue';
 
 export default function MyInfo() {
   const { data: session, status } = useSession();
@@ -30,7 +30,7 @@ export default function MyInfo() {
       <ConfirmDeletionDialogue handleClose={handleCloseDialogue} handleDeleteAsset={handleDeleteUser} open={openDialogue}/>
       <Greeting />
       <section className='my-info-card'>
-        <UpdatePreferencesForm doesRedirect={false} />      
+        <UpdatePreferencesForm doesRedirect={false} />
         <div className='delete-account'>
           
         <DeleteButton

@@ -3,7 +3,7 @@ import { getAllUserEvents } from '@/app-library/DbControls';
 import useDbQuery from '@/app/customHooks/useDbQuery';
 import React, { useState } from 'react';
 import CardManageEvent from '../cardComponents/CardManageEvent';
-import Loading from '../Loading';
+import Loading from '../loadingComponents/Loading';
 import { EventData } from '@/app-types/types';
 
 export default function ManageEvent() {

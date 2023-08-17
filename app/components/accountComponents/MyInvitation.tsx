@@ -2,7 +2,7 @@ import { getUserInvitations } from '@/app-library/DbControls';
 import useDbQuery from '@/app/customHooks/useDbQuery';
 import React, { useEffect, useState } from 'react';
 import CardMyInvitation from '../cardComponents/CardMyInvitation';
-import Loading from '../Loading';
+import Loading from '../loadingComponents/Loading';
 import { EventData } from '@/app-types/types';
 
 type Props = {

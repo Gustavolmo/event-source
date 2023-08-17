@@ -490,6 +490,7 @@ input {
 
 .inline-label-input {
   display: flex;
+  flex-direction: row;
   align-items: center;
   margin-top: 6px;
 }
@@ -530,6 +531,7 @@ input {
   flex-direction: column;
   width: 340px;
   min-height: 320px;
+  transition: 0.2s ease-in-out;
 }
 
 .policy-card {
@@ -902,35 +904,7 @@ input {
 }
 /* ______________________________________ */
 
-/* ______________________________________ DIVIDERS */
-.--tiny-dots {
-  border-top: dotted 5px #ccc;
-  width: 5px;
-}
-
-.--small-dots {
-  border-top: dotted 10px #ccc;
-  width: 10px;
-}
-
-.--medium-dots {
-  border-top: dotted 15px #ccc;
-  width: 15px;
-}
-
-.--big-dots {
-  border-top: dotted 20px #ccc;
-  width: 20px;
-}
-
-.--red-bar-divider {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: relative;
-  width: 160px;
-  margin: 20px auto 36px auto;
-}
+/* ______________________________________ EASTER-EGG */
 
 .easter-egg {
   display: flex;
@@ -1087,7 +1061,7 @@ input {
 @media (min-width: 800px) {
 
   .account-components {
-    margin-left: 120px;
+    margin-left: 100px;
     transition: 0.2s ease-in-out;
   }
 
@@ -1125,5 +1099,16 @@ input {
   .event-card {
     width: 260px;
     transition: 0.2s ease-in-out;
+  }
+
+  .my-info-card {
+    text-align: center;
+    width: 260px;
+    min-height: 400px;
+    transition: 0.2s ease-in-out;
+  }
+
+  .inline-label-input{
+    flex-direction: column;
   }
 }

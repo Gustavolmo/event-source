@@ -1,6 +1,6 @@
 import React from 'react';
-import AddGuestToList from './cardComponents/AddGuestToList';
-import InvitationList from './cardComponents/InvitationList';
+import AddGuestToList from './AddGuestToList';
+import InvitationList from './InvitationList';
 import { EventData } from '@/app-types/types';
 
 type Props = {

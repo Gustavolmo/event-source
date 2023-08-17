@@ -5,7 +5,7 @@ import ManageEvent from './ManageEvent';
 import MyInvitation from './MyInvitation';
 import MyInfo from './MyInfo';
 import { useSession } from 'next-auth/react';
-import LoadingUi from '../LoadingUi';
+import LoadingUi from '../loadingComponents/LoadingUi';
 
 export default function AccountPage() {
   const { data: session, status } = useSession();
