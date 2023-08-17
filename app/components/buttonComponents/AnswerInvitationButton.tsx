@@ -2,7 +2,7 @@ import { User } from '@/app-types/types';
 import React, { useEffect, useState } from 'react';
 
 type Props = {
-  handleChoice: React.MouseEventHandler<HTMLButtonElement>;
+  handleChoice: Function;
   listChoice: string[];
   userEmail: User['email'];
   text: string;
@@ -28,8 +28,8 @@ export default function AnswerInvitationButton({
       : setSpinner(true);
   };
 
-  const handleButtonClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    handleChoice(e);
+  const handleButtonClick = () => {
+    handleChoice();
     handleSpinner();
   };
 
