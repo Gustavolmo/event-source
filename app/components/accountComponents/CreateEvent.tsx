@@ -80,7 +80,7 @@ export default function CreateEvent({ setSelection }: Props) {
   };
 
   const handleCloseDialogue = () => {
-    setSelection('manage');
+    setSelection('Sent');
     setOpenDialogue(false);
   };
 
