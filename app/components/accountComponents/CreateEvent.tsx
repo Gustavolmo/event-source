@@ -9,10 +9,10 @@ import EventCreatedDialogue from '../dialogueComponents/EventCreatedDialogue';
 import FormCheckBox from '../formComponents/FormCheckBox';
 
 type Props = {
-  setSelection: Function;
+  redirectToSent: Function;
 };
 
-export default function CreateEvent({ setSelection }: Props) {
+export default function CreateEvent({ redirectToSent }: Props) {
   const date = String(new Date().toDateString());
   const [openDialogue, setOpenDialogue] = useState(false);
   const { data: session } = useSession();
@@ -80,7 +80,7 @@ export default function CreateEvent({ setSelection }: Props) {
   };
 
   const handleCloseDialogue = () => {
-    setSelection('Sent');
+    redirectToSent()
     setOpenDialogue(false);
   };
 
