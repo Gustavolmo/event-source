@@ -7,8 +7,11 @@ import { UserPreferences } from '@/app-types/types';
 import { useSession } from 'next-auth/react';
 import React, { ChangeEvent, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import LoadingUi from '../LoadingUi';
+import LoadingUi from '../loadingComponents/LoadingUi';
 import useDbQuery from '@/app/customHooks/useDbQuery';
+import UserInfoField from './UserInfoField';
+import UserNeedsField from './UserNeedsField';
+import EditButton from '../buttonComponents/EditButton';
 
 export default function UpdatePreferencesForm(props: {
   doesRedirect: boolean;
@@ -32,7 +35,7 @@ export default function UpdatePreferencesForm(props: {
     additionalRemarks: '',
   });
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setRerenderClick(!rerenderClick);
     setSeeEdit(false);
@@ -68,126 +71,51 @@ export default function UpdatePreferencesForm(props: {
   };
 
   if (loading) {
-    return <LoadingUi />;
-  }
+    return <LoadingUi />
+  };
 
   return (
     <>
-      <h3  className='--marginB16px'>Your preferences</h3>
-      <>
-        <form className="create-event-form" onSubmit={handleSubmit}>
-          <div className="inline-label-input">
-            <p className='--maringRL'> Name Displayed</p>
+      <h3 className="--marginB16px">Your preferences</h3>
 
-            {seeEdit ? (
-              <input
-                name="name"
-                placeholder="Name Displayed"
-                onChange={handleOnChange}
-                value={userPreferences.name ? userPreferences.name : ''}
-                required
-              />
-            ) : (
-              <p>
-                <b>{dbData && String(dbData[0].name)}</b>
-              </p>
-            )}
-          </div>
+      <form className="create-event-form">
+        <UserInfoField
+          seeEdit={seeEdit}
+          handleOnChange={handleOnChange}
+          userPreferencesValue={userPreferences.name}
+          dbDataValue={dbData && String(dbData[0].name)}
+          title={'Name Displayed'}
+          fieldName={'name'}
+        />
 
-          <div className="inline-label-input">
-            <p  className='--maringRL'> Dietary Restrictions</p>
+        <UserNeedsField
+          seeEdit={seeEdit}
+          seeField={seeDiet}
+          handleOnChange={handleOnChange}
+          toggleInput={toggleDietInput}
+          userPreferencesValue={userPreferences.dietaryRestrictions}
+          dbDataValue={dbData && String(dbData[0].dietaryRestrictions)}
+          title="Diet Restrict."
+          fieldName="dietaryRestrictions"
+        />
 
-            {seeEdit ? (
-              <>
-                <p className="--margin-left4px">?</p>
-                <input
-                  className="--margin-left4px"
-                  type="checkbox"
-                  onChange={toggleDietInput}
-                />
-                {seeDiet && (
-                  <input
-                    className="--margin-left4px"
-                    name="dietaryRestrictions"
-                    placeholder="Dietary Restrictions"
-                    onChange={handleOnChange}
-                    value={
-                      userPreferences.dietaryRestrictions
-                        ? userPreferences.dietaryRestrictions
-                        : ''
-                    }
-                    required
-                  />
-                )}
-              </>
-            ) : (
-              <p>
-                <b>{dbData && String(dbData[0].dietaryRestrictions)}</b>
-              </p>
-            )}
-          </div>
+        <UserNeedsField
+          seeEdit={seeEdit}
+          seeField={seeNeeds}
+          handleOnChange={handleOnChange}
+          toggleInput={toggleNeedsInput}
+          userPreferencesValue={userPreferences.accessibilityNeeds}
+          dbDataValue={dbData && String(dbData[0].accessibilityNeeds)}
+          title="Access Needs"
+          fieldName="accessibilityNeeds"
+        />
+      </form>
 
-          <div className="inline-label-input">
-            <p  className='--maringRL'>Accessibility Needs</p>
-
-            {seeEdit ? (
-              <>
-                <p className="--margin-left4px">?</p>
-                <input
-                  className="--margin-left4px"
-                  type="checkbox"
-                  onChange={toggleNeedsInput}
-                />
-
-                {seeNeeds && (
-                  <input
-                    className="--margin-left4px"
-                    name="accessibilityNeeds"
-                    placeholder="Accessibility Needs"
-                    onChange={handleOnChange}
-                    value={
-                      userPreferences.accessibilityNeeds
-                        ? userPreferences.accessibilityNeeds
-                        : ''
-                    }
-                    required
-                  />
-                )}
-              </>
-            ) : (
-              <p>
-                <b> {dbData && String(dbData[0].accessibilityNeeds)}</b>
-              </p>
-            )}
-          </div>
-
-          {/* <label>Additional Remarks</label>
-        <textarea 
-        name=""
-        id=""
-        cols={30}
-        rows={10}
-        onChange={handleOnChange}
-          value={userPreferences.additionalRemarks}
-        ></textarea> */}
-
-          {seeEdit && (
-            <button className="action-button absolute-button-top-right--second">
-              Update
-            </button>
-          )}
-        </form>
-        <button
-          className={
-            seeEdit
-              ? 'navbar__button absolute-button-top-right'
-              : 'action-button absolute-button-top-right'
-          }
-          onClick={toggleEdit}
-        >
-          {seeEdit ? 'Cancel' : 'Edit'}
-        </button>
-      </>
+      <EditButton 
+          seeEdit={seeEdit}
+          toggleEdit={toggleEdit}
+          handleSubmit={handleSubmit}
+      />
     </>
   );
 }

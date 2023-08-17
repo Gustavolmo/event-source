@@ -7,7 +7,7 @@ export default function Greeting() {
   const { data: session } = useSession();
   return (
     <div className="greeting">
-      <UserImage width={50} height={50} />
+      <UserImage width={80} height={80} />
       <h2>{session?.user?.name}</h2>
     </div>
   );

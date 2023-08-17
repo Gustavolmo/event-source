@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import React from 'react';
 import Image from 'next/image';
 import create from '../../assets/create-form.png';
@@ -25,9 +25,8 @@ export default async function AppDescription() {
         <p>Let guests tell you their preferences</p>
       </header>
 
-        <h1 className="--promo-text-highlight">FOR PLANNERS</h1>
+      <h1 className="--promo-text-highlight">FOR PLANNERS</h1>
       <section className="app-description__section">
-
         <div className="promo-image">
           <p className="promo-title">Create Events</p>
           <Image
@@ -35,7 +34,7 @@ export default async function AppDescription() {
             src={create}
             alt="create-form"
             width={width}
-            loading='lazy'
+            loading="lazy"
           />
         </div>
 
@@ -46,7 +45,7 @@ export default async function AppDescription() {
             src={guests}
             alt="manage-events"
             width={width}
-            loading='lazy'
+            loading="lazy"
           />
         </div>
 
@@ -57,14 +56,13 @@ export default async function AppDescription() {
             src={passengers}
             alt="invitations"
             width={width}
-            loading='lazy'
+            loading="lazy"
           />
         </div>
       </section>
 
-        <h2 className="--promo-text-highlight">FOR GUESTS</h2>
+      <h2 className="--promo-text-highlight">FOR GUESTS</h2>
       <section className="app-description__section">
-
         <div className="promo-image">
           <p className="promo-title">Answer Invitations</p>
           <Image
@@ -72,7 +70,7 @@ export default async function AppDescription() {
             src={answers}
             alt="user-profile"
             width={width}
-            loading='lazy'
+            loading="lazy"
           />
         </div>
 
@@ -83,7 +81,7 @@ export default async function AppDescription() {
             src={joinRide}
             alt="user-profile"
             width={width}
-            loading='lazy'
+            loading="lazy"
           />
         </div>
 
@@ -94,12 +92,11 @@ export default async function AppDescription() {
             src={profile}
             alt="user-profile"
             width={width}
-            loading='lazy'
+            loading="lazy"
           />
         </div>
 
         <div className="--spacer-20px"></div>
-
       </section>
     </>
   );

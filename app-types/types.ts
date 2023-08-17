@@ -17,7 +17,7 @@ export type UserPreferences = {
   additionalRemarks?: string | null | undefined;
 };
 
-export interface DbData extends User, EventData {} 
+export interface DbData extends User, EventData {}
 
 export type EventData = {
   _id?: ObjectId;
@@ -51,7 +51,7 @@ export type EventData = {
   pickupDate: string;
   dropOffLocation: string;
   returnTime: string;
-  returnDate: string ,
+  returnDate: string;
   seatsAvailable: number;
   passengers: string[];
 };

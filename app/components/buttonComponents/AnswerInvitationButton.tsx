@@ -2,11 +2,11 @@ import { User } from '@/app-types/types';
 import React, { useEffect, useState } from 'react';
 
 type Props = {
-  handleChoice: React.MouseEventHandler<HTMLButtonElement>;
+  handleChoice: Function;
   listChoice: string[];
   userEmail: User['email'];
   text: string;
-  buttonType: string; 
+  buttonType: string;
 };
 
 export default function AnswerInvitationButton({
@@ -14,7 +14,7 @@ export default function AnswerInvitationButton({
   listChoice,
   userEmail,
   text,
-  buttonType
+  buttonType,
 }: Props) {
   const [spinner, setSpinner] = useState(false);
 
@@ -28,8 +28,8 @@ export default function AnswerInvitationButton({
       : setSpinner(true);
   };
 
-  const handleButtonClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    handleChoice(e);
+  const handleButtonClick = () => {
+    handleChoice();
     handleSpinner();
   };
 
