@@ -1071,7 +1071,7 @@ input {
     flex-direction: column;
     left: 0px;
     border-top: none;
-    box-shadow: #e4e9ef -2px 4px 4px 4px;
+    box-shadow: #dcdcdc -2px 4px 4px 4px;
     z-index: 1;
     justify-content: center;
     padding: none;
