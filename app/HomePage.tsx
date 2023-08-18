@@ -28,7 +28,7 @@ export default function HomePage() {
       router.push('/account');
     }
   };
-
+  
   useEffect(() => {
     if (status !== 'authenticated') return;
     handleLogin().catch(console.error);

@@ -27,14 +27,20 @@ export default function AccountPage() {
     definedSelectionOnMount()
   );
 
+    // TEST (?)
+    // const handleCreateGoogleEvent = async () => {
+    //   console.log(session.accessToken) // HOW TO FIX THIS (?)
+    // };
+    // TEST END
+
   const selectionHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     setSelection(e.currentTarget.name);
     localStorage.setItem('lastSelection', e.currentTarget.name);
   };
 
   const redirectToSent = () => {
-    setSelection(sent)
-  }
+    setSelection(sent);
+  };
 
   if (status !== 'authenticated') {
     return (
@@ -47,6 +53,7 @@ export default function AccountPage() {
   return (
     <>
       <header className="account-buttons">
+
         <DashboardButton
           selectionHandler={selectionHandler}
           selection={selection}
@@ -74,7 +81,9 @@ export default function AccountPage() {
 
       <section className="account-components">
         {selection === profile && <MyInfo />}
-        {selection === create && <CreateEvent redirectToSent={redirectToSent} />}
+        {selection === create && (
+          <CreateEvent redirectToSent={redirectToSent} />
+        )}
         {selection === sent && <ManageEvent />}
         {selection === inbox && <MyInvitation />}
       </section>

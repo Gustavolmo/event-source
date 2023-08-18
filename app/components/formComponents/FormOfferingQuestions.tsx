@@ -1,6 +1,4 @@
 import React from 'react';
-// import FormCheckBox from './FormCheckBox';
-import { EventData } from '@/app-types/types';
 
 type Props = {
   text: string;
@@ -24,11 +22,9 @@ export default function FormOfferingQuestions({
   handleOnChange,
   text,
   checkboxName,
-
   dateInputName,
   dateInputValue,
   addDateInput,
-
   addTimeInput,
   timeInputName,
   timeInputValue,
