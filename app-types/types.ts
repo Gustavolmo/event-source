@@ -36,12 +36,16 @@ export type EventData = {
   eventEndDate: string;
   eventEndTime: string;
   eventDescription: string;
+
+  rsvpCheck: boolean
+  googleLinkCheck: boolean
+
   eventRSVP: string;
   eventCost: number;
   acceptedLive: string[];
   acceptedVirtually: string[];
   rejected: string[];
-  virtualLink: boolean;
+
   transportMode: string;
   transportCost: number;
   transportDescription: string;

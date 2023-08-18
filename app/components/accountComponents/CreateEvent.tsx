@@ -2,56 +2,21 @@
 import { createNewEvent } from '@/app-library/DbControls';
 import { EventData } from '@/app-types/types';
 import { useSession } from 'next-auth/react';
-import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import { TagsInput } from 'react-tag-input-component';
 import EasterEgg from '../EasterEgg';
 import EventCreatedDialogue from '../dialogueComponents/EventCreatedDialogue';
-import FormCheckBox from '../formComponents/FormCheckBox';
+import FormOfferingQuestions from '../formComponents/FormOfferingQuestions';
+import { defaultFormValues } from '@/app/defaultEvent';
 
 type Props = {
   redirectToSent: Function;
 };
 
 export default function CreateEvent({ redirectToSent }: Props) {
-  const date = String(new Date().toDateString());
   const [openDialogue, setOpenDialogue] = useState(false);
   const { data: session } = useSession();
   const [invitedEmails, setInvitedEmails] = useState<string[]>([]);
-  const defaultFormValues: EventData = {
-    eventTitle: '',
-    dateCreated: date,
-    organizerId: '',
-    organizerName: '',
-    invited: [],
-    eventCheck: true,
-    transportCheck: false,
-    roundTripCheck: false,
-    multiDayCheck: false,
-    eventDate: '',
-    eventTime: '',
-    eventLocation: '',
-    eventEndDate: '',
-    eventEndTime: '',
-    eventDescription: '',
-    eventRSVP: '',
-    eventCost: 0,
-    acceptedLive: [],
-    acceptedVirtually: [],
-    rejected: [],
-    virtualLink: false,
-    transportMode: '',
-    transportCost: 0,
-    transportDescription: '',
-    travelTime: '',
-    pickupLocation: '',
-    pickupTime: '',
-    pickupDate: '',
-    dropOffLocation: '',
-    returnTime: '',
-    returnDate: '',
-    seatsAvailable: 0,
-    passengers: [],
-  };
   const [eventData, setEventData] = useState<EventData>(defaultFormValues);
 
   const fillFormFromStorage = () => {
@@ -80,7 +45,7 @@ export default function CreateEvent({ redirectToSent }: Props) {
   };
 
   const handleCloseDialogue = () => {
-    redirectToSent()
+    redirectToSent();
     setOpenDialogue(false);
   };
 
@@ -123,18 +88,22 @@ export default function CreateEvent({ redirectToSent }: Props) {
       <section className="event-card">
         <form className="create-event-form" onSubmit={handleFormSubmit}>
           <section className="form__offerings">
-            <FormCheckBox
-              checkedValue={eventData.eventCheck}
-              onChangeFunc={handleOnCheckBox}
+            <FormOfferingQuestions
+              checkedState={eventData.eventCheck}
+              handleOnCheckBox={handleOnCheckBox}
               text="Event"
-              nameValue="eventCheck"
+              checkboxName="eventCheck"
+              addDateInput={false}
+              addTimeInput={false}
             />
 
-            <FormCheckBox
-              checkedValue={eventData.transportCheck}
-              onChangeFunc={handleOnCheckBox}
+            <FormOfferingQuestions
+              checkedState={eventData.transportCheck}
+              handleOnCheckBox={handleOnCheckBox}
               text="Transportation"
-              nameValue="transportCheck"
+              checkboxName="transportCheck"
+              addDateInput={false}
+              addTimeInput={false}
             />
           </section>
 
@@ -168,11 +137,13 @@ export default function CreateEvent({ redirectToSent }: Props) {
               />
 
               <section className="form__offerings">
-                <FormCheckBox
-                  checkedValue={eventData.virtualLink}
-                  onChangeFunc={handleOnCheckBox}
+                <FormOfferingQuestions
+                  checkedState={eventData.googleLinkCheck}
+                  handleOnCheckBox={handleOnCheckBox}
                   text="Add Google meet link?"
-                  nameValue="virtualLink"
+                  checkboxName="googleLinkCheck"
+                  addDateInput={false}
+                  addTimeInput={false}
                 />
               </section>
             </>
@@ -219,19 +190,6 @@ export default function CreateEvent({ redirectToSent }: Props) {
                 <input
                   className="form__input-120w"
                   type="date"
-                  name="eventRSVP"
-                  placeholder="RSVP"
-                  onChange={handleOnChange}
-                  value={eventData.eventRSVP}
-                  required
-                />
-                <b className="--bold-gray">RSVP</b>
-              </section>
-
-              <section>
-                <input
-                  className="form__input-120w"
-                  type="date"
                   name="eventDate"
                   placeholder="Event date"
                   onChange={handleOnChange}
@@ -267,26 +225,29 @@ export default function CreateEvent({ redirectToSent }: Props) {
                 <b className="--bold-gray">Ending Time</b>
               </section>
 
-              <div className="form__offerings-alone">
-                <FormCheckBox
-                  checkedValue={eventData.multiDayCheck}
-                  onChangeFunc={handleOnCheckBox}
-                  text="Ends in a different date?"
-                  nameValue="multiDayCheck"
-                />
+              <FormOfferingQuestions
+                text="send RSVP email?"
+                checkedState={eventData.rsvpCheck}
+                checkboxName="rsvpCheck"
+                handleOnCheckBox={handleOnCheckBox}
+                handleOnChange={handleOnChange}
+                dateInputValue={eventData.eventRSVP}
+                dateInputName="eventRSVP"
+                addDateInput={true}
+                addTimeInput={false}
+              />
 
-                {eventData.multiDayCheck && (
-                  <section>
-                    <input
-                      type="date"
-                      name="eventEndDate"
-                      onChange={handleOnChange}
-                      value={eventData.eventEndDate}
-                      required
-                    />
-                  </section>
-                )}
-              </div>
+              <FormOfferingQuestions
+                text="Ends another date?"
+                checkedState={eventData.multiDayCheck}
+                checkboxName="multiDayCheck"
+                handleOnCheckBox={handleOnCheckBox}
+                handleOnChange={handleOnChange}
+                dateInputValue={eventData.eventEndDate}
+                dateInputName="eventEndDate"
+                addDateInput={true}
+                addTimeInput={false}
+              />
             </>
           )}
 
@@ -403,32 +364,19 @@ export default function CreateEvent({ redirectToSent }: Props) {
               </section>
 
               <div className="form__offerings-alone ">
-                <FormCheckBox
-                  checkedValue={eventData.roundTripCheck}
-                  onChangeFunc={handleOnCheckBox}
-                  text="Round Trip?"
-                  nameValue="roundTripCheck"
+                <FormOfferingQuestions
+                  text="Return?"
+                  checkedState={eventData.roundTripCheck}
+                  checkboxName="roundTripCheck"
+                  handleOnCheckBox={handleOnCheckBox}
+                  handleOnChange={handleOnChange}
+                  dateInputValue={eventData.eventEndDate}
+                  dateInputName="eventEndDate"
+                  addDateInput={true}
+                  timeInputName={eventData.returnTime}
+                  timeInputValue="returnTime"
+                  addTimeInput={true}
                 />
-
-                {eventData.roundTripCheck && (
-                  <section className="--gap8px">
-                    <input
-                      type="date"
-                      name="returnDate"
-                      placeholder="Return date"
-                      onChange={handleOnChange}
-                      value={eventData.returnDate}
-                    />
-                    <input
-                      type="time"
-                      name="returnTime"
-                      placeholder="Return time"
-                      onChange={handleOnChange}
-                      value={eventData.returnTime}
-                      required
-                    />
-                  </section>
-                )}
               </div>
             </>
           )}
