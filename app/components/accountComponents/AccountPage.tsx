@@ -27,12 +27,6 @@ export default function AccountPage() {
     definedSelectionOnMount()
   );
 
-    // TEST (?)
-    // const handleCreateGoogleEvent = async () => {
-    //   console.log(session.accessToken) // HOW TO FIX THIS (?)
-    // };
-    // TEST END
-
   const selectionHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     setSelection(e.currentTarget.name);
     localStorage.setItem('lastSelection', e.currentTarget.name);
@@ -50,8 +44,15 @@ export default function AccountPage() {
     );
   }
 
+
+    // const handleCreateGoogleEvent = () => {
+    //   console.log(session.accessToken) // accessToken!
+    // };
+
+
   return (
     <>
+
       <header className="account-buttons">
 
         <DashboardButton

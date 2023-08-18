@@ -7,3 +7,10 @@ declare module 'next-auth/jwt' {
     userRole?: 'admin';
   }
 }
+
+declare module "next-auth" {
+  interface Session {
+    accessToken?: string;
+    // add session types if needed
+  }
+}

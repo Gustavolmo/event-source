@@ -1,8 +1,5 @@
 'use server';
 import { EventData } from "@/app-types/types";
-import { authOptions } from "@/pages/api/auth/[...nextauth]";
-import { getServerSession } from "next-auth";
-import { NextApiRequest, NextApiResponse } from 'next'
 
 export const createEvent = async (accessToken: string, calendarId: string, newEvent: EventData) => {
   const response = await fetch(`https://www.googleapis.com/calendar/v3/calendars/${calendarId}/events`, {
