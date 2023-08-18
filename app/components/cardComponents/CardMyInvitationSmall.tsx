@@ -55,7 +55,7 @@ export default function CardMyInvitationSmall({
                 text="Accept"
               />
 
-              {event.virtualLink && (
+              {event.googleLinkCheck && (
                 <AnswerInvitationButton
                   handleChoice={handleAcceptVirtually}
                   listChoice={event.acceptedVirtually}

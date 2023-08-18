@@ -7,11 +7,11 @@ type Props = {
 }
 
 export default function GoogleMeetLink({event, meetLink}: Props) {
-  return event.virtualLink && (
+  return event.googleLinkCheck && (
     <section className="manage__info --gray-shading">
         <b>Google Meets:</b>{' '}
         <a href={meetLink} className="--text12px ">
-          Coming Soon...
+          Feature Coming Soon...
         </a>
     </section>
   )

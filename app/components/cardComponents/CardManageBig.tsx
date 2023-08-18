@@ -117,7 +117,7 @@ export default function CardManageBig({
               buttonTitle={'Yeap!'}
             />
 
-            {event.virtualLink && (
+            {event.googleLinkCheck && (
               <ToggleList
                 handleListToggle={() =>
                   handleListToggle(seeVirtual, setSeeVirtual)

@@ -99,7 +99,7 @@ export default function CardMyInvitationBig({
               text="Accept"
             />
 
-            {event.virtualLink && (
+            {event.googleLinkCheck && (
               <AnswerInvitationButton
                 handleChoice={handleAcceptVirtually}
                 listChoice={event.acceptedVirtually}
@@ -149,7 +149,7 @@ export default function CardMyInvitationBig({
               buttonTitle={'Yeap!'}
             />
 
-            {event.virtualLink && (
+            {event.googleLinkCheck && (
               <ToggleList
                 handleListToggle={() =>
                   handleListToggle(seeVirtual, setSeeVirtual)
