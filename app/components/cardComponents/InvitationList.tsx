@@ -117,7 +117,7 @@ export default function InvitationList({
               className="delete-guest --pointer-hover"
               onClick={handleRemoveGuest}
             >
-              remove
+              X
             </b>
           )}
         </div>
