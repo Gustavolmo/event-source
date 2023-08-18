@@ -34,6 +34,7 @@ export default function EditEvent({
       ...prevState,
       [e.target.name]: e.target.checked,
     }));
+    
   };
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -333,8 +334,8 @@ export default function EditEvent({
                   dateInputValue={eventData.eventEndDate}
                   dateInputName="eventEndDate"
                   addDateInput={true}
-                  timeInputName={eventData.returnTime}
-                  timeInputValue="returnTime"
+                  timeInputName="returnTime"
+                  timeInputValue={eventData.returnTime}
                   addTimeInput={true}
                 />
               </div>

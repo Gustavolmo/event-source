@@ -373,8 +373,8 @@ export default function CreateEvent({ redirectToSent }: Props) {
                   dateInputValue={eventData.eventEndDate}
                   dateInputName="eventEndDate"
                   addDateInput={true}
-                  timeInputName={eventData.returnTime}
-                  timeInputValue="returnTime"
+                  timeInputName="returnTime"
+                  timeInputValue={eventData.returnTime}
                   addTimeInput={true}
                 />
               </div>

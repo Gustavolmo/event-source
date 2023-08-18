@@ -189,9 +189,9 @@ export default function CardMyInvitationBig({
                 <p className="--text12px">{event.eventLocation}</p>
               </section>
 
-              <section className="manage__info --gray-shading">
-                <b>RSVP:</b> <p>{event.eventRSVP}</p>
-              </section>
+              {event.rsvpCheck && <section className="manage__info --gray-shading">
+                <b>RSVP:</b> <p>Guests will be reminded on:  {event.eventRSVP}</p>
+              </section>}
 
               <GoogleMeetLink event={event} meetLink="/" />
 
