@@ -22,6 +22,9 @@ export const updateEvent = async (
           dateCreated: event.dateCreated,
           organizerId: event.organizerId,
           organizerName: event.organizerName,
+
+          timeZone: event.timeZone, // REMEMBER THIS IS NEW
+
           invited: event.invited,
           eventCheck: event.eventCheck,
           transportCheck: event.transportCheck,

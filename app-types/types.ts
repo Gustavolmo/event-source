@@ -21,6 +21,10 @@ export interface DbData extends User, EventData {}
 
 export type EventData = {
   _id?: ObjectId;
+
+  googleEventId?: string;
+  timeZone?: string; // ADD TO FORM
+
   eventTitle: string;
   dateCreated: string;
   organizerId: string;
@@ -36,16 +40,13 @@ export type EventData = {
   eventEndDate: string;
   eventEndTime: string;
   eventDescription: string;
-
-  rsvpCheck: boolean
-  googleLinkCheck: boolean
-
+  rsvpCheck: boolean;
+  googleLinkCheck: boolean;
   eventRSVP: string;
   eventCost: number;
   acceptedLive: string[];
   acceptedVirtually: string[];
   rejected: string[];
-
   transportMode: string;
   transportCost: number;
   transportDescription: string;

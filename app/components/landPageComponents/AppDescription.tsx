@@ -16,18 +16,23 @@ export default async function AppDescription() {
       <header className="app-description">
         <h1>
           Welcome to <i className="--red-highlight-text">EventSauce</i>
+        <p>Free & Open-source Event Managment</p>
         </h1>
+        
+        
         <button className="action-button --text12px" onClick={() => signIn()}>
-          Try it our Beta
+          Try our Beta
         </button>
+        
         <h1>Features</h1>
 
         <p>Keep track of attendance</p>
         <p>Add and manage transportation</p>
         <p>Manage all guest lists in one place</p>
         <p>Let guests tell you their preferences</p>
-        <b className='--red-highlight-text'>Google calendar coming soon...</b>
-
+        <b className="--red-highlight-text">
+          Google integration calendar coming soon...
+        </b>
       </header>
 
       <h1 className="--promo-text-highlight">FOR PLANNERS</h1>

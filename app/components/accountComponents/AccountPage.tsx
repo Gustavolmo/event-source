@@ -7,6 +7,7 @@ import MyInfo from './MyInfo';
 import { useSession } from 'next-auth/react';
 import LoadingUi from '../loadingComponents/LoadingUi';
 import DashboardButton from '../buttonComponents/dashboardButton';
+import { createGoogleEvent } from '@/app-library/GoogleCalendarControls/createGoogleEvent';
 
 const profile = 'Profile';
 const create = 'Create';
@@ -44,17 +45,9 @@ export default function AccountPage() {
     );
   }
 
-
-    // const handleCreateGoogleEvent = () => {
-    //   console.log(session.accessToken) // accessToken!
-    // };
-
-
   return (
     <>
-
       <header className="account-buttons">
-
         <DashboardButton
           selectionHandler={selectionHandler}
           selection={selection}

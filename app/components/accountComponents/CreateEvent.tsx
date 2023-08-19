@@ -8,6 +8,7 @@ import EasterEgg from '../EasterEgg';
 import EventCreatedDialogue from '../dialogueComponents/EventCreatedDialogue';
 import FormOfferingQuestions from '../formComponents/FormOfferingQuestions';
 import { defaultFormValues } from '@/app/defaultEvent';
+import { createGoogleEvent } from '@/app-library/GoogleCalendarControls/createGoogleEvent';
 
 type Props = {
   redirectToSent: Function;
@@ -65,16 +66,75 @@ export default function CreateEvent({ redirectToSent }: Props) {
     }));
   };
 
-  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  const clearForm = () => {
+    setEventData(defaultFormValues);
+    setInvitedEmails([]);
+  };
+
+  const handleAddEventToDb = (googleEventId: string) => {
     eventData.invited = invitedEmails;
     eventData.organizerName = String(session?.user?.name);
+    eventData.googleEventId = googleEventId;
     createNewEvent(session?.user?.email, eventData);
-    setEventData(defaultFormValues);
-    localStorage.removeItem('formData');
-    setInvitedEmails([]);
-    handleOpenDialogue();
   };
+
+  const handleCreateNewEvent = async () => {
+    if (session?.accessToken) {
+      // console.log(eventData.eventEndDate, eventData.eventEndTime)
+      console.log(eventData)
+      const googleEventId = await createGoogleEvent(
+        session?.accessToken,
+        'primary',
+        eventData
+      );
+      if (!googleEventId) {
+        alert('Event Not Create, Something went wrong :(');
+        return;
+      }
+      // clearForm()
+      // handleAddEventToDb(googleEventId)
+      // localStorage.removeItem('formData');
+      // localStorage.removeItem('emailList')
+      handleOpenDialogue();
+    }
+  };
+
+  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    handleCreateNewEvent();
+  };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   return (
     <>
