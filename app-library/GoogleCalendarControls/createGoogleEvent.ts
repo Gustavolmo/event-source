@@ -1,23 +1,10 @@
 'use server';
 import { EventData } from "@/app-types/types";
 
-
-// TESTING MODE
+// CREATE EVENT ON GOOGLE CALENDAR
 export const createGoogleEvent = async (accessToken: string, calendarId: string, eventData: EventData) => {
-  
-  const newEvent = {
-    summary: eventData.eventTitle,
-    location: eventData.eventLocation,
-    description: `Event: ${eventData.eventDescription} Transit: ${eventData.transportDescription}`,
-    start: {
-      dateTime: `${eventData.eventDate}T${eventData.eventTime}:00` ,// YYYY-MM-DDTHH:MM:SS.sssZ
-      timeZone: 'CET',   // Replace with form values
-    },
-    end: {
-      dateTime: `${eventData.eventEndDate}T${eventData.eventEndTime}:00`, // YYYY-MM-DDTHH:MM:SS.sssZ
-      timeZone: 'CET',   // Replace with form values
-    },
-  };
+
+  const newEvent = eventDataToCalendarFormat(eventData)
   
   const googleRes = await fetch(`https://www.googleapis.com/calendar/v3/calendars/${calendarId}/events`, {
     method: 'POST',
@@ -38,6 +25,31 @@ export const createGoogleEvent = async (accessToken: string, calendarId: string,
     return false
   }
 };
+
+// TRANSFORM eventData TO calendarFormat
+export const eventDataToCalendarFormat = (eventData: EventData) => {
+
+  // MAKE eventEndTime = eventTime IF no eventEndTime AVAILABLE
+
+  const calendarEvent = {
+    kind: "calendar#event",
+    summary: eventData.eventTitle,
+    location: eventData.eventLocation,
+    description: `Event: ${eventData.eventDescription} Transit: ${eventData.transportDescription}`,
+    start: {
+      dateTime: `${eventData.eventDate}T${eventData.eventTime}:00` ,// YYYY-MM-DDTHH:MM:SS.sssZ
+      timeZone: 'CET',   // Replace with form values
+    },
+    end: {
+      dateTime: `${eventData.eventEndDate}T${eventData.eventEndTime}:00`, // YYYY-MM-DDTHH:MM:SS.sssZ
+      timeZone: 'CET',   // Replace with form values
+    },
+    attendees: eventData.invited.map(email => ({ 'email': email })),
+  };
+
+  return calendarEvent
+}
+
 
 //
 //

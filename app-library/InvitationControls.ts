@@ -9,7 +9,7 @@ const collectionEvent = 'event';
 const eventCollection = client.db(databaseName).collection(collectionEvent);
 
 // UPDATE AN INVITATION
-export const updateEvent = async (
+export const updateEventInDb = async (
   eventId: EventData['_id'],
   event: EventData
 ) => {

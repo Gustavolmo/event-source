@@ -1,5 +1,5 @@
 'use client';
-import { createNewEvent } from '@/app-library/DbControls';
+import { createNewEventInDb } from '@/app-library/DbControls';
 import { EventData } from '@/app-types/types';
 import { useSession } from 'next-auth/react';
 import React, { ChangeEvent, useEffect, useState } from 'react';
@@ -46,7 +46,7 @@ export default function CreateEvent({ redirectToSent }: Props) {
   };
 
   const handleCloseDialogue = () => {
-    redirectToSent();
+    // redirectToSent();
     setOpenDialogue(false);
   };
 
@@ -78,51 +78,45 @@ export default function CreateEvent({ redirectToSent }: Props) {
 
 
 
-
-
-
-
-
-
-  const clearForm = () => {
-    setEventData(defaultFormValues);
-    setInvitedEmails([]);
-  };
-
-  const handleAddEventToDb = (googleEventId: string) => {
-    eventData.invited = invitedEmails;
-    eventData.organizerName = String(session?.user?.name);
-    eventData.googleEventId = googleEventId;
-    createNewEvent(session?.user?.email, eventData);
-  };
-
-  const handleCreateNewEvent = async () => {
+  
+  const handleCreateCalendarEvent = async () => {
     if (session?.accessToken) {
-      // console.log(eventData.eventEndDate, eventData.eventEndTime)
-      console.log(eventData)
       const googleEventId = await createGoogleEvent(
         session?.accessToken,
         'primary',
         eventData
-      );
-      if (!googleEventId) {
-        alert('Event Not Create, Something went wrong :(');
-        return;
+        );
+
+        if (!googleEventId) {
+          alert('Event Not Create, Something went wrong :(');
+          return;
+        }
+
+        eventData.googleEventId = googleEventId;
+        handleAddEventToDb();
       }
-      // clearForm()
-      // handleAddEventToDb(googleEventId)
-      // localStorage.removeItem('formData');
-      // localStorage.removeItem('emailList')
-      handleOpenDialogue();
-    }
-  };
+    };
+    
+    const handleAddEventToDb = () => {
+      console.log(eventData)
+      // createNewEventInDb(session?.user?.email, eventData);
+      // handleOpenDialogue();
+    };
+    
+    const clearForm = () => {
+      setEventData(defaultFormValues);
+      setInvitedEmails([]);
+      localStorage.removeItem('formData');
+      localStorage.removeItem('emailList');
+    };
 
-  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    handleCreateNewEvent();
+    eventData.invited = invitedEmails;
+    eventData.organizerName = String(session?.user?.name);
+    handleCreateCalendarEvent();
+    // clearForm()
   };
-
-
 
 
 

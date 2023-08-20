@@ -1,7 +1,7 @@
 'use client';
 import { EventData } from '@/app-types/types';
 import React, { useState } from 'react';
-import { deleteEvent } from '@/app-library/DbControls';
+import { deleteEventFromDb } from '@/app-library/DbControls';
 import CardManageEditMode from './CardManageEditMode';
 import CardManageBig from './CardManageBig';
 import CardManageSmall from './CardManageSmall';
@@ -31,7 +31,7 @@ export default function CardManageEvent({
   };
 
   const handleDelete = () => {
-    deleteEvent(event._id);
+    deleteEventFromDb(event._id);
     funcUpdateClick();
   };
 

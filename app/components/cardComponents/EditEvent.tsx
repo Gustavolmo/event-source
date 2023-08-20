@@ -2,7 +2,7 @@
 import { EventData } from '@/app-types/types';
 import React, { ChangeEvent, useState } from 'react';
 import EasterEgg from '../EasterEgg';
-import { updateEvent } from '@/app-library/InvitationControls';
+import { updateEventInDb } from '@/app-library/InvitationControls';
 import FormOfferingQuestions from '../formComponents/FormOfferingQuestions';
 import { TagsInput } from 'react-tag-input-component';
 
@@ -40,7 +40,7 @@ export default function EditEvent({
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     eventData.invited = invitedEmails;
-    updateEvent(event._id, eventData);
+    updateEventInDb(event._id, eventData);
     funcUpdateClick();
     handleEdit();
   };

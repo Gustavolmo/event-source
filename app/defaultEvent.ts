@@ -19,6 +19,8 @@ const formDefaultTime = () => {
 
 export const defaultFormValues: EventData = {
   eventTitle: '',
+  googleEventId: '',
+  timeZone: '',
   dateCreated: date,
   organizerId: '',
   organizerName: '',
