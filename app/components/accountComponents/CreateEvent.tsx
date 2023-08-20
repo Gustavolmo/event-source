@@ -1,5 +1,4 @@
 'use client';
-import { createNewEventInDb } from '@/app-library/DbControls';
 import { EventData } from '@/app-types/types';
 import { useSession } from 'next-auth/react';
 import React, { ChangeEvent, useEffect, useState } from 'react';
