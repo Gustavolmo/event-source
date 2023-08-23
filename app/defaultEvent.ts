@@ -51,7 +51,7 @@ export const defaultFormValues: EventData = {
   transportMode: '',
   transportCost: 0,
   transportDescription: '',
-  travelTime: '',
+  travelTime: 0,
   pickupLocation: '',
   pickupTime: '',
   pickupDate: '',

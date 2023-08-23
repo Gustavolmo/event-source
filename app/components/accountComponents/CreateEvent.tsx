@@ -9,13 +9,17 @@ import FormOfferingQuestions from '../formComponents/FormOfferingQuestions';
 import { defaultFormValues } from '@/app/defaultEvent';
 
 import { createNewEventInDb } from '@/app-library/DbControls';
-import { createFromGoogleEvent, createGoogleEvent, createInboudGoogleEvent } from '@/app-library/GoogleCalendarControls/createGoogleEvent';
+import {
+  createFromGoogleEvent,
+  createGoogleEvent,
+  createInboudGoogleEvent,
+} from '@/app-library/GoogleCalendarControls/createGoogleEvent';
 
 type Props = {
-  redirectToSent: Function;
+  redirectToInbox: Function;
 };
 
-export default function CreateEvent({ redirectToSent }: Props) {
+export default function CreateEvent({ redirectToInbox }: Props) {
   const [openDialogue, setOpenDialogue] = useState(false);
   const { data: session } = useSession();
   const [invitedEmails, setInvitedEmails] = useState<string[]>([]);
@@ -63,7 +67,7 @@ export default function CreateEvent({ redirectToSent }: Props) {
   };
 
   const handleCloseDialogue = () => {
-    redirectToSent();
+    redirectToInbox();
     setOpenDialogue(false);
   };
 
@@ -78,32 +82,19 @@ export default function CreateEvent({ redirectToSent }: Props) {
     localStorage.removeItem('emailList');
   };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   const handleCreateCalendarEvent = async () => {
     if (session?.accessToken) {
       eventData.invited = invitedEmails;
       eventData.organizerName = String(session?.user?.name);
-      
+
       if (eventData.eventCheck) {
-        const googleRes = await createGoogleEvent(session?.accessToken, 'primary', eventData)
-        eventData.googleEventId = googleRes.id
-        eventData.googleCalendarLink = googleRes.htmlLink
+        const googleRes = await createGoogleEvent(
+          session?.accessToken,
+          'primary',
+          eventData
+        );
+        eventData.googleEventId = googleRes.id;
+        eventData.googleCalendarLink = googleRes.htmlLink;
         if (!eventData.googleEventId) {
           alert('Event Not Created, Something went wrong :(');
           return;
@@ -111,47 +102,37 @@ export default function CreateEvent({ redirectToSent }: Props) {
       }
 
       if (eventData.transportCheck) {
-        const googleInboundRes = await createInboudGoogleEvent(session?.accessToken, 'primary', eventData)
-        eventData.googleTransitInboundId = googleInboundRes.id
-        eventData.googleCalendarTripLink = googleInboundRes.htmlLink
+        const googleInboundRes = await createInboudGoogleEvent(
+          session?.accessToken,
+          'primary',
+          eventData
+        );
+        eventData.googleTransitInboundId = googleInboundRes.id;
+        eventData.googleCalendarTripLink = googleInboundRes.htmlLink;
         if (!eventData.googleTransitInboundId) {
           alert('Inbound trip Not Created, Something went wrong :(');
           return;
         }
       }
-      
+
       if (eventData.roundTripCheck) {
-        const googleFromRes = await createFromGoogleEvent(session?.accessToken, 'primary', eventData)
-        eventData.googleTransitFromId = googleFromRes.id
+        const googleFromRes = await createFromGoogleEvent(
+          session?.accessToken,
+          'primary',
+          eventData
+        );
+        eventData.googleTransitFromId = googleFromRes.id;
         if (!eventData.googleTransitFromId) {
           alert('Outbound trip Not Created, Something went wrong :(');
           return;
         }
       }
-        
-      // handleAddEventToDb();
-      // clearForm()
-      // handleOpenDialogue();
-      console.log(eventData)
+
+      handleAddEventToDb();
+      clearForm()
+      handleOpenDialogue();
     }
   };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -265,7 +246,7 @@ export default function CreateEvent({ redirectToSent }: Props) {
                   value={eventData.eventCost}
                   required
                 />
-                <b className="--bold-gray">One-way cost (SEK)</b>
+                <b className="--bold-gray">Event Fee (sek)</b>
               </section>
 
               <section>
@@ -403,20 +384,20 @@ export default function CreateEvent({ redirectToSent }: Props) {
                   value={eventData.transportCost}
                   required
                 />
-                <b className="--bold-gray">Cost per passenger (SEK)</b>
+                <b className="--bold-gray">One-way cost (SEK)</b>
               </section>
 
               <section>
                 <input
                   className="form__input-120w"
-                  type="text"
+                  type="number"
                   name="travelTime"
                   placeholder="Travel time"
                   onChange={handleOnChange}
                   value={eventData.travelTime}
                   required
                 />
-                <b className="--bold-gray">Travel Time</b>
+                <b className="--bold-gray">Travel Time (min)</b>
               </section>
 
               <section>
@@ -452,8 +433,8 @@ export default function CreateEvent({ redirectToSent }: Props) {
                   checkboxName="roundTripCheck"
                   handleOnCheckBox={handleOnCheckBox}
                   handleOnChange={handleOnChange}
-                  dateInputValue={eventData.eventEndDate}
-                  dateInputName="eventEndDate"
+                  dateInputValue={eventData.returnDate}
+                  dateInputName="returnDate"
                   addDateInput={true}
                   timeInputName="returnTime"
                   timeInputValue={eventData.returnTime}

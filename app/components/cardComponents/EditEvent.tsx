@@ -144,7 +144,7 @@ export default function EditEvent({
                   value={eventData.eventCost}
                   required
                 />
-                <b className="--bold-gray">One-way cost (SEK)</b>
+                <b className="--bold-gray">Event Fee (sek)</b>
               </section>
 
               <section>
@@ -186,7 +186,7 @@ export default function EditEvent({
                 <b className="--bold-gray">Ending Time</b>
               </section>
 
-              <FormOfferingQuestions
+              {/* <FormOfferingQuestions
                 text="send RSVP email?"
                 checkedState={eventData.rsvpCheck}
                 checkboxName="rsvpCheck"
@@ -196,7 +196,7 @@ export default function EditEvent({
                 dateInputName="eventRSVP"
                 addDateInput={true}
                 addTimeInput={false}
-              />
+              /> */}
 
               <FormOfferingQuestions
                 text="Ends another date?"
@@ -282,20 +282,20 @@ export default function EditEvent({
                   value={eventData.transportCost}
                   required
                 />
-                <b className="--bold-gray">Cost per passenger (SEK)</b>
+                <b className="--bold-gray">One-way cost (SEK)</b>
               </section>
 
               <section>
                 <input
                   className="form__input-120w"
-                  type="text"
+                  type="number"
                   name="travelTime"
                   placeholder="Travel time"
                   onChange={handleOnChange}
                   value={eventData.travelTime}
                   required
                 />
-                <b className="--bold-gray">Travel Time</b>
+                <b className="--bold-gray">Travel Time (min)</b>
               </section>
 
               <section>

@@ -3,32 +3,54 @@ import { EventData } from '@/app-types/types';
 import { GoogleCalendarEvent } from '../GoogleCalendarType';
 // import { v4 } from 'uuid';
 
-
-
-
-
-
-
-
-
 const translateInboundEvent = async (eventData: EventData) => {
+  const startDate = new Date(
+    `${eventData.pickupDate}T${eventData.pickupTime}:00`
+  );
+  const eventDurationInMinutes = eventData.travelTime;
+  const endDate = new Date(
+    startDate.getTime() + eventDurationInMinutes * 60 * 1000
+  );
+
   const calendarEvent: GoogleCalendarEvent = {
     //ALWAYS TRUE
-    summary: eventData.eventTitle,
+    summary: `(TRANSIT) ${eventData.eventTitle}`,
     attendees: eventData.invited.map((email) => ({ email: email })),
   };
 
-  calendarEvent.description = `<b>From:</b>${eventData.pickupLocation} -> <b>To:</b>${eventData.dropOffLocation} <br><br> <b>--> Transit Fee:</b> ${eventData.transportCost}kr <br> <b>--> Vehicle:</b> ${eventData.transportMode} <br><br>  <b>ABOUT: </b> ${eventData.transportDescription}`;
+  calendarEvent.description = `<b>From: </b>${eventData.pickupLocation}<br><b>To: </b>${eventData.dropOffLocation}<br>
+<b>Vehicle: </b>${eventData.transportMode}<br><b>Transit Fee: </b>${eventData.transportCost}kr<br><b>Total Seats: </b>${eventData.seatsAvailable}
+<br>
+<b>ABOUT:</b> ${eventData.transportDescription}
+<br>
+<b>RESERVE A SEAT?</b><br> event-sauce.vercel.app/account
+<b>ADD DIET RESTRICTIONS & MORE?</b><br> event-sauce.vercel.app/account`;
 
-  calendarEvent.location = eventData.pickupLocation
+  calendarEvent.location = eventData.pickupLocation;
 
-  return calendarEvent;
+  calendarEvent.start = {
+    dateTime: startDate.toISOString(),
+    timeZone: 'CET',
+  };
+  calendarEvent.end = {
+    dateTime: endDate.toISOString(),
+    timeZone: 'CET',
+  };
+
+  return calendarEvent as GoogleCalendarEvent;
 };
 
-
-
-
 const translateEvent = async (eventData: EventData) => {
+  const startDate = new Date(
+    `${eventData.eventDate}T${eventData.eventTime}:00`
+  );
+  const endDate = new Date(
+    `${eventData.eventDate}T${eventData.eventEndTime}:00`
+  );
+  const endAnotherDate = new Date(
+    `${eventData.eventEndDate}T${eventData.eventEndTime}:00`
+  );
+
   const calendarEvent: GoogleCalendarEvent = {
     //ALWAYS TRUE
     summary: eventData.eventTitle,
@@ -38,63 +60,65 @@ const translateEvent = async (eventData: EventData) => {
   if (eventData.eventCheck) {
     //ONLY EVENT
     calendarEvent.location = eventData.eventLocation;
-    calendarEvent.description = `<b>--> Event Fee:</b> ${eventData.eventCost}kr <br><br> <b>ABOUT: </b> ${eventData.eventDescription}`;
+    calendarEvent.description = `<br><b>Event Fee:</b> ${eventData.eventCost}kr
+<br><b>ABOUT: </b>${eventData.eventDescription}
+<br><br><b>DIET RESTRICTIONS & MORE?</b><br><b>event-sauce.vercel.app/account</b>`;
 
     calendarEvent.start = {
-      dateTime: `${eventData.eventDate}T${eventData.eventTime}:00`,
+      dateTime: startDate.toISOString(),
       timeZone: 'CET',
     };
     calendarEvent.end = {
-      dateTime: `${eventData.eventDate}T${eventData.eventEndTime}:00`,
+      dateTime: endDate.toISOString(),
       timeZone: 'CET',
     };
 
     if (eventData.multiDayCheck)
       calendarEvent.end = {
-        dateTime: `${eventData.eventEndDate}T${eventData.eventEndTime}:00`,
+        dateTime: endAnotherDate.toISOString(),
         timeZone: 'CET',
       };
-
-    // if (eventData.googleLinkCheck) {
-    //   const uniqueRequestId = v4();
-    //   calendarEvent.conferenceData = {
-    //     conferenceDataVersion: '1',
-    //     createRequest: {
-    //       requestId: uniqueRequestId,
-    //       conferenceSolutionKey: {
-    //         type: 'hangoutsMeet',
-    //       },
-    //     },
-    //   };
-    // }
   }
 
   return calendarEvent as GoogleCalendarEvent;
 };
 
-
 const translateFromEvent = async (eventData: EventData) => {
+  const startDate = new Date(
+    `${eventData.returnDate}T${eventData.returnTime}:00`
+  );
+  const eventDurationInMinutes = eventData.travelTime;
+  const endDate = new Date(
+    startDate.getTime() + eventDurationInMinutes * 60 * 1000
+  );
+
   const calendarEvent: GoogleCalendarEvent = {
     //ALWAYS TRUE
-    summary: eventData.eventTitle,
+    summary: `(TRANSIT) ${eventData.eventTitle}`,
     attendees: eventData.invited.map((email) => ({ email: email })),
   };
 
-  calendarEvent.description = `<b>--> Transit Fee:</b> ${eventData.transportCost}kr <br><br> <b>ABOUT: </b> ${eventData.transportDescription}`;
+  calendarEvent.description = `<b>From: </b>${eventData.dropOffLocation}<br><b>To: </b>${eventData.pickupLocation}<br>
+<b>Vehicle: </b>${eventData.transportMode}<br><b>Transit Fee: </b>${eventData.transportCost}kr<br><b>Total Seats: </b>${eventData.seatsAvailable}
+<br>
+<b>ABOUT:</b> ${eventData.transportDescription}
+<br>
+<b>RESERVE A SEAT?</b> <br>event-sauce.vercel.app/account
+<b>ADD DIET RESTRICTIONS & MORE?</b> <br>event-sauce.vercel.app/account`;
 
-  return calendarEvent;
+  calendarEvent.location = eventData.dropOffLocation;
+
+  calendarEvent.start = {
+    dateTime: startDate.toISOString(),
+    timeZone: 'CET',
+  };
+  calendarEvent.end = {
+    dateTime: endDate.toISOString(),
+    timeZone: 'CET',
+  };
+
+  return calendarEvent as GoogleCalendarEvent;
 };
-
-
-
-
-
-
-
-
-
-
-
 
 const postGoogleEvent = async (
   accessToken: string,
@@ -123,30 +147,6 @@ const postGoogleEvent = async (
   }
 };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 export const createGoogleEvent = async (
   accessToken: string,
   calendarId: string,
@@ -157,9 +157,6 @@ export const createGoogleEvent = async (
 
   return googleRes as GoogleCalendarEvent;
 };
-
-
-
 
 export const createInboudGoogleEvent = async (
   accessToken: string,
@@ -175,9 +172,6 @@ export const createInboudGoogleEvent = async (
 
   return googleInboudRes as GoogleCalendarEvent;
 };
-
-
-
 
 export const createFromGoogleEvent = async (
   accessToken: string,

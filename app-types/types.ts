@@ -54,7 +54,7 @@ export type EventData = {
   transportMode: string;
   transportCost: number;
   transportDescription: string;
-  travelTime: string;
+  travelTime: number;
   pickupLocation: string;
   pickupTime: string;
   pickupDate: string;

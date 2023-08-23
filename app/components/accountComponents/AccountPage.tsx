@@ -7,7 +7,6 @@ import MyInfo from './MyInfo';
 import { useSession } from 'next-auth/react';
 import LoadingUi from '../loadingComponents/LoadingUi';
 import DashboardButton from '../buttonComponents/dashboardButton';
-import { createGoogleEventController } from '@/app-library/GoogleCalendarControls/createGoogleEvent';
 
 const profile = 'Profile';
 const create = 'Create';
@@ -33,8 +32,8 @@ export default function AccountPage() {
     localStorage.setItem('lastSelection', e.currentTarget.name);
   };
 
-  const redirectToSent = () => {
-    setSelection(sent);
+  const redirectToInbox = () => {
+    setSelection(inbox);
   };
 
   if (status !== 'authenticated') {
@@ -76,7 +75,7 @@ export default function AccountPage() {
       <section className="account-components">
         {selection === profile && <MyInfo />}
         {selection === create && (
-          <CreateEvent redirectToSent={redirectToSent} />
+          <CreateEvent redirectToInbox={redirectToInbox} />
         )}
         {selection === sent && <ManageEvent />}
         {selection === inbox && <MyInvitation />}
