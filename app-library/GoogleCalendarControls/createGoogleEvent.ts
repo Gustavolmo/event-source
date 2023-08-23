@@ -1,22 +1,12 @@
 'use server';
 import { EventData } from '@/app-types/types';
 import { GoogleCalendarEvent } from '../GoogleCalendarType';
-import { v4 } from 'uuid';
+// import { v4 } from 'uuid';
 
 
 
 
-const translateFromEvent = async (eventData: EventData) => {
-  const calendarEvent: GoogleCalendarEvent = {
-    //ALWAYS TRUE
-    summary: eventData.eventTitle,
-    attendees: eventData.invited.map((email) => ({ email: email })),
-  };
 
-  calendarEvent.description = `<b>Transit Fee:</b> ${eventData.transportCost}kr <br> <b>--> TRANSIT: </b> ${eventData.transportDescription}`;
-
-  return calendarEvent;
-};
 
 
 
@@ -28,7 +18,9 @@ const translateInboundEvent = async (eventData: EventData) => {
     attendees: eventData.invited.map((email) => ({ email: email })),
   };
 
-  calendarEvent.description = `<b>Transit Fee:</b> ${eventData.transportCost}kr <br> <b>--> TRANSIT: </b> ${eventData.transportDescription}`;
+  calendarEvent.description = `<b>From:</b>${eventData.pickupLocation} -> <b>To:</b>${eventData.dropOffLocation} <br><br> <b>--> Transit Fee:</b> ${eventData.transportCost}kr <br> <b>--> Vehicle:</b> ${eventData.transportMode} <br><br>  <b>ABOUT: </b> ${eventData.transportDescription}`;
+
+  calendarEvent.location = eventData.pickupLocation
 
   return calendarEvent;
 };
@@ -46,7 +38,7 @@ const translateEvent = async (eventData: EventData) => {
   if (eventData.eventCheck) {
     //ONLY EVENT
     calendarEvent.location = eventData.eventLocation;
-    calendarEvent.description = `<b>Fee:</b> ${eventData.eventCost}kr <br> <b>--> ABOUT: </b> ${eventData.eventDescription}`;
+    calendarEvent.description = `<b>--> Event Fee:</b> ${eventData.eventCost}kr <br><br> <b>ABOUT: </b> ${eventData.eventDescription}`;
 
     calendarEvent.start = {
       dateTime: `${eventData.eventDate}T${eventData.eventTime}:00`,
@@ -63,21 +55,34 @@ const translateEvent = async (eventData: EventData) => {
         timeZone: 'CET',
       };
 
-    if (eventData.googleLinkCheck) {
-      const uniqueRequestId = v4();
-      calendarEvent.conferenceData = {
-        // conferenceDataVersion: '1',
-        createRequest: {
-          requestId: uniqueRequestId,
-          conferenceSolutionKey: {
-            type: 'hangoutsMeet',
-          },
-        },
-      };
-    }
+    // if (eventData.googleLinkCheck) {
+    //   const uniqueRequestId = v4();
+    //   calendarEvent.conferenceData = {
+    //     conferenceDataVersion: '1',
+    //     createRequest: {
+    //       requestId: uniqueRequestId,
+    //       conferenceSolutionKey: {
+    //         type: 'hangoutsMeet',
+    //       },
+    //     },
+    //   };
+    // }
   }
 
   return calendarEvent as GoogleCalendarEvent;
+};
+
+
+const translateFromEvent = async (eventData: EventData) => {
+  const calendarEvent: GoogleCalendarEvent = {
+    //ALWAYS TRUE
+    summary: eventData.eventTitle,
+    attendees: eventData.invited.map((email) => ({ email: email })),
+  };
+
+  calendarEvent.description = `<b>--> Transit Fee:</b> ${eventData.transportCost}kr <br><br> <b>ABOUT: </b> ${eventData.transportDescription}`;
+
+  return calendarEvent;
 };
 
 
@@ -121,37 +126,6 @@ const postGoogleEvent = async (
 
 
 
-// const requestGoogleMeetLink = async (
-//   calendarId: string,
-//   accessToken: string,
-//   uniqueRequestId: string,
-//   calendarEvent: GoogleCalendarEvent
-// ) => {
-//   const conferenceRes = await fetch(
-//     `https://www.googleapis.com/calendar/v3/calendars/${calendarId}/events/${uniqueRequestId}/conferenceData/createRequest`,
-//     {
-//       method: 'POST',
-//       headers: {
-//         Authorization: `Bearer ${accessToken}`,
-//         'Content-Type': 'application/json',
-//       },
-//       body: JSON.stringify(calendarEvent.conferenceData),
-//     }
-//   );
-
-//   if (conferenceRes.ok) {
-//     const conferenceData = await conferenceRes.json();
-//     console.log(conferenceData);
-//     return conferenceData;
-//   } else {
-//     console.error('Failed to create conference:', conferenceRes);
-//     return;
-//   }
-// };
-
-
-
-
 
 
 
@@ -180,9 +154,6 @@ export const createGoogleEvent = async (
 ) => {
   const newEvent = await translateEvent(eventData);
   const googleRes = await postGoogleEvent(accessToken, calendarId, newEvent);
-
-  // const uniqueId = newEvent.conferenceData?.createRequest?.requestId;
-  // if (uniqueId) await requestGoogleMeetLink(calendarId, accessToken, uniqueId, newEvent);
 
   return googleRes as GoogleCalendarEvent;
 };

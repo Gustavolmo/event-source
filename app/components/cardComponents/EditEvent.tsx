@@ -97,7 +97,7 @@ export default function EditEvent({
                 required
               />
 
-              <section className="form__offerings">
+              {/* <section className="form__offerings">
                 <FormOfferingQuestions
                   checkedState={eventData.googleLinkCheck}
                   handleOnCheckBox={handleOnCheckBox}
@@ -106,7 +106,7 @@ export default function EditEvent({
                   addDateInput={false}
                   addTimeInput={false}
                 />
-              </section>
+              </section> */}
             </>
           )}
 

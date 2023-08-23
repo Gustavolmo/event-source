@@ -218,7 +218,7 @@ export default function CreateEvent({ redirectToSent }: Props) {
                 required
               />
 
-              <section className="form__offerings">
+              {/* <section className="form__offerings">
                 <FormOfferingQuestions
                   checkedState={eventData.googleLinkCheck}
                   handleOnCheckBox={handleOnCheckBox}
@@ -227,7 +227,7 @@ export default function CreateEvent({ redirectToSent }: Props) {
                   addDateInput={false}
                   addTimeInput={false}
                 />
-              </section>
+              </section> */}
             </>
           )}
 
