@@ -22,7 +22,11 @@ export interface DbData extends User, EventData {}
 export type EventData = {
   _id?: ObjectId;
 
-  googleEventId?: string;
+  googleEventId?: string | boolean,
+  googleTransitInboundId?: string | boolean
+  googleTransitFromId?: string | boolean
+  googleCalendarLink?: string
+  googleCalendarTripLink?: string
   timeZone?: string; // ADD TO FORM
 
   eventTitle: string;

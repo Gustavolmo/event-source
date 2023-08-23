@@ -144,7 +144,7 @@ export default function EditEvent({
                   value={eventData.eventCost}
                   required
                 />
-                <b className="--bold-gray">Cost per person (SEK)</b>
+                <b className="--bold-gray">One-way cost (SEK)</b>
               </section>
 
               <section>

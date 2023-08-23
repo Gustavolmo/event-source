@@ -7,7 +7,7 @@ import MyInfo from './MyInfo';
 import { useSession } from 'next-auth/react';
 import LoadingUi from '../loadingComponents/LoadingUi';
 import DashboardButton from '../buttonComponents/dashboardButton';
-import { createGoogleEvent } from '@/app-library/GoogleCalendarControls/createGoogleEvent';
+import { createGoogleEventController } from '@/app-library/GoogleCalendarControls/createGoogleEvent';
 
 const profile = 'Profile';
 const create = 'Create';

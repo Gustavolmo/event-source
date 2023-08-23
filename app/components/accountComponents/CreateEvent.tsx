@@ -7,7 +7,9 @@ import EasterEgg from '../EasterEgg';
 import EventCreatedDialogue from '../dialogueComponents/EventCreatedDialogue';
 import FormOfferingQuestions from '../formComponents/FormOfferingQuestions';
 import { defaultFormValues } from '@/app/defaultEvent';
-import { createGoogleEvent } from '@/app-library/GoogleCalendarControls/createGoogleEvent';
+
+import { createNewEventInDb } from '@/app-library/DbControls';
+import { createFromGoogleEvent, createGoogleEvent, createInboudGoogleEvent } from '@/app-library/GoogleCalendarControls/createGoogleEvent';
 
 type Props = {
   redirectToSent: Function;
@@ -40,15 +42,6 @@ export default function CreateEvent({ redirectToSent }: Props) {
     saveFormDataLocally();
   }, [eventData, invitedEmails]);
 
-  const handleOpenDialogue = () => {
-    setOpenDialogue(true);
-  };
-
-  const handleCloseDialogue = () => {
-    // redirectToSent();
-    setOpenDialogue(false);
-  };
-
   const handleOnChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -65,56 +58,24 @@ export default function CreateEvent({ redirectToSent }: Props) {
     }));
   };
 
+  const handleOpenDialogue = () => {
+    setOpenDialogue(true);
+  };
 
+  const handleCloseDialogue = () => {
+    redirectToSent();
+    setOpenDialogue(false);
+  };
 
+  const handleAddEventToDb = () => {
+    createNewEventInDb(session?.user?.email, eventData);
+  };
 
-
-
-
-
-
-
-
-
-
-  
-  const handleCreateCalendarEvent = async () => {
-    if (session?.accessToken) {
-      const googleEventId = await createGoogleEvent(
-        session?.accessToken,
-        'primary',
-        eventData
-        );
-
-        if (!googleEventId) {
-          alert('Event Not Create, Something went wrong :(');
-          return;
-        }
-
-        eventData.googleEventId = googleEventId;
-        handleAddEventToDb();
-      }
-    };
-    
-    const handleAddEventToDb = () => {
-      console.log(eventData)
-      // createNewEventInDb(session?.user?.email, eventData);
-      // handleOpenDialogue();
-    };
-    
-    const clearForm = () => {
-      setEventData(defaultFormValues);
-      setInvitedEmails([]);
-      localStorage.removeItem('formData');
-      localStorage.removeItem('emailList');
-    };
-
-    const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    eventData.invited = invitedEmails;
-    eventData.organizerName = String(session?.user?.name);
-    handleCreateCalendarEvent();
-    // clearForm()
+  const clearForm = () => {
+    setEventData(defaultFormValues);
+    setInvitedEmails([]);
+    localStorage.removeItem('formData');
+    localStorage.removeItem('emailList');
   };
 
 
@@ -128,6 +89,74 @@ export default function CreateEvent({ redirectToSent }: Props) {
 
 
 
+
+
+
+
+
+
+  const handleCreateCalendarEvent = async () => {
+    if (session?.accessToken) {
+      eventData.invited = invitedEmails;
+      eventData.organizerName = String(session?.user?.name);
+      
+      if (eventData.eventCheck) {
+        const googleRes = await createGoogleEvent(session?.accessToken, 'primary', eventData)
+        eventData.googleEventId = googleRes.id
+        eventData.googleCalendarLink = googleRes.htmlLink
+        if (!eventData.googleEventId) {
+          alert('Event Not Created, Something went wrong :(');
+          return;
+        }
+      }
+
+      if (eventData.transportCheck) {
+        const googleInboundRes = await createInboudGoogleEvent(session?.accessToken, 'primary', eventData)
+        eventData.googleTransitInboundId = googleInboundRes.id
+        eventData.googleCalendarTripLink = googleInboundRes.htmlLink
+        if (!eventData.googleTransitInboundId) {
+          alert('Inbound trip Not Created, Something went wrong :(');
+          return;
+        }
+      }
+      
+      if (eventData.roundTripCheck) {
+        const googleFromRes = await createFromGoogleEvent(session?.accessToken, 'primary', eventData)
+        eventData.googleTransitFromId = googleFromRes.id
+        if (!eventData.googleTransitFromId) {
+          alert('Outbound trip Not Created, Something went wrong :(');
+          return;
+        }
+      }
+        
+      // handleAddEventToDb();
+      // clearForm()
+      // handleOpenDialogue();
+      console.log(eventData)
+    }
+  };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    handleCreateCalendarEvent();
+  };
 
   return (
     <>
@@ -236,7 +265,7 @@ export default function CreateEvent({ redirectToSent }: Props) {
                   value={eventData.eventCost}
                   required
                 />
-                <b className="--bold-gray">Cost per person (SEK)</b>
+                <b className="--bold-gray">One-way cost (SEK)</b>
               </section>
 
               <section>
@@ -278,7 +307,7 @@ export default function CreateEvent({ redirectToSent }: Props) {
                 <b className="--bold-gray">Ending Time</b>
               </section>
 
-              <FormOfferingQuestions
+              {/* <FormOfferingQuestions
                 text="send RSVP email?"
                 checkedState={eventData.rsvpCheck}
                 checkboxName="rsvpCheck"
@@ -288,7 +317,7 @@ export default function CreateEvent({ redirectToSent }: Props) {
                 dateInputName="eventRSVP"
                 addDateInput={true}
                 addTimeInput={false}
-              />
+              /> */}
 
               <FormOfferingQuestions
                 text="Ends another date?"
