@@ -128,14 +128,24 @@ export default function CreateEvent({ redirectToInbox }: Props) {
         }
       }
 
-      handleAddEventToDb();
-      clearForm()
       handleOpenDialogue();
+      // handleAddEventToDb();
+      // clearForm();
     }
   };
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (!eventData.multiDayCheck) {
+      const startTime = new Date(`2000-01-01T${eventData.eventTime}`);
+      const endTime = new Date(`2000-01-01T${eventData.eventEndTime}`);
+      if (endTime <= startTime) {
+        alert('Starting time must be before the ending time (tip: if you end at 00:00 you must specify the event ends the next day)')
+        return
+      }
+    }
+
     handleCreateCalendarEvent();
   };
 
