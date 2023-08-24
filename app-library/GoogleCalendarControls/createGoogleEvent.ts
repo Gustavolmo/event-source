@@ -14,7 +14,7 @@ const translateInboundEvent = async (eventData: EventData) => {
 
   const calendarEvent: GoogleCalendarEvent = {
     //ALWAYS TRUE
-    summary: `(TRANSIT) ${eventData.eventTitle}`,
+    summary: `(INBOUND) ${eventData.eventTitle}`,
     attendees: eventData.invited.map((email) => ({ email: email })),
   };
 
@@ -94,7 +94,7 @@ const translateFromEvent = async (eventData: EventData) => {
 
   const calendarEvent: GoogleCalendarEvent = {
     //ALWAYS TRUE
-    summary: `(TRANSIT) ${eventData.eventTitle}`,
+    summary: `(OUTBOUND) ${eventData.eventTitle}`,
     attendees: eventData.invited.map((email) => ({ email: email })),
   };
 

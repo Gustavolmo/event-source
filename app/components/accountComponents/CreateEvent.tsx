@@ -129,20 +129,91 @@ export default function CreateEvent({ redirectToInbox }: Props) {
       }
 
       handleOpenDialogue();
-      // handleAddEventToDb();
-      // clearForm();
+      handleAddEventToDb();
+      clearForm();
     }
   };
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!eventData.multiDayCheck) {
+    if (eventData.eventCheck && !eventData.multiDayCheck) {
       const startTime = new Date(`2000-01-01T${eventData.eventTime}`);
       const endTime = new Date(`2000-01-01T${eventData.eventEndTime}`);
+
       if (endTime <= startTime) {
-        alert('Starting time must be before the ending time (tip: if you end at 00:00 you must specify the event ends the next day)')
-        return
+        alert(
+          'Starting time must be before the ending time (tip: if you end at 00:00 you must specify the event ends the next day)'
+        );
+        return;
+      }
+    }
+
+    if (eventData.eventCheck && eventData.multiDayCheck) {
+      const startDate = new Date(eventData.eventDate);
+      const endDate = new Date(eventData.eventEndDate);
+
+      if (endDate <= startDate) {
+        alert('Ending date must be after starting date');
+        return;
+      }
+    }
+
+    if (eventData.transportCheck && eventData.eventCheck) {
+      const pickupDate = new Date(eventData.pickupDate);
+      const eventDate = new Date(eventData.eventDate);
+      if (eventDate < pickupDate) {
+        alert('Pickup date cannot be after the event date');
+        return;
+      }
+
+      const pickupTime = new Date(`2000-01-01T${eventData.pickupTime}`);
+      const eventTime = new Date(`2000-01-01T${eventData.eventTime}`);
+      if (eventTime <= pickupTime) {
+        alert('Pickup time must be before starting time');
+        return;
+      }
+
+      if (eventData.multiDayCheck && eventData.roundTripCheck) {
+        const eventEndDate = new Date(eventData.eventEndDate);
+        const returnDate = new Date(eventData.returnDate);
+        if(returnDate < eventEndDate) {
+          alert('Transport return cannot be before the event end date')
+          return
+        }
+      }
+
+      if (!eventData.multiDayCheck && eventData.roundTripCheck) {
+        const eventDate = new Date(eventData.eventDate);
+        const returnDate = new Date(eventData.returnDate);
+        if(returnDate < eventDate) {
+          alert('Transport return cannot be before the event')
+          return
+        }
+
+        const eventTime = new Date(`2000-01-01T${eventData.eventTime}`);
+        const returnTime = new Date(`2000-01-01T${eventData.returnTime}`);
+        if (returnTime < eventTime) {
+          alert('Transport back cannot happen before the event starts')
+          return
+        }
+      }
+    }
+
+    if (eventData.transportCheck && eventData.roundTripCheck) {
+      const pickupDate = new Date(`2000-01-01T${eventData.pickupDate}`);
+      const returnDate = new Date(`2000-01-01T${eventData.returnDate}`);
+      if (returnDate < pickupDate) {
+        alert('Transport return date must be the same or after pickup date');
+        return;
+      }
+      if (pickupDate === returnDate) {
+        const pickupTime = new Date(`2000-01-01T${eventData.pickupTime}`);
+        const returnTime = new Date(`2000-01-01T${eventData.returnTime}`);
+        if (returnTime <= pickupTime) {
+          alert('Transport return time must be after pickup time');
+          return;
+        }
       }
     }
 
