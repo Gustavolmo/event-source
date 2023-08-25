@@ -32,8 +32,8 @@ export default function AccountPage() {
     localStorage.setItem('lastSelection', e.currentTarget.name);
   };
 
-  const redirectToInbox = () => {
-    setSelection(inbox);
+  const redirectTo = () => {
+    setSelection(create);
   };
 
   if (status !== 'authenticated') {
@@ -65,20 +65,20 @@ export default function AccountPage() {
           nameValue={sent}
         />
 
-        <DashboardButton
+        {/* <DashboardButton
           selectionHandler={selectionHandler}
           selection={selection}
           nameValue={inbox}
-        />
+        /> */}
       </header>
 
       <section className="account-components">
         {selection === profile && <MyInfo />}
         {selection === create && (
-          <CreateEvent redirectToInbox={redirectToInbox} />
+          <CreateEvent redirectTo={redirectTo} />
         )}
         {selection === sent && <ManageEvent />}
-        {selection === inbox && <MyInvitation />}
+        {/* {selection === inbox && <MyInvitation />} */}
       </section>
     </>
   );

@@ -23,7 +23,6 @@ const translateInboundEvent = async (eventData: EventData) => {
 <br>
 <b>ABOUT:</b> ${eventData.transportDescription}
 <br>
-<b>RESERVE A SEAT?</b><br> event-sauce.vercel.app/account
 <b>ADD DIET RESTRICTIONS & MORE?</b><br> event-sauce.vercel.app/account`;
 
   calendarEvent.location = eventData.pickupLocation;
@@ -103,7 +102,6 @@ const translateFromEvent = async (eventData: EventData) => {
 <br>
 <b>ABOUT:</b> ${eventData.transportDescription}
 <br>
-<b>RESERVE A SEAT?</b> <br>event-sauce.vercel.app/account
 <b>ADD DIET RESTRICTIONS & MORE?</b> <br>event-sauce.vercel.app/account`;
 
   calendarEvent.location = eventData.dropOffLocation;

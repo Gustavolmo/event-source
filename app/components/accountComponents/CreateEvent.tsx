@@ -16,10 +16,10 @@ import {
 } from '@/app-library/GoogleCalendarControls/createGoogleEvent';
 
 type Props = {
-  redirectToInbox: Function;
+  redirectTo: Function;
 };
 
-export default function CreateEvent({ redirectToInbox }: Props) {
+export default function CreateEvent({ redirectTo }: Props) {
   const [openDialogue, setOpenDialogue] = useState(false);
   const { data: session } = useSession();
   const [invitedEmails, setInvitedEmails] = useState<string[]>([]);
@@ -67,7 +67,7 @@ export default function CreateEvent({ redirectToInbox }: Props) {
   };
 
   const handleCloseDialogue = () => {
-    redirectToInbox();
+    redirectTo();
     setOpenDialogue(false);
   };
 
