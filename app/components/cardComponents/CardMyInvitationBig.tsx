@@ -22,20 +22,20 @@ type Props = {
   handleLeaveRide: MouseEventHandler<HTMLButtonElement>;
   handleUpdateClick: Function;
   handleListToggle: Function;
-  seeGuests: boolean,
-  setSeeGuests: Function,
-  seeAccepted: boolean,
-  setSeeAccepted: Function,
-  seeVirtual: boolean,
-  setSeeVirtual: Function,
-  seeRejected: boolean,
-  setSeeRejected: Function,
-  seeAboutEvent: boolean,
-  setSeeAboutEvent: Function,
-  seePax: boolean,
-  setSeePax: Function,
-  seeAboutTransit: boolean,
-  setSeeAboutTransit: Function,
+  seeGuests: boolean;
+  setSeeGuests: Function;
+  seeAccepted: boolean;
+  setSeeAccepted: Function;
+  seeVirtual: boolean;
+  setSeeVirtual: Function;
+  seeRejected: boolean;
+  setSeeRejected: Function;
+  seeAboutEvent: boolean;
+  setSeeAboutEvent: Function;
+  seePax: boolean;
+  setSeePax: Function;
+  seeAboutTransit: boolean;
+  setSeeAboutTransit: Function;
   handleOpenDialogue: MouseEventHandler<HTMLButtonElement>;
   handleCloseDialogue: MouseEventHandler<HTMLButtonElement>;
   deleteInvitation: MouseEventHandler<HTMLButtonElement>;
@@ -69,7 +69,7 @@ export default function CardMyInvitationBig({
   handleOpenDialogue,
   handleCloseDialogue,
   deleteInvitation,
-  openDialogue
+  openDialogue,
 }: Props) {
   const { data: session } = useSession();
   return (
@@ -99,15 +99,13 @@ export default function CardMyInvitationBig({
               text="Accept"
             />
 
-            {event.googleLinkCheck && (
-              <AnswerInvitationButton
-                handleChoice={handleAcceptVirtually}
-                listChoice={event.acceptedVirtually}
-                userEmail={session?.user?.email}
-                buttonType="action-button-positive"
-                text="Remote"
-              />
-            )}
+            <AnswerInvitationButton
+              handleChoice={handleAcceptVirtually}
+              listChoice={event.maybeAccepted}
+              userEmail={session?.user?.email}
+              buttonType="action-button-positive"
+              text="Maybe"
+            />
 
             <AnswerInvitationButton
               handleChoice={handleReject}
@@ -149,22 +147,20 @@ export default function CardMyInvitationBig({
               buttonTitle={'Yeap!'}
             />
 
-            {event.googleLinkCheck && (
-              <ToggleList
-                handleListToggle={() =>
-                  handleListToggle(seeVirtual, setSeeVirtual)
-                }
-                seeList={seeVirtual}
-                setSeeList={setSeeVirtual}
-                hasAddGuest={false}
-                hasDetails={false}
-                funcUpdateClick={handleUpdateClick}
-                event={event}
-                listChoice={event.acceptedVirtually}
-                listName="acceptedVirtually"
-                buttonTitle={'Remote'}
-              />
-            )}
+            <ToggleList
+              handleListToggle={() =>
+                handleListToggle(seeVirtual, setSeeVirtual)
+              }
+              seeList={seeVirtual}
+              setSeeList={setSeeVirtual}
+              hasAddGuest={false}
+              hasDetails={false}
+              funcUpdateClick={handleUpdateClick}
+              event={event}
+              listChoice={event.maybeAccepted}
+              listName="maybeAccepted"
+              buttonTitle={'Maybe'}
+            />
 
             <ToggleList
               handleListToggle={() =>
@@ -189,9 +185,12 @@ export default function CardMyInvitationBig({
                 <p className="--text12px">{event.eventLocation}</p>
               </section>
 
-              {event.rsvpCheck && <section className="manage__info --gray-shading">
-                <b>RSVP:</b> <p>Guests will be reminded on:  {event.eventRSVP}</p>
-              </section>}
+              {event.rsvpCheck && (
+                <section className="manage__info --gray-shading">
+                  <b>RSVP:</b>{' '}
+                  <p>Guests will be reminded on: {event.eventRSVP}</p>
+                </section>
+              )}
 
               <GoogleMeetLink event={event} meetLink="/" />
 

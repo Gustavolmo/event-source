@@ -39,7 +39,7 @@ export const updateEventInDb = async (
           eventRSVP: event.eventRSVP,
           eventCost: event.eventCost,
           acceptedLive: event.acceptedLive,
-          acceptedVirtually: event.acceptedVirtually,
+          maybeAccepted: event.maybeAccepted,
           rejected: event.rejected,
           googleLinkCheck: event.googleLinkCheck,
           rsvpCheck: event.rsvpCheck,
@@ -91,7 +91,7 @@ export const addGuestToListController = async (
     switch (listName) {
       case 'acceptedLive':
         if (event && !event.acceptedLive.includes(userEmail)) {
-          await removeGuestFromList(userEmail, eventId, 'acceptedVirtually');
+          await removeGuestFromList(userEmail, eventId, 'maybeAccepted');
           await removeGuestFromList(userEmail, eventId, 'rejected');
           await eventCollection.updateOne(
             { _id: new ObjectId(eventId) },
@@ -100,8 +100,8 @@ export const addGuestToListController = async (
         }
         break;
 
-      case 'acceptedVirtually':
-        if (event && !event.acceptedVirtually.includes(userEmail)) {
+      case 'maybeAccepted':
+        if (event && !event.maybeAccepted.includes(userEmail)) {
           await removeGuestFromList(userEmail, eventId, 'acceptedLive');
           await removeGuestFromList(userEmail, eventId, 'rejected');
           await eventCollection.updateOne(
@@ -114,7 +114,7 @@ export const addGuestToListController = async (
       case 'rejected':
         if (event && !event.rejected.includes(userEmail)) {
           await removeGuestFromList(userEmail, eventId, 'acceptedLive');
-          await removeGuestFromList(userEmail, eventId, 'acceptedVirtually');
+          await removeGuestFromList(userEmail, eventId, 'maybeAccepted');
           await eventCollection.updateOne(
             { _id: new ObjectId(eventId) },
             { $push: { [listName]: userEmail } }

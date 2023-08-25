@@ -46,7 +46,7 @@ export const defaultFormValues: EventData = {
   eventRSVP:'',
   eventCost: 0,
   acceptedLive: [],
-  acceptedVirtually: [],
+  maybeAccepted: [],
   rejected: [],
   transportMode: '',
   transportCost: 0,

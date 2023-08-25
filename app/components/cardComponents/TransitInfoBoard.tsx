@@ -13,7 +13,7 @@ export default function TransitInfoBoard(
     {showTime && <p className="--centered-text">
       {' '}
       {event.roundTripCheck ? 'Round trip' : 'One-way trip'} &#9201;{' '}
-      {event.travelTime}
+      {event.travelTime} min
     </p>}
     {event.roundTripCheck ? (
       <section className="manage__info-time-date">

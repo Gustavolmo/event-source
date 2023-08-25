@@ -8,13 +8,13 @@ import { EventData } from '@/app-types/types';
 import { MouseEventHandler } from 'react';
 
 type Props = {
-  event: EventData
-  handleEventToggle: MouseEventHandler<HTMLButtonElement>
-  handleAccept: MouseEventHandler<HTMLButtonElement>
-  handleAcceptVirtually: MouseEventHandler<HTMLButtonElement>
-  handleReject: MouseEventHandler<HTMLButtonElement>
-  handleJoinRide: MouseEventHandler<HTMLButtonElement>
-  handleLeaveRide: MouseEventHandler<HTMLButtonElement>
+  event: EventData;
+  handleEventToggle: MouseEventHandler<HTMLButtonElement>;
+  handleAccept: MouseEventHandler<HTMLButtonElement>;
+  handleAcceptVirtually: MouseEventHandler<HTMLButtonElement>;
+  handleReject: MouseEventHandler<HTMLButtonElement>;
+  handleJoinRide: MouseEventHandler<HTMLButtonElement>;
+  handleLeaveRide: MouseEventHandler<HTMLButtonElement>;
 };
 
 export default function CardMyInvitationSmall({
@@ -55,15 +55,13 @@ export default function CardMyInvitationSmall({
                 text="Accept"
               />
 
-              {event.googleLinkCheck && (
-                <AnswerInvitationButton
-                  handleChoice={handleAcceptVirtually}
-                  listChoice={event.acceptedVirtually}
-                  userEmail={session?.user?.email}
-                  buttonType="action-button-positive"
-                  text="Remote"
-                />
-              )}
+              <AnswerInvitationButton
+                handleChoice={handleAcceptVirtually}
+                listChoice={event.maybeAccepted}
+                userEmail={session?.user?.email}
+                buttonType="action-button-positive"
+                text="Maybe"
+              />
 
               <AnswerInvitationButton
                 handleChoice={handleReject}

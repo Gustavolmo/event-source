@@ -49,7 +49,7 @@ export type EventData = {
   eventRSVP: string;
   eventCost: number;
   acceptedLive: string[];
-  acceptedVirtually: string[];
+  maybeAccepted: string[];
   rejected: string[];
   transportMode: string;
   transportCost: number;

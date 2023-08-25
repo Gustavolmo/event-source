@@ -117,7 +117,6 @@ export default function CardManageBig({
               buttonTitle={'Yeap!'}
             />
 
-            {event.googleLinkCheck && (
               <ToggleList
                 handleListToggle={() =>
                   handleListToggle(seeVirtual, setSeeVirtual)
@@ -128,11 +127,10 @@ export default function CardManageBig({
                 hasDetails={false}
                 funcUpdateClick={funcUpdateClick}
                 event={event}
-                listChoice={event.acceptedVirtually}
-                listName="acceptedVirtually"
-                buttonTitle={'Remote'}
+                listChoice={event.maybeAccepted}
+                listName="maybeAccepted"
+                buttonTitle={'Maybe?'}
               />
-            )}
 
             <ToggleList
               handleListToggle={() =>

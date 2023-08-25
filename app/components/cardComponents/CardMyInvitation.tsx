@@ -32,7 +32,7 @@ export default function CardMyInvitation({ event, handleUpdateClick }: Props) {
   const deleteInvitation = () => {
     handleUpdateClick();
     removeGuestFromList(session?.user?.email, event._id, 'invited');
-    removeGuestFromList(session?.user?.email, event._id, 'acceptedVirtually');
+    removeGuestFromList(session?.user?.email, event._id, 'maybeAccepted');
     removeGuestFromList(session?.user?.email, event._id, 'rejected');
     removeGuestFromList(session?.user?.email, event._id, 'acceptedLive');
     removeGuestFromList(session?.user?.email, event._id, 'passengers');
@@ -55,7 +55,7 @@ export default function CardMyInvitation({ event, handleUpdateClick }: Props) {
     addGuestToListController(
       session?.user?.email,
       event._id,
-      'acceptedVirtually'
+      'maybeAccepted'
     );
     handleUpdateClick();
   };
