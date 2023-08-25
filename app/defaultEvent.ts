@@ -59,5 +59,6 @@ export const defaultFormValues: EventData = {
   returnTime: '',
   returnDate: '',
   seatsAvailable: 0,
-  passengers: [],
+  passengersInbound: [],
+  passengersOutbound: []
 };

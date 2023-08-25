@@ -54,7 +54,8 @@ export const updateEventInDb = async (
           returnTime: event.returnTime,
           returnDate: event.returnDate,
           seatsAvailable: event.seatsAvailable,
-          passengers: event.passengers,
+          passengersInbound: event.passengersInbound,
+          passengersOutbound: event.passengersOutbound,
         },
       }
     );
@@ -122,8 +123,17 @@ export const addGuestToListController = async (
         }
         break;
 
-      case 'passengers':
-        if (event && !event.passengers.includes(userEmail)) {
+      case 'passengersInbound':
+        if (event && !event.passengersInbound.includes(userEmail)) {
+          await eventCollection.updateOne(
+            { _id: new ObjectId(eventId) },
+            { $push: { [listName]: userEmail } }
+          );
+        }
+        break;
+
+      case 'passengersOutbound':
+        if (event && !event.passengersOutbound.includes(userEmail)) {
           await eventCollection.updateOne(
             { _id: new ObjectId(eventId) },
             { $push: { [listName]: userEmail } }

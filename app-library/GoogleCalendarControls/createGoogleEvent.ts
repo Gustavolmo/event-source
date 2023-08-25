@@ -185,5 +185,5 @@ export const createFromGoogleEvent = async (
     newEvent
   );
 
-  return googleFromRes;
+  return googleFromRes as GoogleCalendarEvent;
 };

@@ -11,6 +11,7 @@ import TransitInfoBoard from './TransitInfoBoard';
 import JoinRideButton from './JoinRideButton';
 import DeleteButton from '../buttonComponents/DeleteButton';
 import ConfirmDeletionDialogue from '../dialogueComponents/ConfirmDeletionDialogue';
+import JoinRideOutboundButton from './JoinRideOutboundButton';
 
 type Props = {
   event: EventData;
@@ -18,8 +19,10 @@ type Props = {
   handleAccept: MouseEventHandler<HTMLButtonElement>;
   handleAcceptVirtually: MouseEventHandler<HTMLButtonElement>;
   handleReject: MouseEventHandler<HTMLButtonElement>;
-  handleJoinRide: MouseEventHandler<HTMLButtonElement>;
-  handleLeaveRide: MouseEventHandler<HTMLButtonElement>;
+  handleJoinRideInbound: MouseEventHandler<HTMLButtonElement>;
+  handleLeaveRideInbound: MouseEventHandler<HTMLButtonElement>;
+  handleJoinRideOutbound: MouseEventHandler<HTMLButtonElement>;
+  handleLeaveRideOutbound: MouseEventHandler<HTMLButtonElement>;
   handleUpdateClick: Function;
   handleListToggle: Function;
   seeGuests: boolean;
@@ -34,6 +37,8 @@ type Props = {
   setSeeAboutEvent: Function;
   seePax: boolean;
   setSeePax: Function;
+  seePaxOutbound: boolean;
+  setSeePaxOutbound: Function;
   seeAboutTransit: boolean;
   setSeeAboutTransit: Function;
   handleOpenDialogue: MouseEventHandler<HTMLButtonElement>;
@@ -48,8 +53,10 @@ export default function CardMyInvitationBig({
   handleAccept,
   handleAcceptVirtually,
   handleReject,
-  handleJoinRide,
-  handleLeaveRide,
+  handleJoinRideInbound,
+  handleLeaveRideInbound,
+  handleJoinRideOutbound,
+  handleLeaveRideOutbound,
   handleUpdateClick,
   handleListToggle,
   seeGuests,
@@ -64,6 +71,8 @@ export default function CardMyInvitationBig({
   setSeeAboutEvent,
   seePax,
   setSeePax,
+  seePaxOutbound,
+  setSeePaxOutbound,
   seeAboutTransit,
   setSeeAboutTransit,
   handleOpenDialogue,
@@ -223,8 +232,8 @@ export default function CardMyInvitationBig({
 
             <JoinRideButton
               event={event}
-              handleJoinRide={handleJoinRide}
-              handleLeaveRide={handleLeaveRide}
+              handleJoinRide={handleJoinRideInbound}
+              handleLeaveRide={handleLeaveRideInbound}
               userEmail={session?.user?.email}
             />
 
@@ -236,18 +245,53 @@ export default function CardMyInvitationBig({
               hasDetails={false}
               funcUpdateClick={handleUpdateClick}
               event={event}
-              listChoice={event.passengers}
-              listName="passengers"
-              buttonTitle={'Passengers'}
+              listChoice={event.passengersInbound}
+              listName="passengersInbound"
+              buttonTitle={'Passengers Inbound'}
             />
 
+            {event.roundTripCheck && (
+              <>
+                <JoinRideOutboundButton
+                  event={event}
+                  handleJoinRide={handleJoinRideOutbound}
+                  handleLeaveRide={handleLeaveRideOutbound}
+                  userEmail={session?.user?.email}
+                />
+
+                <ToggleList
+                  handleListToggle={() =>
+                    handleListToggle(seePaxOutbound, setSeePaxOutbound)
+                  }
+                  seeList={seePaxOutbound}
+                  setSeeList={setSeePaxOutbound}
+                  hasAddGuest={false}
+                  hasDetails={false}
+                  funcUpdateClick={handleUpdateClick}
+                  event={event}
+                  listChoice={event.passengersOutbound}
+                  listName="passengersOutbound"
+                  buttonTitle={'Passengers Outbound'}
+                />
+              </>
+            )}
+
             <section className="manage__info --gray-shading">
-              <b>Seats available:</b>{' '}
+              <b>Seats available Inbound:</b>{' '}
               <p>
-                {event.seatsAvailable - event.passengers.length} out of{' '}
+                {event.seatsAvailable - event.passengersInbound.length} out of{' '}
                 {event.seatsAvailable}
               </p>
             </section>
+
+            <section className="manage__info --gray-shading">
+              <b>Seats available Outbound:</b>{' '}
+              <p>
+                {event.seatsAvailable - event.passengersOutbound.length} out of{' '}
+                {event.seatsAvailable}
+              </p>
+            </section>
+
             <section className="manage__info --gray-shading">
               <b>Vehicle:</b> <p>{event.transportMode}</p>
             </section>

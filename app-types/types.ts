@@ -62,5 +62,6 @@ export type EventData = {
   returnTime: string;
   returnDate: string;
   seatsAvailable: number;
-  passengers: string[];
+  passengersInbound: string[];
+  passengersOutbound: string[];
 };

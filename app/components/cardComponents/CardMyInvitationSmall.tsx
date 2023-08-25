@@ -6,6 +6,7 @@ import JoinRideButton from './JoinRideButton';
 import TransitInfoBoard from './TransitInfoBoard';
 import { EventData } from '@/app-types/types';
 import { MouseEventHandler } from 'react';
+import JoinRideOutboundButton from './JoinRideOutboundButton';
 
 type Props = {
   event: EventData;
@@ -13,8 +14,10 @@ type Props = {
   handleAccept: MouseEventHandler<HTMLButtonElement>;
   handleAcceptVirtually: MouseEventHandler<HTMLButtonElement>;
   handleReject: MouseEventHandler<HTMLButtonElement>;
-  handleJoinRide: MouseEventHandler<HTMLButtonElement>;
-  handleLeaveRide: MouseEventHandler<HTMLButtonElement>;
+  handleJoinRideInbound: MouseEventHandler<HTMLButtonElement>;
+  handleLeaveRideInbound: MouseEventHandler<HTMLButtonElement>;
+  handleJoinRideOutbound: MouseEventHandler<HTMLButtonElement>;
+  handleLeaveRideOutbound: MouseEventHandler<HTMLButtonElement>;
 };
 
 export default function CardMyInvitationSmall({
@@ -23,8 +26,10 @@ export default function CardMyInvitationSmall({
   handleAccept,
   handleAcceptVirtually,
   handleReject,
-  handleJoinRide,
-  handleLeaveRide,
+  handleJoinRideInbound,
+  handleLeaveRideInbound,
+  handleJoinRideOutbound,
+  handleLeaveRideOutbound,
 }: Props) {
   const { data: session } = useSession();
   return (
@@ -83,11 +88,22 @@ export default function CardMyInvitationSmall({
             <div className="--self-centered">
               <JoinRideButton
                 event={event}
-                handleJoinRide={handleJoinRide}
-                handleLeaveRide={handleLeaveRide}
+                handleJoinRide={handleJoinRideInbound}
+                handleLeaveRide={handleLeaveRideInbound}
                 userEmail={session?.user?.email}
               />
             </div>
+
+            {event.roundTripCheck && (
+              <div className="--self-centered">
+                <JoinRideOutboundButton
+                  event={event}
+                  handleJoinRide={handleJoinRideOutbound}
+                  handleLeaveRide={handleLeaveRideOutbound}
+                  userEmail={session?.user?.email}
+                />
+              </div>
+            )}
 
             <div className="--spacer-8px"></div>
             <TransitInfoBoard event={event} showTime={false} />

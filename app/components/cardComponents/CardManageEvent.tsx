@@ -20,6 +20,7 @@ export default function CardManageEvent({
   const [seeVirtual, setSeeVirtual] = useState(false);
   const [seeRejected, setSeeRejected] = useState(false);
   const [seePax, setSeePax] = useState(false);
+  const [seePaxOutbound, setSeePaxOutbound] = useState(false);
   const [seeAboutTransit, setSeeAboutTransit] = useState(false);
   const [seeAboutEvent, setSeeAboutEvent] = useState(false);
   const [toggleCard, setToggleCard] = useState(false);
@@ -89,6 +90,8 @@ export default function CardManageEvent({
       setSeeAboutEvent={setSeeAboutEvent}
       seePax={seePax}
       setSeePax={setSeePax}
+      seePaxOutbound={seePaxOutbound}
+      setSeePaxOutbound={setSeePaxOutbound}
       seeAboutTransit={seeAboutTransit}
       setSeeAboutTransit={setSeeAboutTransit}
       handleOpenDialogue={handleOpenDialogue}
