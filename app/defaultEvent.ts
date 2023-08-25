@@ -24,6 +24,8 @@ export const defaultFormValues: EventData = {
   googleTransitInboundId: '',
   googleTransitFromId: '',
   timeZone: '',
+  googleCalendarLink: '',
+  googleCalendarTripLink: '',
 
   dateCreated: date,
   organizerId: '',

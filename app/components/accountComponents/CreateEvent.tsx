@@ -93,8 +93,8 @@ export default function CreateEvent({ redirectToInbox }: Props) {
           'primary',
           eventData
         );
-        eventData.googleEventId = googleRes.id;
-        eventData.googleCalendarLink = googleRes.htmlLink;
+        eventData.googleEventId = String(googleRes.id);
+        eventData.googleCalendarLink = String(googleRes.htmlLink);
         if (!eventData.googleEventId) {
           alert('Event Not Created, Something went wrong :(');
           return;
@@ -107,8 +107,8 @@ export default function CreateEvent({ redirectToInbox }: Props) {
           'primary',
           eventData
         );
-        eventData.googleTransitInboundId = googleInboundRes.id;
-        eventData.googleCalendarTripLink = googleInboundRes.htmlLink;
+        eventData.googleTransitInboundId = String(googleInboundRes.id);
+        eventData.googleCalendarTripLink = String(googleInboundRes.htmlLink);
         if (!eventData.googleTransitInboundId) {
           alert('Inbound trip Not Created, Something went wrong :(');
           return;
@@ -121,7 +121,7 @@ export default function CreateEvent({ redirectToInbox }: Props) {
           'primary',
           eventData
         );
-        eventData.googleTransitFromId = googleFromRes.id;
+        eventData.googleTransitFromId = String(googleFromRes.id);
         if (!eventData.googleTransitFromId) {
           alert('Outbound trip Not Created, Something went wrong :(');
           return;

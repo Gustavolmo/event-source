@@ -6,14 +6,14 @@ import {
   removeGuestFromList,
 } from '../InvitationControls';
 
-export const getGoogleEventUpdate = async (
+export const getGoogleEventUpdateOutbound = async (
   accessToken: string,
   calendarId: string,
   eventData: EventData[]
 ) => {
   eventData.forEach(async (event) => {
     const googleRes = await fetch(
-      `https://www.googleapis.com/calendar/v3/calendars/${calendarId}/events/${event.googleEventId}`,
+      `https://www.googleapis.com/calendar/v3/calendars/${calendarId}/events/${event.googleTransitFromId}`,
       {
         method: 'GET',
         headers: {
@@ -29,18 +29,13 @@ export const getGoogleEventUpdate = async (
 
       calendarData.attendees.forEach((guest) => {
         if (guest.responseStatus === 'accepted') {
-          addGuestToListController(guest.email, event._id, 'acceptedLive');
-        }
-        if (guest.responseStatus === 'tentative') {
-          addGuestToListController(guest.email, event._id, 'maybeAccepted');
+          addGuestToListController(guest.email, event._id, 'passengersOutbound');
         }
         if (guest.responseStatus === 'declined') {
-          addGuestToListController(guest.email, event._id, 'rejected');
+          removeGuestFromList(guest.email, event._id, 'passengersOutbound');
         }
         if (guest.responseStatus === 'needsAction') {
-          removeGuestFromList(guest.email, event._id, 'acceptedLive');
-          removeGuestFromList(guest.email, event._id, 'maybeAccepted');
-          removeGuestFromList(guest.email, event._id, 'rejected');
+          removeGuestFromList(guest.email, event._id, 'passengersOutbound');
         }
       });
     } else {

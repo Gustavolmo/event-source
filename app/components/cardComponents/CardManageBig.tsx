@@ -222,8 +222,8 @@ export default function CardManageBig({
                 handleListToggle={() =>
                   handleListToggle(seePaxOutbound, setSeePaxOutbound)
                 }
-                seeList={seePax}
-                setSeeList={setSeePax}
+                seeList={seePaxOutbound}
+                setSeeList={setSeePaxOutbound}
                 hasAddGuest={false}
                 hasDetails={true}
                 funcUpdateClick={funcUpdateClick}
