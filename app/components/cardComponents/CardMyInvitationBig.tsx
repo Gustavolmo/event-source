@@ -83,7 +83,7 @@ export default function CardMyInvitationBig({
   const { data: session } = useSession();
   return (
     <>
-      <section className="event-card">
+      <section className="event-card ">
         <button
           className="suttle-button absolute-top-left --width60px --grey-text"
           onClick={handleEventToggle}
@@ -98,7 +98,7 @@ export default function CardMyInvitationBig({
           <TitleSection event={event} />
         </section>
 
-        {event.eventCheck && (
+        {/* {event.eventCheck && (
           <section className="answer-invite-buttons">
             <AnswerInvitationButton
               handleChoice={handleAccept}
@@ -124,7 +124,7 @@ export default function CardMyInvitationBig({
               text="Reject"
             />
           </section>
-        )}
+        )} */}
 
         <ToggleList
           handleListToggle={() => handleListToggle(seeGuests, setSeeGuests)}
@@ -230,12 +230,12 @@ export default function CardMyInvitationBig({
 
             <TransitInfoBoard event={event} showTime={true} />
 
-            <JoinRideButton
+            {/* <JoinRideButton
               event={event}
               handleJoinRide={handleJoinRideInbound}
               handleLeaveRide={handleLeaveRideInbound}
               userEmail={session?.user?.email}
-            />
+            /> */}
 
             <ToggleList
               handleListToggle={() => handleListToggle(seePax, setSeePax)}
@@ -252,12 +252,12 @@ export default function CardMyInvitationBig({
 
             {event.roundTripCheck && (
               <>
-                <JoinRideOutboundButton
+                {/* <JoinRideOutboundButton
                   event={event}
                   handleJoinRide={handleJoinRideOutbound}
                   handleLeaveRide={handleLeaveRideOutbound}
                   userEmail={session?.user?.email}
-                />
+                /> */}
 
                 <ToggleList
                   handleListToggle={() =>

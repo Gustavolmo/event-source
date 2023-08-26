@@ -23,7 +23,7 @@ export const defaultFormValues: EventData = {
   googleEventId: '',
   googleTransitInboundId: '',
   googleTransitFromId: '',
-  timeZone: '',
+  timeZone: 'CET',
   googleCalendarLink: '',
   googleCalendarTripLink: '',
 

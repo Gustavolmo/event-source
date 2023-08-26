@@ -34,7 +34,6 @@ export default function EditEvent({
       ...prevState,
       [e.target.name]: e.target.checked,
     }));
-    
   };
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -74,15 +73,27 @@ export default function EditEvent({
             <b className="form__section-title">TRANSPORT</b>
           )}
           {(eventData.eventCheck || eventData.transportCheck) && (
-            <input
-              className="--with-margin-n-8px"
-              type="text"
-              name="eventTitle"
-              placeholder="Title"
-              onChange={handleOnChange}
-              value={eventData.eventTitle}
-              required
-            />
+            <>
+              <input
+                className="--with-margin-n-8px"
+                type="text"
+                name="timeZone"
+                placeholder="Time zone (e.g. CET)"
+                onChange={handleOnChange}
+                value={eventData.timeZone}
+                required
+              />
+
+              <input
+                className="--with-margin-n-8px"
+                type="text"
+                name="eventTitle"
+                placeholder="Title"
+                onChange={handleOnChange}
+                value={eventData.eventTitle}
+                required
+              />
+            </>
           )}
 
           {eventData.eventCheck && (

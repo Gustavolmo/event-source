@@ -5,8 +5,8 @@ import React, { useEffect, useState } from 'react';
 import Loading from '../loadingComponents/Loading';
 import SortNewEvents from '../cardComponents/SortNewEvents';
 import SortOldEvents from '../cardComponents/SortOldEvents';
-import { updateGoogleEvents } from '@/app-library/GoogleCalendarControls/updateGoogleEvents';
 import { useSession } from 'next-auth/react';
+import { updateGoogleEvents } from '@/app-library/GoogleCalendarControls/updateGoogleEvents';
 import { updateGoogleInboundEvent } from '@/app-library/GoogleCalendarControls/updateGoogleInbound';
 import { updateGoogleOutboundEvent } from '@/app-library/GoogleCalendarControls/updateGoogleOutbound';
 

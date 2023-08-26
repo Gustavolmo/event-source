@@ -19,7 +19,7 @@ export default function TitleSection({ event }: Props) {
         </p>
       </section>
 
-      <section className=' --margin-top-32px'>
+      <section className=" --margin-top-32px">
         {event.eventCheck && !event.transportCheck && (
           <b className="form__section-title">
             EVENT <p>{event.eventDate}</p>
@@ -37,6 +37,16 @@ export default function TitleSection({ event }: Props) {
         )}
       </section>
 
+        {event.eventCheck && (
+          <div>
+            See Google <a href={event.googleCalendarLink}>event</a>
+          </div>
+        )}
+        {event.transportCheck && (
+          <div>
+            See Google <a href={event.googleCalendarTripLink}>transport</a>
+          </div>
+        )}
       <div className="--margin12px">
         <h4 className="--red-highlight-text --text20px">
           <b>{event.eventTime}</b> {event.eventTitle}

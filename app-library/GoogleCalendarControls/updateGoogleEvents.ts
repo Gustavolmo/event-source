@@ -6,36 +6,6 @@ import {
   removeGuestFromList,
 } from '../InvitationControls';
 
-// export const getGoogleEventUpdate = async (
-//   accessToken: string,
-//   calendarId: string,
-//   eventData: EventData[]
-// ) => {
-//   eventData.forEach(async (event) => {
-//     const googleRes = await fetch(
-//       `https://www.googleapis.com/calendar/v3/calendars/${calendarId}/events/${event.googleEventId}`,
-//       {
-//         method: 'GET',
-//         headers: {
-//           Authorization: `Bearer ${accessToken}`,
-//           'Content-Type': 'application/json',
-//         },
-//       }
-//     );
-
-//     if (googleRes.ok) {
-//       console.log('Data retrieved successfully');
-//       const calendarData: GoogleEventResponse = await googleRes.json();
-//       console.log(calendarData)
-//       filterAttendence(calendarData, event)
-
-//     } else {
-//       console.error('Failed to get data', googleRes);
-//       return false;
-//     }
-//   });
-// };
-
 const getGoogleEvent = async (
   accessToken: string,
   calendarId: string,
@@ -82,7 +52,9 @@ const filterAttendence = (
   });
 };
 
-const updateEventFromCalendar = () => {};
+const updateEventFromCalendar = (calendarData: GoogleEventResponse, event: EventData) => {
+  
+};
 
 export const updateGoogleEvents = async (
   accessToken: string,

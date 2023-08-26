@@ -177,25 +177,25 @@ export default function CreateEvent({ redirectTo }: Props) {
       if (eventData.multiDayCheck && eventData.roundTripCheck) {
         const eventEndDate = new Date(eventData.eventEndDate);
         const returnDate = new Date(eventData.returnDate);
-        if(returnDate < eventEndDate) {
-          alert('Transport return cannot be before the event end date')
-          return
+        if (returnDate < eventEndDate) {
+          alert('Transport return cannot be before the event end date');
+          return;
         }
       }
 
       if (!eventData.multiDayCheck && eventData.roundTripCheck) {
         const eventDate = new Date(eventData.eventDate);
         const returnDate = new Date(eventData.returnDate);
-        if(returnDate < eventDate) {
-          alert('Transport return cannot be before the event')
-          return
+        if (returnDate < eventDate) {
+          alert('Transport return cannot be before the event');
+          return;
         }
 
         const eventTime = new Date(`2000-01-01T${eventData.eventTime}`);
         const returnTime = new Date(`2000-01-01T${eventData.returnTime}`);
         if (returnTime < eventTime) {
-          alert('Transport back cannot happen before the event starts')
-          return
+          alert('Transport back cannot happen before the event starts');
+          return;
         }
       }
     }
@@ -257,15 +257,27 @@ export default function CreateEvent({ redirectTo }: Props) {
           )}
 
           {(eventData.eventCheck || eventData.transportCheck) && (
-            <input
-              className="--with-margin-n-8px"
-              type="text"
-              name="eventTitle"
-              placeholder="Title"
-              onChange={handleOnChange}
-              value={eventData.eventTitle}
-              required
-            />
+            <>
+              <input
+                className="--with-margin-n-8px"
+                type="text"
+                name="timeZone"
+                placeholder="Time zone (e.g. CET)"
+                onChange={handleOnChange}
+                value={eventData.timeZone}
+                required
+              />
+
+              <input
+                className="--with-margin-n-8px"
+                type="text"
+                name="eventTitle"
+                placeholder="Title"
+                onChange={handleOnChange}
+                value={eventData.eventTitle}
+                required
+              />
+            </>
           )}
 
           {eventData.eventCheck && (

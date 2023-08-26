@@ -34,7 +34,7 @@ export default function CardMyInvitationSmall({
   const { data: session } = useSession();
   return (
     <>
-      <section className="event-card">
+      <section className="event-card ">
         <button
           onClick={handleEventToggle}
           className="suttle-button absolute-top-left --width60px"
@@ -49,7 +49,7 @@ export default function CardMyInvitationSmall({
           <TitleSection event={event} />
         </section>
 
-        {event.eventCheck && (
+        {/* {event.eventCheck && (
           <>
             <section className="answer-invite-buttons">
               <AnswerInvitationButton
@@ -77,7 +77,7 @@ export default function CardMyInvitationSmall({
               />
             </section>
           </>
-        )}
+        )} */}
 
         {event.eventCheck && <EventInfoBoard event={event} />}
 
@@ -86,22 +86,22 @@ export default function CardMyInvitationSmall({
             <div className="--spacer-20px"></div>
             {event.eventCheck && <h4>Transport</h4>}
             <div className="--self-centered">
-              <JoinRideButton
+              {/* <JoinRideButton
                 event={event}
                 handleJoinRide={handleJoinRideInbound}
                 handleLeaveRide={handleLeaveRideInbound}
                 userEmail={session?.user?.email}
-              />
+              /> */}
             </div>
 
             {event.roundTripCheck && (
               <div className="--self-centered">
-                <JoinRideOutboundButton
+                {/* <JoinRideOutboundButton
                   event={event}
                   handleJoinRide={handleJoinRideOutbound}
                   handleLeaveRide={handleLeaveRideOutbound}
                   userEmail={session?.user?.email}
-                />
+                /> */}
               </div>
             )}
 

@@ -2,11 +2,123 @@
 import { EventData, User, UserPreferences, DbData } from '@/app-types/types';
 import { client, runMongoDb } from './mongoConnect';
 import { ObjectId } from 'mongodb';
+import { GoogleCalendarEvent } from './GoogleCalendarType';
 
 runMongoDb();
 const databaseName = 'eventsource';
 const collectionEvent = 'event';
 const eventCollection = client.db(databaseName).collection(collectionEvent);
+
+// SYNC INBOUND FROM GOOGLE syncInboundFromGoogle
+export const syncInboundFromGoogle = async (
+  event: EventData,
+  calendarData: GoogleCalendarEvent
+) => {
+  try {
+    if (event.eventCheck) {
+      const startDate = calendarData.start?.dateTime?.slice(0, 10);
+      const endDate = calendarData.end?.dateTime?.slice(0, 10);
+      const startTime = calendarData.start?.dateTime?.slice(11, 16);
+      const endTime = calendarData.end?.dateTime?.slice(11, 16);
+
+      await eventCollection.updateOne(
+        { _id: new ObjectId(event._id) },
+        {
+          $set: {
+
+            // eventLocation: calendarData.location,
+            // eventDate: startDate,
+            // eventTime: startTime,
+            // eventEndDate: endDate,
+            // eventEndTime: endTime,
+            // timeZone: calendarData.start?.timeZone,
+            // invited: calendarData.attendees?.map((guest) => guest.email),
+          },
+        }
+      );
+    }
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+// SYNC OUTBOUND FROM GOOGLE syncOutboundFromGoogle
+export const syncOutboundFromGoogle = async (
+  event: EventData,
+  calendarData: GoogleCalendarEvent
+) => {
+  try {
+    if (event.eventCheck) {
+      const startDate = calendarData.start?.dateTime?.slice(0, 10);
+      const endDate = calendarData.end?.dateTime?.slice(0, 10);
+      const startTime = calendarData.start?.dateTime?.slice(11, 16);
+      const endTime = calendarData.end?.dateTime?.slice(11, 16);
+
+      await eventCollection.updateOne(
+        { _id: new ObjectId(event._id) },
+        {
+          $set: {
+
+            // eventLocation: calendarData.location,
+            // eventDate: startDate,
+            // eventTime: startTime,
+            // eventEndDate: endDate,
+            // eventEndTime: endTime,
+            // timeZone: calendarData.start?.timeZone,
+            // invited: calendarData.attendees?.map((guest) => guest.email),
+          },
+        }
+      );
+    }
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+// SYNC EVENT FROM GOOGLE
+export const syncEventFromGoogle = async (
+  event: EventData,
+  calendarData: GoogleCalendarEvent
+) => {
+  try {
+    if (event.eventCheck) {
+      const startDate = calendarData.start?.dateTime?.slice(0, 10);
+      const endDate = calendarData.end?.dateTime?.slice(0, 10);
+      const startTime = calendarData.start?.dateTime?.slice(11, 16);
+      const endTime = calendarData.end?.dateTime?.slice(11, 16);
+
+      await eventCollection.updateOne(
+        { _id: new ObjectId(event._id) },
+        {
+          $set: {
+            eventTitle: calendarData.summary,
+            eventLocation: calendarData.location,
+            eventDate: startDate,
+            eventTime: startTime,
+            eventEndDate: endDate,
+            eventEndTime: endTime,
+            timeZone: calendarData.start?.timeZone,
+            invited: calendarData.attendees?.map((guest) => guest.email),
+          },
+        }
+      );
+    }
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+
+
+
+
+
+
+
+
+
+
+
 
 // UPDATE AN INVITATION
 export const updateEventInDb = async (
