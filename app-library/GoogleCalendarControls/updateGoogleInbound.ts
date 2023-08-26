@@ -6,41 +6,68 @@ import {
   removeGuestFromList,
 } from '../InvitationControls';
 
-export const getGoogleEventUpdateInbound = async (
+const getGoogleInboundEvent = async (
   accessToken: string,
   calendarId: string,
-  eventData: EventData[]
+  eventInboundId: string
 ) => {
-  eventData.forEach(async (event) => {
-    const googleRes = await fetch(
-      `https://www.googleapis.com/calendar/v3/calendars/${calendarId}/events/${event.googleTransitInboundId}`,
-      {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          'Content-Type': 'application/json',
-        },
-      }
-    );
+  const response = await fetch(
+    `https://www.googleapis.com/calendar/v3/calendars/${calendarId}/events/${eventInboundId}`,
+    {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+      },
+    }
+  );
 
-    if (googleRes.ok) {
-      console.log('Data retrieved successfully');
-      const calendarData: GoogleEventResponse = await googleRes.json();
+  if (response.ok) {
+    const calendarData = await response.json();
+    return calendarData as GoogleEventResponse;
+  } else {
+    throw new Error('Failed to get INBOUND event data');
+  }
+};
 
-      calendarData.attendees.forEach((guest) => {
-        if (guest.responseStatus === 'accepted') {
-          addGuestToListController(guest.email, event._id, 'passengersInbound');
-        }
-        if (guest.responseStatus === 'declined') {
-          removeGuestFromList(guest.email, event._id, 'passengersInbound');
-        }
-        if (guest.responseStatus === 'needsAction') {
-          removeGuestFromList(guest.email, event._id, 'passengersInbound');
-        }
-      });
-    } else {
-      console.error('Failed to get data', googleRes);
-      return false;
+const allocatePassengers = (
+  calendarData: GoogleEventResponse,
+  event: EventData
+) => {
+  calendarData.attendees.forEach((guest) => {
+    if (guest.responseStatus === 'accepted') {
+      addGuestToListController(guest.email, event._id, 'passengersInbound');
+    }
+    if (guest.responseStatus === 'declined') {
+      removeGuestFromList(guest.email, event._id, 'passengersInbound');
+    }
+    if (guest.responseStatus === 'needsAction') {
+      removeGuestFromList(guest.email, event._id, 'passengersInbound');
     }
   });
+};
+
+export const updateGoogleInboundEvent = async (
+  accessToken: string,
+  calendarId: string,
+  events: EventData[]
+) => {
+  try {
+    const promises = events.map(async (event) => {
+      if (typeof event.googleTransitInboundId !== 'boolean') {
+        const calendarData = await getGoogleInboundEvent(
+          accessToken,
+          calendarId,
+          event.googleTransitInboundId
+        );
+        console.log(calendarData);
+        allocatePassengers(calendarData, event);
+      }
+    });
+
+    await Promise.all(promises);
+    console.log('INBOUND events processed successfully.');
+  } catch (error) {
+    console.error('Error updating INBOUND events:', error);
+  }
 };

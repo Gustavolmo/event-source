@@ -5,10 +5,10 @@ import React, { useEffect, useState } from 'react';
 import Loading from '../loadingComponents/Loading';
 import SortNewEvents from '../cardComponents/SortNewEvents';
 import SortOldEvents from '../cardComponents/SortOldEvents';
-import { getGoogleEventUpdate } from '@/app-library/GoogleCalendarControls/updateGoogleEvents';
+import { updateGoogleEvents } from '@/app-library/GoogleCalendarControls/updateGoogleEvents';
 import { useSession } from 'next-auth/react';
-import { getGoogleEventUpdateInbound } from '@/app-library/GoogleCalendarControls/updateGoogleInbound';
-import { getGoogleEventUpdateOutbound } from '@/app-library/GoogleCalendarControls/updateGoogleOutbound';
+import { updateGoogleInboundEvent } from '@/app-library/GoogleCalendarControls/updateGoogleInbound';
+import { updateGoogleOutboundEvent } from '@/app-library/GoogleCalendarControls/updateGoogleOutbound';
 
 export default function ManageEvent() {
   const { data: session, status } = useSession();
@@ -22,9 +22,9 @@ export default function ManageEvent() {
     if (status !== 'authenticated') return;
 
     if (dbData && session.accessToken) {
-      getGoogleEventUpdate(session?.accessToken, 'primary', dbData);
-      getGoogleEventUpdateInbound(session?.accessToken, 'primary', dbData);
-      getGoogleEventUpdateOutbound(session?.accessToken, 'primary', dbData);
+      updateGoogleInboundEvent(session?.accessToken, 'primary', dbData);
+      updateGoogleEvents(session?.accessToken, 'primary', dbData);
+      updateGoogleOutboundEvent(session?.accessToken, 'primary', dbData);
     }
   }, [loading, session]);
 
