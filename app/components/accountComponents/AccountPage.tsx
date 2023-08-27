@@ -33,7 +33,7 @@ export default function AccountPage() {
   };
 
   const redirectTo = () => {
-    setSelection(inbox);
+    setSelection(sent);
   };
 
   if (status !== 'authenticated') {
@@ -65,11 +65,11 @@ export default function AccountPage() {
           nameValue={sent}
         />
 
-        <DashboardButton
+        {/* <DashboardButton
           selectionHandler={selectionHandler}
           selection={selection}
           nameValue={inbox}
-        />
+        /> */}
       </header>
 
       <section className="account-components">
@@ -78,7 +78,7 @@ export default function AccountPage() {
           <CreateEvent redirectTo={redirectTo} />
         )}
         {selection === sent && <ManageEvent />}
-        {selection === inbox && <MyInvitation />}
+        {/* {selection === inbox && <MyInvitation />} */}
       </section>
     </>
   );

@@ -3,6 +3,7 @@ import { EventData } from '@/app-types/types';
 import { GoogleEventResponse } from '../GoogleCalendarType';
 import {
   addGuestToListController,
+  disableEventCheck,
   removeGuestFromList,
   syncEventFromGoogle,
 } from '../InvitationControls';
@@ -54,11 +55,6 @@ const filterAttendence = (
   });
 };
 
-const updateEventFromCalendar = (
-  calendarData: GoogleEventResponse,
-  event: EventData
-) => {};
-
 export const updateGoogleEvents = async (
   accessToken: string,
   calendarId: string,
@@ -66,16 +62,22 @@ export const updateGoogleEvents = async (
 ) => {
   try {
     const promises = events.map(async (event) => {
-      if (typeof event.googleEventId !== 'boolean' && event.eventCheck) {
+      if (typeof event.googleEventId !== 'boolean') {
         const calendarData = await getGoogleEvent(
           accessToken,
           calendarId,
           event.googleEventId
         );
-        // if (calendarData.status === 'cancelled') {
-        //   deleteEventFromDb(event._id)
-        //   return
-        // }
+          console.log(calendarData)
+        if (calendarData.status === 'cancelled') {
+          if (!event.transportCheck && !event.roundTripCheck) {
+            deleteEventFromDb(event._id);
+            return;
+          } else {
+            disableEventCheck(event)
+          }
+        }
+
         console.log('Update event activated');
         filterAttendence(calendarData, event);
         syncEventFromGoogle(calendarData, event);

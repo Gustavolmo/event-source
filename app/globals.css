@@ -110,6 +110,7 @@ p {
 
 a {
   color: rgb(0, 110, 255);
+  text-decoration: none;
 }
 
 /*______________________________________ HIGH-LEVEL */
@@ -167,7 +168,7 @@ a {
 .promo-image-unit {
   border: dashed 2px #fff;
   border-radius: 4px;
-  padding: 16px;
+  padding: 8px;
   background: url(https://www.toptal.com/designers/subtlepatterns/uploads/memphis-mini.png);
 }
 
@@ -358,6 +359,7 @@ a {
 }
 
 .account-buttons {
+  border-top: solid 1px #cccccc;
   z-index: 100;
   position: fixed;
   display: grid;
@@ -369,10 +371,10 @@ a {
   background-color: #fff;
 }
 .page-button {
+  width: 33vw;
   font-size: 16px;
   background-color: #fff;
   border: none;
-  border-top: solid 1px #cccccc;
   color: #ef4b4c;
   height: 60px;
   transition: 0.2s;
@@ -383,10 +385,10 @@ a {
   transition: 0.2s;
 }
 .page-button--selected {
+  width: 33vw;
   font-size: 16px;
   background-color: #fff;
   border: none;
-  border-top: solid 1px #cccccc;
   color: #ef4b4c;
   height: 60px;
   font-weight: bold;

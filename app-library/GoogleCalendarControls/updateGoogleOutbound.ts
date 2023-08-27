@@ -3,9 +3,11 @@ import { EventData } from '@/app-types/types';
 import { GoogleEventResponse } from '../GoogleCalendarType';
 import {
   addGuestToListController,
+  disableRoundTripCheck,
   removeGuestFromList,
   syncOutboundFromGoogle,
 } from '../InvitationControls';
+import { deleteEventFromDb } from '../DbControls';
 
 const getGoogleOutboundEvent = async (
   accessToken: string,
@@ -56,15 +58,23 @@ export const updateGoogleOutboundEvent = async (
   try {
     const promises = events.map(async (event) => {
       if (
-        typeof event.googleTransitFromId !== 'boolean' &&
-        event.transportCheck &&
-        event.roundTripCheck
+        typeof event.googleTransitFromId !== 'boolean'
       ) {
         const calendarData = await getGoogleOutboundEvent(
           accessToken,
           calendarId,
           event.googleTransitFromId
         );
+
+        if (calendarData.status === 'cancelled') {
+          if (!event.eventCheck && !event.transportCheck) {
+            deleteEventFromDb(event._id);
+            return;
+          } else {
+            disableRoundTripCheck(event)
+          }
+        }
+
         console.log('Update OUTBOUND activated');
         console.log('OUTBOUND', calendarData);
         allocatePassengers(calendarData, event);

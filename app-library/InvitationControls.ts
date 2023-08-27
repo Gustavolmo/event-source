@@ -9,6 +9,41 @@ const databaseName = 'eventsource';
 const collectionEvent = 'event';
 const eventCollection = client.db(databaseName).collection(collectionEvent);
 
+// DISABLE EVENT CHECK
+export const disableEventCheck = async (event: EventData) => {
+  try {
+    await eventCollection.updateOne(
+      { googleTransitInboundId: event.googleTransitInboundId },
+      { $set: {eventCheck: false} }
+    );
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+// DISABLE TRANSPORT CHECK
+export const disableTransportCheck = async (event: EventData) => {
+  try {
+    await eventCollection.updateOne(
+      { _id: new ObjectId(event._id) },
+      { $set: {transportCheck: false} }
+    );
+  } catch (e) {
+    console.error(e);
+  }
+};
+// DISABLE RETURN TRIP CHECK
+export const disableRoundTripCheck = async (event: EventData) => {
+  try {
+    await eventCollection.updateOne(
+      { _id: new ObjectId(event._id) },
+      { $set: {roundTripCheck: false} }
+    );
+  } catch (e) {
+    console.error(e);
+  }
+};
+
 // SYNC INBOUND FROM GOOGLE syncInboundFromGoogle
 export const syncInboundFromGoogle = async (
   calendarData: GoogleCalendarEvent,
@@ -20,7 +55,7 @@ export const syncInboundFromGoogle = async (
       const startTime = calendarData.start?.dateTime?.slice(11, 16);
 
       await eventCollection.updateOne(
-        { googleTransitInboundId: event.googleTransitInboundId },
+        { _id: new ObjectId(event._id) },
         {
           $set: {
             pickupLocation: calendarData.location,
@@ -42,16 +77,16 @@ export const syncOutboundFromGoogle = async (
 ) => {
   try {
     if (event.transportCheck && event.roundTripCheck) {
-      const endDate = calendarData.end?.dateTime?.slice(0, 10);
-      const endTime = calendarData.end?.dateTime?.slice(11, 16);
+      const returnDate = calendarData.start?.dateTime?.slice(0, 10);
+      const returnTime = calendarData.start?.dateTime?.slice(11, 16);
 
       await eventCollection.updateOne(
         { googleTransitFromId: event.googleTransitFromId },
         {
           $set: {
             dropOffLocation: calendarData.location,
-            returnDate: endDate,
-            returnTime: endTime,
+            returnDate: returnDate,
+            returnTime: returnTime,
           },
         }
       );

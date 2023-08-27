@@ -73,12 +73,12 @@ export default function CardManageBig({
         >
           Close
         </button>
-        <button
+        {/* <button
           onClick={handleEdit}
           className="action-button absolute-button-top-right"
         >
           Edit
-        </button>
+        </button> */}
 
         <section
           onClick={handleEventToggle}
@@ -91,7 +91,7 @@ export default function CardManageBig({
           handleListToggle={() => handleListToggle(seeGuests, setSeeGuests)}
           seeList={seeGuests}
           setSeeList={setSeeGuests}
-          hasAddGuest={true}
+          hasAddGuest={false}
           hasDetails={true}
           funcUpdateClick={funcUpdateClick}
           event={event}
@@ -280,7 +280,7 @@ export default function CardManageBig({
           </>
         )}
 
-        <DeleteButton
+        {/* <DeleteButton
           handleDelete={handleOpenDialogue}
           mainText="Delete"
           toRight={true}
@@ -289,7 +289,7 @@ export default function CardManageBig({
           handleClose={handleCloseDialogue}
           handleDeleteAsset={handleDelete}
           open={openDialogue}
-        />
+        /> */}
       </section>
     </>
   );
