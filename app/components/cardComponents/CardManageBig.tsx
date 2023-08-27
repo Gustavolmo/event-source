@@ -65,8 +65,6 @@ export default function CardManageBig({
   openDialogue,
 }: Props) {
 
-  console.log(event.passengersInbound)
-
   return (
     <>
       <section className="event-card">

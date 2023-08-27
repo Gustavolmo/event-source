@@ -20,9 +20,9 @@ const date = String(new Date().toDateString());
 export const defaultFormValues: EventData = {
   eventTitle: '',
 
-  googleEventId: '',
-  googleTransitInboundId: '',
-  googleTransitFromId: '',
+  googleEventId: false,
+  googleTransitInboundId: false,
+  googleTransitFromId: false,
   timeZone: 'CET',
   googleCalendarLink: '',
   googleCalendarTripLink: '',

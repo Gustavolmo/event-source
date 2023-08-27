@@ -68,7 +68,7 @@ export const updateGoogleEvents = async (
           calendarId,
           event.googleEventId
         );
-          console.log(calendarData)
+
         if (calendarData.status === 'cancelled') {
           if (!event.transportCheck) {
             deleteEventFromDb(event._id);
