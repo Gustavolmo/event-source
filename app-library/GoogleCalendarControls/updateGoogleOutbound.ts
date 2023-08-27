@@ -4,6 +4,7 @@ import { GoogleEventResponse } from '../GoogleCalendarType';
 import {
   addGuestToListController,
   removeGuestFromList,
+  syncOutboundFromGoogle,
 } from '../InvitationControls';
 
 const getGoogleOutboundEvent = async (
@@ -65,7 +66,9 @@ export const updateGoogleOutboundEvent = async (
           event.googleTransitFromId
         );
         console.log('Update OUTBOUND activated');
+        console.log('OUTBOUND', calendarData);
         allocatePassengers(calendarData, event);
+        syncOutboundFromGoogle(calendarData, event)
       }
     });
 

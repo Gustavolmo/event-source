@@ -11,15 +11,16 @@ const eventCollection = client.db(databaseName).collection(collectionEvent);
 
 // SYNC INBOUND FROM GOOGLE syncInboundFromGoogle
 export const syncInboundFromGoogle = async (
-  event: EventData,
-  calendarData: GoogleCalendarEvent
+  calendarData: GoogleCalendarEvent,
+  event: EventData
 ) => {
   try {
     if (event.transportCheck) {
       const startDate = calendarData.start?.dateTime?.slice(0, 10);
-      const endDate = calendarData.end?.dateTime?.slice(0, 10);
       const startTime = calendarData.start?.dateTime?.slice(11, 16);
-      const endTime = calendarData.end?.dateTime?.slice(11, 16);
+
+      // const endDate = calendarData.end?.dateTime?.slice(0, 10);
+      // const endTime = calendarData.end?.dateTime?.slice(11, 16);
 
       await eventCollection.updateOne(
         { googleTransitInboundId: event.googleTransitInboundId },
@@ -39,15 +40,16 @@ export const syncInboundFromGoogle = async (
 
 // SYNC OUTBOUND FROM GOOGLE syncOutboundFromGoogle
 export const syncOutboundFromGoogle = async (
-  event: EventData,
-  calendarData: GoogleCalendarEvent
+  calendarData: GoogleCalendarEvent,
+  event: EventData
 ) => {
   try {
-    if (event.eventCheck) {
-      const startDate = calendarData.start?.dateTime?.slice(0, 10);
+    if (event.transportCheck && event.roundTripCheck) {
       const endDate = calendarData.end?.dateTime?.slice(0, 10);
-      const startTime = calendarData.start?.dateTime?.slice(11, 16);
       const endTime = calendarData.end?.dateTime?.slice(11, 16);
+      
+      // const startDate = calendarData.start?.dateTime?.slice(0, 10);
+      // const startTime = calendarData.start?.dateTime?.slice(11, 16);
 
       await eventCollection.updateOne(
         { googleTransitFromId: event.googleTransitFromId },
