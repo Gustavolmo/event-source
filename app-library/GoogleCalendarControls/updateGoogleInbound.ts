@@ -64,6 +64,7 @@ export const updateGoogleInboundEvent = async (
           calendarId,
           event.googleTransitInboundId
         );
+        
         console.log('Update INBOUND activated');
         console.log('INBOUND', calendarData);
         allocatePassengers(calendarData, event);

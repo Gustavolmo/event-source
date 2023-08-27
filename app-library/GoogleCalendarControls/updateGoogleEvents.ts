@@ -6,6 +6,7 @@ import {
   removeGuestFromList,
   syncEventFromGoogle,
 } from '../InvitationControls';
+import { deleteEventFromDb } from '../DbControls';
 
 const getGoogleEvent = async (
   accessToken: string,
@@ -71,6 +72,10 @@ export const updateGoogleEvents = async (
           calendarId,
           event.googleEventId
         );
+        // if (calendarData.status === 'cancelled') {
+        //   deleteEventFromDb(event._id)
+        //   return
+        // }
         console.log('Update event activated');
         filterAttendence(calendarData, event);
         syncEventFromGoogle(calendarData, event);

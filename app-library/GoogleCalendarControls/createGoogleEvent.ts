@@ -23,7 +23,7 @@ const translateInboundEvent = async (eventData: EventData) => {
 <br>
 <b>ABOUT:</b> ${eventData.transportDescription}
 <br>
-<b>ADD DIET RESTRICTIONS & MORE?</b><br>event-sauce.vercel.app/account`;
+<b>ADD DIET RESTRICTIONS & MORE ON:</b><br>event-sauce.vercel.app/account`;
 
   calendarEvent.location = eventData.pickupLocation;
 
@@ -61,7 +61,7 @@ const translateEvent = async (eventData: EventData) => {
     calendarEvent.location = eventData.eventLocation;
     calendarEvent.description = `<br><b>Event Fee:</b> ${eventData.eventCost}kr
 <br><b>ABOUT: </b>${eventData.eventDescription}
-<br><br><b>DIET RESTRICTIONS & MORE ON:</b><br><b>event-sauce.vercel.app/account</b>`;
+<br><br><b>DIET RESTRICTIONS & MORE ON:</b><br>event-sauce.vercel.app/account`;
 
     calendarEvent.start = {
       dateTime: startDate.toISOString(),

@@ -1,5 +1,5 @@
 'use server';
-import { EventData, User, UserPreferences, DbData } from '@/app-types/types';
+import { EventData, User } from '@/app-types/types';
 import { client, runMongoDb } from './mongoConnect';
 import { ObjectId } from 'mongodb';
 import { GoogleCalendarEvent, GoogleEventResponse } from './GoogleCalendarType';
@@ -18,9 +18,6 @@ export const syncInboundFromGoogle = async (
     if (event.transportCheck) {
       const startDate = calendarData.start?.dateTime?.slice(0, 10);
       const startTime = calendarData.start?.dateTime?.slice(11, 16);
-
-      // const endDate = calendarData.end?.dateTime?.slice(0, 10);
-      // const endTime = calendarData.end?.dateTime?.slice(11, 16);
 
       await eventCollection.updateOne(
         { googleTransitInboundId: event.googleTransitInboundId },
@@ -47,9 +44,6 @@ export const syncOutboundFromGoogle = async (
     if (event.transportCheck && event.roundTripCheck) {
       const endDate = calendarData.end?.dateTime?.slice(0, 10);
       const endTime = calendarData.end?.dateTime?.slice(11, 16);
-      
-      // const startDate = calendarData.start?.dateTime?.slice(0, 10);
-      // const startTime = calendarData.start?.dateTime?.slice(11, 16);
 
       await eventCollection.updateOne(
         { googleTransitFromId: event.googleTransitFromId },
@@ -99,15 +93,6 @@ export const syncEventFromGoogle = async (
     console.error(e);
   }
 };
-
-
-
-
-
-
-
-
-
 
 // UPDATE AN INVITATION
 export const updateEventInDb = async (
