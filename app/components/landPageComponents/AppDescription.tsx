@@ -1,12 +1,12 @@
 'use client';
 import React from 'react';
 import Image from 'next/image';
-import createEvent from '../../assets/create-events.png'
-import googleSync from '../../assets/google-sync.png'
-import manageGuest from '../../assets/manage-guests.png'
-import guestPreferences from '../../assets/guest-preference.png'
-import answerOnGoogle from '../../assets/answer-on-google.png'
-import guestsInCard from '../../assets/guests-in-card.png'
+import createEvent from '../../assets/create-events.png';
+import googleSync from '../../assets/google-sync.png';
+import manageGuest from '../../assets/manage-guests.png';
+import guestPreferences from '../../assets/guest-preference.png';
+import answerOnGoogle from '../../assets/answer-on-google.png';
+import guestsInCard from '../../assets/guests-in-card.png';
 
 import { signIn } from 'next-auth/react';
 
@@ -17,14 +17,13 @@ export default async function AppDescription() {
       <header className="app-description">
         <h1>
           Welcome to <i className="--red-highlight-text">EventSauce</i>
-        <p>Free & Open-source Event Managment</p>
+          <p>Free & Open-source Event Managment</p>
         </h1>
-        
-        
+
         <button className="action-button --text12px" onClick={() => signIn()}>
           Try our Beta
         </button>
-        
+
         <h1>Features</h1>
 
         <p>Keep track of guest lists</p>
@@ -47,7 +46,7 @@ export default async function AppDescription() {
         </div>
 
         <div className="promo-image">
-          <p className="promo-title">Sync with Google</p>
+          <p className="promo-title">Sync with & edit on Google</p>
           <Image
             className="promo-image-unit"
             src={googleSync}
@@ -66,22 +65,20 @@ export default async function AppDescription() {
             width={width}
             loading="eager"
           />
-          <Image
-            className="promo-image-unit"
-            src={guestsInCard}
-            alt="invitations"
-            width={width}
-            loading="eager"
-          />
-          
         </div>
+        <Image
+          className="promo-image-unit"
+          src={guestsInCard}
+          alt="invitations"
+          width={width}
+          loading="eager"
+        />
       </section>
 
       <h2 className="--promo-text-highlight">FOR GUESTS</h2>
       <section className="app-description__section">
-
         <div className="promo-image">
-          <p className="promo-title">Add  Preferences</p>
+          <p className="promo-title">Add Preferences</p>
           <Image
             className="promo-image-unit"
             src={guestPreferences}

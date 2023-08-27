@@ -47,6 +47,7 @@ export default function ManageEvent() {
 
   return (
     <>
+      <i>*Events updated on google may take time to update in the app</i>
       <h2 className="promo-image">MANAGE EVENTS</h2>
       <SortNewEvents
         dbData={dbData}

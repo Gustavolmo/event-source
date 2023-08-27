@@ -70,7 +70,7 @@ export const updateGoogleEvents = async (
         );
           console.log(calendarData)
         if (calendarData.status === 'cancelled') {
-          if (!event.transportCheck && !event.roundTripCheck) {
+          if (!event.transportCheck) {
             deleteEventFromDb(event._id);
             return;
           } else {

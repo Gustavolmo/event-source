@@ -211,6 +211,15 @@ export const addGuestToListController = async (
     const event = await eventCollection.findOne({ _id: new ObjectId(eventId) });
 
     switch (listName) {
+      case 'invited':
+        if (event && !event.invited.includes(userEmail)) {
+          await eventCollection.updateOne(
+            { _id: new ObjectId(eventId) },
+            { $push: { [listName]: userEmail } }
+          );
+        }
+        break;
+
       case 'acceptedLive':
         if (event && !event.acceptedLive.includes(userEmail)) {
           await removeGuestFromList(userEmail, eventId, 'maybeAccepted');

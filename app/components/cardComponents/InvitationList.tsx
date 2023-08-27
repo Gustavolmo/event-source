@@ -23,16 +23,16 @@ export default function InvitationList({
 }: Props) {
   const { dbData, loading } = useDbQuery(getUserPreferences, guest);
   const [expand, setExpand] = useState(false);
-  const [seeDelete, setSeeDelete] = useState(false);
+  // const [seeDelete, setSeeDelete] = useState(false);
 
-  const handleRemoveGuest: React.MouseEventHandler<HTMLElement> = () => {
-    removeGuestFromList(guest, event._id, listName);
-    funcUpdateClick();
-  };
+  // const handleRemoveGuest: React.MouseEventHandler<HTMLElement> = () => {
+  //   removeGuestFromList(guest, event._id, listName);
+  //   funcUpdateClick();
+  // };
 
-  const handleGuestClick = () => {
-    setSeeDelete(!seeDelete);
-  };
+  // const handleGuestClick = () => {
+  //   setSeeDelete(!seeDelete);
+  // };
 
   const hadnleExpandRestrictions = () => {
     setExpand(!expand);
@@ -49,21 +49,21 @@ export default function InvitationList({
           {!details && (
             <div>
               {/* ZZZ ... */}
-              <b>{dbData[0].name}</b> 
+              <b>{dbData[0].name}</b>
             </div>
           )}
 
           {details && (
-            <div onClick={handleGuestClick} className="--pointer-hover">
+            <div>
               <b>{dbData[0].name}</b>
-              {seeDelete && (
+              {/* {seeDelete && (
                 <b
                   className="delete-guest  --pointer-hover"
                   onClick={handleRemoveGuest}
                 >
                   X
                 </b>
-              )}
+              )} */}
             </div>
           )}
           {details &&
@@ -73,8 +73,8 @@ export default function InvitationList({
                 className="restriction-alert"
               >
                 {dbData[0].dietaryRestrictions && <span>&#127860;</span>}
-                {dbData[0].accessibilityNeeds && <span>&#127939;</span>}
-                ! Restrictions
+                {dbData[0].accessibilityNeeds && <span>&#127939;</span>}!
+                Restrictions
               </p>
             )}
         </article>
@@ -106,26 +106,28 @@ export default function InvitationList({
   }
 
   if (!dbData) {
-    return details ? (
-      <article className="restriction-alert-wrapper">
-        <div onClick={handleGuestClick} className="--pointer-hover">
-          <b>
-            {guest}
-          </b>
-          {seeDelete && (
-            <b
-              className="delete-guest --pointer-hover"
-              onClick={handleRemoveGuest}
-            >
-              X
-            </b>
-          )}
-        </div>
-      </article>
-    ) : (
+    return (
       <article className="--with-margin-n-8px">
         <b>{guest}</b>
       </article>
     );
+    // return details ? (
+    //   <article className="restriction-alert-wrapper">
+    //     <div onClick={handleGuestClick} className="--pointer-hover">
+    //       <b>
+    //         {guest}
+    //       </b>
+    //       {seeDelete && (
+    //         <b
+    //           className="delete-guest --pointer-hover"
+    //           onClick={handleRemoveGuest}
+    //         >
+    //           X
+    //         </b>
+    //       )}
+    //     </div>
+    //   </article>
+    // ) : (
+    // );
   }
 }
