@@ -54,13 +54,16 @@ export const updateGoogleInboundEvent = async (
 ) => {
   try {
     const promises = events.map(async (event) => {
-      if (typeof event.googleTransitInboundId !== 'boolean') {
+      if (
+        typeof event.googleTransitInboundId !== 'boolean' &&
+        event.transportCheck
+      ) {
         const calendarData = await getGoogleInboundEvent(
           accessToken,
           calendarId,
           event.googleTransitInboundId
         );
-        console.log(calendarData);
+        console.log('Update INBOUND activated');
         allocatePassengers(calendarData, event);
       }
     });

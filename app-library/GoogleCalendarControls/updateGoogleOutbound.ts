@@ -54,13 +54,17 @@ export const updateGoogleOutboundEvent = async (
 ) => {
   try {
     const promises = events.map(async (event) => {
-      if (typeof event.googleTransitFromId !== 'boolean') {
+      if (
+        typeof event.googleTransitFromId !== 'boolean' &&
+        event.transportCheck &&
+        event.roundTripCheck
+      ) {
         const calendarData = await getGoogleOutboundEvent(
           accessToken,
           calendarId,
           event.googleTransitFromId
         );
-        console.log(calendarData);
+        console.log('Update OUTBOUND activated');
         allocatePassengers(calendarData, event);
       }
     });

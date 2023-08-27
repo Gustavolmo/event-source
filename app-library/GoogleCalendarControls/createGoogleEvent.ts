@@ -29,11 +29,11 @@ const translateInboundEvent = async (eventData: EventData) => {
 
   calendarEvent.start = {
     dateTime: startDate.toISOString(),
-    timeZone: 'CET',
+    timeZone: eventData.timeZone,
   };
   calendarEvent.end = {
     dateTime: endDate.toISOString(),
-    timeZone: 'CET',
+    timeZone: eventData.timeZone,
   };
 
   return calendarEvent as GoogleCalendarEvent;

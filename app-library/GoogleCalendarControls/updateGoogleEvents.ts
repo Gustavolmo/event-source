@@ -4,6 +4,7 @@ import { GoogleEventResponse } from '../GoogleCalendarType';
 import {
   addGuestToListController,
   removeGuestFromList,
+  syncEventFromGoogle,
 } from '../InvitationControls';
 
 const getGoogleEvent = async (
@@ -52,9 +53,10 @@ const filterAttendence = (
   });
 };
 
-const updateEventFromCalendar = (calendarData: GoogleEventResponse, event: EventData) => {
-  
-};
+const updateEventFromCalendar = (
+  calendarData: GoogleEventResponse,
+  event: EventData
+) => {};
 
 export const updateGoogleEvents = async (
   accessToken: string,
@@ -63,14 +65,15 @@ export const updateGoogleEvents = async (
 ) => {
   try {
     const promises = events.map(async (event) => {
-      if (typeof event.googleEventId !== 'boolean') {
+      if (typeof event.googleEventId !== 'boolean' && event.eventCheck) {
         const calendarData = await getGoogleEvent(
           accessToken,
           calendarId,
           event.googleEventId
         );
-        console.log(calendarData)
+        console.log('Update event activated');
         filterAttendence(calendarData, event);
+        syncEventFromGoogle(calendarData, event);
       }
     });
 
@@ -80,4 +83,3 @@ export const updateGoogleEvents = async (
     console.error('Error updating events:', error);
   }
 };
-

@@ -2,7 +2,7 @@
 import { EventData, User, UserPreferences, DbData } from '@/app-types/types';
 import { client, runMongoDb } from './mongoConnect';
 import { ObjectId } from 'mongodb';
-import { GoogleCalendarEvent } from './GoogleCalendarType';
+import { GoogleCalendarEvent, GoogleEventResponse } from './GoogleCalendarType';
 
 runMongoDb();
 const databaseName = 'eventsource';
@@ -15,24 +15,19 @@ export const syncInboundFromGoogle = async (
   calendarData: GoogleCalendarEvent
 ) => {
   try {
-    if (event.eventCheck) {
+    if (event.transportCheck) {
       const startDate = calendarData.start?.dateTime?.slice(0, 10);
       const endDate = calendarData.end?.dateTime?.slice(0, 10);
       const startTime = calendarData.start?.dateTime?.slice(11, 16);
       const endTime = calendarData.end?.dateTime?.slice(11, 16);
 
       await eventCollection.updateOne(
-        { _id: new ObjectId(event._id) },
+        { googleTransitInboundId: event.googleTransitInboundId },
         {
           $set: {
-
-            // eventLocation: calendarData.location,
-            // eventDate: startDate,
-            // eventTime: startTime,
-            // eventEndDate: endDate,
-            // eventEndTime: endTime,
-            // timeZone: calendarData.start?.timeZone,
-            // invited: calendarData.attendees?.map((guest) => guest.email),
+            pickupLocation: calendarData.location,
+            pickupDate: startDate,
+            pickupTime: startTime,
           },
         }
       );
@@ -55,17 +50,12 @@ export const syncOutboundFromGoogle = async (
       const endTime = calendarData.end?.dateTime?.slice(11, 16);
 
       await eventCollection.updateOne(
-        { _id: new ObjectId(event._id) },
+        { googleTransitFromId: event.googleTransitFromId },
         {
           $set: {
-
-            // eventLocation: calendarData.location,
-            // eventDate: startDate,
-            // eventTime: startTime,
-            // eventEndDate: endDate,
-            // eventEndTime: endTime,
-            // timeZone: calendarData.start?.timeZone,
-            // invited: calendarData.attendees?.map((guest) => guest.email),
+            dropOffLocation: calendarData.location,
+            returnDate: endDate,
+            returnTime: endTime,
           },
         }
       );
@@ -77,8 +67,8 @@ export const syncOutboundFromGoogle = async (
 
 // SYNC EVENT FROM GOOGLE
 export const syncEventFromGoogle = async (
-  event: EventData,
-  calendarData: GoogleCalendarEvent
+  calendarData: GoogleEventResponse,
+  event: EventData
 ) => {
   try {
     if (event.eventCheck) {
@@ -107,9 +97,6 @@ export const syncEventFromGoogle = async (
     console.error(e);
   }
 };
-
-
-
 
 
 
