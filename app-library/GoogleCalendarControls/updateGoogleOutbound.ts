@@ -38,6 +38,7 @@ const allocatePassengers = (
   event: EventData
 ) => {
   calendarData.attendees.forEach((guest) => {
+    addGuestToListController(guest.email, event._id, 'invited')
     if (guest.responseStatus === 'accepted') {
       addGuestToListController(guest.email, event._id, 'passengersOutbound');
     }
@@ -57,9 +58,7 @@ export const updateGoogleOutboundEvent = async (
 ) => {
   try {
     const promises = events.map(async (event) => {
-      if (
-        typeof event.googleTransitFromId !== 'boolean'
-      ) {
+      if (typeof event.googleTransitFromId !== 'boolean') {
         const calendarData = await getGoogleOutboundEvent(
           accessToken,
           calendarId,
@@ -67,18 +66,13 @@ export const updateGoogleOutboundEvent = async (
         );
 
         if (calendarData.status === 'cancelled') {
-          if (!event.eventCheck && !event.transportCheck) {
-            deleteEventFromDb(event._id);
-            return;
-          } else {
-            disableRoundTripCheck(event)
-          }
+          disableRoundTripCheck(event);
         }
 
         console.log('Update OUTBOUND activated');
         console.log('OUTBOUND', calendarData);
         allocatePassengers(calendarData, event);
-        syncOutboundFromGoogle(calendarData, event)
+        syncOutboundFromGoogle(calendarData, event);
       }
     });
 

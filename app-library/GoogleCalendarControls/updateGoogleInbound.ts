@@ -38,6 +38,7 @@ const allocatePassengers = (
   event: EventData
 ) => {
   calendarData.attendees.forEach((guest) => {
+    addGuestToListController(guest.email, event._id, 'invited')
     if (guest.responseStatus === 'accepted') {
       addGuestToListController(guest.email, event._id, 'passengersInbound');
     }
@@ -67,12 +68,10 @@ export const updateGoogleInboundEvent = async (
         );
         
         if (calendarData.status === 'cancelled') {
-          if (!event.eventCheck && !event.roundTripCheck) {
+          if (!event.eventCheck) {
             console.log('REACHED DELETION')
             deleteEventFromDb(event._id);
             return;
-          } else {
-            disableTransportCheck(event)
           }
         }
 
