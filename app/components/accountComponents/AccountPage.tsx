@@ -32,9 +32,9 @@ export default function AccountPage() {
     localStorage.setItem('lastSelection', e.currentTarget.name);
   };
 
-  const redirectToSent = () => {
-    setSelection(sent)
-  }
+  const redirectTo = () => {
+    setSelection(sent);
+  };
 
   if (status !== 'authenticated') {
     return (
@@ -65,18 +65,20 @@ export default function AccountPage() {
           nameValue={sent}
         />
 
-        <DashboardButton
+        {/* <DashboardButton
           selectionHandler={selectionHandler}
           selection={selection}
           nameValue={inbox}
-        />
+        /> */}
       </header>
 
       <section className="account-components">
         {selection === profile && <MyInfo />}
-        {selection === create && <CreateEvent redirectToSent={redirectToSent} />}
+        {selection === create && (
+          <CreateEvent redirectTo={redirectTo} />
+        )}
         {selection === sent && <ManageEvent />}
-        {selection === inbox && <MyInvitation />}
+        {/* {selection === inbox && <MyInvitation />} */}
       </section>
     </>
   );

@@ -50,7 +50,7 @@ export const updateUserPreferences = async (
 };
 
 // CREATE NEW EVENT
-export const createNewEvent = async (
+export const createNewEventInDb = async (
   userEmail: User['email'],
   event: EventData
 ) => {
@@ -121,7 +121,7 @@ export const getUserInvitations = async (userEmail: User['email']) => {
 };
 
 // ADD UNIQUE USERS TO EVENT BY ID
-export const addUsersToEvent = async (
+export const addUsersToEventInDb = async (
   guestEmails: User['email'][],
   eventId: EventData['_id']
 ) => {
@@ -147,7 +147,7 @@ export const addUsersToEvent = async (
 };
 
 // DELETE EVENT BY ID
-export const deleteEvent = async (eventId: EventData['_id']) => {
+export const deleteEventFromDb = async (eventId: EventData['_id']) => {
   try {
     await eventCollection.deleteOne({ _id: new ObjectId(eventId) });
   } catch (e) {

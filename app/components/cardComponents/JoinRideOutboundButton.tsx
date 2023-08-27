@@ -8,7 +8,7 @@ type Props = {
   userEmail: User['email'];
 };
 
-export default function JoinRideButton({
+export default function JoinRideOutboundButton({
   event,
   handleLeaveRide,
   handleJoinRide,
@@ -26,8 +26,8 @@ export default function JoinRideButton({
 
   return (
     <section className="--margin-ltr16px">
-      <b className='--text12px'>Trip inbound </b>
-      {event.passengersInbound.includes(String(userEmail)) ? (
+      <b className='--text12px'>Trip Outbound </b>
+      {event.passengersOutbound.includes(String(userEmail)) ? (
         <button
           onClick={(e) => {
             handleLeaveRide(e);
@@ -37,7 +37,7 @@ export default function JoinRideButton({
         >
           {spinner ? <div className="spinner"></div> : 'Leave'}
         </button>
-      ) : event.passengersInbound.length >= event.seatsAvailable ? (
+      ) : event.passengersOutbound.length >= event.seatsAvailable ? (
         <button className="navbar__button"> FULL </button>
       ) : (
         <button

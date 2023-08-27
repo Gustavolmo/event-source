@@ -1,57 +1,28 @@
 'use client';
-import { createNewEvent } from '@/app-library/DbControls';
 import { EventData } from '@/app-types/types';
 import { useSession } from 'next-auth/react';
-import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import { TagsInput } from 'react-tag-input-component';
 import EasterEgg from '../EasterEgg';
 import EventCreatedDialogue from '../dialogueComponents/EventCreatedDialogue';
-import FormCheckBox from '../formComponents/FormCheckBox';
+import FormOfferingQuestions from '../formComponents/FormOfferingQuestions';
+import { defaultFormValues } from '@/app/defaultEvent';
+
+import { createNewEventInDb } from '@/app-library/DbControls';
+import {
+  createFromGoogleEvent,
+  createGoogleEvent,
+  createInboudGoogleEvent,
+} from '@/app-library/GoogleCalendarControls/createGoogleEvent';
 
 type Props = {
-  redirectToSent: Function;
+  redirectTo: Function;
 };
 
-export default function CreateEvent({ redirectToSent }: Props) {
-  const date = String(new Date().toDateString());
+export default function CreateEvent({ redirectTo }: Props) {
   const [openDialogue, setOpenDialogue] = useState(false);
   const { data: session } = useSession();
   const [invitedEmails, setInvitedEmails] = useState<string[]>([]);
-  const defaultFormValues: EventData = {
-    eventTitle: '',
-    dateCreated: date,
-    organizerId: '',
-    organizerName: '',
-    invited: [],
-    eventCheck: true,
-    transportCheck: false,
-    roundTripCheck: false,
-    multiDayCheck: false,
-    eventDate: '',
-    eventTime: '',
-    eventLocation: '',
-    eventEndDate: '',
-    eventEndTime: '',
-    eventDescription: '',
-    eventRSVP: '',
-    eventCost: 0,
-    acceptedLive: [],
-    acceptedVirtually: [],
-    rejected: [],
-    virtualLink: false,
-    transportMode: '',
-    transportCost: 0,
-    transportDescription: '',
-    travelTime: '',
-    pickupLocation: '',
-    pickupTime: '',
-    pickupDate: '',
-    dropOffLocation: '',
-    returnTime: '',
-    returnDate: '',
-    seatsAvailable: 0,
-    passengers: [],
-  };
   const [eventData, setEventData] = useState<EventData>(defaultFormValues);
 
   const fillFormFromStorage = () => {
@@ -75,15 +46,6 @@ export default function CreateEvent({ redirectToSent }: Props) {
     saveFormDataLocally();
   }, [eventData, invitedEmails]);
 
-  const handleOpenDialogue = () => {
-    setOpenDialogue(true);
-  };
-
-  const handleCloseDialogue = () => {
-    redirectToSent()
-    setOpenDialogue(false);
-  };
-
   const handleOnChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -100,15 +62,162 @@ export default function CreateEvent({ redirectToSent }: Props) {
     }));
   };
 
+  const handleOpenDialogue = () => {
+    setOpenDialogue(true);
+  };
+
+  const handleCloseDialogue = () => {
+    redirectTo();
+    setOpenDialogue(false);
+  };
+
+  const handleAddEventToDb = () => {
+    createNewEventInDb(session?.user?.email, eventData);
+  };
+
+  const clearForm = () => {
+    setEventData(defaultFormValues);
+    setInvitedEmails([]);
+    localStorage.removeItem('formData');
+    localStorage.removeItem('emailList');
+  };
+
+  const handleCreateCalendarEvent = async () => {
+    if (session?.accessToken) {
+      eventData.invited = invitedEmails;
+      eventData.organizerName = String(session?.user?.name);
+
+      if (eventData.eventCheck) {
+        const googleRes = await createGoogleEvent(
+          session?.accessToken,
+          'primary',
+          eventData
+        );
+        eventData.googleEventId = String(googleRes.id);
+        eventData.googleCalendarLink = String(googleRes.htmlLink);
+        if (!eventData.googleEventId) {
+          alert('Event Not Created, Something went wrong :(');
+          return;
+        }
+      }
+
+      if (eventData.transportCheck) {
+        const googleInboundRes = await createInboudGoogleEvent(
+          session?.accessToken,
+          'primary',
+          eventData
+        );
+        eventData.googleTransitInboundId = String(googleInboundRes.id);
+        eventData.googleCalendarTripLink = String(googleInboundRes.htmlLink);
+        if (!eventData.googleTransitInboundId) {
+          alert('Inbound trip Not Created, Something went wrong :(');
+          return;
+        }
+      }
+
+      if (eventData.roundTripCheck) {
+        const googleFromRes = await createFromGoogleEvent(
+          session?.accessToken,
+          'primary',
+          eventData
+        );
+        eventData.googleTransitFromId = String(googleFromRes.id);
+        if (!eventData.googleTransitFromId) {
+          alert('Outbound trip Not Created, Something went wrong :(');
+          return;
+        }
+      }
+
+      handleOpenDialogue();
+      handleAddEventToDb();
+      clearForm();
+    }
+  };
+
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    eventData.invited = invitedEmails;
-    eventData.organizerName = String(session?.user?.name);
-    createNewEvent(session?.user?.email, eventData);
-    setEventData(defaultFormValues);
-    localStorage.removeItem('formData');
-    setInvitedEmails([]);
-    handleOpenDialogue();
+
+    if (eventData.eventCheck && !eventData.multiDayCheck) {
+      const startTime = new Date(`2000-01-01T${eventData.eventTime}`);
+      const endTime = new Date(`2000-01-01T${eventData.eventEndTime}`);
+
+      if (endTime <= startTime) {
+        alert(
+          'Starting time must be before the ending time (tip: if you end at 00:00 you must specify the event ends the next day)'
+        );
+        return;
+      }
+    }
+
+    if (eventData.eventCheck && eventData.multiDayCheck) {
+      const startDate = new Date(eventData.eventDate);
+      const endDate = new Date(eventData.eventEndDate);
+
+      if (endDate <= startDate) {
+        alert('Ending date must be after starting date');
+        return;
+      }
+    }
+
+    if (eventData.transportCheck && eventData.eventCheck) {
+      const pickupDate = new Date(eventData.pickupDate);
+      const eventDate = new Date(eventData.eventDate);
+      if (eventDate < pickupDate) {
+        alert('Pickup date cannot be after the event date');
+        return;
+      }
+
+      const pickupTime = new Date(`2000-01-01T${eventData.pickupTime}`);
+      const eventTime = new Date(`2000-01-01T${eventData.eventTime}`);
+      if (eventTime <= pickupTime) {
+        alert('Pickup time must be before starting time');
+        return;
+      }
+
+      if (eventData.multiDayCheck && eventData.roundTripCheck) {
+        const eventEndDate = new Date(eventData.eventEndDate);
+        const returnDate = new Date(eventData.returnDate);
+        if (returnDate < eventEndDate) {
+          alert('Transport return cannot be before the event end date');
+          return;
+        }
+      }
+
+      if (!eventData.multiDayCheck && eventData.roundTripCheck) {
+        const eventDate = new Date(eventData.eventDate);
+        const returnDate = new Date(eventData.returnDate);
+        if (returnDate < eventDate) {
+          alert('Transport return cannot be before the event');
+          return;
+        }
+
+        const eventTime = new Date(`2000-01-01T${eventData.eventTime}`);
+        const returnTime = new Date(`2000-01-01T${eventData.returnTime}`);
+        if (returnTime < eventTime) {
+          alert('Transport back cannot happen before the event starts');
+          return;
+        }
+      }
+    }
+
+    if (eventData.transportCheck && eventData.roundTripCheck) {
+      const pickupDate = new Date(`2000-01-01T${eventData.pickupDate}`);
+      const returnDate = new Date(`2000-01-01T${eventData.returnDate}`);
+      if (returnDate < pickupDate) {
+        alert('Transport return date must be the same or after pickup date');
+        return;
+      }
+      if (pickupDate === returnDate) {
+        const pickupTime = new Date(`2000-01-01T${eventData.pickupTime}`);
+        const returnTime = new Date(`2000-01-01T${eventData.returnTime}`);
+        if (returnTime <= pickupTime) {
+          alert('Transport return time must be after pickup time');
+          return;
+        }
+      }
+    }
+
+    handleCreateCalendarEvent();
   };
 
   return (
@@ -123,18 +232,22 @@ export default function CreateEvent({ redirectToSent }: Props) {
       <section className="event-card">
         <form className="create-event-form" onSubmit={handleFormSubmit}>
           <section className="form__offerings">
-            <FormCheckBox
-              checkedValue={eventData.eventCheck}
-              onChangeFunc={handleOnCheckBox}
+            <FormOfferingQuestions
+              checkedState={eventData.eventCheck}
+              handleOnCheckBox={handleOnCheckBox}
               text="Event"
-              nameValue="eventCheck"
+              checkboxName="eventCheck"
+              addDateInput={false}
+              addTimeInput={false}
             />
 
-            <FormCheckBox
-              checkedValue={eventData.transportCheck}
-              onChangeFunc={handleOnCheckBox}
+            <FormOfferingQuestions
+              checkedState={eventData.transportCheck}
+              handleOnCheckBox={handleOnCheckBox}
               text="Transportation"
-              nameValue="transportCheck"
+              checkboxName="transportCheck"
+              addDateInput={false}
+              addTimeInput={false}
             />
           </section>
 
@@ -144,15 +257,27 @@ export default function CreateEvent({ redirectToSent }: Props) {
           )}
 
           {(eventData.eventCheck || eventData.transportCheck) && (
-            <input
-              className="--with-margin-n-8px"
-              type="text"
-              name="eventTitle"
-              placeholder="Title"
-              onChange={handleOnChange}
-              value={eventData.eventTitle}
-              required
-            />
+            <>
+              <input
+                className="--with-margin-n-8px"
+                type="text"
+                name="timeZone"
+                placeholder="Time zone (e.g. CET)"
+                onChange={handleOnChange}
+                value={eventData.timeZone}
+                required
+              />
+
+              <input
+                className="--with-margin-n-8px"
+                type="text"
+                name="eventTitle"
+                placeholder="Title"
+                onChange={handleOnChange}
+                value={eventData.eventTitle}
+                required
+              />
+            </>
           )}
 
           {eventData.eventCheck && (
@@ -167,14 +292,16 @@ export default function CreateEvent({ redirectToSent }: Props) {
                 required
               />
 
-              <section className="form__offerings">
-                <FormCheckBox
-                  checkedValue={eventData.virtualLink}
-                  onChangeFunc={handleOnCheckBox}
+              {/* <section className="form__offerings">
+                <FormOfferingQuestions
+                  checkedState={eventData.googleLinkCheck}
+                  handleOnCheckBox={handleOnCheckBox}
                   text="Add Google meet link?"
-                  nameValue="virtualLink"
+                  checkboxName="googleLinkCheck"
+                  addDateInput={false}
+                  addTimeInput={false}
                 />
-              </section>
+              </section> */}
             </>
           )}
 
@@ -212,20 +339,7 @@ export default function CreateEvent({ redirectToSent }: Props) {
                   value={eventData.eventCost}
                   required
                 />
-                <b className="--bold-gray">Cost per person (SEK)</b>
-              </section>
-
-              <section>
-                <input
-                  className="form__input-120w"
-                  type="date"
-                  name="eventRSVP"
-                  placeholder="RSVP"
-                  onChange={handleOnChange}
-                  value={eventData.eventRSVP}
-                  required
-                />
-                <b className="--bold-gray">RSVP</b>
+                <b className="--bold-gray">Event Fee (sek)</b>
               </section>
 
               <section>
@@ -267,26 +381,29 @@ export default function CreateEvent({ redirectToSent }: Props) {
                 <b className="--bold-gray">Ending Time</b>
               </section>
 
-              <div className="form__offerings-alone">
-                <FormCheckBox
-                  checkedValue={eventData.multiDayCheck}
-                  onChangeFunc={handleOnCheckBox}
-                  text="Ends in a different date?"
-                  nameValue="multiDayCheck"
-                />
+              {/* <FormOfferingQuestions
+                text="send RSVP email?"
+                checkedState={eventData.rsvpCheck}
+                checkboxName="rsvpCheck"
+                handleOnCheckBox={handleOnCheckBox}
+                handleOnChange={handleOnChange}
+                dateInputValue={eventData.eventRSVP}
+                dateInputName="eventRSVP"
+                addDateInput={true}
+                addTimeInput={false}
+              /> */}
 
-                {eventData.multiDayCheck && (
-                  <section>
-                    <input
-                      type="date"
-                      name="eventEndDate"
-                      onChange={handleOnChange}
-                      value={eventData.eventEndDate}
-                      required
-                    />
-                  </section>
-                )}
-              </div>
+              <FormOfferingQuestions
+                text="Ends another date?"
+                checkedState={eventData.multiDayCheck}
+                checkboxName="multiDayCheck"
+                handleOnCheckBox={handleOnCheckBox}
+                handleOnChange={handleOnChange}
+                dateInputValue={eventData.eventEndDate}
+                dateInputName="eventEndDate"
+                addDateInput={true}
+                addTimeInput={false}
+              />
             </>
           )}
 
@@ -360,20 +477,20 @@ export default function CreateEvent({ redirectToSent }: Props) {
                   value={eventData.transportCost}
                   required
                 />
-                <b className="--bold-gray">Cost per passenger (SEK)</b>
+                <b className="--bold-gray">One-way cost (SEK)</b>
               </section>
 
               <section>
                 <input
                   className="form__input-120w"
-                  type="text"
+                  type="number"
                   name="travelTime"
                   placeholder="Travel time"
                   onChange={handleOnChange}
                   value={eventData.travelTime}
                   required
                 />
-                <b className="--bold-gray">Travel Time</b>
+                <b className="--bold-gray">Travel Time (min)</b>
               </section>
 
               <section>
@@ -403,32 +520,19 @@ export default function CreateEvent({ redirectToSent }: Props) {
               </section>
 
               <div className="form__offerings-alone ">
-                <FormCheckBox
-                  checkedValue={eventData.roundTripCheck}
-                  onChangeFunc={handleOnCheckBox}
-                  text="Round Trip?"
-                  nameValue="roundTripCheck"
+                <FormOfferingQuestions
+                  text="Return?"
+                  checkedState={eventData.roundTripCheck}
+                  checkboxName="roundTripCheck"
+                  handleOnCheckBox={handleOnCheckBox}
+                  handleOnChange={handleOnChange}
+                  dateInputValue={eventData.returnDate}
+                  dateInputName="returnDate"
+                  addDateInput={true}
+                  timeInputName="returnTime"
+                  timeInputValue={eventData.returnTime}
+                  addTimeInput={true}
                 />
-
-                {eventData.roundTripCheck && (
-                  <section className="--gap8px">
-                    <input
-                      type="date"
-                      name="returnDate"
-                      placeholder="Return date"
-                      onChange={handleOnChange}
-                      value={eventData.returnDate}
-                    />
-                    <input
-                      type="time"
-                      name="returnTime"
-                      placeholder="Return time"
-                      onChange={handleOnChange}
-                      value={eventData.returnTime}
-                      required
-                    />
-                  </section>
-                )}
               </div>
             </>
           )}

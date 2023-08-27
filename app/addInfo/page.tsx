@@ -30,7 +30,7 @@ export default function UserPreferences() {
           <UpdatePreferencesForm doesRedirect={true} path={'/'} />
           <PathButton
             path={'/account'}
-            title={'Prefer not to say'}
+            title={'This is fine'}
             className={'navbar__button absolute-button-bottom-left'}
           />
         </section>

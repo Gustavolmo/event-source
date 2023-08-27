@@ -20,6 +20,7 @@ export default function CardMyInvitation({ event, handleUpdateClick }: Props) {
   const [seeVirtual, setSeeVirtual] = useState(false);
   const [seeRejected, setSeeRejected] = useState(false);
   const [seePax, setSeePax] = useState(false);
+  const [seePaxOutbound, setSeePaxOutbound] = useState(false);
   const [seeAboutTransit, setSeeAboutTransit] = useState(false);
   const [seeAboutEvent, setSeeAboutEvent] = useState(false);
   const [toggleCard, setToggleCard] = useState(false);
@@ -32,10 +33,11 @@ export default function CardMyInvitation({ event, handleUpdateClick }: Props) {
   const deleteInvitation = () => {
     handleUpdateClick();
     removeGuestFromList(session?.user?.email, event._id, 'invited');
-    removeGuestFromList(session?.user?.email, event._id, 'acceptedVirtually');
+    removeGuestFromList(session?.user?.email, event._id, 'maybeAccepted');
     removeGuestFromList(session?.user?.email, event._id, 'rejected');
     removeGuestFromList(session?.user?.email, event._id, 'acceptedLive');
-    removeGuestFromList(session?.user?.email, event._id, 'passengers');
+    removeGuestFromList(session?.user?.email, event._id, 'passengersInbound');
+    removeGuestFromList(session?.user?.email, event._id, 'passengersOutbound');
   };
 
   const handleOpenDialogue = () => {
@@ -46,32 +48,46 @@ export default function CardMyInvitation({ event, handleUpdateClick }: Props) {
     setOpenDialogue(false);
   };
 
-  const handleAccept = () => {
+  const handleAcceptInvitation = () => {
     addGuestToListController(session?.user?.email, event._id, 'acceptedLive');
     handleUpdateClick();
   };
 
   const handleAcceptVirtually = () => {
-    addGuestToListController(
-      session?.user?.email,
-      event._id,
-      'acceptedVirtually'
-    );
+    addGuestToListController(session?.user?.email, event._id, 'maybeAccepted');
     handleUpdateClick();
   };
 
-  const handleReject = () => {
+  const handleRejectInvitation = () => {
     addGuestToListController(session?.user?.email, event._id, 'rejected');
     handleUpdateClick();
   };
 
-  const handleJoinRide = () => {
-    addGuestToListController(session?.user?.email, event._id, 'passengers');
+  const handleJoinRideInbound = () => {
+    addGuestToListController(
+      session?.user?.email,
+      event._id,
+      'passengersInbound'
+    );
     handleUpdateClick();
   };
 
-  const handleLeaveRide = () => {
-    removeGuestFromList(session?.user?.email, event._id, 'passengers');
+  const handleLeaveRideInbound = () => {
+    removeGuestFromList(session?.user?.email, event._id, 'passengersInbound');
+    handleUpdateClick();
+  };
+
+  const handleJoinRideOutbound = () => {
+    addGuestToListController(
+      session?.user?.email,
+      event._id,
+      'passengersOutbound'
+    );
+    handleUpdateClick();
+  };
+
+  const handleLeaveRideOutbound = () => {
+    removeGuestFromList(session?.user?.email, event._id, 'passengersOutbound');
     handleUpdateClick();
   };
 
@@ -84,25 +100,28 @@ export default function CardMyInvitation({ event, handleUpdateClick }: Props) {
       <CardMyInvitationSmall
         event={event}
         handleEventToggle={handleEventToggle}
-        handleAccept={handleAccept}
+        handleAccept={handleAcceptInvitation}
         handleAcceptVirtually={handleAcceptVirtually}
-        handleReject={handleReject}
-        handleJoinRide={handleJoinRide}
-        handleLeaveRide={handleLeaveRide}
+        handleReject={handleRejectInvitation}
+        handleJoinRideInbound={handleJoinRideInbound}
+        handleLeaveRideInbound={handleLeaveRideInbound}
+        handleJoinRideOutbound={handleJoinRideOutbound}
+        handleLeaveRideOutbound={handleLeaveRideOutbound}
       />
     );
   }
 
   return (
-    <>
-      <CardMyInvitationBig
+    <CardMyInvitationBig
       event={event}
       handleEventToggle={handleEventToggle}
-      handleAccept={handleAccept}
+      handleAccept={handleAcceptInvitation}
       handleAcceptVirtually={handleAcceptVirtually}
-      handleReject={handleReject}
-      handleJoinRide={handleJoinRide}
-      handleLeaveRide={handleLeaveRide}
+      handleReject={handleRejectInvitation}
+      handleJoinRideInbound={handleJoinRideInbound}
+      handleLeaveRideInbound={handleLeaveRideInbound}
+      handleJoinRideOutbound={handleJoinRideOutbound}
+      handleLeaveRideOutbound={handleLeaveRideOutbound}
       handleUpdateClick={handleUpdateClick}
       handleListToggle={handleListToggle}
       seeGuests={seeGuests}
@@ -117,13 +136,14 @@ export default function CardMyInvitation({ event, handleUpdateClick }: Props) {
       setSeeAboutEvent={setSeeAboutEvent}
       seePax={seePax}
       setSeePax={setSeePax}
+      seePaxOutbound={seePaxOutbound}
+      setSeePaxOutbound={setSeePaxOutbound}
       seeAboutTransit={seeAboutTransit}
       setSeeAboutTransit={setSeeAboutTransit}
       handleOpenDialogue={handleOpenDialogue}
       handleCloseDialogue={handleCloseDialogue}
       deleteInvitation={deleteInvitation}
       openDialogue={openDialogue}
-      />
-    </>
+    />
   );
 }

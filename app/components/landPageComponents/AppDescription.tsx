@@ -1,12 +1,13 @@
 'use client';
 import React from 'react';
 import Image from 'next/image';
-import create from '../../assets/create-form.png';
-import guests from '../../assets/guests.png';
-import passengers from '../../assets/passengers.png';
-import answers from '../../assets/answer.png';
-import joinRide from '../../assets/join-ride.png';
-import profile from '../../assets/user-profile.png';
+import createEvent from '../../assets/create-events.png'
+import googleSync from '../../assets/google-sync.png'
+import manageGuest from '../../assets/manage-guests.png'
+import guestPreferences from '../../assets/guest-preference.png'
+import answerOnGoogle from '../../assets/answer-on-google.png'
+import guestsInCard from '../../assets/guests-in-card.png'
+
 import { signIn } from 'next-auth/react';
 
 export default async function AppDescription() {
@@ -16,18 +17,20 @@ export default async function AppDescription() {
       <header className="app-description">
         <h1>
           Welcome to <i className="--red-highlight-text">EventSauce</i>
+        <p>Free & Open-source Event Managment</p>
         </h1>
+        
+        
         <button className="action-button --text12px" onClick={() => signIn()}>
-          Try it our Beta
+          Try our Beta
         </button>
+        
         <h1>Features</h1>
 
-        <p>Keep track of attendance</p>
-        <p>Add and manage transportation</p>
-        <p>Manage all guest lists in one place</p>
+        <p>Keep track of guest lists</p>
+        <p>Full sync with Google Calendar</p>
         <p>Let guests tell you their preferences</p>
-        <b className='--red-highlight-text'>Google calendar coming soon...</b>
-
+        <p>Manage Transit & Events in one place</p>
       </header>
 
       <h1 className="--promo-text-highlight">FOR PLANNERS</h1>
@@ -36,7 +39,7 @@ export default async function AppDescription() {
           <p className="promo-title">Create Events</p>
           <Image
             className="promo-image-unit"
-            src={create}
+            src={createEvent}
             alt="create-form"
             width={width}
             loading="eager"
@@ -44,10 +47,10 @@ export default async function AppDescription() {
         </div>
 
         <div className="promo-image">
-          <p className="promo-title">Manage Attendance</p>
+          <p className="promo-title">Sync with Google</p>
           <Image
             className="promo-image-unit"
-            src={guests}
+            src={googleSync}
             alt="manage-events"
             width={width}
             loading="eager"
@@ -55,24 +58,33 @@ export default async function AppDescription() {
         </div>
 
         <div className="promo-image">
-          <p className="promo-title">Manage Passengers</p>
+          <p className="promo-title">Manage Guests</p>
           <Image
             className="promo-image-unit"
-            src={passengers}
+            src={manageGuest}
             alt="invitations"
             width={width}
             loading="eager"
           />
+          <Image
+            className="promo-image-unit"
+            src={guestsInCard}
+            alt="invitations"
+            width={width}
+            loading="eager"
+          />
+          
         </div>
       </section>
 
       <h2 className="--promo-text-highlight">FOR GUESTS</h2>
       <section className="app-description__section">
+
         <div className="promo-image">
-          <p className="promo-title">Answer Invitations</p>
+          <p className="promo-title">Add  Preferences</p>
           <Image
             className="promo-image-unit"
-            src={answers}
+            src={guestPreferences}
             alt="user-profile"
             width={width}
             loading="eager"
@@ -80,21 +92,10 @@ export default async function AppDescription() {
         </div>
 
         <div className="promo-image">
-          <p className="promo-title">Join Event Transit</p>
+          <p className="promo-title">Answer Directly on Google</p>
           <Image
             className="promo-image-unit"
-            src={joinRide}
-            alt="user-profile"
-            width={width}
-            loading="eager"
-          />
-        </div>
-
-        <div className="promo-image">
-          <p className="promo-title">Save Your Preferences</p>
-          <Image
-            className="promo-image-unit"
-            src={profile}
+            src={answerOnGoogle}
             alt="user-profile"
             width={width}
             loading="eager"

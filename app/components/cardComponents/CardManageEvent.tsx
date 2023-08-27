@@ -1,7 +1,7 @@
 'use client';
 import { EventData } from '@/app-types/types';
 import React, { useState } from 'react';
-import { deleteEvent } from '@/app-library/DbControls';
+import { deleteEventFromDb } from '@/app-library/DbControls';
 import CardManageEditMode from './CardManageEditMode';
 import CardManageBig from './CardManageBig';
 import CardManageSmall from './CardManageSmall';
@@ -20,6 +20,7 @@ export default function CardManageEvent({
   const [seeVirtual, setSeeVirtual] = useState(false);
   const [seeRejected, setSeeRejected] = useState(false);
   const [seePax, setSeePax] = useState(false);
+  const [seePaxOutbound, setSeePaxOutbound] = useState(false);
   const [seeAboutTransit, setSeeAboutTransit] = useState(false);
   const [seeAboutEvent, setSeeAboutEvent] = useState(false);
   const [toggleCard, setToggleCard] = useState(false);
@@ -31,7 +32,7 @@ export default function CardManageEvent({
   };
 
   const handleDelete = () => {
-    deleteEvent(event._id);
+    deleteEventFromDb(event._id);
     funcUpdateClick();
   };
 
@@ -89,6 +90,8 @@ export default function CardManageEvent({
       setSeeAboutEvent={setSeeAboutEvent}
       seePax={seePax}
       setSeePax={setSeePax}
+      seePaxOutbound={seePaxOutbound}
+      setSeePaxOutbound={setSeePaxOutbound}
       seeAboutTransit={seeAboutTransit}
       setSeeAboutTransit={setSeeAboutTransit}
       handleOpenDialogue={handleOpenDialogue}

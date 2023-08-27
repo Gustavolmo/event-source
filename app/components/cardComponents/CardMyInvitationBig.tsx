@@ -11,6 +11,7 @@ import TransitInfoBoard from './TransitInfoBoard';
 import JoinRideButton from './JoinRideButton';
 import DeleteButton from '../buttonComponents/DeleteButton';
 import ConfirmDeletionDialogue from '../dialogueComponents/ConfirmDeletionDialogue';
+import JoinRideOutboundButton from './JoinRideOutboundButton';
 
 type Props = {
   event: EventData;
@@ -18,24 +19,28 @@ type Props = {
   handleAccept: MouseEventHandler<HTMLButtonElement>;
   handleAcceptVirtually: MouseEventHandler<HTMLButtonElement>;
   handleReject: MouseEventHandler<HTMLButtonElement>;
-  handleJoinRide: MouseEventHandler<HTMLButtonElement>;
-  handleLeaveRide: MouseEventHandler<HTMLButtonElement>;
+  handleJoinRideInbound: MouseEventHandler<HTMLButtonElement>;
+  handleLeaveRideInbound: MouseEventHandler<HTMLButtonElement>;
+  handleJoinRideOutbound: MouseEventHandler<HTMLButtonElement>;
+  handleLeaveRideOutbound: MouseEventHandler<HTMLButtonElement>;
   handleUpdateClick: Function;
   handleListToggle: Function;
-  seeGuests: boolean,
-  setSeeGuests: Function,
-  seeAccepted: boolean,
-  setSeeAccepted: Function,
-  seeVirtual: boolean,
-  setSeeVirtual: Function,
-  seeRejected: boolean,
-  setSeeRejected: Function,
-  seeAboutEvent: boolean,
-  setSeeAboutEvent: Function,
-  seePax: boolean,
-  setSeePax: Function,
-  seeAboutTransit: boolean,
-  setSeeAboutTransit: Function,
+  seeGuests: boolean;
+  setSeeGuests: Function;
+  seeAccepted: boolean;
+  setSeeAccepted: Function;
+  seeVirtual: boolean;
+  setSeeVirtual: Function;
+  seeRejected: boolean;
+  setSeeRejected: Function;
+  seeAboutEvent: boolean;
+  setSeeAboutEvent: Function;
+  seePax: boolean;
+  setSeePax: Function;
+  seePaxOutbound: boolean;
+  setSeePaxOutbound: Function;
+  seeAboutTransit: boolean;
+  setSeeAboutTransit: Function;
   handleOpenDialogue: MouseEventHandler<HTMLButtonElement>;
   handleCloseDialogue: MouseEventHandler<HTMLButtonElement>;
   deleteInvitation: MouseEventHandler<HTMLButtonElement>;
@@ -48,8 +53,10 @@ export default function CardMyInvitationBig({
   handleAccept,
   handleAcceptVirtually,
   handleReject,
-  handleJoinRide,
-  handleLeaveRide,
+  handleJoinRideInbound,
+  handleLeaveRideInbound,
+  handleJoinRideOutbound,
+  handleLeaveRideOutbound,
   handleUpdateClick,
   handleListToggle,
   seeGuests,
@@ -64,17 +71,19 @@ export default function CardMyInvitationBig({
   setSeeAboutEvent,
   seePax,
   setSeePax,
+  seePaxOutbound,
+  setSeePaxOutbound,
   seeAboutTransit,
   setSeeAboutTransit,
   handleOpenDialogue,
   handleCloseDialogue,
   deleteInvitation,
-  openDialogue
+  openDialogue,
 }: Props) {
   const { data: session } = useSession();
   return (
     <>
-      <section className="event-card">
+      <section className="event-card ">
         <button
           className="suttle-button absolute-top-left --width60px --grey-text"
           onClick={handleEventToggle}
@@ -89,7 +98,7 @@ export default function CardMyInvitationBig({
           <TitleSection event={event} />
         </section>
 
-        {event.eventCheck && (
+        {/* {event.eventCheck && (
           <section className="answer-invite-buttons">
             <AnswerInvitationButton
               handleChoice={handleAccept}
@@ -99,15 +108,13 @@ export default function CardMyInvitationBig({
               text="Accept"
             />
 
-            {event.virtualLink && (
-              <AnswerInvitationButton
-                handleChoice={handleAcceptVirtually}
-                listChoice={event.acceptedVirtually}
-                userEmail={session?.user?.email}
-                buttonType="action-button-positive"
-                text="Remote"
-              />
-            )}
+            <AnswerInvitationButton
+              handleChoice={handleAcceptVirtually}
+              listChoice={event.maybeAccepted}
+              userEmail={session?.user?.email}
+              buttonType="action-button-positive"
+              text="Maybe"
+            />
 
             <AnswerInvitationButton
               handleChoice={handleReject}
@@ -117,7 +124,7 @@ export default function CardMyInvitationBig({
               text="Reject"
             />
           </section>
-        )}
+        )} */}
 
         <ToggleList
           handleListToggle={() => handleListToggle(seeGuests, setSeeGuests)}
@@ -149,22 +156,20 @@ export default function CardMyInvitationBig({
               buttonTitle={'Yeap!'}
             />
 
-            {event.virtualLink && (
-              <ToggleList
-                handleListToggle={() =>
-                  handleListToggle(seeVirtual, setSeeVirtual)
-                }
-                seeList={seeVirtual}
-                setSeeList={setSeeVirtual}
-                hasAddGuest={false}
-                hasDetails={false}
-                funcUpdateClick={handleUpdateClick}
-                event={event}
-                listChoice={event.acceptedVirtually}
-                listName="acceptedVirtually"
-                buttonTitle={'Remote'}
-              />
-            )}
+            <ToggleList
+              handleListToggle={() =>
+                handleListToggle(seeVirtual, setSeeVirtual)
+              }
+              seeList={seeVirtual}
+              setSeeList={setSeeVirtual}
+              hasAddGuest={false}
+              hasDetails={false}
+              funcUpdateClick={handleUpdateClick}
+              event={event}
+              listChoice={event.maybeAccepted}
+              listName="maybeAccepted"
+              buttonTitle={'Maybe'}
+            />
 
             <ToggleList
               handleListToggle={() =>
@@ -189,9 +194,12 @@ export default function CardMyInvitationBig({
                 <p className="--text12px">{event.eventLocation}</p>
               </section>
 
-              <section className="manage__info --gray-shading">
-                <b>RSVP:</b> <p>{event.eventRSVP}</p>
-              </section>
+              {event.rsvpCheck && (
+                <section className="manage__info --gray-shading">
+                  <b>RSVP:</b>{' '}
+                  <p>Guests will be reminded on: {event.eventRSVP}</p>
+                </section>
+              )}
 
               <GoogleMeetLink event={event} meetLink="/" />
 
@@ -222,12 +230,12 @@ export default function CardMyInvitationBig({
 
             <TransitInfoBoard event={event} showTime={true} />
 
-            <JoinRideButton
+            {/* <JoinRideButton
               event={event}
-              handleJoinRide={handleJoinRide}
-              handleLeaveRide={handleLeaveRide}
+              handleJoinRide={handleJoinRideInbound}
+              handleLeaveRide={handleLeaveRideInbound}
               userEmail={session?.user?.email}
-            />
+            /> */}
 
             <ToggleList
               handleListToggle={() => handleListToggle(seePax, setSeePax)}
@@ -237,18 +245,53 @@ export default function CardMyInvitationBig({
               hasDetails={false}
               funcUpdateClick={handleUpdateClick}
               event={event}
-              listChoice={event.passengers}
-              listName="passengers"
-              buttonTitle={'Passengers'}
+              listChoice={event.passengersInbound}
+              listName="passengersInbound"
+              buttonTitle={'Passengers Inbound'}
             />
 
+            {event.roundTripCheck && (
+              <>
+                {/* <JoinRideOutboundButton
+                  event={event}
+                  handleJoinRide={handleJoinRideOutbound}
+                  handleLeaveRide={handleLeaveRideOutbound}
+                  userEmail={session?.user?.email}
+                /> */}
+
+                <ToggleList
+                  handleListToggle={() =>
+                    handleListToggle(seePaxOutbound, setSeePaxOutbound)
+                  }
+                  seeList={seePaxOutbound}
+                  setSeeList={setSeePaxOutbound}
+                  hasAddGuest={false}
+                  hasDetails={false}
+                  funcUpdateClick={handleUpdateClick}
+                  event={event}
+                  listChoice={event.passengersOutbound}
+                  listName="passengersOutbound"
+                  buttonTitle={'Passengers Outbound'}
+                />
+              </>
+            )}
+
             <section className="manage__info --gray-shading">
-              <b>Seats available:</b>{' '}
+              <b>Seats available Inbound:</b>{' '}
               <p>
-                {event.seatsAvailable - event.passengers.length} out of{' '}
+                {event.seatsAvailable - event.passengersInbound.length} out of{' '}
                 {event.seatsAvailable}
               </p>
             </section>
+
+            <section className="manage__info --gray-shading">
+              <b>Seats available Outbound:</b>{' '}
+              <p>
+                {event.seatsAvailable - event.passengersOutbound.length} out of{' '}
+                {event.seatsAvailable}
+              </p>
+            </section>
+
             <section className="manage__info --gray-shading">
               <b>Vehicle:</b> <p>{event.transportMode}</p>
             </section>

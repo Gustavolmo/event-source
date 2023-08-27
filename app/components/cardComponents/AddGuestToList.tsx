@@ -1,4 +1,4 @@
-import { addUsersToEvent } from '@/app-library/DbControls';
+import { addUsersToEventInDb } from '@/app-library/DbControls';
 import { EventData } from '@/app-types/types';
 import { useState } from 'react';
 import { TagsInput } from 'react-tag-input-component';
@@ -17,7 +17,7 @@ export default function AddGuestToList({
   const handleAddGuestToEvent = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     funcUpdateClick();
-    addUsersToEvent(newGuests, eventId);
+    addUsersToEventInDb(newGuests, eventId);
     setNewGuests([]);
   };
 

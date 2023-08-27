@@ -28,6 +28,8 @@ type Props = {
   setSeeAboutEvent: Function;
   seePax: boolean;
   setSeePax: Function;
+  seePaxOutbound: boolean;
+  setSeePaxOutbound: Function;
   seeAboutTransit: boolean;
   setSeeAboutTransit: Function;
   handleOpenDialogue: MouseEventHandler<HTMLButtonElement>;
@@ -54,6 +56,8 @@ export default function CardManageBig({
   setSeeAboutEvent,
   seePax,
   setSeePax,
+  seePaxOutbound,
+  setSeePaxOutbound,
   seeAboutTransit,
   setSeeAboutTransit,
   handleOpenDialogue,
@@ -69,12 +73,12 @@ export default function CardManageBig({
         >
           Close
         </button>
-        <button
+        {/* <button
           onClick={handleEdit}
           className="action-button absolute-button-top-right"
         >
           Edit
-        </button>
+        </button> */}
 
         <section
           onClick={handleEventToggle}
@@ -87,7 +91,7 @@ export default function CardManageBig({
           handleListToggle={() => handleListToggle(seeGuests, setSeeGuests)}
           seeList={seeGuests}
           setSeeList={setSeeGuests}
-          hasAddGuest={true}
+          hasAddGuest={false}
           hasDetails={true}
           funcUpdateClick={funcUpdateClick}
           event={event}
@@ -117,22 +121,20 @@ export default function CardManageBig({
               buttonTitle={'Yeap!'}
             />
 
-            {event.virtualLink && (
-              <ToggleList
-                handleListToggle={() =>
-                  handleListToggle(seeVirtual, setSeeVirtual)
-                }
-                seeList={seeVirtual}
-                setSeeList={setSeeVirtual}
-                hasAddGuest={false}
-                hasDetails={false}
-                funcUpdateClick={funcUpdateClick}
-                event={event}
-                listChoice={event.acceptedVirtually}
-                listName="acceptedVirtually"
-                buttonTitle={'Remote'}
-              />
-            )}
+            <ToggleList
+              handleListToggle={() =>
+                handleListToggle(seeVirtual, setSeeVirtual)
+              }
+              seeList={seeVirtual}
+              setSeeList={setSeeVirtual}
+              hasAddGuest={false}
+              hasDetails={false}
+              funcUpdateClick={funcUpdateClick}
+              event={event}
+              listChoice={event.maybeAccepted}
+              listName="maybeAccepted"
+              buttonTitle={'Maybe?'}
+            />
 
             <ToggleList
               handleListToggle={() =>
@@ -159,9 +161,12 @@ export default function CardManageBig({
                 <p className="--text12px">{event.eventLocation}</p>
               </section>
 
-              <section className="manage__info --gray-shading">
-                <b>RSVP:</b> <p>{event.eventRSVP}</p>
-              </section>
+              {event.rsvpCheck && (
+                <section className="manage__info --gray-shading">
+                  <b>RSVP:</b>{' '}
+                  <p>Guests will be reminded on: {event.eventRSVP}</p>
+                </section>
+              )}
 
               <GoogleMeetLink event={event} meetLink="/" />
 
@@ -207,18 +212,44 @@ export default function CardManageBig({
               hasDetails={true}
               funcUpdateClick={funcUpdateClick}
               event={event}
-              listChoice={event.passengers}
-              listName="passengers"
-              buttonTitle={'Passengers'}
+              listChoice={event.passengersInbound}
+              listName="passengersInbound"
+              buttonTitle={'Passengers Inbound'}
             />
 
+            {event.roundTripCheck && (
+              <ToggleList
+                handleListToggle={() =>
+                  handleListToggle(seePaxOutbound, setSeePaxOutbound)
+                }
+                seeList={seePaxOutbound}
+                setSeeList={setSeePaxOutbound}
+                hasAddGuest={false}
+                hasDetails={true}
+                funcUpdateClick={funcUpdateClick}
+                event={event}
+                listChoice={event.passengersOutbound}
+                listName="passengersOutbound"
+                buttonTitle={'Passengers Outbound'}
+              />
+            )}
+
             <section className="manage__info --gray-shading">
-              <b>Seats available:</b>{' '}
+              <b>Seats available Inbound:</b>{' '}
               <p>
-                {event.seatsAvailable - event.passengers.length} out of{' '}
+                {event.seatsAvailable - event.passengersInbound.length} out of{' '}
                 {event.seatsAvailable}
               </p>
             </section>
+
+            <section className="manage__info --gray-shading">
+              <b>Seats available Outbound:</b>{' '}
+              <p>
+                {event.seatsAvailable - event.passengersOutbound.length} out of{' '}
+                {event.seatsAvailable}
+              </p>
+            </section>
+
             <section className="manage__info --gray-shading">
               <b>Vehicle:</b> <p>{event.transportMode}</p>
             </section>
@@ -230,7 +261,11 @@ export default function CardManageBig({
 
               <div className="--inline-tags">
                 <b>Expected return:</b>{' '}
-                <p>{event.transportCost * event.passengers.length}kr</p>
+                <p>
+                  {event.transportCost * event.passengersInbound.length +
+                    event.transportCost * event.passengersOutbound.length}{' '}
+                  kr
+                </p>
               </div>
             </div>
 
@@ -245,7 +280,7 @@ export default function CardManageBig({
           </>
         )}
 
-        <DeleteButton
+        {/* <DeleteButton
           handleDelete={handleOpenDialogue}
           mainText="Delete"
           toRight={true}
@@ -254,7 +289,7 @@ export default function CardManageBig({
           handleClose={handleCloseDialogue}
           handleDeleteAsset={handleDelete}
           open={openDialogue}
-        />
+        /> */}
       </section>
     </>
   );

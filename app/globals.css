@@ -74,8 +74,8 @@ body::before {
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%h;
-  background-color: rgba(121, 121, 121, 0.1);
+  height: 100%;
+  background-color: rgba(180, 180, 180, 0.2);
   pointer-events: none;
   z-index: 0;
 }
@@ -110,6 +110,7 @@ p {
 
 a {
   color: rgb(0, 110, 255);
+  text-decoration: none;
 }
 
 /*______________________________________ HIGH-LEVEL */
@@ -167,7 +168,7 @@ a {
 .promo-image-unit {
   border: dashed 2px #fff;
   border-radius: 4px;
-  padding: 16px;
+  padding: 8px;
   background: url(https://www.toptal.com/designers/subtlepatterns/uploads/memphis-mini.png);
 }
 
@@ -358,6 +359,7 @@ a {
 }
 
 .account-buttons {
+  border-top: solid 1px #cccccc;
   z-index: 100;
   position: fixed;
   display: grid;
@@ -369,10 +371,10 @@ a {
   background-color: #fff;
 }
 .page-button {
+  width: 33vw;
   font-size: 16px;
   background-color: #fff;
   border: none;
-  border-top: solid 1px #cccccc;
   color: #ef4b4c;
   height: 60px;
   transition: 0.2s;
@@ -383,10 +385,10 @@ a {
   transition: 0.2s;
 }
 .page-button--selected {
+  width: 33vw;
   font-size: 16px;
   background-color: #fff;
   border: none;
-  border-top: solid 1px #cccccc;
   color: #ef4b4c;
   height: 60px;
   font-weight: bold;
@@ -902,6 +904,7 @@ input {
   align-self: center;
   justify-self: center;
 }
+
 /* ______________________________________ */
 
 /* ______________________________________ EASTER-EGG */
@@ -1047,9 +1050,7 @@ input {
 
 /*______________________________________*/
 
-/*__________________________ BACKGROUND DECOR */
-
-/*______________________________________*/
+/*__________________________ MEDIA QUERY */
 
 @media (min-width: 700px) {
   .event-card {
@@ -1111,3 +1112,4 @@ input {
     flex-direction: column;
   }
 }
+/*______________________________________*/

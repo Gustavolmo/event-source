@@ -1,15 +1,136 @@
 'use server';
-import { EventData, User, UserPreferences, DbData } from '@/app-types/types';
+import { EventData, User } from '@/app-types/types';
 import { client, runMongoDb } from './mongoConnect';
 import { ObjectId } from 'mongodb';
+import { GoogleCalendarEvent, GoogleEventResponse } from './GoogleCalendarType';
 
 runMongoDb();
 const databaseName = 'eventsource';
 const collectionEvent = 'event';
 const eventCollection = client.db(databaseName).collection(collectionEvent);
 
+// DISABLE EVENT CHECK
+export const disableEventCheck = async (event: EventData) => {
+  try {
+    await eventCollection.updateOne(
+      { googleTransitInboundId: event.googleTransitInboundId },
+      { $set: {eventCheck: false} }
+    );
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+// DISABLE TRANSPORT CHECK
+export const disableTransportCheck = async (event: EventData) => {
+  try {
+    await eventCollection.updateOne(
+      { _id: new ObjectId(event._id) },
+      { $set: {transportCheck: false} }
+    );
+  } catch (e) {
+    console.error(e);
+  }
+};
+// DISABLE RETURN TRIP CHECK
+export const disableRoundTripCheck = async (event: EventData) => {
+  try {
+    await eventCollection.updateOne(
+      { _id: new ObjectId(event._id) },
+      { $set: {roundTripCheck: false} }
+    );
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+// SYNC INBOUND FROM GOOGLE syncInboundFromGoogle
+export const syncInboundFromGoogle = async (
+  calendarData: GoogleCalendarEvent,
+  event: EventData
+) => {
+  try {
+    if (event.transportCheck) {
+      const startDate = calendarData.start?.dateTime?.slice(0, 10);
+      const startTime = calendarData.start?.dateTime?.slice(11, 16);
+
+      await eventCollection.updateOne(
+        { _id: new ObjectId(event._id) },
+        {
+          $set: {
+            pickupLocation: calendarData.location,
+            pickupDate: startDate,
+            pickupTime: startTime,
+          },
+        }
+      );
+    }
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+// SYNC OUTBOUND FROM GOOGLE syncOutboundFromGoogle
+export const syncOutboundFromGoogle = async (
+  calendarData: GoogleCalendarEvent,
+  event: EventData
+) => {
+  try {
+    if (event.transportCheck && event.roundTripCheck) {
+      const returnDate = calendarData.start?.dateTime?.slice(0, 10);
+      const returnTime = calendarData.start?.dateTime?.slice(11, 16);
+
+      await eventCollection.updateOne(
+        { googleTransitFromId: event.googleTransitFromId },
+        {
+          $set: {
+            dropOffLocation: calendarData.location,
+            returnDate: returnDate,
+            returnTime: returnTime,
+          },
+        }
+      );
+    }
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+// SYNC EVENT FROM GOOGLE
+export const syncEventFromGoogle = async (
+  calendarData: GoogleEventResponse,
+  event: EventData
+) => {
+  try {
+    if (event.eventCheck) {
+      const startDate = calendarData.start?.dateTime?.slice(0, 10);
+      const endDate = calendarData.end?.dateTime?.slice(0, 10);
+      const startTime = calendarData.start?.dateTime?.slice(11, 16);
+      const endTime = calendarData.end?.dateTime?.slice(11, 16);
+
+      await eventCollection.updateOne(
+        { _id: new ObjectId(event._id) },
+        {
+          $set: {
+            eventTitle: calendarData.summary,
+            eventLocation: calendarData.location,
+            eventDate: startDate,
+            eventTime: startTime,
+            eventEndDate: endDate,
+            eventEndTime: endTime,
+            timeZone: calendarData.start?.timeZone,
+            invited: calendarData.attendees?.map((guest) => guest.email),
+          },
+        }
+      );
+    }
+  } catch (e) {
+    console.error(e);
+  }
+};
+
 // UPDATE AN INVITATION
-export const updateEvent = async (
+export const updateEventInDb = async (
   eventId: EventData['_id'],
   event: EventData
 ) => {
@@ -22,6 +143,9 @@ export const updateEvent = async (
           dateCreated: event.dateCreated,
           organizerId: event.organizerId,
           organizerName: event.organizerName,
+
+          timeZone: event.timeZone, // REMEMBER THIS IS NEW
+
           invited: event.invited,
           eventCheck: event.eventCheck,
           transportCheck: event.transportCheck,
@@ -36,9 +160,10 @@ export const updateEvent = async (
           eventRSVP: event.eventRSVP,
           eventCost: event.eventCost,
           acceptedLive: event.acceptedLive,
-          acceptedVirtually: event.acceptedVirtually,
+          maybeAccepted: event.maybeAccepted,
           rejected: event.rejected,
-          virtualLink: event.virtualLink,
+          googleLinkCheck: event.googleLinkCheck,
+          rsvpCheck: event.rsvpCheck,
           transportMode: event.transportMode,
           transportCost: event.transportCost,
           transportDescription: event.transportDescription,
@@ -50,7 +175,8 @@ export const updateEvent = async (
           returnTime: event.returnTime,
           returnDate: event.returnDate,
           seatsAvailable: event.seatsAvailable,
-          passengers: event.passengers,
+          passengersInbound: event.passengersInbound,
+          passengersOutbound: event.passengersOutbound,
         },
       }
     );
@@ -87,7 +213,7 @@ export const addGuestToListController = async (
     switch (listName) {
       case 'acceptedLive':
         if (event && !event.acceptedLive.includes(userEmail)) {
-          await removeGuestFromList(userEmail, eventId, 'acceptedVirtually');
+          await removeGuestFromList(userEmail, eventId, 'maybeAccepted');
           await removeGuestFromList(userEmail, eventId, 'rejected');
           await eventCollection.updateOne(
             { _id: new ObjectId(eventId) },
@@ -96,8 +222,8 @@ export const addGuestToListController = async (
         }
         break;
 
-      case 'acceptedVirtually':
-        if (event && !event.acceptedVirtually.includes(userEmail)) {
+      case 'maybeAccepted':
+        if (event && !event.maybeAccepted.includes(userEmail)) {
           await removeGuestFromList(userEmail, eventId, 'acceptedLive');
           await removeGuestFromList(userEmail, eventId, 'rejected');
           await eventCollection.updateOne(
@@ -110,7 +236,7 @@ export const addGuestToListController = async (
       case 'rejected':
         if (event && !event.rejected.includes(userEmail)) {
           await removeGuestFromList(userEmail, eventId, 'acceptedLive');
-          await removeGuestFromList(userEmail, eventId, 'acceptedVirtually');
+          await removeGuestFromList(userEmail, eventId, 'maybeAccepted');
           await eventCollection.updateOne(
             { _id: new ObjectId(eventId) },
             { $push: { [listName]: userEmail } }
@@ -118,8 +244,17 @@ export const addGuestToListController = async (
         }
         break;
 
-      case 'passengers':
-        if (event && !event.passengers.includes(userEmail)) {
+      case 'passengersInbound':
+        if (event && !event.passengersInbound.includes(userEmail)) {
+          await eventCollection.updateOne(
+            { _id: new ObjectId(eventId) },
+            { $push: { [listName]: userEmail } }
+          );
+        }
+        break;
+
+      case 'passengersOutbound':
+        if (event && !event.passengersOutbound.includes(userEmail)) {
           await eventCollection.updateOne(
             { _id: new ObjectId(eventId) },
             { $push: { [listName]: userEmail } }

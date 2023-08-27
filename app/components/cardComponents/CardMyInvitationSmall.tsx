@@ -6,15 +6,18 @@ import JoinRideButton from './JoinRideButton';
 import TransitInfoBoard from './TransitInfoBoard';
 import { EventData } from '@/app-types/types';
 import { MouseEventHandler } from 'react';
+import JoinRideOutboundButton from './JoinRideOutboundButton';
 
 type Props = {
-  event: EventData
-  handleEventToggle: MouseEventHandler<HTMLButtonElement>
-  handleAccept: MouseEventHandler<HTMLButtonElement>
-  handleAcceptVirtually: MouseEventHandler<HTMLButtonElement>
-  handleReject: MouseEventHandler<HTMLButtonElement>
-  handleJoinRide: MouseEventHandler<HTMLButtonElement>
-  handleLeaveRide: MouseEventHandler<HTMLButtonElement>
+  event: EventData;
+  handleEventToggle: MouseEventHandler<HTMLButtonElement>;
+  handleAccept: MouseEventHandler<HTMLButtonElement>;
+  handleAcceptVirtually: MouseEventHandler<HTMLButtonElement>;
+  handleReject: MouseEventHandler<HTMLButtonElement>;
+  handleJoinRideInbound: MouseEventHandler<HTMLButtonElement>;
+  handleLeaveRideInbound: MouseEventHandler<HTMLButtonElement>;
+  handleJoinRideOutbound: MouseEventHandler<HTMLButtonElement>;
+  handleLeaveRideOutbound: MouseEventHandler<HTMLButtonElement>;
 };
 
 export default function CardMyInvitationSmall({
@@ -23,13 +26,15 @@ export default function CardMyInvitationSmall({
   handleAccept,
   handleAcceptVirtually,
   handleReject,
-  handleJoinRide,
-  handleLeaveRide,
+  handleJoinRideInbound,
+  handleLeaveRideInbound,
+  handleJoinRideOutbound,
+  handleLeaveRideOutbound,
 }: Props) {
   const { data: session } = useSession();
   return (
     <>
-      <section className="event-card">
+      <section className="event-card ">
         <button
           onClick={handleEventToggle}
           className="suttle-button absolute-top-left --width60px"
@@ -44,7 +49,7 @@ export default function CardMyInvitationSmall({
           <TitleSection event={event} />
         </section>
 
-        {event.eventCheck && (
+        {/* {event.eventCheck && (
           <>
             <section className="answer-invite-buttons">
               <AnswerInvitationButton
@@ -55,15 +60,13 @@ export default function CardMyInvitationSmall({
                 text="Accept"
               />
 
-              {event.virtualLink && (
-                <AnswerInvitationButton
-                  handleChoice={handleAcceptVirtually}
-                  listChoice={event.acceptedVirtually}
-                  userEmail={session?.user?.email}
-                  buttonType="action-button-positive"
-                  text="Remote"
-                />
-              )}
+              <AnswerInvitationButton
+                handleChoice={handleAcceptVirtually}
+                listChoice={event.maybeAccepted}
+                userEmail={session?.user?.email}
+                buttonType="action-button-positive"
+                text="Maybe"
+              />
 
               <AnswerInvitationButton
                 handleChoice={handleReject}
@@ -74,7 +77,7 @@ export default function CardMyInvitationSmall({
               />
             </section>
           </>
-        )}
+        )} */}
 
         {event.eventCheck && <EventInfoBoard event={event} />}
 
@@ -83,13 +86,24 @@ export default function CardMyInvitationSmall({
             <div className="--spacer-20px"></div>
             {event.eventCheck && <h4>Transport</h4>}
             <div className="--self-centered">
-              <JoinRideButton
+              {/* <JoinRideButton
                 event={event}
-                handleJoinRide={handleJoinRide}
-                handleLeaveRide={handleLeaveRide}
+                handleJoinRide={handleJoinRideInbound}
+                handleLeaveRide={handleLeaveRideInbound}
                 userEmail={session?.user?.email}
-              />
+              /> */}
             </div>
+
+            {event.roundTripCheck && (
+              <div className="--self-centered">
+                {/* <JoinRideOutboundButton
+                  event={event}
+                  handleJoinRide={handleJoinRideOutbound}
+                  handleLeaveRide={handleLeaveRideOutbound}
+                  userEmail={session?.user?.email}
+                /> */}
+              </div>
+            )}
 
             <div className="--spacer-8px"></div>
             <TransitInfoBoard event={event} showTime={false} />
