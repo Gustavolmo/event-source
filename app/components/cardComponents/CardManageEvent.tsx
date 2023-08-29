@@ -1,7 +1,7 @@
 'use client';
 import { EventData } from '@/app-types/types';
 import React, { useState } from 'react';
-import { deleteEventFromDb } from '@/app-library/DbControls';
+import { deleteEventFromDb } from '@/app-library/DbControls/DbControls';
 import CardManageEditMode from './CardManageEditMode';
 import CardManageBig from './CardManageBig';
 import CardManageSmall from './CardManageSmall';

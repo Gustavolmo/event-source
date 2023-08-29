@@ -1,4 +1,4 @@
-import { getUserInvitations } from '@/app-library/DbControls';
+import { getUserInvitations } from '@/app-library/DbControls/DbControls';
 import useDbQuery from '@/app/customHooks/useDbQuery';
 import React, { useEffect, useState } from 'react';
 import Loading from '../loadingComponents/Loading';

@@ -1,5 +1,5 @@
 'use client';
-import { createNewUserIfFirstLogin } from '@/app-library/DbControls';
+import { createNewUserIfFirstLogin } from '@/app-library/DbControls/DbControls';
 import { User } from '@/app-types/types';
 import { useSession } from 'next-auth/react';
 import React, { useEffect, useState } from 'react';

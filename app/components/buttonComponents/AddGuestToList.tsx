@@ -1,4 +1,4 @@
-import { addUsersToEventInDb } from '@/app-library/DbControls';
+import { addUsersToEventInDb } from '@/app-library/DbControls/DbControls';
 import { EventData } from '@/app-types/types';
 import { useState } from 'react';
 import { TagsInput } from 'react-tag-input-component';

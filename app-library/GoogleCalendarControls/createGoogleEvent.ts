@@ -1,6 +1,6 @@
 'use server';
 import { EventData } from '@/app-types/types';
-import { GoogleCalendarEvent } from '../GoogleCalendarType';
+import { GoogleCalendarEvent } from '../../app-types/GoogleCalendarType';
 // import { v4 } from 'uuid';
 
 const translateInboundEvent = async (eventData: EventData) => {

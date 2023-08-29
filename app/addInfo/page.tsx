@@ -23,9 +23,9 @@ export default function UserPreferences() {
       <Suspense fallback={<Loading />}>
         <header className="add-info__title">
           <Greeting />
-          <p className="--centered-text --self-centered">
-            Let&apos;s save your preferences for future reference
-          </p>
+          <h3 className="--centered-text --self-centered">
+            Hi! Let&apos;s save your preferences for future reference
+          </h3>
         </header>
         <section className="my-info-card">
           <UpdatePreferencesForm doesRedirect={false} />

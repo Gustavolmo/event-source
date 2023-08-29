@@ -2,11 +2,11 @@ import { useSession } from 'next-auth/react';
 import TitleSection from './TitleSection';
 import AnswerInvitationButton from '../buttonComponents/AnswerInvitationButton';
 import EventInfoBoard from './EventInfoBoard';
-import JoinRideButton from './JoinRideButton';
+import JoinRideButton from '../buttonComponents/JoinRideButton';
 import TransitInfoBoard from './TransitInfoBoard';
 import { EventData } from '@/app-types/types';
 import { MouseEventHandler } from 'react';
-import JoinRideOutboundButton from './JoinRideOutboundButton';
+import JoinRideOutboundButton from '../buttonComponents/JoinRideOutboundButton';
 
 type Props = {
   event: EventData;

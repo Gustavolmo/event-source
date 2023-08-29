@@ -8,7 +8,7 @@ import EventCreatedDialogue from '../dialogueComponents/EventCreatedDialogue';
 import FormOfferingQuestions from '../formComponents/FormOfferingQuestions';
 import { defaultFormValues } from '@/app/defaultEvent';
 
-import { createNewEventInDb } from '@/app-library/DbControls';
+import { createNewEventInDb } from '@/app-library/DbControls/DbControls';
 import {
   createFromGoogleEvent,
   createGoogleEvent,

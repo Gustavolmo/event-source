@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import UpdatePreferencesForm from '../formComponents/UpdatePreferencesForm';
 import { signOut, useSession } from 'next-auth/react';
-import { deleteUser } from '@/app-library/DbControls';
+import { deleteUser } from '@/app-library/DbControls/DbControls';
 import Greeting from './Greeting';
 import DeleteButton from '../buttonComponents/DeleteButton';
 import ConfirmDeletionDialogue from '../dialogueComponents/ConfirmDeletionDialogue';

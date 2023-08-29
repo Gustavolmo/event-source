@@ -1,10 +1,10 @@
 'use client';
-import { getUserPreferences } from '@/app-library/DbControls';
+import { getUserPreferences } from '@/app-library/DbControls/DbControls';
 import { EventData, User } from '@/app-types/types';
 import useDbQuery from '@/app/customHooks/useDbQuery';
 import React, { useState } from 'react';
 import LoadingUi from '../loadingComponents/LoadingUi';
-import { removeGuestFromList } from '@/app-library/InvitationControls';
+import { removeGuestFromList } from '@/app-library/DbControls/InvitationControls';
 
 type Props = {
   guest: User['email'];
