@@ -11,7 +11,7 @@ import DashboardButton from '../buttonComponents/dashboardButton';
 const profile = 'Profile';
 const create = 'Create';
 const sent = 'Sent';
-const inbox = 'Inbox';
+// const inbox = 'Inbox';
 
 const definedSelectionOnMount = () => {
   return typeof window !== 'undefined'

@@ -26,7 +26,7 @@ export default function ManageEvent() {
       updateGoogleEvents(session?.accessToken, 'primary', dbData);
       updateGoogleOutboundEvent(session?.accessToken, 'primary', dbData);
     }
-  }, [loading, session]);
+  }, [loading]);
 
   const handleUpdateClick = () => {
     setDoLoader(false);
@@ -62,6 +62,4 @@ export default function ManageEvent() {
     </>
   );
 }
-function getGoogleCalendarData() {
-  throw new Error('Function not implemented.');
-}
+

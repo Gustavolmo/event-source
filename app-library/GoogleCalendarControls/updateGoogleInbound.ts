@@ -3,6 +3,7 @@ import { EventData } from '@/app-types/types';
 import { GoogleEventResponse } from '../GoogleCalendarType';
 import {
   addGuestToListController,
+  disableRoundTripCheck,
   disableTransportCheck,
   removeGuestFromList,
   syncInboundFromGoogle,
@@ -37,7 +38,7 @@ const allocatePassengers = (
   calendarData: GoogleEventResponse,
   event: EventData
 ) => {
-  calendarData.attendees.forEach((guest) => {
+  calendarData.attendees?.forEach((guest) => {
     addGuestToListController(guest.email, event._id, 'invited')
     if (guest.responseStatus === 'accepted') {
       addGuestToListController(guest.email, event._id, 'passengersInbound');
@@ -68,15 +69,17 @@ export const updateGoogleInboundEvent = async (
         );
         
         if (calendarData.status === 'cancelled') {
-          if (!event.eventCheck) {
+          if (event.eventCheck === false) {
             console.log('REACHED DELETION')
             deleteEventFromDb(event._id);
             return;
+          } else {
+            disableTransportCheck(event);
           }
         }
 
         console.log('Update INBOUND activated');
-        // console.log('INBOUND', calendarData);
+        console.log('INBOUND', calendarData);
         allocatePassengers(calendarData, event);
         syncInboundFromGoogle(calendarData, event)
       }
