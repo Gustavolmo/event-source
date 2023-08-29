@@ -19,10 +19,12 @@ export default async function AppDescription() {
           Welcome to <i className="--red-highlight-text">EventSauce</i>
           <p>Free & Open-source Event Managment</p>
         </h1>
-
-        <button className="action-button --text12px" onClick={() => signIn()}>
-          Try our Beta
-        </button>
+        
+        <div>
+          <button className="action-button --text12px" onClick={() => signIn()}>
+            Try our Beta
+          </button>
+        </div>
 
         <h1>Features</h1>
 

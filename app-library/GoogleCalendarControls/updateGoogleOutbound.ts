@@ -7,7 +7,6 @@ import {
   removeGuestFromList,
   syncOutboundFromGoogle,
 } from '../InvitationControls';
-import { deleteEventFromDb } from '../DbControls';
 
 const getGoogleOutboundEvent = async (
   accessToken: string,
