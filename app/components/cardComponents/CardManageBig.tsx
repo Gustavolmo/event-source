@@ -1,9 +1,9 @@
 import React, { MouseEventHandler } from 'react';
 import TitleSection from './TitleSection';
-import ToggleList from './ToggleList';
+import ToggleList from '../buttonComponents/ToggleList';
 import EventInfoBoard from './EventInfoBoard';
 import GoogleMeetLink from './GoogleMeetLink';
-import ToggleDescription from './ToggleDescription';
+import ToggleDescription from '../buttonComponents/ToggleDescription';
 import TransitInfoBoard from './TransitInfoBoard';
 import DeleteButton from '../buttonComponents/DeleteButton';
 import ConfirmDeletionDialogue from '../dialogueComponents/ConfirmDeletionDialogue';

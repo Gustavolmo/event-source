@@ -4,7 +4,7 @@ import { useSession } from 'next-auth/react';
 import {
   addGuestToListController,
   removeGuestFromList,
-} from '@/app-library/InvitationControls';
+} from '@/app-library/DbControls/InvitationControls';
 import CardMyInvitationSmall from './CardMyInvitationSmall';
 import CardMyInvitationBig from './CardMyInvitationBig';
 

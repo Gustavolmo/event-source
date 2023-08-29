@@ -2,7 +2,7 @@
 import { EventData, User } from '@/app-types/types';
 import { client, runMongoDb } from './mongoConnect';
 import { ObjectId } from 'mongodb';
-import { GoogleCalendarEvent, GoogleEventResponse } from './GoogleCalendarType';
+import { GoogleCalendarEvent, GoogleEventResponse } from '../../app-types/GoogleCalendarType';
 
 runMongoDb();
 const databaseName = 'eventsource';

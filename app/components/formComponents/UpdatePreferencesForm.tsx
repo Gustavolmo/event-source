@@ -2,7 +2,7 @@
 import {
   getUserPreferences,
   updateUserPreferences,
-} from '@/app-library/DbControls';
+} from '@/app-library/DbControls/DbControls';
 import { UserPreferences } from '@/app-types/types';
 import { useSession } from 'next-auth/react';
 import React, { ChangeEvent, useState } from 'react';

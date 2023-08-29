@@ -3,15 +3,15 @@ import React, { MouseEventHandler } from 'react';
 import TitleSection from './TitleSection';
 import AnswerInvitationButton from '../buttonComponents/AnswerInvitationButton';
 import { useSession } from 'next-auth/react';
-import ToggleList from './ToggleList';
+import ToggleList from '../buttonComponents/ToggleList';
 import EventInfoBoard from './EventInfoBoard';
 import GoogleMeetLink from './GoogleMeetLink';
-import ToggleDescription from './ToggleDescription';
+import ToggleDescription from '../buttonComponents/ToggleDescription';
 import TransitInfoBoard from './TransitInfoBoard';
-import JoinRideButton from './JoinRideButton';
+import JoinRideButton from '../buttonComponents/JoinRideButton';
 import DeleteButton from '../buttonComponents/DeleteButton';
 import ConfirmDeletionDialogue from '../dialogueComponents/ConfirmDeletionDialogue';
-import JoinRideOutboundButton from './JoinRideOutboundButton';
+import JoinRideOutboundButton from '../buttonComponents/JoinRideOutboundButton';
 
 type Props = {
   event: EventData;

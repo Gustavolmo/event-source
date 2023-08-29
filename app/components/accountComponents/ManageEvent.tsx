@@ -1,5 +1,5 @@
 'use client';
-import { getAllUserEvents } from '@/app-library/DbControls';
+import { getAllUserEvents } from '@/app-library/DbControls/DbControls';
 import useDbQuery from '@/app/customHooks/useDbQuery';
 import React, { useEffect, useState } from 'react';
 import Loading from '../loadingComponents/Loading';

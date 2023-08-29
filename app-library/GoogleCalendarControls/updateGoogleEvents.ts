@@ -1,13 +1,13 @@
 'use server';
 import { EventData } from '@/app-types/types';
-import { GoogleEventResponse } from '../GoogleCalendarType';
+import { GoogleEventResponse } from '../../app-types/GoogleCalendarType';
 import {
   addGuestToListController,
   disableEventCheck,
   removeGuestFromList,
   syncEventFromGoogle,
-} from '../InvitationControls';
-import { deleteEventFromDb } from '../DbControls';
+} from '../DbControls/InvitationControls';
+import { deleteEventFromDb } from '../DbControls/DbControls';
 
 const getGoogleEvent = async (
   accessToken: string,

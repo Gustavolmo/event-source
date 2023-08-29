@@ -2,7 +2,7 @@
 import { EventData } from '@/app-types/types';
 import React, { ChangeEvent, useState } from 'react';
 import EasterEgg from '../EasterEgg';
-import { updateEventInDb } from '@/app-library/InvitationControls';
+import { updateEventInDb } from '@/app-library/DbControls/InvitationControls';
 import FormOfferingQuestions from '../formComponents/FormOfferingQuestions';
 import { TagsInput } from 'react-tag-input-component';
 
