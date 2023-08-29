@@ -276,21 +276,21 @@ export default function CardMyInvitationBig({
               </>
             )}
 
-            <section className="manage__info --gray-shading">
+            {/* <section className="manage__info --gray-shading">
               <b>Seats available Inbound:</b>{' '}
               <p>
                 {event.seatsAvailable - event.passengersInbound.length} out of{' '}
                 {event.seatsAvailable}
               </p>
-            </section>
+            </section> */}
 
-            <section className="manage__info --gray-shading">
+            {/* <section className="manage__info --gray-shading">
               <b>Seats available Outbound:</b>{' '}
               <p>
                 {event.seatsAvailable - event.passengersOutbound.length} out of{' '}
                 {event.seatsAvailable}
               </p>
-            </section>
+            </section> */}
 
             <section className="manage__info --gray-shading">
               <b>Vehicle:</b> <p>{event.transportMode}</p>

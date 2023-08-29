@@ -270,7 +270,7 @@ export default function EditEvent({
                 required
               ></textarea>
 
-              <section>
+              {/* <section>
                 <input
                   className="form__input-120w"
                   type="number"
@@ -281,7 +281,7 @@ export default function EditEvent({
                   required
                 />
                 <b className="--bold-gray">Seats Available</b>
-              </section>
+              </section> */}
 
               <section>
                 <input

@@ -79,7 +79,7 @@ export const updateGoogleInboundEvent = async (
         }
 
         console.log('Update INBOUND activated');
-        console.log('INBOUND', calendarData);
+        // console.log('INBOUND', calendarData);
         allocatePassengers(calendarData, event);
         syncInboundFromGoogle(calendarData, event)
       }

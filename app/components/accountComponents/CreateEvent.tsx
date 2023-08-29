@@ -454,7 +454,7 @@ export default function CreateEvent({ redirectTo }: Props) {
                 required
               ></textarea>
 
-              <section>
+              {/* <section>
                 <input
                   className="form__input-120w"
                   type="number"
@@ -465,7 +465,7 @@ export default function CreateEvent({ redirectTo }: Props) {
                   required
                 />
                 <b className="--bold-gray">Seats Available</b>
-              </section>
+              </section> */}
 
               <section>
                 <input
