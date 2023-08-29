@@ -37,7 +37,7 @@ const allocatePassengers = (
   calendarData: GoogleEventResponse,
   event: EventData
 ) => {
-  calendarData.attendees.forEach((guest) => {
+  calendarData.attendees?.forEach((guest) => {
     addGuestToListController(guest.email, event._id, 'invited')
     if (guest.responseStatus === 'accepted') {
       addGuestToListController(guest.email, event._id, 'passengersOutbound');
@@ -70,7 +70,7 @@ export const updateGoogleOutboundEvent = async (
         }
 
         console.log('Update OUTBOUND activated');
-        console.log('OUTBOUND', calendarData);
+        // console.log('OUTBOUND', calendarData);
         allocatePassengers(calendarData, event);
         syncOutboundFromGoogle(calendarData, event);
       }

@@ -5,6 +5,7 @@ import UpdatePreferencesForm from '../components/formComponents/UpdatePreference
 import PathButton from '../components/buttonComponents/PathButton';
 import Loading from '../components/loadingComponents/Loading';
 import { useSession } from 'next-auth/react';
+import useDbQuery from '../customHooks/useDbQuery';
 
 export default function UserPreferences() {
   const { data: session, status } = useSession();
@@ -27,11 +28,16 @@ export default function UserPreferences() {
           </p>
         </header>
         <section className="my-info-card">
-          <UpdatePreferencesForm doesRedirect={true} path={'/'} />
+          <UpdatePreferencesForm doesRedirect={false} />
+          <PathButton
+            path={'https://calendar.google.com/'}
+            title={'Go Back'}
+            className={'navbar__button absolute-button-bottom-left'}
+          />
           <PathButton
             path={'/account'}
-            title={'This is fine'}
-            className={'navbar__button absolute-button-bottom-left'}
+            title={'Create Event?'}
+            className={'navbar__button absolute-button-bottom-left--second'}
           />
         </section>
       </Suspense>

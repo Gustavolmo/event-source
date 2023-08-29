@@ -14,7 +14,7 @@ export const disableEventCheck = async (event: EventData) => {
   try {
     await eventCollection.updateOne(
       { googleTransitInboundId: event.googleTransitInboundId },
-      { $set: {eventCheck: false} }
+      { $set: { eventCheck: false } }
     );
   } catch (e) {
     console.error(e);
@@ -26,7 +26,7 @@ export const disableTransportCheck = async (event: EventData) => {
   try {
     await eventCollection.updateOne(
       { _id: new ObjectId(event._id) },
-      { $set: {transportCheck: false} }
+      { $set: { transportCheck: false } }
     );
   } catch (e) {
     console.error(e);
@@ -37,7 +37,7 @@ export const disableRoundTripCheck = async (event: EventData) => {
   try {
     await eventCollection.updateOne(
       { _id: new ObjectId(event._id) },
-      { $set: {roundTripCheck: false} }
+      { $set: { roundTripCheck: false } }
     );
   } catch (e) {
     console.error(e);
@@ -123,6 +123,18 @@ export const syncEventFromGoogle = async (
           },
         }
       );
+
+      if (!calendarData.attendees) {
+        await eventCollection.updateOne(
+          { _id: new ObjectId(event._id) },
+          {
+            $set: {
+              invited: new Array(calendarData.organizer.email),
+            },
+          }
+        );
+      }
+      
     }
   } catch (e) {
     console.error(e);

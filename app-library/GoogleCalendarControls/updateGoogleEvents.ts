@@ -37,7 +37,7 @@ const filterAttendence = (
   calendarData: GoogleEventResponse,
   event: EventData
 ) => {
-  calendarData.attendees.forEach((guest) => {
+  calendarData.attendees?.forEach((guest) => {
     if (guest.responseStatus === 'accepted') {
       addGuestToListController(guest.email, event._id, 'acceptedLive');
     }
@@ -70,7 +70,7 @@ export const updateGoogleEvents = async (
         );
 
         if (calendarData.status === 'cancelled') {
-          if (!event.transportCheck) {
+          if (event.transportCheck === false) {
             deleteEventFromDb(event._id);
             return;
           } else {
@@ -78,7 +78,8 @@ export const updateGoogleEvents = async (
           }
         }
 
-        console.log('Update event activated');
+        console.log('Update EVENT activated');
+        // console.log('EVENT', calendarData)
         filterAttendence(calendarData, event);
         syncEventFromGoogle(calendarData, event);
       }
