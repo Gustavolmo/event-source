@@ -18,7 +18,7 @@ export default async function Home() {
           <HomePage />
         </main>
       </Suspense>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }
