@@ -40,9 +40,7 @@ export default function HomePage() {
 
   if (!showLoader)
     return (
-      <section className="main__public-page">
         <AppDescription />
-      </section>
     );
 
   return <Loading />;

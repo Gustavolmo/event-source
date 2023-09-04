@@ -50,7 +50,6 @@ background-first-option -> https://www.toptal.com/designers/subtlepatterns/uploa
 
 /*______________________________________ PRIMITIVE STYLES */
 * {
-  /* outline: dashed red; */
   font-family: 'Alegreya Sans', sans-serif;
   box-sizing: inherit;
   color: #636363;
@@ -61,10 +60,8 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  /* background-color: rgba(235, 247, 255, 0.2); */
-  /* background-color: #fbfbfb; */
   background-image: url(https://www.toptal.com/designers/subtlepatterns/uploads/memphis-mini.png);
-  overflow: auto;
+  overflow-y: scroll;
   height: 100%;
   font-weight: 100;
 }
@@ -123,7 +120,14 @@ a:hover {
   text-decoration: none;
   margin: 8px 0 0 8px;
   color: white;
-  /* font-weight: 100; */
+  line-height: 32px;
+}
+
+.home__about-link {
+  text-decoration: none;
+  margin: 8px 0 0 8px;
+  color: white;
+  font-weight: 400;
 }
 
 .navbar {
@@ -147,8 +151,8 @@ a:hover {
   align-items: center;
 }
 
-.main__public-page {
-  margin-top: 60px;
+.main-landing-page {
+  margin: 0;
 }
 
 /* app description */
@@ -193,26 +197,26 @@ a:hover {
 }
 
 .footer {
-  position: static;
+  position: relative;
   margin: 0px;
-  background-color: #f99494;
+  background-color: #636363;
   /* height: 300px; */
   width: 100vw;
   display: flex;
-  padding: 16px;
+  justify-content: space-between;
+  padding: 16px 32px;
   bottom: 0px;
   border-top: 10px solid #f66161;
   font-size: 20px;
 }
 
-.footer-bottom {
-  margin: 0px;
-  background-color: #f99494;
-  /* height: 100px; */
-  width: 100vw;
-  display: flex;
-  padding: 0 16px 16px;
-  font-size: 20px;
+.footer__left {
+  border-right: solid 1px #ccc;
+  width: 160px;
+}
+
+.footer__right {
+  padding-left: 32px;
 }
 
 .app-drescription__features {

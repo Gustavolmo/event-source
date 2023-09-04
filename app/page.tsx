@@ -14,7 +14,7 @@ export default async function Home() {
           title={'Dashboard'}
           className={'action-button'}
         />
-        <main className="main">
+        <main className="main-landing-page">
           <HomePage />
         </main>
       </Suspense>

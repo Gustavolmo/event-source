@@ -9,6 +9,7 @@ import answerOnGoogle from '../../assets/answer-on-google.png';
 import guestsInCard from '../../assets/guests-in-card.png';
 
 import { signIn } from 'next-auth/react';
+import Footer from '../accountComponents/Footer';
 
 export default async function AppDescription() {
   const width = '332';
@@ -105,18 +106,8 @@ export default async function AppDescription() {
       </section>
 
       <div className="--spacer-60px"></div>
-      <footer className="footer">
-        <p className="home__about"> &#x1F4BB; </p>{' '}
-      </footer>
-      <footer className="footer-bottom">
-        <p className="home__about">You can find the repo for the project</p>
-        <a className="home__about" href="https://github.com/Gustavolmo">
-          HERE
-        </a>
-      </footer>
-      <footer  className="footer-bottom">
-        <p className="home__about">This app was developed by lmo.gustavo@gmail.com</p>
-      </footer>
+
+      <Footer />
     </>
   );
 }
