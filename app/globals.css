@@ -50,7 +50,6 @@ background-first-option -> https://www.toptal.com/designers/subtlepatterns/uploa
 
 /*______________________________________ PRIMITIVE STYLES */
 * {
-  /* outline: dashed red; */
   font-family: 'Alegreya Sans', sans-serif;
   box-sizing: inherit;
   color: #636363;
@@ -61,11 +60,10 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  /* background-color: rgba(235, 247, 255, 0.2); */
-  /* background-color: #fbfbfb; */
   background-image: url(https://www.toptal.com/designers/subtlepatterns/uploads/memphis-mini.png);
-  overflow: auto;
+  overflow-y: scroll;
   height: 100%;
+  font-weight: 100;
 }
 
 body::before {
@@ -121,7 +119,15 @@ a:hover {
 .home__about {
   text-decoration: none;
   margin: 8px 0 0 8px;
-  color: #636363;
+  color: white;
+  line-height: 32px;
+}
+
+.home__about-link {
+  text-decoration: none;
+  margin: 8px 0 0 8px;
+  color: white;
+  font-weight: 400;
 }
 
 .navbar {
@@ -145,8 +151,8 @@ a:hover {
   align-items: center;
 }
 
-.main__public-page {
-  margin-top: 60px;
+.main-landing-page {
+  margin: 0;
 }
 
 /* app description */
@@ -167,6 +173,10 @@ a:hover {
 
 .promo-image {
   margin-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .promo-image-unit {
@@ -174,6 +184,7 @@ a:hover {
   border-radius: 4px;
   padding: 8px;
   background: url(https://www.toptal.com/designers/subtlepatterns/uploads/memphis-mini.png);
+  margin-bottom: 8px;
 }
 
 .promo-title {
@@ -181,20 +192,45 @@ a:hover {
   font-weight: bold;
   font-size: 32px;
   margin-bottom: 0;
+  z-index: 100;
+  line-height: 18px;
+}
+
+.footer {
+  position: relative;
+  margin: 0px;
+  background-color: #636363;
+  /* height: 300px; */
+  width: 100vw;
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 32px;
+  bottom: 0px;
+  border-top: 10px solid #f66161;
+  font-size: 20px;
+}
+
+.footer__left {
+  border-right: solid 1px #ccc;
+  width: 160px;
+}
+
+.footer__right {
+  padding-left: 32px;
+}
+
+.app-drescription__features {
+  outline: dashed red 1px;
+  width: 300px;
+  margin: auto;
+  text-align: left;
+  padding: 16px;
+  background-color: #fff;
+  margin-top: 60px;
+  margin-bottom: 120px;
 }
 /* __________ */
 
-.footer {
-  position: fixed;
-  display: flex;
-  align-items: center;
-  padding: 0 16px;
-  bottom: 0px;
-  width: 100vw;
-  height: 40px;
-  background-color: #fff;
-  border-top: 1px solid #ccc;
-}
 
 .user-image {
   border-radius: 99px;
@@ -928,69 +964,6 @@ input {
   margin: 40px 10px 10px 10px;
 }
 
-/*______________________________________*/
-
-/*__________________________ CARD FLIP */
-
-/* The flip card container - set the width and height to whatever you want. We have added the border property to demonstrate that the flip itself goes out of the box on hover (remove perspective if you don't want the 3D effect */
-.flip-card {
-  background-color: transparent;
-  width: 332px;
-  margin: auto;
-  /* height: 100%; */
-  /* border: 1px solid #f1f1f1; */
-  perspective: 1000px; /* Remove this if you don't want the 3D effect */
-}
-
-/* This container is needed to position the front and back side */
-.flip-card-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  transition: transform 0.8s;
-  transform-style: preserve-3d;
-}
-
-/* Do an horizontal flip when you move the mouse over the flip box container */
-.flip-card:hover .flip-card-inner {
-  transform: rotateY(180deg);
-}
-
-/* Position the front and back side */
-.flip-card-front{
-  position: relative;
-  border-radius: 4px;
-  width: 100%;
-  height: 100%;
-  -webkit-backface-visibility: hidden; /* Safari */
-  backface-visibility: hidden;
-}
-.flip-card-back {
-  position: absolute;
-  border-radius: 4px;
-  top: 0px;
-  width: 100%;
-  height: 100%;
-  padding: 32px 16px;
-  -webkit-backface-visibility: hidden; /* Safari */
-  backface-visibility: hidden;
-}
-
-/* Style the front side (fallback if image is missing) */
-.flip-card-front {
-  background-color: none;
-  color: black;
-}
-
-/* Style the back side */
-.flip-card-back {
-  background-color: #f3f3f3;
-  color: white;
-  text-align: center;
-  font-size: 14px;
-  transform: rotateY(180deg);
-}
 /*______________________________________*/
 
 /*__________________________ LOADING SUSPENSE */
